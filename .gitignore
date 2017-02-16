@@ -3,6 +3,13 @@ logs
 *.log
 npm-debug.log*
 
+# OS
+# ===========
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
 # Runtime data
 pids
 *.pid
@@ -16,9 +23,6 @@ coverage
 
 # nyc test coverage
 .nyc_output
-
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
 
 # node-waf configuration
 .lock-wscript
@@ -35,3 +39,22 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+
+# app and assets
+public/dist/
+public/lib/
+public/uploads
+public/assets
+config/env/local.js
+config/env/local-*.js
+*.pem
+
+# Development ENV variables
+.env
+
+# Compiled less and sass files
+modules/*/client/scss/*.css
+
+# Ignoring gh-pages branch
+_site/
