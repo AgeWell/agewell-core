@@ -1,0 +1,6 @@
+{
+  "name": "agewell-core",
+  "description": "A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.",
+  "repository": "https://github.com/AgeWell/agewell-core",
+  "keywords": ["node", "express", "angular", "mean"]
+}

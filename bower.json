@@ -1,0 +1,16 @@
+{
+  "name": "agewell-core",
+  "description": "A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.",
+  "license": "GPLv3",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-animate": "~1.5.0",
+    "angular-messages": "~1.5.0",
+    "angular-mocks": "~1.5.0",
+    "angular-resource": "~1.5.0",
+    "angular-ui-notification": "~0.2.0",
+    "angular-ui-router": "~0.2.18",
+    "ng-file-upload": "~12.1.0",
+    "angular-material-icons": "^0.7.1"
+  }
+}
