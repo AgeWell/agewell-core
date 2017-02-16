@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Tristan Fitzgerald -- Lead Developer -- https://www.simplyspoke.com/contact
+
+# THANKS
+
+    #<name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Angular, Express.js
