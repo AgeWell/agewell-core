@@ -5,8 +5,12 @@ var fs = require('fs'),
 
 // Watch Files For Changes
 gulp.task('watch', function() {
+
   // Start livereload
-  refresh.listen();
+  setTimeout(function() {
+    refresh.listen();
+  }, 2000);
+
 
   // Add watch rules
   gulp.watch(defaultAssets.server.views).on('change', refresh.changed);

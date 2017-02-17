@@ -36,7 +36,6 @@
 </head>
 
 <body class="ng-cloak">
-  <header ng-include="'/modules/core/client/header.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
   <section class="content">
     <section class="container">
       {{{block "content"}}}
@@ -74,7 +73,7 @@
 
   {{#if livereload}}
   <!--Livereload script rendered -->
-  <!-- <script type="text/javascript" src="{{host}}:35729/livereload.js"></script> -->
+  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
   {{/if}}
 </body>
 
