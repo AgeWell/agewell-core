@@ -32,9 +32,9 @@ module.exports = {
       'modules/*/client/**/*.scss'
     ],
     js: [
-      'modules/*/client/core/app/config.js',
-      'modules/*/client/core/app/init.js',
-      'modules/*/client/*/*.module.js',
+      'modules/core/client/app/config.js',
+      'modules/core/client/app/init.js',
+      'modules/*/client/*.module.js',
       'modules/*/client/**/*.js'
     ],
     img: [

@@ -94,9 +94,8 @@ module.exports.initViewEngine = function (app) {
   app.engine('tpl.html', hbs.express4({
     extname: '.tpl.html'
   }));
-  app.set('view engine', '.tpl.html');
-  app.set('views', path.resolve('./modules/'));
-  console.log(path.resolve('./modules/*/server'));
+  app.set('view engine', 'tpl.html');
+  app.set('views', path.resolve('./'));
 };
 
 /**

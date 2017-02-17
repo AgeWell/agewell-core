@@ -8,7 +8,6 @@ var validator = require('validator'),
  * Render the main application page
  */
 exports.renderIndex = function (req, res) {
-  console.log('renderIndex');
   var safeUserObject = null;
   if (req.user) {
     safeUserObject = {
@@ -26,7 +25,7 @@ exports.renderIndex = function (req, res) {
     };
   }
 
-  res.render('core/server/index', {
+  res.render('modules/core/server/index', {
     user: JSON.stringify(safeUserObject),
     sharedConfig: JSON.stringify(config.shared)
   });
@@ -36,8 +35,7 @@ exports.renderIndex = function (req, res) {
  * Render the server error page
  */
 exports.renderServerError = function (req, res) {
-  console.log('renderServerError');
-  res.status(500).render('core/server/errors/500', {
+  res.status(500).render('modules/core/server/errors/500', {
     error: 'Oops! Something went wrong...'
   });
 };
@@ -47,11 +45,10 @@ exports.renderServerError = function (req, res) {
  * Performs content-negotiation on the Accept HTTP header
  */
 exports.renderNotFound = function (req, res) {
-  console.log('renderNotFound');
 
   res.status(404).format({
     'text/html': function () {
-      res.render('core/server/errors/404', {
+      res.render('modules/core/server/errors/404', {
         url: req.originalUrl
       });
     },

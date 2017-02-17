@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  console.log('hit');
+
   // Root routing
   var core = require('./core.controller');
 
