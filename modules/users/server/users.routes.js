@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function (app) {
+console.log('hit');
   // User Routes
   var users = require('./users.controller');
 

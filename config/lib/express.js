@@ -95,7 +95,8 @@ module.exports.initViewEngine = function (app) {
     extname: '.tpl.html'
   }));
   app.set('view engine', '.tpl.html');
-  app.set('views', path.resolve('./server'));
+  app.set('views', path.resolve('./modules/'));
+  console.log(path.resolve('./modules/*/server'));
 };
 
 /**
