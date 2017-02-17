@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var path = require('path'),
-  errorHandler = require(path.resolve('./server/core/errors/errors.controller')),
+  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
   User = mongoose.model('User');
@@ -126,34 +126,34 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
     User.findOne(searchQuery, function(err, user) {
       if (err) {
         return done(err);
-      } else {
-        if (!user) {
-          var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+      }
 
-          User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
-            user = new User({
-              firstName: providerUserProfile.firstName,
-              lastName: providerUserProfile.lastName,
-              username: availableUsername,
-              displayName: providerUserProfile.displayName,
-              profileImageURL: providerUserProfile.profileImageURL,
-              provider: providerUserProfile.provider,
-              providerData: providerUserProfile.providerData
-            });
+      if (!user) {
+        var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-            // Email intentionally added later to allow defaults (sparse settings) to be applid.
-            // Handles case where no email is supplied.
-            // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
-            user.email = providerUserProfile.email;
-
-            // And save the user
-            user.save(function(err) {
-              return done(err, user, info);
-            });
+        User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+          user = new User({
+            firstName: providerUserProfile.firstName,
+            lastName: providerUserProfile.lastName,
+            username: availableUsername,
+            displayName: providerUserProfile.displayName,
+            profileImageURL: providerUserProfile.profileImageURL,
+            provider: providerUserProfile.provider,
+            providerData: providerUserProfile.providerData
           });
-        } else {
-          return done(err, user, info);
-        }
+
+          // Email intentionally added later to allow defaults (sparse settings) to be applid.
+          // Handles case where no email is supplied.
+          // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
+          user.email = providerUserProfile.email;
+
+          // And save the user
+          user.save(function(err) {
+            return done(err, user, info);
+          });
+        });
+      } else {
+        return done(err, user, info);
       }
     });
   } else {

@@ -61,11 +61,11 @@ exports.getErrorMessage = function (err) {
   } else if (err.message && !err.errors) {
     message = err.message;
   } else {
-    for (var errName in err.errors) {
-      if (err.errors[errName].message) {
-        message = err.errors[errName].message;
+    err.errors.forEach(function(error) {
+      if (error.message) {
+        message = error.message;
       }
-    }
+    });
   }
 
   return message;

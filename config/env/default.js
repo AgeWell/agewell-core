@@ -2,8 +2,8 @@
 
 module.exports = {
   app: {
-    title: 'AchiProject',
-    description: 'A project manager and archive for architects.',
+    title: 'AgeWell',
+    description: 'A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.',
     keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
@@ -54,14 +54,6 @@ module.exports = {
         }
       }
     }
-  },
-  harvest: {
-    subdomain: process.env.HARVEST_SUBDOMAIN || '',
-    authorizationURL: process.env.HARVEST_AUTHORIZATIONURL || '',
-    tokenURL: process.env.HARVEST_TOKENURL || '',
-    clientID: process.env.HARVEST_ID || '',
-    clientSecret: process.env.HARVEST_SECRET || '',
-    callbackURL: process.env.HARVEST_CALLBACKURL || ''
   },
   shared: {
     owasp: {

@@ -20,7 +20,4 @@ module.exports = function (app) {
     ]
   }));
   app.route('/api/auth/google/callback').get(users.oauthCallback('google'));
-
-  app.route('/api/auth/harvest').get(users.oauthCall('harvest'));
-  app.route('/api/auth/harvest/callback').get(users.harvestCallback('harvest'));
 };

@@ -11,6 +11,7 @@ module.exports = {
     'default-case': 0,
     eqeqeq: [2, 'smart'],
     'func-names': 0,
+    'global-require': 0,
     'guard-for-in': 2,
     indent: [2, 2, { SwitchCase: 1 }],
     'key-spacing': [2, { beforeColon: false, afterColon: true }],
@@ -23,7 +24,11 @@ module.exports = {
     'no-else-return': 0,
     'no-empty-class': 0,
     'no-multi-spaces': 2,
+    'no-plusplus': ['error', {
+      allowForLoopAfterthoughts: true
+    }],
     'no-param-reassign': 0,
+    'no-prototype-builtins': 0,
     'no-shadow': 0,
     'no-spaced-func': 2,
     'no-throw-literal': 2,

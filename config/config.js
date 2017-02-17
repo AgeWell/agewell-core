@@ -14,7 +14,7 @@ var _ = require('lodash'),
  */
 var getGlobbedPaths = function (globPatterns, excludes) {
   // URL paths regex
-  var urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
+  var urlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
 
   // The output array
   var output = [];
@@ -33,11 +33,9 @@ var getGlobbedPaths = function (globPatterns, excludes) {
       if (excludes) {
         files = files.map(function (file) {
           if (_.isArray(excludes)) {
-            for (var i in excludes) {
-              if (excludes.hasOwnProperty(i)) {
-                file = file.replace(excludes[i], '');
-              }
-            }
+            excludes.forEach(function(exclude, key) {
+              file = file.replace(exclude, '');
+            });
           } else {
             file = file.replace(excludes, '');
           }

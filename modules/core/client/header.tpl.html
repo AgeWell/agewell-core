@@ -27,18 +27,9 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
-      <li ng-show="vm.authentication.user.harvest">
+      <!-- <li ng-show="vm.authentication.user.harvest">
         <a ng-click="vm.callOauthProvider('/api/harvest/reciept')">Upload Reciept</a>
-      </li>
-      <li ng-show="vm.authentication.user.harvest">
-        <a ng-click="vm.callOauthProvider('/api/harvest/invoices')">List Invoices</a>
-      </li>
-      <li ng-show="vm.authentication.user.harvest">
-        <a ng-click="vm.callOauthProvider('/api/harvest')">List Projects</a>
-      </li>
-      <li ng-hide="vm.authentication.user.harvest">
-        <a ng-click="vm.callOauthProvider('/api/auth/harvest')">Connect Harvest</a>
-      </li>
+      </li> -->
       <li class="dropdown" uib-dropdown>
         <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
           <img ng-src="/{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />

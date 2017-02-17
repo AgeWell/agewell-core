@@ -22,7 +22,8 @@
         $timeout(function() {
           var el = element[0];
           el.focus();
-          el.selectionStart = el.selectionEnd = el.value.length;
+          el.selectionStart = el.value.length;
+          el.selectionEnd = el.value.length;
         }, 100);
       }
     }

@@ -6,7 +6,7 @@
 var _ = require('lodash'),
   fs = require('fs'),
   path = require('path'),
-  errorHandler = require(path.resolve('./server/core/errors/errors.controller')),
+  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
   mongoose = require('mongoose'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
