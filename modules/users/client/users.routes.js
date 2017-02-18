@@ -13,7 +13,25 @@
     $stateProvider
       .state('authentication', {
         url: '/authentication',
-        templateUrl: '/client/users/authentication/authentication.tpl.html',
+        templateUrl: '/modules/users/client/authentication/authentication.tpl.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signin'
+        }
+      })
+      .state('authentication.signup', {
+        url: '/signup',
+        templateUrl: '/modules/users/client/authentication/signup.client.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup'
+        }
+      })
+      .state('authentication.signin', {
+        url: '/signin?err',
+        templateUrl: '/modules/users/client/authentication/signin.client.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',
         data: {
