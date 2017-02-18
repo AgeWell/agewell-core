@@ -25,8 +25,6 @@ exports.renderIndex = function (req, res) {
     };
   }
 
-  console.log(config.shared);
-
   res.render('modules/core/server/index', {
     user: JSON.stringify(safeUserObject),
     sharedConfig: JSON.stringify(config.shared)
