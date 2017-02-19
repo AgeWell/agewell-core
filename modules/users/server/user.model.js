@@ -66,7 +66,7 @@ var UserSchema = new Schema({
   },
   profileImageURL: {
     type: String,
-    default: 'client/users/assets/images/profile/default.png'
+    default: '/modules/users/client/assets/images/profile/default.png'
   },
   provider: {
     type: String,
@@ -74,15 +74,6 @@ var UserSchema = new Schema({
   },
   providerData: {},
   additionalProvidersData: {},
-  harvest: {
-    token: String,
-    refreshToken: String,
-    expires: {
-      type: Date,
-      default: Date.now
-    },
-    profile: {}
-  },
   roles: {
     type: [{
       type: String,
