@@ -35,7 +35,7 @@
       })
       .state('not-found', {
         url: '/not-found',
-        templateUrl: '/modules/core/client/404.html',
+        templateUrl: '/modules/core/client/errors/404.html',
         controller: 'ErrorController',
         controllerAs: 'vm',
         params: {
@@ -50,7 +50,7 @@
       })
       .state('bad-request', {
         url: '/bad-request',
-        templateUrl: '/modules/core/client/400.html',
+        templateUrl: '/modules/core/client/errors/400.html',
         controller: 'ErrorController',
         controllerAs: 'vm',
         params: {
@@ -65,7 +65,7 @@
       })
       .state('forbidden', {
         url: '/forbidden',
-        templateUrl: '/modules/core/client/403.html',
+        templateUrl: '/modules/core/client/errors/403.html',
         data: {
           ignoreState: true,
           pageTitle: 'Forbidden'

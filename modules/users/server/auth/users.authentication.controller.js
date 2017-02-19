@@ -16,6 +16,63 @@ var noReturnUrls = [
 ];
 
 /**
+ * Signup
+ */
+exports.signup = function (req, res) {
+  // For security measurement we remove the roles from the req.body object
+  delete req.body.roles;
+
+  // Init user and add missing fields
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+
+  // Then save the user
+  user.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
+};
+
+/**
+ * Signin after passport authentication
+ */
+exports.signin = function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err || !user) {
+      res.status(422).send(info);
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  })(req, res, next);
+};
+
+/**
  * Signout
  */
 exports.signout = function(req, res) {
@@ -30,12 +87,6 @@ exports.oauthCall = function(strategy, scope) {
   return function(req, res, next) {
     if (req.query && req.query.redirect_to)
       req.session.redirect_to = req.query.redirect_to;
-
-    if (strategy === 'harvest') {
-      if (req.user.harvest.expires.getTime() > new Date().getTime()) {
-        return res.redirect('/');
-      }
-    }
 
     // Authenticate
     passport.authenticate(strategy, scope)(req, res, next);
@@ -61,31 +112,6 @@ exports.oauthCallback = function(strategy) {
           return res.redirect('/authentication/signin');
         }
 
-        return res.redirect(info.redirect_to || '/');
-      });
-    })(req, res, next);
-  };
-};
-
-/**
- * Harvest Callback
- */
-exports.harvestCallback = function(req, res) {
-  return function(req, res, next) {
-
-    // info.redirect_to contains inteded redirect path
-    passport.authenticate('harvest', function(err, user, info) {
-      console.log(err, user, info);
-      if (err) {
-        return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
-      }
-      if (!user) {
-        return res.redirect('/authentication/signin');
-      }
-      req.login(user, function(err) {
-        if (err) {
-          return res.redirect('/authentication/signin');
-        }
         return res.redirect(info.redirect_to || '/');
       });
     })(req, res, next);

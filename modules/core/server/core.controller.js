@@ -20,8 +20,7 @@ exports.renderIndex = function (req, res) {
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
-      additionalProvidersData: req.user.additionalProvidersData,
-      harvest: req.user.harvest.expires.getTime() > new Date().getTime()
+      additionalProvidersData: req.user.additionalProvidersData
     };
   }
 
