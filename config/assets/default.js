@@ -16,7 +16,8 @@ module.exports = {
         // bower:js
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
-        'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/lib/angular-bootstrap/ui-bootstrap.min.js',
+        'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-mocks/angular-mocks.js',
@@ -37,6 +38,8 @@ module.exports = {
     js: [
       'modules/core/client/app/config.js',
       'modules/core/client/app/init.js',
+      'modules/core/client/core.module.js',
+      'modules/core/client/**/*.js',
       'modules/*/client/*.module.js',
       'modules/*/client/**/*.js'
     ],

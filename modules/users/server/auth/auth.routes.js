@@ -7,7 +7,7 @@ var passport = require('passport');
 
 module.exports = function (app) {
   // User Routes
-  var users = require('../users.controller');
+  var users = require('./users.authentication.controller');
 
   // Setting up the users password api
   app.route('/api/auth/forgot').post(users.forgot);
@@ -18,16 +18,6 @@ module.exports = function (app) {
   app.route('/api/auth/signup').post(users.signup);
   app.route('/api/auth/signin').post(users.signin);
   app.route('/api/auth/signout').get(users.signout);
-
-  // Setting the facebook oauth routes
-  // app.route('/api/auth/facebook').get(users.oauthCall('facebook', {
-  //   scope: ['email']
-  // }));
-  // app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
-
-  // Setting the twitter oauth routes
-  // app.route('/api/auth/twitter').get(users.oauthCall('twitter'));
-  // app.route('/api/auth/twitter/callback').get(users.oauthCallback('twitter'));
 
   // Setting the google oauth routes
   app.route('/api/auth/google').get(users.oauthCall('google', {

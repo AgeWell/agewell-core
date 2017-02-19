@@ -6,7 +6,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a ui-sref="home" class="navbar-brand">MEAN.JS</a>
+    <a ui-sref="home" class="navbar-brand">Age Well</a>
   </div>
   <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
     <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">
@@ -30,9 +30,6 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
-      <!-- <li ng-show="vm.authentication.user.harvest">
-        <a ng-click="vm.callOauthProvider('/api/harvest/reciept')">Upload Reciept</a>
-      </li> -->
       <li class="dropdown" uib-dropdown>
         <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
           <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />

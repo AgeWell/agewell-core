@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -60,9 +60,11 @@
 
       // Add submenu items
       if (options.items) {
-        options.items.forEach(function(item) {
-          service.addSubMenuItem(menuId, options.state, item);
-        });
+        for (var i in options.items) {
+          if (options.items.hasOwnProperty(i)) {
+            service.addSubMenuItem(menuId, options.state, options.items[i]);
+          }
+        }
       }
 
       // Return the menu object
@@ -77,19 +79,19 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item
-      service.menus[menuId].items.forEach(function(item) {
-        if (item.state === parentItemState) {
+      for (var itemIndex in service.menus[menuId].items) {
+        if (service.menus[menuId].items[itemIndex].state === parentItemState) {
           // Push new submenu item
-          item.items.push({
+          service.menus[menuId].items[itemIndex].items.push({
             title: options.title || '',
             state: options.state || '',
             params: options.params || {},
-            roles: ((options.roles === null || typeof options.roles === 'undefined') ? item.roles : options.roles),
+            roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.menus[menuId].items[itemIndex].roles : options.roles),
             position: options.position || 0,
             shouldRender: shouldRender
           });
         }
-      });
+      }
 
       // Return the menu object
       return service.menus[menuId];
@@ -106,7 +108,7 @@
 
     function init() {
       // A private function for rendering decision
-      shouldRender = function(user) {
+      shouldRender = function (user) {
         if (this.roles.indexOf('*') !== -1) {
           return true;
         } else {
@@ -114,13 +116,15 @@
             return false;
           }
 
-          user.roles.forEach(function(userRole) {
-            this.roles.forEach(function(role) {
-              if (userRole === role) {
-                return true;
+          for (var userRoleIndex in user.roles) {
+            if (user.roles.hasOwnProperty(userRoleIndex)) {
+              for (var roleIndex in this.roles) {
+                if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                  return true;
+                }
               }
-            });
-          });
+            }
+          }
         }
 
         return false;
@@ -146,11 +150,11 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item to remove
-      service.menus[menuId].items.forEach(function(item, key) {
-        if (item.state === menuItemState) {
-          service.menus[menuId].items.splice(key, 1);
+      for (var itemIndex in service.menus[menuId].items) {
+        if (service.menus[menuId].items.hasOwnProperty(itemIndex) && service.menus[menuId].items[itemIndex].state === menuItemState) {
+          service.menus[menuId].items.splice(itemIndex, 1);
         }
-      });
+      }
 
       // Return the menu object
       return service.menus[menuId];
@@ -162,13 +166,15 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item to remove
-      service.menus[menuId].items.forEach(function(item, itemKey) {
-        item.items.forEach(function(subItem, subKey) {
-          if (this.menus[menuId].items[itemKey].items.hasOwnProperty(subKey) && subItem.state === submenuItemState) {
-            item.items.splice(subKey, 1);
+      for (var itemIndex in service.menus[menuId].items) {
+        if (this.menus[menuId].items.hasOwnProperty(itemIndex)) {
+          for (var subitemIndex in service.menus[menuId].items[itemIndex].items) {
+            if (this.menus[menuId].items[itemIndex].items.hasOwnProperty(subitemIndex) && service.menus[menuId].items[itemIndex].items[subitemIndex].state === submenuItemState) {
+              service.menus[menuId].items[itemIndex].items.splice(subitemIndex, 1);
+            }
           }
-        });
-      });
+        }
+      }
 
       // Return the menu object
       return service.menus[menuId];
