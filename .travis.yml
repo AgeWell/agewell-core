@@ -28,7 +28,7 @@ before_install:
   - gem update --system
   - gem install sass --version "=3.3.7"
   - npm i nsp -g
-  # - npm i snyk -g
+  - npm i snyk -g
   # - npm install protractor
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
@@ -36,11 +36,11 @@ before_install:
   # - 'node_modules/protractor/bin/webdriver-manager start 2>&1 &'
   # - sleep 3
 before_script:
-  # - snyk test
+  - snyk test
 after_script:
   - nsp check
-  # - gulp test:coverage
-  # - node_modules/.bin/lcov-result-merger 'coverage/**/lcov.info' | node_modules/coveralls/bin/coveralls.js
+  - gulp test:coverage
+  - node_modules/.bin/lcov-result-merger 'coverage/**/lcov.info' | node_modules/coveralls/bin/coveralls.js
 notifications:
   webhooks:
     urls:
