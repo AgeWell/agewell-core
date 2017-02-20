@@ -54,12 +54,14 @@ var UserSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    default: ''
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
   lastName: {
     type: String,
     trim: true,
-    default: ''
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   displayName: {
     type: String,
@@ -73,7 +75,8 @@ var UserSchema = new Schema({
     },
     lowercase: true,
     trim: true,
-    default: ''
+    default: '',
+    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   username: {
     type: String,
@@ -92,7 +95,7 @@ var UserSchema = new Schema({
   },
   profileImageURL: {
     type: String,
-    default: '/modules/users/client/assets/images/profile/default.png'
+    default: 'modules/users/client/img/profile/default.png'
   },
   provider: {
     type: String,
@@ -168,7 +171,6 @@ UserSchema.methods.hashPassword = function (password) {
 UserSchema.methods.authenticate = function (password) {
   return this.password === this.hashPassword(password);
 };
-
 
 /**
  * Find possible not used username
