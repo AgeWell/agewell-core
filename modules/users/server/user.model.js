@@ -83,6 +83,13 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
+  password: {
+    type: String,
+    default: ''
+  },
+  salt: {
+    type: String
+  },
   profileImageURL: {
     type: String,
     default: '/modules/users/client/assets/images/profile/default.png'
@@ -107,6 +114,13 @@ var UserSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  /* For reset password */
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
 });
 
