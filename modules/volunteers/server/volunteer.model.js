@@ -10,61 +10,55 @@ var mongoose = require('mongoose'),
  * Volunteer Schema
  */
 var VolunteerSchema = new Schema({
-  'Volunteer No.': Number,
-  // 'Group of Volunteers': Boolean,
-  // 'Group Name': String,
-  'Starting Date': {
+  volunteerNo: Number,
+  // GroupOfVolunteers: Boolean,
+  // GroupName: String,
+  startingDate: {
     type: Date,
     default: Date.now
   },
-  Terminated: Boolean,
-  'Termination Cause': String,
-  'RSVP Volunteer': Boolean,
-  'Driver\'s License': String,
-  'Driver\'s License Expiration': {
+  active: Boolean,
+  terminated: Boolean,
+  terminationCause: String,
+  RSVPVolunteer: Boolean,
+  driversLicense: String,
+  driversLicenseExpiration: {
     type: Date,
     default: Date.now
   },
-  'Lifetime Pledges $': Number,
-  'Lifetime Donations $': Number,
-  'Lifetime Hours': Number,
-  'Wants Reimbursement': Boolean,
-  'Needs Timesheet': Boolean,
-  'Needs Mailing Label': Boolean,
-  'Stipended Volunteer': Boolean,
-  'Senior Companion Leader (SCL)': Boolean,
-  'Senior Companion Recruited by SCL': Boolean,
-  'Community Volunteer Recruited by SCL': Boolean,
-  'Photo ID provided': Boolean,
-  'Release of Information signed': Boolean,
-  'Confidentiality Agreement signed': Boolean,
-  'Proof of Insurance provided': Boolean,
-  'MVR Release signed': Boolean,
-  'County/Area': String,
-  'Employer Past or Present': String,
-  'Occupation Past or Present': String,
-  'Location': String,
-  'Source': String,
-  'Transportation': String,
-  'Skills': {
+  lifetimePledges: Number,
+  lifetimeDonations: Number,
+  lifetimeHours: Number,
+  wantsReimbursement: Boolean,
+  needsTimesheet: Boolean,
+  needsMailingLabel: Boolean,
+  stipendedVolunteer: Boolean,
+  seniorCompanionLeader: Boolean, // SLC
+  seniorCompanionRecruitedBySCL: Boolean,
+  communityVolunteerRecruitedBySCL: Boolean,
+  photoIDprovided: Boolean,
+  releaseOfInformationSigned: Boolean,
+  confidentialityAgreementSigned: Boolean,
+  proofOfInsuranceProvided: Boolean,
+  MVRReleaseSigned: Boolean,
+  countyArea: String,
+  employerPastPresent: String,
+  occupationPastPresent: String,
+  // Location: String, // TODO: Using a keyword, so should be changed
+  source: String,
+  transportation: String,
+  skills: {
     type: String,
     enum: []
   },
-  'Groups': String,
-  'Awards': String,
-  'Available Times': String,
-  Comments: String,
-  Placements: String,
+  // groups: String,
+  // awards: String,
+  availableTimes: String,
+  comments: String,
+  // placements: String,
   contact: {
     type: Schema.ObjectId,
     ref: 'Contact'
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  updated: {
-    type: Date
   }
 });
 

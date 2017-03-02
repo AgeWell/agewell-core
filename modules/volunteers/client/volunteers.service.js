@@ -9,7 +9,7 @@
   VolunteersService.$inject = ['$resource'];
 
   function VolunteersService($resource) {
-    return $resource('api/volunteers/:volunteerId', {
+    return $resource('/api/volunteers/:volunteerId', {
       volunteerId: '@_id'
     }, {
       update: {

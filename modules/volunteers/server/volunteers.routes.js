@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-var volunteersPolicy = require('../policies/volunteers.policy'),
-  volunteers = require('../controllers/volunteers.controller');
+var volunteersPolicy = require('./volunteers.policy'),
+  volunteers = require('./volunteers.controller');
 
 module.exports = function(app) {
   // Volunteers Routes
