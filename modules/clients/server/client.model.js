@@ -16,13 +16,16 @@ var ClientSchema = new Schema({
     required: 'Please fill Client name',
     trim: true
   },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   created: {
     type: Date,
     default: Date.now
   },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
+  updated: {
+    type: Date
   }
 });
 
