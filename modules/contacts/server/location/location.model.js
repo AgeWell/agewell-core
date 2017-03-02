@@ -8,10 +8,11 @@ var mongoose = require('mongoose'),
   statesArray = require('./states.data');
 
 /**
- * Contact Schema
+ * Location Schema
  */
-var ContactSchema = new Schema({
+var LocationSchema = new Schema({
   street: String,
+  additional: String,
   city: String,
   state: {
     type: String,
@@ -23,4 +24,4 @@ var ContactSchema = new Schema({
   Township: String
 });
 
-mongoose.model('Contact', ContactSchema);
+mongoose.model('Location', LocationSchema);
