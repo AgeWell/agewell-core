@@ -25,38 +25,9 @@ var VolunteerSchema = new Schema({
     ref: 'User'
   },
   'Volunteer No.': Number,
-  'First Name': String,
-  'Middle Initial': {
-    type: String,
-    maxlength: 1
-  },
-  'Last Name': String,
   'Group of Volunteers': Boolean,
   'Group Name': String,
   'Mailing Name': String,
-  'First Address': String,
-  'Second Address': String,
-  'City': String,
-  'State': {
-    type: String
-  },
-  Zip: {
-    type: Number,
-    maxlength: 5
-  },
-  'Home Phone': String,
-  'Work Phone': String,
-  'Cell Phone': String,
-  Email: {
-    type: String,
-    index: {
-      unique: true,
-      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
-    },
-    lowercase: true,
-    trim: true,
-    default: ''
-  },
   'Starting Date': {
     type: Date,
     default: Date.now
@@ -117,7 +88,14 @@ var VolunteerSchema = new Schema({
     default: Date.now
   },
   Comments: String,
-  Placements: String
+  Placements: String,
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  updated: {
+    type: Date
+  }
 });
 
 mongoose.model('Volunteer', VolunteerSchema);
