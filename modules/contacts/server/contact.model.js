@@ -5,6 +5,7 @@
  */
 let mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  Address = mongoose.model('Address'),
   validator = require('validator');
 
 /**
@@ -36,6 +37,7 @@ let ContactSchema = new Schema({
       maxlength: 1
     }
   },
+  addresses: [Address],
   phones: [{
     number: String,
     type: {
@@ -57,16 +59,45 @@ let ContactSchema = new Schema({
     type: String,
     enum: ['Male', 'Female', 'Other', 'Prefer not to say']
   },
+  Veteran: Boolean,
+  Ethnicity: {
+    type: String,
+    enum: ['Not Hispanic/Latino', 'Hispanic']
+  },
+  'Race': {
+    type: String,
+    enum: ['American Indian/Alaskan Native', 'Asian', 'African-American', 'Native Hawaiian/Pacific Islander ', 'Biracial or Multiracial', 'White', 'Other']
+  },
+  'Marital Status': {
+    type: String,
+    enum: ['Single', 'Married', 'Divorced', 'Separated', 'Widow']
+  },
+  'Education': String,
+  'Has Disability': Boolean,
+  'Disability': String,
+  'Allergies': String,
+  'Emergency Contact': {
+    type: Schema.ObjectId,
+    ref: 'Contact'
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  client: {
+    type: Schema.ObjectId,
+    ref: 'Client'
+  },
+  volunteer: {
+    type: Schema.ObjectId,
+    ref: 'Volunteer'
+  },
   created: {
     type: Date,
     default: Date.now
   },
   updated: {
     type: Date
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
   }
 });
 

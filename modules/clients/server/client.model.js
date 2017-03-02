@@ -16,9 +16,9 @@ var ClientSchema = new Schema({
     required: 'Please fill Client name',
     trim: true
   },
-  user: {
+  contact: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'Contact'
   },
   created: {
     type: Date,

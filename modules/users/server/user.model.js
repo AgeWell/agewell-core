@@ -51,6 +51,10 @@ var validateUsername = function(username) {
  * User Schema
  */
 var UserSchema = new Schema({
+  contactId: {
+    type: Schema.ObjectId,
+    ref: 'Contact'
+  },
   firstName: {
     type: String,
     trim: true,
