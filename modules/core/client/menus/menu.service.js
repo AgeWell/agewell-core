@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -60,6 +60,7 @@
 
       // Add submenu items
       if (options.items) {
+        // eslint-disable-next-line no-restricted-syntax
         for (var i in options.items) {
           if (options.items.hasOwnProperty(i)) {
             service.addSubMenuItem(menuId, options.state, options.items[i]);
@@ -79,6 +80,7 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item
+      // eslint-disable-next-line no-restricted-syntax
       for (var itemIndex in service.menus[menuId].items) {
         if (service.menus[menuId].items[itemIndex].state === parentItemState) {
           // Push new submenu item
@@ -108,7 +110,7 @@
 
     function init() {
       // A private function for rendering decision
-      shouldRender = function (user) {
+      shouldRender = function(user) {
         if (this.roles.indexOf('*') !== -1) {
           return true;
         } else {
@@ -116,8 +118,10 @@
             return false;
           }
 
+          // eslint-disable-next-line no-restricted-syntax
           for (var userRoleIndex in user.roles) {
             if (user.roles.hasOwnProperty(userRoleIndex)) {
+              // eslint-disable-next-line no-restricted-syntax
               for (var roleIndex in this.roles) {
                 if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
                   return true;
@@ -150,6 +154,7 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item to remove
+      // eslint-disable-next-line no-restricted-syntax
       for (var itemIndex in service.menus[menuId].items) {
         if (service.menus[menuId].items.hasOwnProperty(itemIndex) && service.menus[menuId].items[itemIndex].state === menuItemState) {
           service.menus[menuId].items.splice(itemIndex, 1);
@@ -166,8 +171,10 @@
       service.validateMenuExistence(menuId);
 
       // Search for menu item to remove
+      // eslint-disable-next-line no-restricted-syntax
       for (var itemIndex in service.menus[menuId].items) {
         if (this.menus[menuId].items.hasOwnProperty(itemIndex)) {
+          // eslint-disable-next-line no-restricted-syntax
           for (var subitemIndex in service.menus[menuId].items[itemIndex].items) {
             if (this.menus[menuId].items[itemIndex].items.hasOwnProperty(subitemIndex) && service.menus[menuId].items[itemIndex].items[subitemIndex].state === submenuItemState) {
               service.menus[menuId].items[itemIndex].items.splice(subitemIndex, 1);
