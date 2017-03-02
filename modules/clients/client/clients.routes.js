@@ -16,7 +16,7 @@
       })
       .state('clients.list', {
         url: '',
-        templateUrl: 'modules/clients/client/views/list-clients.client.view.html',
+        templateUrl: 'modules/clients/client/views/list-clients.html',
         controller: 'ClientsListController',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('clients.create', {
         url: '/create',
-        templateUrl: 'modules/clients/client/views/form-client.client.view.html',
+        templateUrl: 'modules/clients/client/views/form-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('clients.edit', {
         url: '/:clientId/edit',
-        templateUrl: 'modules/clients/client/views/form-client.client.view.html',
+        templateUrl: 'modules/clients/client/views/form-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('clients.view', {
         url: '/:clientId',
-        templateUrl: 'modules/clients/client/views/view-client.client.view.html',
+        templateUrl: 'modules/clients/client/views/view-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {

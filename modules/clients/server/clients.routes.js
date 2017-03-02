@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-var clientsPolicy = require('../policies/clients.policy'),
-  clients = require('../controllers/clients.controller');
+var clientsPolicy = require('./clients.policy'),
+  clients = require('./clients.controller');
 
 module.exports = function(app) {
   // Clients Routes

@@ -7,9 +7,13 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.client.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.clientForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Client name is required.</p>
+          <input name="firstname" type="text" ng-model="vm.client.contact.name.first" id="firstname" class="form-control" placeholder="First Name" required>
+          <input name="lastname" type="text" ng-model="vm.client.contact.name.last" id="lastname" class="form-control" placeholder="Last Name" required>
+          <div ng-messages="vm.client.contact.name.first.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Client first name is required.</p>
+          </div>
+          <div ng-messages="vm.client.contact.name.last.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Client last name is required.</p>
           </div>
         </div>
         <div class="form-group">

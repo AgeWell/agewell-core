@@ -9,7 +9,7 @@
   ClientsService.$inject = ['$resource'];
 
   function ClientsService($resource) {
-    return $resource('api/clients/:clientId', {
+    return $resource('/api/clients/:clientId', {
       clientId: '@_id'
     }, {
       update: {

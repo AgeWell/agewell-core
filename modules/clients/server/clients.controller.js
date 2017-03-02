@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Client = mongoose.model('Client'),
+  Contact = mongoose.model('Contact'),
   errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
   _ = require('lodash');
 
@@ -13,17 +14,23 @@ var path = require('path'),
  * Create a Client
  */
 exports.create = function(req, res) {
-  var client = new Client(req.body);
-  client.user = req.user;
-
-  client.save(function(err) {
+  let contact = new Contact(req.body.contact);
+  contact.save(function(err, contact) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(client);
     }
+    req.body.contact = contact._id;
+    var client = new Client(req.body);
+    client.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(client);
+    });
   });
 };
 
@@ -81,7 +88,7 @@ exports.delete = function(req, res) {
  * List of Clients
  */
 exports.list = function(req, res) {
-  Client.find().sort('-created').populate('user', 'displayName').exec(function(err, clients) {
+  Client.find().sort('-created').populate('contact').exec(function(err, clients) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
