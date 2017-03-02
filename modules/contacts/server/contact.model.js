@@ -5,14 +5,14 @@
  */
 let mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  Address = mongoose.model('Address'),
+  Address = require('./address/address.model'),
   validator = require('validator');
 
 /**
  * A Validation function for local strategy email
  */
-let validateLocalStrategyEmail = function(email) {
-  return (validator.isEmail(email, {
+let validateEmail = function(email) {
+  return (email === '' || validator.isEmail(email, {
     require_tld: false
   }));
 };
@@ -50,7 +50,7 @@ let ContactSchema = new Schema({
     lowercase: true,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    validate: [validateEmail, 'Please fill a valid email address']
   },
   birthDay: {
     type: Date
@@ -110,4 +110,4 @@ ContactSchema.virtual('fullName')
     this.name.last = v.substr(v.indexOf(' ') + 1);
   });
 
-mongoose.model('Contact', ContactSchema);
+module.exports = mongoose.model('Contact', ContactSchema);

@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 /**
  * Address Schema
  */
-var AddressSchema = new Schema({
+module.exports = new Schema({
   street: String,
   additional: String,
   city: String,
@@ -27,5 +27,3 @@ var AddressSchema = new Schema({
   },
   township: String
 });
-
-mongoose.model('Address', AddressSchema);
