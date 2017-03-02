@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
   statesArray = require('./states.data');
 
 /**
- * Location Schema
+ * Address Schema
  */
-var LocationSchema = new Schema({
+var AddressSchema = new Schema({
   street: String,
   additional: String,
   city: String,
@@ -21,7 +21,11 @@ var LocationSchema = new Schema({
     enum: statesArray
   },
   zipcode: Number,
-  Township: String
+  type: {
+    type: String,
+    enum: ['Physical', 'Mailing']
+  },
+  township: String
 });
 
-mongoose.model('Location', LocationSchema);
+mongoose.model('Address', AddressSchema);
