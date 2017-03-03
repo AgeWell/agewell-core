@@ -3,22 +3,34 @@
     <h1>Clients</h1>
   </div>
   <table class="table table-hover table-striped">
-    <tr>
-      <th></th>
-    </tr>
-    <tr ng-repeat="client in vm.clients"
-       ui-sref="clients.view({ clientId: client._id })"
-       class="list-group-item">
-      <td class="list-group-item-text">
-        Posted on
-        <span ng-bind="client.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="client.user" ng-bind="client.user.displayName"></span>
-        <span ng-if="!client.user">Deleted User</span>
-      </td>
-      <td class="list-group-item-heading" ng-bind="client.contact.name.first + ' ' + client.contact.name.last"></td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Other</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="client in vm.clients" ui-sref="clients.view({ clientId: client._id })">
+        <td>{{client.contact.name.first}} {{client.contact.name.last}}</td>
+        <td class="list-group-item-text">
+          Posted on
+          <span ng-bind="client.created | date:'mediumDate'"></span> by
+          <span ng-if="client.user" ng-bind="client.user.displayName"></span>
+          <span ng-if="!client.user">Deleted User</span>
+        </td>
+        <td class="text-right">
+          <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="clients.edit({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+        </td>
+      </tr>
+    </tbody>
   </table>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
   <div class="alert alert-warning text-center" ng-if="vm.clients.$resolved && !vm.clients.length">
     No Clients yet, why don't you <a ui-sref="clients.create">create one</a>?
   </div>

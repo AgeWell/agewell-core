@@ -7,6 +7,18 @@
       <contact-information contact="vm.client.contact"></contact-information>
       <fieldset class="col-md-12">
         <div class="form-group" show-errors>
+          {{vm.client.monthlyIncomeSingle}}
+        </div>
+        <div class="form-group" show-errors>
+          {{vm.client.monthlyIncomeMarried}}
+        </div>
+        <div class="form-group" show-errors>
+          {{vm.client.referralSource}}
+        </div>
+        <div class="form-group" show-errors>
+          {{vm.client.transportation}}
+        </div>
+        <div class="form-group" show-errors>
           <label class="control-label" for="comments">Comments</label>
           <textarea name="comments" type="text" ng-model="vm.client.comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
         </div>
