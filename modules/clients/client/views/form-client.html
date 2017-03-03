@@ -4,23 +4,39 @@
   </div>
   <div class="col-md-12">
     <form name="vm.form.clientForm" class="form-horizontal" ng-submit="vm.save(vm.form.clientForm.$valid)" novalidate>
-      <contact-information contact="vm.client.contact"></contact-information>
+      <contact-information contact="vm.client.contact" error="vm.error"></contact-information>
       <fieldset class="col-md-12">
-        <div class="form-group" show-errors>
-          {{vm.client.monthlyIncomeSingle}}
+        <div class="form-group">
+          <label>Monthly Income Single</label>
+          <div>
+            <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeSingle">
+              <input type="radio" ng-model="vm.client.monthlyIncomeSingle" ng-value="option"> {{option}}
+            </div>
+          </div>
         </div>
-        <div class="form-group" show-errors>
-          {{vm.client.monthlyIncomeMarried}}
+        <div class="form-group">
+          <label>Monthly Income Married</label>
+          <div>
+            <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeMarried">
+              <input type="radio" ng-model="vm.client.monthlyIncomeMarried" ng-value="option"> {{option}}
+            </div>
+          </div>
         </div>
-        <div class="form-group" show-errors>
-          {{vm.client.referralSource}}
+        <div class="form-group">
+          <label>Transportation</label>
+          <div>
+            <div class="radio-inline" ng-repeat="option in vm.options.transportation">
+              <input type="radio" ng-model="vm.client.transportation" ng-value="option"> {{option}}
+            </div>
+          </div>
         </div>
-        <div class="form-group" show-errors>
-          {{vm.client.transportation}}
+        <div class="form-group">
+          <label class="control-label" for="referralSource">Referral Source</label>
+          <textarea name="referralSource" type="text" ng-model="vm.client.referralSource" id="referralSource" class="form-control" placeholder="Referral Source"></textarea>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group">
           <label class="control-label" for="comments">Comments</label>
-          <textarea name="comments" type="text" ng-model="vm.client.comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
+          <textarea name="comments" type="text" ng-model="vm.client.comments" id="comments" class="form-control" placeholder="Comments"></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.client._id ? 'Update' : 'Create'}}</button>
