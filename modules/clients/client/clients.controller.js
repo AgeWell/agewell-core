@@ -6,13 +6,14 @@
     .module('clients')
     .controller('ClientsController', ClientsController);
 
-  ClientsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'clientResolve'];
+  ClientsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'clientResolve'];
 
-  function ClientsController ($scope, $state, $window, Authentication, client) {
+  function ClientsController ($scope, $state, $window, Authentication, coreService, client) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.client = client;
+    vm.options = coreService.getOptions('Client');
     vm.error = null;
     vm.form = {};
     vm.remove = remove;

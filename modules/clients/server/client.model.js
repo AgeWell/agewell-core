@@ -32,10 +32,6 @@ var ClientSchema = new Schema({
   // Referred to--CHANGE THIS LIST
   comments: String
   // placements: String,
-  // contactId: {
-  //   type: Schema.ObjectId,
-  //   ref: 'Contact'
-  // }
 });
 
 ClientSchema.virtual('contact', {
