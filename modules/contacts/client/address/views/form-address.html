@@ -21,6 +21,12 @@
     <div class="form-group" show-errors>
       <label for="state">State</label>
       <input type="text" id="state" name="state" class="form-control" ng-model="vm.address.state" placeholder="State">
+      <ui-select ng-model="vm.address.state" theme="bootstrap" title="State">
+        <ui-select-match placeholder="State">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="state in vm.options.state">
+          {{state}}
+        </ui-select-choices>
+      </ui-select>
     </div>
   </div>
   <div class="col-md-3">

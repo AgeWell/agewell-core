@@ -11,5 +11,7 @@
     var vm = this;
 
     vm.clients = ClientsService.query();
+
+    console.log(vm);
   }
 }());

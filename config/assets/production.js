@@ -12,6 +12,7 @@ module.exports = {
         'public/lib/angular-material/angular-material.min.css',
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+        'public/lib/angular-ui-select/dist/select.min.css',
         // endbower
       ],
       js: [
@@ -29,6 +30,7 @@ module.exports = {
         'public/lib/angular-material/angular-material.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+        'public/lib/angular-ui-select/dist/select.min.js',
         // endbower
       ]
     },
