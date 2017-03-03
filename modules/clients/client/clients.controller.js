@@ -18,6 +18,10 @@
     vm.remove = remove;
     vm.save = save;
 
+    if (!vm.client._id) {
+      vm.client.contact = {};
+    }
+
     // Remove existing Client
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {

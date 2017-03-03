@@ -11,9 +11,10 @@
       scope: {
         contact: '='
       },
-      controller: 'ContactController',
+      controller: 'ContactsController',
       controllerAs: 'vm',
-      templateUrl: 'my-pane.html'
+      bindToController: true,
+      templateUrl: '/modules/contacts/client/views/form-contact.html'
     };
 
     return directive;

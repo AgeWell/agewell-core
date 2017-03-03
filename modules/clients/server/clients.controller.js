@@ -14,7 +14,9 @@ var path = require('path'),
  * Create a Client
  */
 exports.create = function(req, res) {
+  console.log(req.body);
   let contact = new Contact(req.body.contact);
+  console.log();
   contact.save(function(err, contact) {
     if (err) {
       return res.status(400).send({

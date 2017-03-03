@@ -74,6 +74,8 @@
   newClient.$inject = ['ClientsService'];
 
   function newClient(ClientsService) {
-    return new ClientsService();
+    let client = new ClientsService();
+    console.log(client);
+    return client;
   }
 }());
