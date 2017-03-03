@@ -17,11 +17,12 @@
 
     return service;
 
-    // Add new menu object by menu id
-    function getOptions(model, field) {
-
-      // Return the menu object
-      return model + ' ' + field;
+    // Gets all the poible values for a select list.
+    function getOptions(model) {
+      if (options.hasOwnProperty(model)) {
+        return options[model];
+      }
+      return console.error('Model has no options.');
     }
 
     function init() {
