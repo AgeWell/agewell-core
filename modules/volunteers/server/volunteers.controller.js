@@ -86,9 +86,17 @@ exports.list = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(volunteers);
     }
+    Volunteer.populate(volunteers, {
+      path: 'contact'
+    }, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(volunteers);
+    });
   });
 };
 
@@ -103,15 +111,24 @@ exports.volunteerByID = function(req, res, next, id) {
     });
   }
 
-  Volunteer.findById(id).populate('user', 'displayName').exec(function (err, volunteer) {
+  Volunteer.findById(id).exec(function(err, volunteer) {
     if (err) {
       return next(err);
-    } else if (!volunteer) {
-      return res.status(404).send({
-        message: 'No Volunteer with that identifier has been found'
-      });
     }
-    req.volunteer = volunteer;
-    next();
+
+    Volunteer.populate(volunteer, {
+      path: 'contact'
+    }, function(err) {
+      if (err) {
+        return next(err);
+      }
+      if (!volunteer) {
+        return res.status(404).send({
+          message: 'No Client with that identifier has been found'
+        });
+      }
+      req.volunteer = volunteer;
+      next();
+    });
   });
 };

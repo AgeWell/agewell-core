@@ -15,20 +15,22 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   let contact = new Contact(req.body.contact);
-  contact.save(function(err, contact) {
+  // req.body.contact = contact._id;
+  var client = new Client(req.body);
+  client.save(function(err, client) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    req.body.contact = contact._id;
-    var client = new Client(req.body);
-    client.save(function(err) {
+    contact.clientId = client._id;
+    contact.save(function(err, contact) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       }
+      client.contact = contact;
       res.jsonp(client);
     });
   });
@@ -89,14 +91,22 @@ exports.delete = function(req, res) {
  * List of Clients
  */
 exports.list = function(req, res) {
-  Client.find().sort('-created').populate('contact').exec(function(err, clients) {
+  Client.find().sort('-created').exec(function(err, clients) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(clients);
     }
+    Client.populate(clients, {
+      path: 'contact'
+    }, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(clients);
+    });
   });
 };
 
@@ -111,15 +121,23 @@ exports.clientByID = function(req, res, next, id) {
     });
   }
 
-  Client.findById(id).populate('contact').exec(function (err, client) {
+  Client.findById(id).exec(function(err, client) {
     if (err) {
       return next(err);
-    } else if (!client) {
-      return res.status(404).send({
-        message: 'No Client with that identifier has been found'
-      });
     }
-    req.client = client;
-    next();
+    Client.populate(client, {
+      path: 'contact'
+    }, function(err) {
+      if (err) {
+        return next(err);
+      }
+      if (!client) {
+        return res.status(404).send({
+          message: 'No Client with that identifier has been found'
+        });
+      }
+      req.client = client;
+      next();
+    });
   });
 };
