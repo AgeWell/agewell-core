@@ -54,12 +54,15 @@ var VolunteerSchema = new Schema({
   // groups: String,
   // awards: String,
   availableTimes: String,
-  comments: String,
+  comments: String
   // placements: String,
-  contact: {
-    type: Schema.ObjectId,
-    ref: 'Contact'
-  }
+});
+
+VolunteerSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: '_id',
+  foreignField: 'volunteerId',
+  justOne: true
 });
 
 mongoose.model('Volunteer', VolunteerSchema);

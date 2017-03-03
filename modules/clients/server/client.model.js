@@ -30,12 +30,19 @@ var ClientSchema = new Schema({
     enum: ['Yes I am able to drive', 'No I am unable to drive']
   },
   // Referred to--CHANGE THIS LIST
-  comments: String,
+  comments: String
   // placements: String,
-  contact: {
-    type: Schema.ObjectId,
-    ref: 'Contact'
-  }
+  // contactId: {
+  //   type: Schema.ObjectId,
+  //   ref: 'Contact'
+  // }
+});
+
+ClientSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: '_id',
+  foreignField: 'clientId',
+  justOne: true
 });
 
 mongoose.model('Client', ClientSchema);

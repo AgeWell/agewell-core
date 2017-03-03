@@ -80,15 +80,15 @@ let ContactSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Contact'
   },
-  user: {
+  userId: {
     type: Schema.ObjectId,
     ref: 'User'
   },
-  client: {
+  clientId: {
     type: Schema.ObjectId,
     ref: 'Client'
   },
-  volunteer: {
+  volunteerId: {
     type: Schema.ObjectId,
     ref: 'Volunteer'
   },
@@ -101,13 +101,13 @@ let ContactSchema = new Schema({
   }
 });
 
-ContactSchema.virtual('fullName')
-  .get(function() {
-    return this.name.first + ' ' + this.name.last;
-  })
-  .set(function(v) {
-    this.name.first = v.substr(0, v.indexOf(' '));
-    this.name.last = v.substr(v.indexOf(' ') + 1);
-  });
+// ContactSchema.virtual('fullname')
+//   .get(function() {
+//     return this.name.first + ' ' + this.name.last;
+//   });
+  // .set(function(v) {
+  //   this.name.first = v.substr(0, v.indexOf(' '));
+  //   this.name.last = v.substr(v.indexOf(' ') + 1);
+  // });
 
 module.exports = mongoose.model('Contact', ContactSchema);
