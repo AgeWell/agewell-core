@@ -29,6 +29,11 @@ module.exports = {
     }],
     'no-param-reassign': 0,
     'no-prototype-builtins': 0,
+    'no-restricted-syntax': [
+      'error',
+      'LabeledStatement',
+      'WithStatement',
+    ],
     'no-shadow': 0,
     'no-spaced-func': 2,
     'no-throw-literal': 2,
