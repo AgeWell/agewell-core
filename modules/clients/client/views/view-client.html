@@ -3,7 +3,7 @@
     <h1 ng-bind="vm.client.contact.name.first + ' ' + vm.client.contact.name.last"></h1>
   </div>
   <div class="pull-right"
-       ng-show="vm.client.isCurrentUserOwner">
+       ng-show="vm.client.canEdit">
     <a class="btn btn-primary"
        ui-sref="clients.edit({ clientId: vm.client._id })">
       <i class="glyphicon glyphicon-edit"></i>

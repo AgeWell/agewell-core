@@ -2,20 +2,23 @@
   <div class="page-header">
     <h1>Clients</h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="client in vm.clients"
+  <table class="table table-hover table-striped">
+    <tr>
+      <th></th>
+    </tr>
+    <tr ng-repeat="client in vm.clients"
        ui-sref="clients.view({ clientId: client._id })"
        class="list-group-item">
-      <small class="list-group-item-text">
+      <td class="list-group-item-text">
         Posted on
         <span ng-bind="client.created | date:'mediumDate'"></span>
         by
         <span ng-if="client.user" ng-bind="client.user.displayName"></span>
         <span ng-if="!client.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="client.name"></h4>
-    </a>
-  </div>
+      </td>
+      <td class="list-group-item-heading" ng-bind="client.contact.name.first + ' ' + client.contact.name.last"></td>
+    </tr>
+  </table>
   <div class="alert alert-warning text-center" ng-if="vm.clients.$resolved && !vm.clients.length">
     No Clients yet, why don't you <a ui-sref="clients.create">create one</a>?
   </div>
