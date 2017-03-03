@@ -9,7 +9,8 @@
     var directive = {
       restrict: 'E',
       scope: {
-        contact: '='
+        contact: '=',
+        error: '='
       },
       controller: 'ContactsController',
       controllerAs: 'vm',
