@@ -45,3 +45,12 @@ a:hover .header-profile-image {
 .jumbotron {
   background: none;
 }
+
+.form-horizontal .form-group {
+  margin-left: -15px;
+  margin-right: 0;
+}
+
+.form-horizontal .col-md-3 > .form-group {
+  margin-right: 0;
+}

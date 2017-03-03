@@ -1,4 +1,5 @@
 var fs = require('fs'),
+  _ = require('lodash'),
   defaultAssets = require('../config/assets/default'),
   gulp = require('gulp'),
   gulpLoadPlugins = require('gulp-load-plugins'),

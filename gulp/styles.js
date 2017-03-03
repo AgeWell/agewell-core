@@ -22,5 +22,6 @@ gulp.task('sass', function() {
   return gulp.src(defaultAssets.client.sass)
     .pipe(plugins.sass())
     .pipe(plugins.autoprefixer())
+    .pipe(plugins.flatten())
     .pipe(gulp.dest('./public/assets/css/'));
 });
