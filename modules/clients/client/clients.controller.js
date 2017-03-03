@@ -22,6 +22,8 @@
       vm.client.contact = {};
     }
 
+    console.log(vm);
+
     // Remove existing Client
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {

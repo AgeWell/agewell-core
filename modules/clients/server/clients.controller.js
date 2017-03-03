@@ -14,9 +14,7 @@ var path = require('path'),
  * Create a Client
  */
 exports.create = function(req, res) {
-  console.log(req.body);
   let contact = new Contact(req.body.contact);
-  console.log();
   contact.save(function(err, contact) {
     if (err) {
       return res.status(400).send({
@@ -45,7 +43,8 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  client.isCurrentUserOwner = req.user && client.user && client.user._id.toString() === req.user._id.toString();
+  // console.log(req.user);
+  client.canEdit = req.user.roles.includes('admin');
 
   res.jsonp(client);
 };
@@ -112,7 +111,7 @@ exports.clientByID = function(req, res, next, id) {
     });
   }
 
-  Client.findById(id).populate('user', 'displayName').exec(function (err, client) {
+  Client.findById(id).populate('contact').exec(function (err, client) {
     if (err) {
       return next(err);
     } else if (!client) {

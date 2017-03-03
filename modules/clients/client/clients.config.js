@@ -13,20 +13,21 @@
       title: 'Clients',
       state: 'clients',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'clients', {
       title: 'List Clients',
-      state: 'clients.list'
+      state: 'clients.list',
+      roles: ['admin']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'clients', {
       title: 'Create Client',
       state: 'clients.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

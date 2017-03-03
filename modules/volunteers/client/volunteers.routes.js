@@ -20,6 +20,7 @@
         controller: 'VolunteersListController',
         controllerAs: 'vm',
         data: {
+          roles: ['admin'],
           pageTitle: 'Volunteers List'
         }
       })
@@ -32,7 +33,7 @@
           volunteerResolve: newVolunteer
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Volunteers Create'
         }
       })
@@ -45,7 +46,7 @@
           volunteerResolve: getVolunteer
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Edit Volunteer {{ volunteerResolve.name }}'
         }
       })
@@ -58,6 +59,7 @@
           volunteerResolve: getVolunteer
         },
         data: {
+          roles: ['admin'],
           pageTitle: 'Volunteer {{ volunteerResolve.name }}'
         }
       });

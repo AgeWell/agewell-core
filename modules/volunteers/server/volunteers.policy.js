@@ -21,24 +21,24 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/volunteers/:volunteerId',
       permissions: '*'
     }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/volunteers',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/volunteers/:volunteerId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/volunteers',
-      permissions: ['get']
-    }, {
-      resources: '/api/volunteers/:volunteerId',
-      permissions: ['get']
-    }]
+  // }, {
+  //   roles: ['user'],
+  //   allows: [{
+  //     resources: '/api/volunteers',
+  //     permissions: ['get', 'post']
+  //   }, {
+  //     resources: '/api/volunteers/:volunteerId',
+  //     permissions: ['get']
+  //   }]
+  // }, {
+  //   roles: ['guest'],
+  //   allows: [{
+  //     resources: '/api/volunteers',
+  //     permissions: ['get']
+  //   }, {
+  //     resources: '/api/volunteers/:volunteerId',
+  //     permissions: ['get']
+  //   }]
   }]);
 };
 

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('clients.routes')
+    .module('clients')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
@@ -20,6 +20,7 @@
         controller: 'ClientsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['admin'],
           pageTitle: 'Clients List'
         }
       })
@@ -32,7 +33,7 @@
           clientResolve: newClient
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Clients Create'
         }
       })
@@ -45,7 +46,7 @@
           clientResolve: getClient
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Edit Client {{ clientResolve.name }}'
         }
       })
@@ -58,6 +59,7 @@
           clientResolve: getClient
         },
         data: {
+          roles: ['admin'],
           pageTitle: 'Client {{ clientResolve.name }}'
         }
       });

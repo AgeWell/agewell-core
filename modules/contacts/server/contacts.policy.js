@@ -21,15 +21,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/contacts/:contactId',
       permissions: '*'
     }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/contacts',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/contacts/:contactId',
-      permissions: ['get']
-    }]
   }]);
 };
 

@@ -113,19 +113,18 @@
       shouldRender = function(user) {
         if (this.roles.indexOf('*') !== -1) {
           return true;
-        } else {
-          if (!user) {
-            return false;
-          }
+        }
+        if (!user) {
+          return false;
+        }
 
-          // eslint-disable-next-line no-restricted-syntax
-          for (var userRoleIndex in user.roles) {
-            if (user.roles.hasOwnProperty(userRoleIndex)) {
-              // eslint-disable-next-line no-restricted-syntax
-              for (var roleIndex in this.roles) {
-                if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
-                  return true;
-                }
+        // eslint-disable-next-line no-restricted-syntax
+        for (var userRoleIndex in user.roles) {
+          if (user.roles.hasOwnProperty(userRoleIndex)) {
+            // eslint-disable-next-line no-restricted-syntax
+            for (var roleIndex in this.roles) {
+              if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                return true;
               }
             }
           }
