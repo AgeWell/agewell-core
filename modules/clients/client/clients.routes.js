@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('clients')
+    .module('clients.routes')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
@@ -16,7 +16,7 @@
       })
       .state('clients.list', {
         url: '',
-        templateUrl: 'modules/clients/client/views/list-clients.html',
+        templateUrl: '/modules/clients/client/views/list-clients.html',
         controller: 'ClientsListController',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('clients.create', {
         url: '/create',
-        templateUrl: 'modules/clients/client/views/form-client.html',
+        templateUrl: '/modules/clients/client/views/form-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('clients.edit', {
         url: '/:clientId/edit',
-        templateUrl: 'modules/clients/client/views/form-client.html',
+        templateUrl: '/modules/clients/client/views/form-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('clients.view', {
         url: '/:clientId',
-        templateUrl: 'modules/clients/client/views/view-client.html',
+        templateUrl: '/modules/clients/client/views/view-client.html',
         controller: 'ClientsController',
         controllerAs: 'vm',
         resolve: {
@@ -74,8 +74,6 @@
   newClient.$inject = ['ClientsService'];
 
   function newClient(ClientsService) {
-    let client = new ClientsService();
-    console.log(client);
-    return client;
+    return new ClientsService();
   }
 }());

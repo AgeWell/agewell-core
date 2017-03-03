@@ -16,7 +16,7 @@
       })
       .state('volunteers.list', {
         url: '',
-        templateUrl: 'modules/volunteers/client/views/list-volunteers.html',
+        templateUrl: '/modules/volunteers/client/views/list-volunteers.html',
         controller: 'VolunteersListController',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('volunteers.create', {
         url: '/create',
-        templateUrl: 'modules/volunteers/client/views/form-volunteer.html',
+        templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
         controller: 'VolunteersController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('volunteers.edit', {
         url: '/:volunteerId/edit',
-        templateUrl: 'modules/volunteers/client/views/form-volunteer.html',
+        templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
         controller: 'VolunteersController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('volunteers.view', {
         url: '/:volunteerId',
-        templateUrl: 'modules/volunteers/client/views/view-volunteer.html',
+        templateUrl: '/modules/volunteers/client/views/view-volunteer.html',
         controller: 'VolunteersController',
         controllerAs: 'vm',
         resolve: {

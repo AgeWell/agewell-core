@@ -4,13 +4,11 @@
   </div>
   <div class="col-md-12">
     <form name="vm.form.volunteerForm" class="form-horizontal" ng-submit="vm.save(vm.form.volunteerForm.$valid)" novalidate>
+      <contact-information contact="vm.volunteer.contact"></contact-information>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.volunteer.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.volunteerForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Volunteer name is required.</p>
-          </div>
+          <label class="control-label" for="comments">Comments</label>
+          <textarea name="comments" type="text" ng-model="vm.client.comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.volunteer._id ? 'Update' : 'Create'}}</button>
