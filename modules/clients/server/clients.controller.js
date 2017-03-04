@@ -15,6 +15,7 @@ const _ = require('lodash');
  */
 exports.create = function(req, res) {
   let contact = new Contact(req.body.contact);
+  console.log(req.body);
   // req.body.contact = contact._id;
   var client = new Client(req.body);
   client.save(function(err, client) {
@@ -64,9 +65,15 @@ exports.update = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(client);
     }
+
+    req.body.contact.updated = new Date();
+
+    Contact.findOneAndUpdate({
+      clientId: client._id
+    }, req.body.contact, function(err, contact) {
+      res.jsonp(client);
+    });
   });
 };
 
@@ -76,14 +83,17 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var client = req.client;
 
-  client.remove(function(err) {
+  Contact.remove({
+    clientId: client._id
+  }).exec(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(client);
     }
+    client.remove(function(err) {
+      res.jsonp(client);
+    });
   });
 };
 

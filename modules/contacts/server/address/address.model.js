@@ -28,4 +28,5 @@ const AddressSchema = new Schema({
   township: String
 });
 
-module.exports = mongoose.model('Address', AddressSchema);
+module.exports = AddressSchema;
+mongoose.model('Address', AddressSchema);

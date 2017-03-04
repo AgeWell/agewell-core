@@ -5,8 +5,10 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Address = mongoose.model('Address');
+const Address = require('./address/address.model');
 const validator = require('validator');
+
+delete Address._id;
 
 /**
  * A Validation function for local strategy email
@@ -37,14 +39,10 @@ let ContactSchema = new Schema({
       maxlength: 1
     }
   },
-  addresses: [Address.schema],
-  phones: [{
-    number: String,
-    type: {
-      type: String,
-      enum: ['Home', 'Work', 'Cell']
-    }
-  }],
+  address: Address,
+  homePhone: String,
+  workPhone: String,
+  cellPhone: String,
   email: {
     type: String,
     lowercase: true,
@@ -59,24 +57,24 @@ let ContactSchema = new Schema({
     type: String,
     enum: ['Male', 'Female', 'Other', 'Prefer not to say']
   },
-  Veteran: Boolean,
-  Ethnicity: {
+  veteran: Boolean,
+  ethnicity: {
     type: String,
     enum: ['Not Hispanic/Latino', 'Hispanic']
   },
-  'Race': {
+  race: {
     type: String,
     enum: ['American Indian/Alaskan Native', 'Asian', 'African-American', 'Native Hawaiian/Pacific Islander ', 'Biracial or Multiracial', 'White', 'Other']
   },
-  'Marital Status': {
+  maritalStatus: {
     type: String,
     enum: ['Single', 'Married', 'Divorced', 'Separated', 'Widow']
   },
-  'Education': String,
-  'Has Disability': Boolean,
-  'Disability': String,
-  'Allergies': String,
-  'Emergency Contact': {
+  education: String,
+  hasDisability: Boolean,
+  disability: String,
+  allergies: String,
+  emergencyContact: {
     type: Schema.ObjectId,
     ref: 'Contact'
   },
