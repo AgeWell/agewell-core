@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-var contactsPolicy = require('./contacts.policy'),
-  contacts = require('./contacts.controller');
+const contactsPolicy = require('./contacts.policy');
+const contacts = require('./contacts.controller');
 
 module.exports = function(app) {
   // Contacts Routes
