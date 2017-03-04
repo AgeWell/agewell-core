@@ -1,8 +1,8 @@
-var fs = require('fs'),
-  defaultAssets = require('../config/assets/default'),
-  gulp = require('gulp'),
-  wiredep = require('wiredep').stream,
-  path = require('path');
+const fs = require('fs');
+const defaultAssets = require('../config/assets/default');
+const gulp = require('gulp');
+const wiredep = require('wiredep').stream;
+const path = require('path');
 
 // wiredep task to default
 gulp.task('wiredep', function() {

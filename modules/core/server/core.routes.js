@@ -3,7 +3,7 @@
 module.exports = function(app) {
 
   // Root routing
-  var core = require('./core.controller');
+  const core = require('./core.controller');
 
   // Define error pages
   app.route('/server-error').get(core.renderServerError);

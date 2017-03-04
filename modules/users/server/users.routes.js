@@ -3,7 +3,7 @@
 module.exports = function (app) {
 
   // User Routes
-  var users = require('./users.controller');
+  const users = require('./users.controller');
 
   // Setting up the users profile api
   app.route('/api/users/me').get(users.me);

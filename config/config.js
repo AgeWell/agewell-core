@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
-  chalk = require('chalk'),
-  glob = require('glob'),
-  fs = require('fs'),
-  path = require('path');
+const _ = require('lodash');
+const chalk = require('chalk');
+const glob = require('glob');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Get files by glob patterns

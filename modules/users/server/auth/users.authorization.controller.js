@@ -3,9 +3,9 @@
 /**
  * Module dependencies
  */
-var _ = require('lodash'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User');
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 /**
  * User middleware

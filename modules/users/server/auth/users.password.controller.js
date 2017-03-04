@@ -3,16 +3,16 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
-  config = require(path.resolve('./config/config')),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  nodemailer = require('nodemailer'),
-  async = require('async'),
-  crypto = require('crypto');
+const path = require('path');
+const config = require(path.resolve('./config/config'));
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const nodemailer = require('nodemailer');
+const async = require('async');
+const crypto = require('crypto');
 
-var smtpTransport = nodemailer.createTransport(config.mailer.options);
+const smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 /**
  * Forgot for reset password (forgot POST)

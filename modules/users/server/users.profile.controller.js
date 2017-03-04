@@ -3,15 +3,15 @@
 /**
  * Module dependencies
  */
-var _ = require('lodash'),
-  fs = require('fs'),
-  path = require('path'),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
-  mongoose = require('mongoose'),
-  multer = require('multer'),
-  config = require(path.resolve('./config/config')),
-  User = mongoose.model('User'),
-  validator = require('validator');
+const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const mongoose = require('mongoose');
+const multer = require('multer');
+const config = require(path.resolve('./config/config'));
+const User = mongoose.model('User');
+const validator = require('validator');
 
 var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
 

@@ -3,10 +3,10 @@
 /**
  * Module dependencies.
  */
-var config = require('../config'),
-  mongoose = require('./mongoose'),
-  express = require('./express'),
-  chalk = require('chalk');
+const config = require('../config');
+const mongoose = require('./mongoose');
+const express = require('./express');
+const chalk = require('chalk');
 
 // Initialize Models
 mongoose.loadModels();

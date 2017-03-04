@@ -1,12 +1,12 @@
 'use strict';
 
-let fs = require('fs'),
-  gulp = require('gulp'),
-  imagemin = require('gulp-imagemin'),
-  pngquant = require('imagemin-pngquant'),
-  templateCache = require('gulp-angular-templatecache'),
-  endOfLine = require('os').EOL,
-  defaultAssets = require('../config/assets/default');
+const fs = require('fs');
+const gulp = require('gulp');
+const imagemin = require('gulp-imagemin');
+const pngquant = require('imagemin-pngquant');
+const templateCache = require('gulp-angular-templatecache');
+const endOfLine = require('os').EOL;
+const defaultAssets = require('../config/assets/default');
 
 // Imagemin task
 gulp.task('imagemin', function() {

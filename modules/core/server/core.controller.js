@@ -1,9 +1,9 @@
 'use strict';
 
-var validator = require('validator'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  config = require(path.resolve('./config/config'));
+const validator = require('validator');
+const path = require('path');
+const mongoose = require('mongoose');
+const config = require(path.resolve('./config/config'));
 
 /**
  * Render the main application page

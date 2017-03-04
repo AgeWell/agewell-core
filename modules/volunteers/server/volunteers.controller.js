@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
-var path = require('path'),
-  mongoose = require('mongoose'),
-  Volunteer = mongoose.model('Volunteer'),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
-  _ = require('lodash');
+const path = require('path');
+const mongoose = require('mongoose');
+const Volunteer = mongoose.model('Volunteer');
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const _ = require('lodash');
 
 /**
  * Create a Volunteer

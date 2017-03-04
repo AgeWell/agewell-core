@@ -1,9 +1,9 @@
-let _ = require('lodash'),
-  fs = require('fs'),
-  defaultAssets = require('../config/assets/default'),
-  gulp = require('gulp'),
-  csslint = require('gulp-csslint'),
-  eslint = require('gulp-eslint');
+const _ = require('lodash');
+const fs = require('fs');
+const defaultAssets = require('../config/assets/default');
+const gulp = require('gulp');
+const csslint = require('gulp-csslint');
+const eslint = require('gulp-eslint');
 
 // CSS linting task
 gulp.task('csslint', function() {

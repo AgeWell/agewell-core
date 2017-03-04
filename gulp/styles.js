@@ -1,12 +1,12 @@
-var fs = require('fs'),
-  defaultAssets = require('../config/assets/default'),
-  gulp = require('gulp'),
-  gulpLoadPlugins = require('gulp-load-plugins'),
-  plugins = gulpLoadPlugins({
-    rename: {
-      'gulp-angular-templatecache': 'templateCache'
-    }
-  });
+const fs = require('fs');
+const defaultAssets = require('../config/assets/default');
+const gulp = require('gulp');
+const gulpLoadPlugins = require('gulp-load-plugins');
+const plugins = gulpLoadPlugins({
+  rename: {
+    'gulp-angular-templatecache': 'templateCache'
+  }
+});
 
 // CSS minifying task
 gulp.task('cssmin', function() {

@@ -3,14 +3,14 @@
 /**
  * Module dependencies
  */
-var mongoose = require('mongoose'),
-  path = require('path'),
-  config = require(path.resolve('./config/config')),
-  Schema = mongoose.Schema,
-  crypto = require('crypto'),
-  validator = require('validator'),
-  generatePassword = require('generate-password'),
-  owasp = require('owasp-password-strength-test');
+const mongoose = require('mongoose');
+const path = require('path');
+const config = require(path.resolve('./config/config'));
+const Schema = mongoose.Schema;
+const crypto = require('crypto');
+const validator = require('validator');
+const generatePassword = require('generate-password');
+const owasp = require('owasp-password-strength-test');
 
 owasp.config(config.shared.owasp);
 

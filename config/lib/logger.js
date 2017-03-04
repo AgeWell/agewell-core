@@ -1,10 +1,10 @@
 'use strict';
 
-var _ = require('lodash'),
-  config = require('../config'),
-  chalk = require('chalk'),
-  fs = require('fs'),
-  winston = require('winston');
+const _ = require('lodash');
+const config = require('../config');
+const chalk = require('chalk');
+const fs = require('fs');
+const winston = require('winston');
 
 // list of valid formats for the logging
 var validFormats = ['combined', 'common', 'dev', 'short', 'tiny'];

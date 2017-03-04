@@ -3,11 +3,11 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
-  mongoose = require('mongoose'),
-  passport = require('passport'),
-  User = mongoose.model('User');
+const path = require('path');
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const mongoose = require('mongoose');
+const passport = require('passport');
+const User = mongoose.model('User');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [

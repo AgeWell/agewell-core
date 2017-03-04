@@ -3,12 +3,12 @@
 /**
  * Module dependencies.
  */
-var path = require('path'),
-  mongoose = require('mongoose'),
-  Client = mongoose.model('Client'),
-  Contact = mongoose.model('Contact'),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller')),
-  _ = require('lodash');
+const path = require('path');
+const mongoose = require('mongoose');
+const Client = mongoose.model('Client');
+const Contact = mongoose.model('Contact');
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const _ = require('lodash');
 
 /**
  * Create a Client

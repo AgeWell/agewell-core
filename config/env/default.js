@@ -64,5 +64,4 @@ module.exports = {
       minOptionalTestsToPass: 3
     }
   }
-
 };

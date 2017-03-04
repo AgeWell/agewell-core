@@ -1,8 +1,8 @@
-let _ = require('lodash'),
-  fs = require('fs'),
-  defaultAssets = require('../config/assets/default'),
-  gulp = require('gulp'),
-  nodemon = require('gulp-nodemon');
+const _ = require('lodash');
+const fs = require('fs');
+const defaultAssets = require('../config/assets/default');
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
 
 // Nodemon task
 gulp.task('nodemon', function() {
