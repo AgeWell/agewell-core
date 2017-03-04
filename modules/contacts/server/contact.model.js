@@ -3,10 +3,10 @@
 /**
  * Module dependencies.
  */
-let mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  Address = require('./address/address.model'),
-  validator = require('validator');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Address = mongoose.model('Address');
+const validator = require('validator');
 
 /**
  * A Validation function for local strategy email
@@ -37,7 +37,7 @@ let ContactSchema = new Schema({
       maxlength: 1
     }
   },
-  addresses: [Address],
+  addresses: [Address.schema],
   phones: [{
     number: String,
     type: {
@@ -105,9 +105,9 @@ let ContactSchema = new Schema({
 //   .get(function() {
 //     return this.name.first + ' ' + this.name.last;
 //   });
-  // .set(function(v) {
-  //   this.name.first = v.substr(0, v.indexOf(' '));
-  //   this.name.last = v.substr(v.indexOf(' ') + 1);
-  // });
+// .set(function(v) {
+//   this.name.first = v.substr(0, v.indexOf(' '));
+//   this.name.last = v.substr(v.indexOf(' ') + 1);
+// });
 
 module.exports = mongoose.model('Contact', ContactSchema);

@@ -3,14 +3,14 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  statesArray = require('./states.data');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const statesArray = require('./states.data');
 
 /**
  * Address Schema
  */
-module.exports = new Schema({
+const AddressSchema = new Schema({
   street: String,
   additional: String,
   city: String,
@@ -27,3 +27,5 @@ module.exports = new Schema({
   },
   township: String
 });
+
+module.exports = mongoose.model('Address', AddressSchema);
