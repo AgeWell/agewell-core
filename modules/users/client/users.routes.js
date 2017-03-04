@@ -41,7 +41,7 @@
       })
       .state('settings.accounts', {
         url: '/accounts',
-        templateUrl: '/modules/users/client/profile/views/manage-social-accounts.html',
+        templateUrl: '/modules/users/client/profile/views/social-accounts.html',
         controller: 'SocialAccountsController',
         controllerAs: 'vm',
         data: {
