@@ -22,7 +22,7 @@ const del = require('del');
 var changedTestFiles = [];
 
 // Mocha tests task
-gulp.task('mocha', function (done) {
+gulp.task('mocha', function(done) {
   // Open mongoose connections
   var mongoose = require('../config/lib/mongoose.js');
   // var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
@@ -30,7 +30,7 @@ gulp.task('mocha', function (done) {
   var error;
 
   // Connect mongoose
-  mongoose.connect(function () {
+  mongoose.connect(function() {
     mongoose.loadModels();
 
     // Run the tests
@@ -39,23 +39,24 @@ gulp.task('mocha', function (done) {
         reporter: 'spec',
         timeout: 10000
       }))
-      .on('error', function (err) {
+      .on('error', function(err) {
         console.error(err);
 
         // If an error occurs, save it
         error = err;
       })
-      .on('end', function () {
+      .on('end', function() {
         // When the tests are done, disconnect mongoose and pass the error state back to gulp
-        mongoose.disconnect(function () {
+        mongoose.disconnect(function() {
           done(error);
+          process.exit();
         });
       });
   });
 });
 
 // Prepare istanbul coverage test
-gulp.task('pre-test', function () {
+gulp.task('pre-test', function() {
 
   // Display coverage for all server JavaScript files
   return gulp.src(defaultAssets.server.allJS)
@@ -66,12 +67,14 @@ gulp.task('pre-test', function () {
 });
 
 // Run istanbul test and write report
-gulp.task('mocha:coverage', ['pre-test', 'mocha'], function () {
+gulp.task('mocha:coverage', ['pre-test', 'mocha'], function() {
   var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
 
   return gulp.src(testSuites)
     .pipe(plugins.istanbul.writeReports({
-      reportOpts: { dir: '../coverage/server' }
+      reportOpts: {
+        dir: '../coverage/server'
+      }
     }));
 });
 
@@ -110,8 +113,8 @@ gulp.task('mocha:coverage', ['pre-test', 'mocha'], function () {
 // });
 
 // Make sure upload directory exists
-gulp.task('makeUploadsDir', function () {
-  return fs.mkdir('public/uploads', function (err) {
+gulp.task('makeUploadsDir', function() {
+  return fs.mkdir('public/uploads', function(err) {
     if (err && err.code !== 'EEXIST') {
       console.error(err);
     }
@@ -119,12 +122,12 @@ gulp.task('makeUploadsDir', function () {
 });
 
 // Drops the MongoDB database, used in e2e testing
-gulp.task('dropdb', function (done) {
+gulp.task('dropdb', function(done) {
   // Use mongoose configuration
   var mongoose = require('../config/lib/mongoose.js');
 
-  mongoose.connect(function (db) {
-    db.connection.db.dropDatabase(function (err) {
+  mongoose.connect(function(db) {
+    db.connection.db.dropDatabase(function(err) {
       if (err) {
         console.error(err);
       } else {
@@ -163,11 +166,11 @@ gulp.task('dropdb', function (done) {
 
 
 // Run the project tests
-gulp.task('test', function (done) {
+gulp.task('test', function(done) {
   runSequence('env:test', 'test:server', 'karma', 'nodemon', 'protractor', done);
 });
 
-gulp.task('test:server', function (done) {
+gulp.task('test:server', function(done) {
   runSequence('env:test', ['makeUploadsDir', 'dropdb'], 'lint', 'mocha', done);
 });
 
@@ -184,6 +187,6 @@ gulp.task('test:server', function (done) {
 //   runSequence('env:test', 'lint', 'dropdb', 'nodemon', 'protractor', done);
 // });
 
-gulp.task('test:coverage', function (done) {
+gulp.task('test:coverage', function(done) {
   runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', done);
 });
