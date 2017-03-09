@@ -3,8 +3,8 @@
     <h1>{{vm.client._id ? 'Edit Client' : 'New Client'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.clientForm" class="form-horizontal" ng-submit="vm.save(vm.form.clientForm.$valid)" novalidate>
-      <contact-information contact="vm.client.contact" error="vm.error"></contact-information>
+    <form name="vm.clientForm" class="form-horizontal" ng-submit="vm.save(vm.clientForm.$valid)" novalidate>
+      <contact-information contact="vm.client.contact" error="vm.error" form="vm.clientForm"></contact-information>
       <fieldset class="col-md-12">
         <div class="form-group">
           <label>Monthly Income Single</label>

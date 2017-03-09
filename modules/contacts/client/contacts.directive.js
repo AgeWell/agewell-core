@@ -10,6 +10,7 @@
       restrict: 'E',
       scope: {
         contact: '=',
+        form: '=',
         error: '='
       },
       controller: 'ContactsController',

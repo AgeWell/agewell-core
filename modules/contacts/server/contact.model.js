@@ -50,7 +50,7 @@ let ContactSchema = new Schema({
     default: '',
     validate: [validateEmail, 'Please fill a valid email address']
   },
-  birthDay: {
+  birthday: {
     type: Date
   },
   gender: {

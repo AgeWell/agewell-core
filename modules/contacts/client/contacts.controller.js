@@ -12,10 +12,11 @@
     var vm = this;
     vm.options = coreService.getOptions('Contact');
 
+    console.log(vm.contact);
+
     $scope.dateOptions = {
       formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
+      maxDate: new Date(),
       startingDay: 1
     };
 
@@ -26,8 +27,5 @@
     $scope.popup1 = {
       opened: false
     };
-
-    vm.error = null;
-    vm.form = {};
   }
 }());

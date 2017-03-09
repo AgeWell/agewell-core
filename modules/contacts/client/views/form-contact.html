@@ -3,7 +3,7 @@
     <div class="form-group" show-errors>
       <label for="firstName">First Name</label>
       <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.contact.name.first" placeholder="First Name" required autofocus>
-      <div ng-messages="vm.userForm.name.first.$error" role="alert">
+      <div ng-messages="vm.form.firstName.$error" role="alert">
         <p class="help-block error-text" ng-message="required">First name is required.</p>
       </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="form-group" show-errors>
       <label for="lastName">Last Name</label>
       <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.contact.name.last" placeholder="Last Name" required>
-      <div ng-messages="vm.userForm.name.last.$error" role="alert">
+      <div ng-messages="vm.form.lastName.$error" role="alert">
         <p class="help-block error-text" ng-message="required">Last name is required.</p>
       </div>
     </div>
@@ -49,7 +49,7 @@
   <div class="form-group" show-errors>
     <label for="email">Email</label>
     <input type="email" id="email" name="email" class="form-control" ng-model="vm.contact.email" placeholder="Email" lowercase>
-    <div ng-messages="vm.userForm.email.$error" role="alert">
+    <div ng-messages="vm.form.email.$error" role="alert">
       <p class="help-block error-text" ng-message="required">Email address is required.</p>
       <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
     </div>
@@ -57,20 +57,25 @@
 </fieldset>
 <fieldset class="col-md-12 row">
   <div class="col-md-2">
-    <label for="email">Birth Day</label>
-    <p class="input-group">
-      <input type="text" class="form-control" uib-datepicker-popup="M/dd/yyyy" ng-model="vm.contact.birthDay" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
-      <span class="input-group-btn">
+    <div class="form-group" show-errors>
+      <label for="email">Birthday</label>
+      <p class="input-group">
+        <input name="birthday" type="text" class="form-control" uib-datepicker-popup="M/dd/yyyy" ng-model="vm.contact.birthday" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+        <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
       </span>
-    </p>
+      </p>
+      <div ng-messages="vm.form.birthday.$error" role="alert">
+        <p class="help-block error-text" ng-message="birthday">Birthday is invalid.</p>
+      </div>
+    </div>
   </div>
   <div class="col-md-10">
     <div class="form-group">
       <label>Gender</label>
       <div>
         <div class="radio-inline" ng-repeat="option in vm.options.gender">
-          <input type="radio" ng-model="vm.client.gender" ng-value="option"> {{option}}
+          <input type="radio" ng-model="vm.contact.gender" ng-value="option"> {{option}}
         </div>
       </div>
     </div>
@@ -78,30 +83,28 @@
 </fieldset>
 <fieldset class="col-md-12">
   <div class="form-group">
-    <label>veteran</label>
+    <label>Veteran</label>
     <div>
-      <div class="radio-inline" ng-repeat="option in vm.options.veteran">
-        <input type="radio" ng-model="vm.client.veteran" ng-value="option"> {{option}}
-      </div>
+      <input type="checkbox" ng-model="vm.contact.veteran">
     </div>
   </div>
 </fieldset>
 <fieldset class="col-md-12">
   <div class="form-group">
-    <label>ethnicity</label>
+    <label>Ethnicity</label>
     <div>
       <div class="radio-inline" ng-repeat="option in vm.options.ethnicity">
-        <input type="radio" ng-model="vm.client.ethnicity" ng-value="option"> {{option}}
+        <input type="radio" ng-model="vm.contact.ethnicity" ng-value="option"> {{option}}
       </div>
     </div>
   </div>
 </fieldset>
 <fieldset class="col-md-12">
   <div class="form-group">
-    <label>race</label>
+    <label>Race</label>
     <div>
       <div class="radio-inline" ng-repeat="option in vm.options.race">
-        <input type="radio" ng-model="vm.client.race" ng-value="option"> {{option}}
+        <input type="radio" ng-model="vm.contact.race" ng-value="option"> {{option}}
       </div>
     </div>
   </div>
@@ -111,50 +114,42 @@
     <label>Marital Status</label>
     <div>
       <div class="radio-inline" ng-repeat="option in vm.options.maritalStatus">
-        <input type="radio" ng-model="vm.client.maritalStatus" ng-value="option"> {{option}}
+        <input type="radio" ng-model="vm.contact.maritalStatus" ng-value="option"> {{option}}
       </div>
     </div>
   </div>
 </fieldset>
 <fieldset class="col-md-12">
   <div class="form-group">
-    <label>education</label>
+    <label>Education</label>
     <div>
-      <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeSingle">
-        <input type="radio" ng-model="vm.client.monthlyIncomeSingle" ng-value="option"> {{option}}
-      </div>
+      <input type="text" id="Education" name="Education" class="form-control" ng-model="vm.contact.education" placeholder="Education">
     </div>
   </div>
 </fieldset>
 <fieldset class="col-md-12 row">
   <div class="col-md-2">
     <div class="form-group">
-      <label>hasDisability</label>
+      <label>Has Disability</label>
       <div>
-        <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeSingle">
-          <input type="radio" ng-model="vm.client.monthlyIncomeSingle" ng-value="option"> {{option}}
-        </div>
+        <input type="checkbox" ng-model="vm.contact.hasDisability">
       </div>
     </div>
   </div>
   <div class="col-md-10">
     <div class="form-group">
-      <label>disability</label>
+      <label>Disability</label>
       <div>
-        <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeSingle">
-          <input type="radio" ng-model="vm.client.monthlyIncomeSingle" ng-value="option"> {{option}}
-        </div>
+        <input type="text" id="Disability" name="Disability" class="form-control" ng-model="vm.contact.disability" placeholder="Disability">
       </div>
     </div>
   </div>
 </fieldset>
 <fieldset class="col-md-12">
   <div class="form-group">
-    <label>allergies</label>
+    <label>Allergies</label>
     <div>
-      <div class="radio-inline" ng-repeat="option in vm.options.monthlyIncomeSingle">
-        <input type="radio" ng-model="vm.client.monthlyIncomeSingle" ng-value="option"> {{option}}
-      </div>
+      <input type="text" id="allergies" name="Allergies" class="form-control" ng-model="vm.contact.allergies" placeholder="Allergies">
     </div>
   </div>
 </fieldset>

@@ -14,8 +14,6 @@
     vm.authentication = Authentication;
     vm.client = client;
     vm.options = coreService.getOptions('Client');
-    vm.error = null;
-    vm.form = {};
     vm.remove = remove;
     vm.save = save;
 
