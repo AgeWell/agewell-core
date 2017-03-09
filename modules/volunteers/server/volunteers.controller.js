@@ -6,6 +6,7 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const Volunteer = mongoose.model('Volunteer');
+const Contact = mongoose.model('Contact');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 const _ = require('lodash');
 
@@ -13,17 +14,28 @@ const _ = require('lodash');
  * Create a Volunteer
  */
 exports.create = function(req, res) {
+  let contact = new Contact(req.body.contact);
+
   var volunteer = new Volunteer(req.body);
   volunteer.user = req.user;
 
-  volunteer.save(function(err) {
+  volunteer.save(function(err, volunteer) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(volunteer);
     }
+
+    contact.volunteerId = volunteer._id;
+    contact.save(function(err, contact) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      volunteer.contact = contact;
+      res.jsonp(volunteer);
+    });
   });
 };
 
@@ -36,7 +48,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  volunteer.isCurrentUserOwner = req.user && volunteer.user && volunteer.user._id.toString() === req.user._id.toString();
+  volunteer.canEdit = req.user.roles.includes('admin');
 
   res.jsonp(volunteer);
 };
@@ -54,9 +66,15 @@ exports.update = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(volunteer);
     }
+
+    req.body.contact.updated = new Date();
+
+    Contact.findOneAndUpdate({
+      volunteerId: volunteer._id
+    }, req.body.contact, function(err, contact) {
+      res.jsonp(volunteer);
+    });
   });
 };
 
@@ -66,14 +84,17 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var volunteer = req.volunteer;
 
-  volunteer.remove(function(err) {
+  Contact.remove({
+    volunteerId: volunteer._id
+  }).exec(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(volunteer);
     }
+    volunteer.remove(function(err) {
+      res.jsonp(volunteer);
+    });
   });
 };
 

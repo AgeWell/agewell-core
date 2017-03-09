@@ -11,5 +11,7 @@
     var vm = this;
 
     vm.volunteers = VolunteersService.query();
+
+    console.log(vm);
   }
 }());

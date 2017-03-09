@@ -6,17 +6,22 @@
     .module('volunteers')
     .controller('VolunteersController', VolunteersController);
 
-  VolunteersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'volunteerResolve'];
+  VolunteersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'volunteerResolve'];
 
-  function VolunteersController ($scope, $state, $window, Authentication, volunteer) {
+  function VolunteersController ($scope, $state, $window, Authentication, coreService, volunteer) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.volunteer = volunteer;
-    vm.error = null;
-    vm.form = {};
+    vm.options = coreService.getOptions('Volunteer');
     vm.remove = remove;
     vm.save = save;
+
+    if (!vm.volunteer._id) {
+      vm.volunteer.contact = {};
+    }
+
+    console.log(vm);
 
     // Remove existing Volunteer
     function remove() {
@@ -28,6 +33,8 @@
     // Save Volunteer
     function save(isValid) {
       if (!isValid) {
+        console.log(vm);
+
         $scope.$broadcast('show-errors-check-validity', 'vm.form.volunteerForm');
         return false;
       }

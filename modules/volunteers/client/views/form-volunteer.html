@@ -3,12 +3,12 @@
     <h1>{{vm.volunteer._id ? 'Edit Volunteer' : 'New Volunteer'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.volunteerForm" class="form-horizontal" ng-submit="vm.save(vm.form.volunteerForm.$valid)" novalidate>
-      <contact-information contact="vm.volunteer.contact"></contact-information>
-      <fieldset>
+    <form name="vm.volunteerForm" class="form-horizontal" ng-submit="vm.save(vm.volunteerForm.$valid)" novalidate>
+      <contact-form contact="vm.volunteer.contact" error="vm.error" form="vm.volunteerForm"></contact-form>
+      <fieldset class="col-md-12">
         <div class="form-group" show-errors>
           <label class="control-label" for="comments">Comments</label>
-          <textarea name="comments" type="text" ng-model="vm.client.comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
+          <textarea name="comments" type="text" ng-model="vm.volunteer.comments" id="comments" class="form-control" placeholder="Comments"></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.volunteer._id ? 'Update' : 'Create'}}</button>
