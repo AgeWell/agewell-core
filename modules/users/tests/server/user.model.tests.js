@@ -500,10 +500,10 @@ describe('User Model Unit Tests:', function () {
       });
     });
 
-    it('should not allow doudble quote characters in email address - "abc\"def@abc.com"', function (done) {
+    it('should not allow doudble quote characters in email address - "abc"def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc\"def@abc.com';
+      _user1.email = 'abc"def@abc.com';
       _user1.save(function (err) {
         if (err) {
           _user1.remove(function (err_remove) {

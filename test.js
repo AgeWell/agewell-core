@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-require('dotenv').config()
+require('dotenv').config();
 var path = require('path');
 var app = require(path.resolve('./config/lib/app'));
 

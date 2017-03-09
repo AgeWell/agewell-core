@@ -35,6 +35,11 @@ gulp.task('env:prod', function() {
   process.env.NODE_ENV = 'production';
 });
 
+// Set NODE_ENV to 'test'
+gulp.task('env:test', function() {
+  process.env.NODE_ENV = 'test';
+});
+
 // Lint CSS and JavaScript files.
 gulp.task('lint', function(done) {
   runSequence('sass', ['csslint', 'eslint'], done);

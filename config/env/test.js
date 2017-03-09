@@ -4,7 +4,7 @@ const defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/agewell-dev',
+    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/agewell-test',
     options: {
       user: '',
       pass: ''
@@ -24,7 +24,6 @@ module.exports = {
       json: false
     }
   },
-  port: process.env.PORT || 3001,
   app: {
     title: defaultEnvConfig.app.title + ' - Development Environment'
   },
