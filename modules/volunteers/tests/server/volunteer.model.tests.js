@@ -30,8 +30,8 @@ describe('Volunteer Model Unit Tests:', function() {
 
     user.save(function() {
       volunteer = new Volunteer({
-        name: 'Volunteer Name',
-        user: user
+        startingDate: new Date(),
+        active: true
       });
 
       done();
@@ -47,14 +47,14 @@ describe('Volunteer Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without name', function(done) {
-      volunteer.name = '';
-
-      return volunteer.save(function(err) {
-        should.exist(err);
-        done();
-      });
-    });
+    // it('should be able to show an error when try to save without name', function(done) {
+    //   volunteer.name = '';
+    //
+    //   return volunteer.save(function(err) {
+    //     should.exist(err);
+    //     done();
+    //   });
+    // });
   });
 
   afterEach(function(done) {

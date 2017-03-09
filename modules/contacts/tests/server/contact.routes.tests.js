@@ -190,42 +190,6 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of Contacts if not signed in', function (done) {
-    // Create new Contact model instance
-    var contactObj = new Contact(contact);
-
-    // Save the contact
-    contactObj.save(function () {
-      // Request Contacts
-      request(app).get('/api/contacts')
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
-
-          // Call the assertion callback
-          done();
-        });
-
-    });
-  });
-
-  it('should be able to get a single Contact if not signed in', function (done) {
-    // Create new Contact model instance
-    var contactObj = new Contact(contact);
-
-    // Save the Contact
-    contactObj.save(function () {
-      request(app).get('/api/contacts/' + contactObj._id)
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', contact.name);
-
-          // Call the assertion callback
-          done();
-        });
-    });
-  });
-
   it('should return proper error for single Contact with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
     request(app).get('/api/contacts/test')
@@ -313,93 +277,6 @@ describe('Contact CRUD tests', function () {
           done(contactDeleteErr);
         });
 
-    });
-  });
-
-  it('should be able to get a single Contact that has an orphaned user reference', function (done) {
-    // Create orphan user creds
-    var _creds = {
-      username: 'orphan',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create orphan user
-    var _orphan = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'orphan@test.com',
-      username: _creds.username,
-      password: _creds.password,
-      provider: 'local'
-    });
-
-    _orphan.save(function (err, orphan) {
-      // Handle save error
-      if (err) {
-        return done(err);
-      }
-
-      agent.post('/api/auth/signin')
-        .send(_creds)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get the userId
-          var orphanId = orphan._id;
-
-          // Save a new Contact
-          agent.post('/api/contacts')
-            .send(contact)
-            .expect(200)
-            .end(function (contactSaveErr, contactSaveRes) {
-              // Handle Contact save error
-              if (contactSaveErr) {
-                return done(contactSaveErr);
-              }
-
-              // Set assertions on new Contact
-              (contactSaveRes.body.name).should.equal(contact.name);
-              should.exist(contactSaveRes.body.user);
-              should.equal(contactSaveRes.body.user._id, orphanId);
-
-              // force the Contact to have an orphaned user reference
-              orphan.remove(function () {
-                // now signin with valid user
-                agent.post('/api/auth/signin')
-                  .send(credentials)
-                  .expect(200)
-                  .end(function (err, res) {
-                    // Handle signin error
-                    if (err) {
-                      return done(err);
-                    }
-
-                    // Get the Contact
-                    agent.get('/api/contacts/' + contactSaveRes.body._id)
-                      .expect(200)
-                      .end(function (contactInfoErr, contactInfoRes) {
-                        // Handle Contact error
-                        if (contactInfoErr) {
-                          return done(contactInfoErr);
-                        }
-
-                        // Set assertions
-                        (contactInfoRes.body._id).should.equal(contactSaveRes.body._id);
-                        (contactInfoRes.body.name).should.equal(contact.name);
-                        should.equal(contactInfoRes.body.user, undefined);
-
-                        // Call the assertion callback
-                        done();
-                      });
-                  });
-              });
-            });
-        });
     });
   });
 

@@ -28,10 +28,12 @@ describe('Contact Model Unit Tests:', function() {
       password: 'password'
     });
 
-    user.save(function() {
+    user.save(function(err, user) {
       contact = new Contact({
-        name: 'Contact Name',
-        user: user
+        name: {
+          first: 'test',
+          last: 'user'
+        }
       });
 
       done();
