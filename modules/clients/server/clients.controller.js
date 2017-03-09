@@ -58,6 +58,8 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var client = req.client;
 
+  console.log(client);
+
   client = _.extend(client, req.body);
 
   client.save(function(err) {

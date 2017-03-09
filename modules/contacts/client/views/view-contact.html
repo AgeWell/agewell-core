@@ -1,26 +1,21 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.contact.name"></h1>
-  </div>
-  <div class="pull-right"
-       ng-show="vm.contact.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="contacts.edit({ contactId: vm.contact._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.contact.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.contact.user"
-            ng-bind="vm.contact.user.displayName"></span>
-      <span ng-if="!vm.contact.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.contact.content"></p>
-</section>
+<h4>Address</h4>
+<p>
+  <div ng-bind="vm.contact.address.street"></div>
+  <div ng-bind="vm.contact.address.additional" ng-show="vm.contact.address.additional"></div>
+  <span ng-bind="vm.contact.address.city"></span>,
+  <span ng-bind="vm.contact.address.state"></span>
+  <span ng-bind="vm.contact.address.zipcode"></span>
+</p>
+<p><strong>Home Phone:</strong> {{vm.contact.homePhone}}</p>
+<p><strong>Work Phone:</strong> {{vm.contact.workPhone}}</p>
+<p><strong>Cell Phone:</strong> {{vm.contact.cellPhone}}</p>
+<p><strong>Birthday:</strong> {{vm.contact.birthday}}</p>
+<p><strong>Gender:</strong> {{vm.contact.gender}}</p>
+<p><strong>Veteran:</strong> {{vm.contact.veteran}}</p>
+<p><strong>Ethnicity:</strong> {{vm.contact.veteran}}</p>
+<p><strong>Race:</strong> {{vm.contact.race}}</p>
+<p><strong>Marital Status:</strong> {{vm.contact.maritalStatus}}</p>
+<p><strong>Education:</strong> {{vm.contact.education}}</p>
+<p><strong>Has Disability:</strong> {{vm.contact.veteran}}</p>
+<p><strong>Disability:</strong> {{vm.contact.disability}}</p>
+<p><strong>Allergies:</strong> {{vm.contact.allergies}}</p>

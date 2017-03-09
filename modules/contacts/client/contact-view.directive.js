@@ -3,20 +3,18 @@
 
   angular
     .module('contacts')
-    .directive('contactInformation', contactInformation);
+    .directive('contactView', contactView);
 
-  function contactInformation() {
+  function contactView() {
     var directive = {
       restrict: 'E',
       scope: {
-        contact: '=',
-        form: '=',
-        error: '='
+        contact: '='
       },
       controller: 'ContactsController',
       controllerAs: 'vm',
       bindToController: true,
-      templateUrl: '/modules/contacts/client/views/form-contact.html'
+      templateUrl: '/modules/contacts/client/views/view-contact.html'
     };
 
     return directive;
