@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const path = require('path');
 const config = require('../config');
 const mongoose = require('mongoose');
 const chalk = require('chalk');
@@ -9,10 +10,12 @@ const crypto = require('crypto');
 // global seed options object
 var seedOptions = {};
 
-function removeUser (user) {
-  return new Promise(function (resolve, reject) {
+function removeUser(user) {
+  return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
-    User.find({ username: user.username }).remove(function (err) {
+    User.find({
+      username: user.username
+    }).remove(function(err) {
       if (err) {
         reject(new Error('Failed to remove local ' + user.username));
       }
@@ -21,11 +24,11 @@ function removeUser (user) {
   });
 }
 
-function saveUser (user) {
+function saveUser(user) {
   return function() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       // Then save the user
-      user.save(function (err, theuser) {
+      user.save(function(err, theuser) {
         if (err) {
           reject(new Error('Failed to add local ' + user.username));
         } else {
@@ -36,10 +39,12 @@ function saveUser (user) {
   };
 }
 
-function checkUserNotExists (user) {
-  return new Promise(function (resolve, reject) {
+function checkUserNotExists(user) {
+  return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
-    User.find({ username: user.username }, function (err, users) {
+    User.find({
+      username: user.username
+    }, function(err, users) {
       if (err) {
         reject(new Error('Failed to find local account ' + user.username));
       }
@@ -53,9 +58,9 @@ function checkUserNotExists (user) {
   });
 }
 
-function reportSuccess (password) {
-  return function (user) {
-    return new Promise(function (resolve, reject) {
+function reportSuccess(password) {
+  return function(user) {
+    return new Promise(function(resolve, reject) {
       if (seedOptions.logResults) {
         console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
       }
@@ -65,9 +70,9 @@ function reportSuccess (password) {
 }
 
 // save the specified user with the password provided from the resolved promise
-function seedTheUser (user) {
-  return function (password) {
-    return new Promise(function (resolve, reject) {
+function seedTheUser(user) {
+  return function(password) {
+    return new Promise(function(resolve, reject) {
 
       var User = mongoose.model('User');
       // set the new password
@@ -77,20 +82,20 @@ function seedTheUser (user) {
         checkUserNotExists(user)
           .then(saveUser(user))
           .then(reportSuccess(password))
-          .then(function () {
+          .then(function() {
             resolve();
           })
-          .catch(function (err) {
+          .catch(function(err) {
             reject(err);
           });
       } else {
         removeUser(user)
           .then(saveUser(user))
           .then(reportSuccess(password))
-          .then(function () {
+          .then(function() {
             resolve();
           })
-          .catch(function (err) {
+          .catch(function(err) {
             reject(err);
           });
       }
@@ -99,8 +104,8 @@ function seedTheUser (user) {
 }
 
 // report the error
-function reportError (reject) {
-  return function (err) {
+function reportError(reject) {
+  return function(err) {
     if (seedOptions.logResults) {
       console.log();
       console.log('Database Seeding:\t\t\t' + err);
@@ -108,6 +113,23 @@ function reportError (reject) {
     }
     reject(err);
   };
+}
+
+function loadSeeds(callback) {
+  let totalSeeds = config.files.server.seeds.length;
+  let seeded = 0;
+  // Globbing model files
+  config.files.server.seeds.forEach(function(seedPath) {
+    console.log('\n\n\n\n\nSeeding\n\n\n\n\n' + seedPath + '\n\n\n\n\n\n');
+    require(path.resolve(seedPath)).seed(function() {
+      seeded + 1;
+      if (seeded === totalSeeds) {
+        if (callback) {
+          callback();
+        }
+      }
+    });
+  });
 }
 
 module.exports.start = function start(options) {
@@ -129,30 +151,32 @@ module.exports.start = function start(options) {
   }
 
   var User = mongoose.model('User');
-  return new Promise(function (resolve, reject) {
 
+  return new Promise(function(resolve, reject) {
     var adminAccount = new User(seedOptions.seedAdmin);
     var userAccount = new User(seedOptions.seedUser);
 
-    // If production only seed admin if it does not exist
-    if (process.env.NODE_ENV === 'production') {
-      User.generateRandomPassphrase()
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
-    } else {
-      // Add both Admin and User account
+    loadSeeds(function() {
+      // If production only seed admin if it does not exist
+      if (process.env.NODE_ENV === 'production') {
+        User.generateRandomPassphrase()
+          .then(seedTheUser(adminAccount))
+          .then(function() {
+            resolve();
+          })
+          .catch(reportError(reject));
+      } else {
+        // Add both Admin and User account
 
-      User.generateRandomPassphrase()
-        .then(seedTheUser(userAccount))
-        .then(User.generateRandomPassphrase)
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
-    }
+        User.generateRandomPassphrase()
+          .then(seedTheUser(userAccount))
+          .then(User.generateRandomPassphrase)
+          .then(seedTheUser(adminAccount))
+          .then(function() {
+            resolve();
+          })
+          .catch(reportError(reject));
+      }
+    });
   });
 };

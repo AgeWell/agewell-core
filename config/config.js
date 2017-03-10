@@ -12,7 +12,7 @@ const path = require('path');
 /**
  * Get files by glob patterns
  */
-var getGlobbedPaths = function (globPatterns, excludes) {
+var getGlobbedPaths = function(globPatterns, excludes) {
   // URL paths regex
   var urlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
 
@@ -22,7 +22,7 @@ var getGlobbedPaths = function (globPatterns, excludes) {
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns)) {
     // console.log(globPatterns);
-    globPatterns.forEach(function (globPattern) {
+    globPatterns.forEach(function(globPattern) {
       output = _.union(output, getGlobbedPaths(globPattern, excludes));
     });
   } else if (_.isString(globPatterns)) {
@@ -31,7 +31,7 @@ var getGlobbedPaths = function (globPatterns, excludes) {
     } else {
       var files = glob.sync(globPatterns);
       if (excludes) {
-        files = files.map(function (file) {
+        files = files.map(function(file) {
           if (_.isArray(excludes)) {
             excludes.forEach(function(exclude, key) {
               file = file.replace(exclude, '');
@@ -54,7 +54,7 @@ var getGlobbedPaths = function (globPatterns, excludes) {
 /**
  * Validate NODE_ENV existence
  */
-var validateEnvironmentVariable = function () {
+var validateEnvironmentVariable = function() {
   var environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '.js');
   console.log();
   if (!environmentFiles.length) {
@@ -71,7 +71,7 @@ var validateEnvironmentVariable = function () {
 
 /** Validate config.domain is set
  */
-var validateDomainIsSet = function (config) {
+var validateDomainIsSet = function(config) {
   if (!config.domain) {
     console.log(chalk.red('+ Important warning: config.domain is empty. It should be set to the fully qualified domain of the app.'));
   }
@@ -81,7 +81,7 @@ var validateDomainIsSet = function (config) {
  * Validate Secure=true parameter can actually be turned on
  * because it requires certs and key files to be available
  */
-var validateSecureMode = function (config) {
+var validateSecureMode = function(config) {
 
   if (!config.secure || config.secure.ssl !== true) {
     return true;
@@ -101,7 +101,7 @@ var validateSecureMode = function (config) {
 /**
  * Validate Session Secret parameter is not set to default in production
  */
-var validateSessionSecret = function (config, testing) {
+var validateSessionSecret = function(config, testing) {
 
   if (process.env.NODE_ENV !== 'production') {
     return true;
@@ -123,7 +123,7 @@ var validateSessionSecret = function (config, testing) {
 /**
  * Initialize global configuration files
  */
-var initGlobalConfigFolders = function (config, assets) {
+var initGlobalConfigFolders = function(config, assets) {
   // Appending files
   config.folders = {
     server: {},
@@ -137,7 +137,7 @@ var initGlobalConfigFolders = function (config, assets) {
 /**
  * Initialize global configuration files
  */
-var initGlobalConfigFiles = function (config, assets) {
+var initGlobalConfigFiles = function(config, assets) {
   // Appending files
   config.files = {
     server: {},
@@ -146,6 +146,9 @@ var initGlobalConfigFiles = function (config, assets) {
 
   // Setting Globbed model files
   config.files.server.models = getGlobbedPaths(assets.server.models);
+
+  // Setting Globbed seed files
+  config.files.server.seeds = getGlobbedPaths(assets.server.seeds);
 
   // Setting Globbed route files
   config.files.server.routes = getGlobbedPaths(assets.server.routes);
@@ -172,7 +175,7 @@ var initGlobalConfigFiles = function (config, assets) {
 /**
  * Initialize global configuration
  */
-var initGlobalConfig = function () {
+var initGlobalConfig = function() {
   // Validate NODE_ENV existence
   validateEnvironmentVariable();
 
