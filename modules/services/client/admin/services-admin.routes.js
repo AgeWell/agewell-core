@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  // Setting up route
   angular
     .module('services.admin')
     .config(routeConfig);
@@ -11,7 +10,12 @@
   function routeConfig($stateProvider) {
     $stateProvider
       .state('admin.services', {
+        abstract: true,
         url: '/services',
+        template: '<ui-view/>'
+      })
+      .state('admin.services.list', {
+        url: '',
         templateUrl: '/modules/services/client/admin/views/list-services.html',
         controller: 'ServicesAdminListController',
         controllerAs: 'vm',
@@ -19,21 +23,9 @@
           pageTitle: 'Services List'
         }
       })
-      .state('admin.services.view', {
-        url: '/:serviceId',
-        templateUrl: '/modules/services/client/admin/views/view-service.html',
-        controller: 'ServicesAdminController',
-        controllerAs: 'vm',
-        resolve: {
-          serviceResolve: getService
-        },
-        data: {
-          pageTitle: 'Edit {{ serviceResolve.displayName }}'
-        }
-      })
       .state('admin.services.create', {
         url: '/create',
-        templateUrl: 'modules/services/client/views/form-service.html',
+        templateUrl: '/modules/services/client/admin/views/edit-service.html',
         controller: 'ServicesAdminController',
         controllerAs: 'vm',
         resolve: {
@@ -53,6 +45,18 @@
         },
         data: {
           pageTitle: 'Edit Service {{ serviceResolve.name }}'
+        }
+      })
+      .state('admin.services.view', {
+        url: '/:serviceId',
+        templateUrl: '/modules/services/client/admin/views/view-service.html',
+        controller: 'ServicesAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          serviceResolve: getService
+        },
+        data: {
+          pageTitle: 'Service {{ serviceResolve.name }}'
         }
       });
 

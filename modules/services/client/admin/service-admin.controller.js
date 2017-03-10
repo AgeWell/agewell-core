@@ -5,16 +5,19 @@
     .module('services.admin')
     .controller('ServicesAdminController', ServicesAdminController);
 
-  ServicesAdminController.$inject = ['$scope', '$state', '$window', 'Authentication', 'serviceResolve', 'Notification'];
+  ServicesAdminController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'serviceResolve', 'Notification'];
 
-  function ServicesAdminController($scope, $state, $window, Authentication, service, Notification) {
+  function ServicesAdminController($scope, $state, $window, Authentication, coreService, service, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.service = service;
+    // vm.options = coreService.getOptions('Service');
+    vm.error = null;
     vm.remove = remove;
-    vm.update = update;
-    vm.isContextServiceSelf = isContextServiceSelf;
+    vm.save = save;
+
+    console.log(vm);
 
     function remove(service) {
       if ($window.confirm('Are you sure you want to delete this service?')) {
@@ -32,27 +35,30 @@
       }
     }
 
-    function update(isValid) {
+    function save(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.serviceForm');
 
         return false;
       }
 
-      var service = vm.service;
+      if (vm.service._id) {
+        vm.service.$update(successCallback, errorCallback);
+      } else {
+        vm.service.$save(successCallback, errorCallback);
+      }
 
-      service.$update(function () {
-        $state.go('admin.service', {
-          serviceId: service._id
+      function successCallback(res) {
+        $state.go('admin.services.view', {
+          serviceId: res._id
         });
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Service saved successfully!' });
-      }, function (errorResponse) {
-        Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Service update error!' });
-      });
-    }
+      }
 
-    function isContextServiceSelf() {
-      return vm.service.servicename === vm.authentication.service.servicename;
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Service update error!' });
+      }
     }
   }
 }());
