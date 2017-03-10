@@ -111,7 +111,7 @@ describe('Configuration Tests:', function () {
         users.should.be.instanceof(Array).and.have.lengthOf(0);
 
         seed
-          .users({ logResults: false })
+          .start({ logResults: false })
           .then(function() {
             User.find({ username: adminFromSeedConfig.username }, function(err, users) {
               should.not.exist(err);
@@ -146,7 +146,7 @@ describe('Configuration Tests:', function () {
         users.should.be.instanceof(Array).and.have.lengthOf(0);
 
         seed
-          .users({ logResults: false })
+          .start({ logResults: false })
           .then(function() {
             User.find({ username: adminFromSeedConfig.username }, function(err, users) {
               should.not.exist(err);
@@ -200,7 +200,7 @@ describe('Configuration Tests:', function () {
             users.should.be.instanceof(Array).and.have.lengthOf(2);
 
             seed
-              .users({ logResults: false })
+              .start({ logResults: false })
               .then(function () {
                 User.find({ username: { $in: [adminFromSeedConfig.username, userFromSeedConfig.username] } }, function (err, users) {
                   should.not.exist(err);
@@ -234,7 +234,7 @@ describe('Configuration Tests:', function () {
         users.should.be.instanceof(Array).and.have.lengthOf(0);
 
         seed
-          .users({ logResults: false, seedAdmin: admin1 })
+          .start({ logResults: false, seedAdmin: admin1 })
           .then(function() {
             User.find({ username: admin1.username }, function(err, users) {
               should.not.exist(err);
@@ -269,7 +269,7 @@ describe('Configuration Tests:', function () {
         users.should.be.instanceof(Array).and.have.lengthOf(0);
 
         seed
-          .users({ logResults: false, seedAdmin: admin1, seedUser: user1 })
+          .start({ logResults: false, seedAdmin: admin1, seedUser: user1 })
           .then(function() {
             User.find({ username: admin1.username }, function(err, users) {
               should.not.exist(err);
@@ -314,7 +314,7 @@ describe('Configuration Tests:', function () {
         user.username.should.equal(adminFromSeedConfig.username);
 
         seed
-          .users({ logResults: false })
+          .start({ logResults: false })
           .then(function () {
             // we don't ever expect to make it here but we don't want to timeout
             User.remove(function(err) {
@@ -354,7 +354,7 @@ describe('Configuration Tests:', function () {
       _user.email = '';
 
       seed
-        .users({ logResults: false, seedUser: _user })
+        .start({ logResults: false, seedUser: _user })
         .then(function () {
           // we don't ever expect to make it here but we don't want to timeout
           User.remove(function(err) {

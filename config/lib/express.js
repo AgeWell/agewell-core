@@ -203,7 +203,7 @@ module.exports.initErrorRoutes = function(app) {
   });
 };
 
-module.exports.seedData = function() {
+module.exports.seedData = function(app) {
   let totalSeeds = config.files.server.seeds.length;
   let seeded = 0;
 
@@ -241,7 +241,7 @@ module.exports.init = function(db) {
 
   // Seed data
   if (config.seedDB.seed) {
-    this.seedData();
+    this.seedData(app);
   }
 
   // Initialize local variables
