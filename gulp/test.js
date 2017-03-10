@@ -71,44 +71,10 @@ gulp.task('mocha:coverage', ['pre-test', 'mocha'], function() {
   return gulp.src(testSuites)
     .pipe(plugins.istanbul.writeReports({
       reportOpts: {
-        dir: '../coverage/server'
+        dir: './coverage/server'
       }
     }));
 });
-
-// // Karma test runner task
-// gulp.task('karma', function (done) {
-//   new KarmaServer({
-//     configFile: path.join(__dirname, '/karma.conf.js')
-//   }, done).start();
-// });
-//
-// // Run karma with coverage options set and write report
-// gulp.task('karma:coverage', function(done) {
-//   new KarmaServer({
-//     configFile: path.join(__dirname, '/karma.conf.js'),
-//     preprocessors: {
-//       'modules/*/client/views/**/*.html': ['ng-html2js'],
-//       'modules/core/client/app/config.js': ['coverage'],
-//       'modules/core/client/app/init.js': ['coverage'],
-//       'modules/*/client/*.js': ['coverage'],
-//       'modules/*/client/config/*.js': ['coverage'],
-//       'modules/*/client/controllers/*.js': ['coverage'],
-//       'modules/*/client/directives/*.js': ['coverage'],
-//       'modules/*/client/services/*.js': ['coverage']
-//     },
-//     reporters: ['progress', 'coverage'],
-//     coverageReporter: {
-//       dir: 'coverage/client',
-//       reporters: [
-//         { type: 'lcov', subdir: '.' }
-//         // printing summary to console currently weirdly causes gulp to hang so disabled for now
-//         // https://github.com/karma-runner/karma-coverage/issues/209
-//         // { type: 'text-summary' }
-//       ]
-//     }
-//   }, done).start();
-// });
 
 // Make sure upload directory exists
 gulp.task('makeUploadsDir', function() {
@@ -136,61 +102,10 @@ gulp.task('dropdb', function(done) {
   });
 });
 
-// Downloads the selenium webdriver
-// gulp.task('webdriver_update', webdriver_update);
-
-// Start the standalone selenium server
-// NOTE: This is not needed if you reference the
-// seleniumServerJar in your protractor.conf.js
-// gulp.task('webdriver_standalone', webdriver_standalone);
-
-// Protractor test runner task
-// gulp.task('protractor', ['webdriver_update'], function () {
-//   gulp.src([])
-//     .pipe(protractor({
-//       configFile: 'protractor.conf.js'
-//     }))
-//     .on('end', function() {
-//       console.log('E2E Testing complete');
-//       // exit with success.
-//       process.exit(0);
-//     })
-//     .on('error', function(err) {
-//       console.error('E2E Tests failed:');
-//       console.error(err);
-//       process.exit(1);
-//     });
-// });
-
-
 // Run the project tests
 gulp.task('test', function(done) {
-//   runSequence(
-//     'env:test',
-//     'test:server',
-//     // 'karma',
-//     // 'nodemon',
-//     // 'protractor',
-//     done
-//   );
-// });
-//
-// gulp.task('test:server', function(done) {
   runSequence('env:test', ['makeUploadsDir', 'dropdb'], 'lint', 'mocha', done);
 });
-
-// Watch all server files for changes & run server tests (test:server) task on changes
-// gulp.task('test:server:watch', function (done) {
-//   runSequence('test:server', 'watch:server:run-tests', done);
-// });
-
-// gulp.task('test:client', function (done) {
-//   runSequence('env:test', 'lint', 'dropdb', 'karma', done);
-// });
-
-// gulp.task('test:e2e', function (done) {
-//   runSequence('env:test', 'lint', 'dropdb', 'nodemon', 'protractor', done);
-// });
 
 gulp.task('test:coverage', function(done) {
   runSequence('env:test', ['makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', done);
