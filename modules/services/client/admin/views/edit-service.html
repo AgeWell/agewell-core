@@ -1,35 +1,56 @@
 <section>
   <div class="page-header">
-    <h1>Service <span ng-bind="vm.service.servicename"></span></h1>
+    <h1>Service <span ng-bind="vm.service.title"></span></h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.serviceForm" ng-submit="vm.update(vm.serviceForm.$valid)" novalidate>
+    <form name="vm.serviceForm" class="form-horizontal" ng-submit="vm.save(vm.serviceForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.service.firstName" placeholder="First Name" required autofocus />
-          <div ng-messages="vm.serviceForm.firstName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">First name is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.service.lastName" placeholder="Last Name" required />
-          <div ng-messages="vm.serviceForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="roles">Roles</label>
-          <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="vm.service.roles" id="roles" ng-list required />
-            <div ng-messages="vm.serviceForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
-            </div>
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" class="form-control" ng-model="vm.service.title" placeholder="Title" required autofocus />
+          <div ng-messages="vm.serviceForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Title is required.</p>
           </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" type="text" ng-model="vm.service.description" id="description" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="avalibility">Avalibility</label>
+          <select name="avalibility" ng-model="vm.service.avalibility" class="form-control">
+            <option ng-repeat="option in vm.options.avalibility" value="{{option}}">{{option}}</option>
+          </select>
+          <div ng-messages="vm.serviceForm.avalibility.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Avalibility is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="price">Price</label>
+          <input type="text" id="price" name="price" class="form-control" ng-model="vm.service.price" placeholder="Price" required autofocus />
+          <div ng-messages="vm.serviceForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="pricePer">Price Per</label>
+          <select name="pricePer" ng-model="vm.service.pricePer" class="form-control">
+            <option ng-repeat="option in vm.options.pricePer" value="{{option}}">{{option}}</option>
+          </select>
+          <div ng-messages="vm.serviceForm.pricePer.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Price Per is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="unitName">Unit Name</label>
+          <input type="text" id="unitName" name="unitName" class="form-control" ng-model="vm.service.unitName" placeholder="Unit Name" autofocus />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.service._id ? 'Update' : 'Create'}}</button>
+          <button ng-click="vm.log" class="btn btn-default">Log</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
         </div>
       </fieldset>
     </form>

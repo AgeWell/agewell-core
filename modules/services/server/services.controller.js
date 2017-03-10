@@ -78,14 +78,16 @@ exports.delete = function(req, res) {
  * List of Services
  */
 exports.list = function(req, res) {
-  Service.find().sort('-created').populate('user', 'displayName').exec(function(err, services) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-    res.jsonp(services);
-  });
+  Service.find().sort('-created')
+    // .populate('user', 'displayName')
+    .exec(function(err, services) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(services);
+    });
 };
 
 /**
@@ -99,16 +101,18 @@ exports.serviceByID = function(req, res, next, id) {
     });
   }
 
-  Service.findById(id).populate('user', 'displayName').exec(function (err, service) {
-    if (err) {
-      return next(err);
-    }
-    if (!service) {
-      return res.status(404).send({
-        message: 'No Service with that identifier has been found'
-      });
-    }
-    req.service = service;
-    next();
-  });
+  Service.findById(id)
+    // .populate('user', 'displayName')
+    .exec(function(err, service) {
+      if (err) {
+        return next(err);
+      }
+      if (!service) {
+        return res.status(404).send({
+          message: 'No Service with that identifier has been found'
+        });
+      }
+      req.service = service;
+      next();
+    });
 };

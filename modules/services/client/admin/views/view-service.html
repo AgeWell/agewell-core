@@ -2,7 +2,7 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-6">
-        <h1 ng-bind="vm.service.servicename"></h1>
+        <h1 ng-bind="vm.service.title"></h1>
       </div>
       <div class="col-md-4">
         <a class="btn btn-primary" ui-sref="admin.service-edit({serviceId: vm.service._id})">
@@ -18,33 +18,18 @@
   <div class="row">
     <div class="col-md-8">
       <div class="row">
-        <div class="col-md-3"><strong>First Name</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.firstName"></div>
+        <div class="col-md-3"><strong>Description</strong></div>
+        <div class="col-md-6" ng-bind="vm.service.description"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Last Name</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.lastName"></div>
+        <div class="col-md-3"><strong>Avalibility</strong></div>
+        <div class="col-md-6" ng-bind="vm.service.avalibility"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Email</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.email"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-3"><strong>Provider</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.provider"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-3"><strong>Created</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.created"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-3"><strong>Roles</strong></div>
-        <div class="col-md-6" ng-bind="vm.service.roles"></div>
+        <div class="col-md-3"><strong>Price</strong></div>
+        <div class="col-md-6">{{vm.service.price | currency}} per <span ng-hide="vm.service.pricePer === 'Unit'" ng-bind="vm.service.pricePer"></span><span ng-show="vm.service.pricePer === 'Unit'" ng-bind="vm.service.unitName"></span></div>
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
 
     vm.authentication = Authentication;
     vm.service = service;
-    // vm.options = coreService.getOptions('Service');
+    vm.options = coreService.getOptions('Service');
     vm.error = null;
     vm.remove = remove;
     vm.save = save;
@@ -36,6 +36,9 @@
     }
 
     function save(isValid) {
+
+      console.log(vm);
+
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.serviceForm');
 
