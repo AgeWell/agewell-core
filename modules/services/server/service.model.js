@@ -33,7 +33,7 @@ let ServiceSchema = new Schema({
   },
   pricePer: {
     type: String,
-    enum: ['Hour', 'Unit', 'Month'],
+    enum: ['Hour', 'Unit'],
     required: 'Please choose pricing unit'
   },
   unitName: String,
@@ -45,16 +45,6 @@ let ServiceSchema = new Schema({
     type: Date,
     default: Date.now
   }
-});
-
-// Getter
-ServiceSchema.path('price').get(function(num) {
-  return (num / 100).toFixed(2);
-});
-
-// Setter
-ServiceSchema.path('price').set(function(num) {
-  return num * 100;
 });
 
 mongoose.model('Service', ServiceSchema);

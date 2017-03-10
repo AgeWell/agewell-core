@@ -14,7 +14,7 @@
         </div>
         <div class="form-group">
           <label class="control-label" for="description">Description</label>
-          <textarea name="description" type="text" ng-model="vm.service.description" id="description" class="form-control" placeholder="Description"></textarea>
+          <textarea name="description" type="text" ng-model="vm.service.description" id="description" class="form-control" placeholder="Description" rows="6"></textarea>
         </div>
         <div class="form-group" show-errors>
           <label for="avalibility">Avalibility</label>
@@ -27,7 +27,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="price">Price</label>
-          <input type="text" id="price" name="price" class="form-control" ng-model="vm.service.price" placeholder="Price" required autofocus />
+          <input type="textr" id="price" name="price" class="form-control" ng-model="vm.service.price" placeholder="Price" required ng-model="money" ui-money-mask/>
           <div ng-messages="vm.serviceForm.price.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Price is required.</p>
           </div>
@@ -41,7 +41,7 @@
             <p class="help-block error-text" ng-message="required">Price Per is required.</p>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-show="vm.service.pricePer === 'Unit'">
           <label for="unitName">Unit Name</label>
           <input type="text" id="unitName" name="unitName" class="form-control" ng-model="vm.service.unitName" placeholder="Unit Name" autofocus />
         </div>

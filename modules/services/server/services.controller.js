@@ -46,7 +46,10 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   let service = req.service;
 
+  console.log(req.body);
+
   service = _.extend(service, req.body);
+
 
   service.save(function(err) {
     if (err) {
