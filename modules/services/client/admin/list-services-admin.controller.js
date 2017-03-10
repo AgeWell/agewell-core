@@ -3,20 +3,22 @@
 
   angular
     .module('services.admin')
-    .controller('ServiceListController', ServiceListController);
+    .controller('ServicesAdminListController', ServicesAdminListController);
 
-  ServiceListController.$inject = ['$scope', '$filter', 'AdminService'];
+  ServicesAdminListController.$inject = ['$scope', '$filter', 'ServicesAdminService'];
 
-  function ServiceListController($scope, $filter, AdminService) {
+  function ServicesAdminListController($scope, $filter, ServicesAdminService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    AdminService.query(function (data) {
+    ServicesAdminService.query(function (data) {
       vm.services = data;
       vm.buildPager();
     });
+
+    console.log(vm);
 
     function buildPager() {
       vm.pagedItems = [];
