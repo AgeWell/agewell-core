@@ -25,7 +25,7 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/services',
-      permissions: ['get', 'post']
+      permissions: ['get']
     }, {
       resources: '/api/services/:serviceId',
       permissions: ['get']
@@ -59,7 +59,7 @@ exports.isAllowed = function (req, res, next) {
       // An authorization error occurred
       return res.status(500).send('Unexpected authorization error');
     }
-    
+
     if (isAllowed) {
       // Access granted! Invoke next middleware
       return next();
