@@ -46,14 +46,20 @@ describe('Volunteer CRUD tests', function () {
       username: credentials.usernameOrEmail,
       password: credentials.password,
       provider: 'local',
-      role: 'admin'
+      roles: 'admin'
     });
 
     // Save a user to the test db and create new Volunteer
     user.save(function () {
       volunteer = {
         startingDate: new Date(),
-        active: true
+        active: true,
+        contact: {
+          name: {
+            first: 'test',
+            last: 'user'
+          }
+        }
       };
 
       done();

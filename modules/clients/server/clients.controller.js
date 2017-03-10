@@ -15,7 +15,7 @@ const _ = require('lodash');
  */
 exports.create = function(req, res) {
   let contact = new Contact(req.body.contact);
-  console.log(req.body);
+
   // req.body.contact = contact._id;
   var client = new Client(req.body);
   client.save(function(err, client) {
@@ -57,8 +57,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var client = req.client;
-
-  console.log(client);
 
   client = _.extend(client, req.body);
 

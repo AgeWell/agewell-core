@@ -22,9 +22,9 @@ let now = new Date();
 /**
  * Client routes tests
  */
-describe('Client CRUD tests', function () {
+describe('Client CRUD tests', function() {
 
-  before(function (done) {
+  before(function(done) {
     // Get application
     app = express.init(mongoose);
     agent = request.agent(app);
@@ -32,7 +32,7 @@ describe('Client CRUD tests', function () {
     done();
   });
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     // Create user credentials
     credentials = {
       usernameOrEmail: 'username',
@@ -48,28 +48,37 @@ describe('Client CRUD tests', function () {
       username: credentials.usernameOrEmail,
       password: credentials.password,
       provider: 'local',
-      role: 'admin'
+      roles: 'admin'
     });
 
     // Save a user to the test db and create new Client
-    user.save(function () {
+    user.save(function(err, user) {
+      if (err) {
+        return console.error(err);
+      }
+
       client = {
         startingDate: now,
-        active: true
+        active: true,
+        contact: {
+          name: {
+            first: 'test',
+            last: 'user'
+          }
+        }
       };
 
       done();
     });
   });
 
-  it('should be able to save a Client if logged in as an admin', function (done) {
+  it('should be able to save a Client if logged in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
-          console.log('signinErr', signinErr);
           return done(signinErr);
         }
 
@@ -80,7 +89,7 @@ describe('Client CRUD tests', function () {
         agent.post('/api/clients')
           .send(client)
           .expect(200)
-          .end(function (clientSaveErr, clientSaveRes) {
+          .end(function(clientSaveErr, clientSaveRes) {
             // Handle Client save error
             if (clientSaveErr) {
               return done(clientSaveErr);
@@ -88,10 +97,9 @@ describe('Client CRUD tests', function () {
 
             // Get a list of Clients
             agent.get('/api/clients')
-              .end(function (clientsGetErr, clientsGetRes) {
+              .end(function(clientsGetErr, clientsGetRes) {
                 // Handle Clients save error
                 if (clientsGetErr) {
-                  console.log(clientsGetErr);
                   return done(clientsGetErr);
                 }
 
@@ -108,11 +116,11 @@ describe('Client CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Client if not logged in', function (done) {
+  it('should not be able to save an Client if not logged in', function(done) {
     agent.post('/api/clients')
       .send(client)
       .expect(403)
-      .end(function (clientSaveErr, clientSaveRes) {
+      .end(function(clientSaveErr, clientSaveRes) {
         // Call the assertion callback
         done(clientSaveErr);
       });
@@ -148,11 +156,11 @@ describe('Client CRUD tests', function () {
   //     });
   // });
 
-  it('should be able to update an Client if signed in as an admin', function (done) {
+  it('should be able to update an Client if signed in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -165,7 +173,7 @@ describe('Client CRUD tests', function () {
         agent.post('/api/clients')
           .send(client)
           .expect(200)
-          .end(function (clientSaveErr, clientSaveRes) {
+          .end(function(clientSaveErr, clientSaveRes) {
             // Handle Client save error
             if (clientSaveErr) {
               return done(clientSaveErr);
@@ -178,7 +186,7 @@ describe('Client CRUD tests', function () {
             agent.put('/api/clients/' + clientSaveRes.body._id)
               .send(client)
               .expect(200)
-              .end(function (clientUpdateErr, clientUpdateRes) {
+              .end(function(clientUpdateErr, clientUpdateRes) {
                 // Handle Client update error
                 if (clientUpdateErr) {
                   return done(clientUpdateErr);
@@ -231,10 +239,10 @@ describe('Client CRUD tests', function () {
   //   });
   // });
 
-  it('should return proper error for single Client with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single Client with an invalid Id, if not signed in', function(done) {
     // test is not a valid mongoose Id
     request(app).get('/api/clients/test')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'Client is invalid');
 
@@ -243,10 +251,10 @@ describe('Client CRUD tests', function () {
       });
   });
 
-  it('should return proper error for single Client which doesnt exist, if not signed in', function (done) {
+  it('should return proper error for single Client which doesnt exist, if not signed in', function(done) {
     // This is a valid mongoose Id but a non-existent Client
     request(app).get('/api/clients/559e9cd815f80b4c256a8f41')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'No Client with that identifier has been found');
 
@@ -255,11 +263,11 @@ describe('Client CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an Client if signed in', function (done) {
+  it('should be able to delete an Client if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -272,7 +280,7 @@ describe('Client CRUD tests', function () {
         agent.post('/api/clients')
           .send(client)
           .expect(200)
-          .end(function (clientSaveErr, clientSaveRes) {
+          .end(function(clientSaveErr, clientSaveRes) {
             // Handle Client save error
             if (clientSaveErr) {
               return done(clientSaveErr);
@@ -282,7 +290,7 @@ describe('Client CRUD tests', function () {
             agent.delete('/api/clients/' + clientSaveRes.body._id)
               .send(client)
               .expect(200)
-              .end(function (clientDeleteErr, clientDeleteRes) {
+              .end(function(clientDeleteErr, clientDeleteRes) {
                 // Handle client error error
                 if (clientDeleteErr) {
                   return done(clientDeleteErr);
@@ -298,7 +306,7 @@ describe('Client CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an Client if not signed in', function (done) {
+  it('should not be able to delete an Client if not signed in', function(done) {
     // Set Client user
     client.user = user;
 
@@ -306,11 +314,11 @@ describe('Client CRUD tests', function () {
     var clientObj = new Client(client);
 
     // Save the Client
-    clientObj.save(function () {
+    clientObj.save(function() {
       // Try deleting Client
       request(app).delete('/api/clients/' + clientObj._id)
         .expect(403)
-        .end(function (clientDeleteErr, clientDeleteRes) {
+        .end(function(clientDeleteErr, clientDeleteRes) {
           // Set message assertion
           (clientDeleteRes.body.message).should.match('User is not authorized');
 
@@ -321,8 +329,8 @@ describe('Client CRUD tests', function () {
     });
   });
 
-  afterEach(function (done) {
-    User.remove().exec(function () {
+  afterEach(function(done) {
+    User.remove().exec(function() {
       Client.remove().exec(done);
     });
   });

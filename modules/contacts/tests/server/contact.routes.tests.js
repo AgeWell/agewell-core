@@ -20,9 +20,9 @@ var app,
 /**
  * Contact routes tests
  */
-describe('Contact CRUD tests', function () {
+describe('Contact CRUD tests', function() {
 
-  before(function (done) {
+  before(function(done) {
     // Get application
     app = express.init(mongoose);
     agent = request.agent(app);
@@ -30,7 +30,7 @@ describe('Contact CRUD tests', function () {
     done();
   });
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     // Create user credentials
     credentials = {
       usernameOrEmail: 'username',
@@ -46,30 +46,31 @@ describe('Contact CRUD tests', function () {
       username: credentials.usernameOrEmail,
       password: credentials.password,
       provider: 'local',
-      role: 'admin'
+      roles: 'admin'
     });
 
     // Save a user to the test db and create new Contact
-    user.save(function (err, user) {
+    user.save(function(err, user) {
       if (err) {
         return console.error(err);
       }
 
-      console.log(err);
-
       contact = {
-        name: 'Contact name'
+        name: {
+          first: 'test',
+          last: 'user'
+        }
       };
 
       done();
     });
   });
 
-  it('should be able to save a Contact if logged in as an admin', function (done) {
+  it('should be able to save a Contact if logged in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -82,16 +83,15 @@ describe('Contact CRUD tests', function () {
         agent.post('/api/contacts')
           .send(contact)
           .expect(200)
-          .end(function (contactSaveErr, contactSaveRes) {
+          .end(function(contactSaveErr, contactSaveRes) {
             // Handle Contact save error
             if (contactSaveErr) {
-              console.error(contactSaveErr);
               return done(contactSaveErr);
             }
 
             // Get a list of Contacts
             agent.get('/api/contacts')
-              .end(function (contactsGetErr, contactsGetRes) {
+              .end(function(contactsGetErr, contactsGetRes) {
                 // Handle Contacts save error
                 if (contactsGetErr) {
                   return done(contactsGetErr);
@@ -111,24 +111,24 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Contact if not logged in', function (done) {
+  it('should not be able to save an Contact if not logged in', function(done) {
     agent.post('/api/contacts')
       .send(contact)
       .expect(403)
-      .end(function (contactSaveErr, contactSaveRes) {
+      .end(function(contactSaveErr, contactSaveRes) {
         // Call the assertion callback
         done(contactSaveErr);
       });
   });
 
-  it('should not be able to save an Contact if no name is provided', function (done) {
+  it('should not be able to save an Contact if no name is provided', function(done) {
     // Invalidate name field
     contact.name = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -141,7 +141,7 @@ describe('Contact CRUD tests', function () {
         agent.post('/api/contacts')
           .send(contact)
           .expect(400)
-          .end(function (contactSaveErr, contactSaveRes) {
+          .end(function(contactSaveErr, contactSaveRes) {
             // Set message assertion
             (contactSaveRes.body.message).should.match('Please fill Contact name');
 
@@ -151,11 +151,11 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should be able to update an Contact if signed in as an admin', function (done) {
+  it('should be able to update an Contact if signed in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -168,7 +168,7 @@ describe('Contact CRUD tests', function () {
         agent.post('/api/contacts')
           .send(contact)
           .expect(200)
-          .end(function (contactSaveErr, contactSaveRes) {
+          .end(function(contactSaveErr, contactSaveRes) {
             // Handle Contact save error
             if (contactSaveErr) {
               return done(contactSaveErr);
@@ -181,7 +181,7 @@ describe('Contact CRUD tests', function () {
             agent.put('/api/contacts/' + contactSaveRes.body._id)
               .send(contact)
               .expect(200)
-              .end(function (contactUpdateErr, contactUpdateRes) {
+              .end(function(contactUpdateErr, contactUpdateRes) {
                 // Handle Contact update error
                 if (contactUpdateErr) {
                   return done(contactUpdateErr);
@@ -198,10 +198,10 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should return proper error for single Contact with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single Contact with an invalid Id, if not signed in', function(done) {
     // test is not a valid mongoose Id
     request(app).get('/api/contacts/test')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'Contact is invalid');
 
@@ -210,10 +210,10 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should return proper error for single Contact which doesnt exist, if not signed in', function (done) {
+  it('should return proper error for single Contact which doesnt exist, if not signed in', function(done) {
     // This is a valid mongoose Id but a non-existent Contact
     request(app).get('/api/contacts/559e9cd815f80b4c256a8f41')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'No Contact with that identifier has been found');
 
@@ -222,11 +222,11 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an Contact if signed in', function (done) {
+  it('should be able to delete an Contact if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -239,7 +239,7 @@ describe('Contact CRUD tests', function () {
         agent.post('/api/contacts')
           .send(contact)
           .expect(200)
-          .end(function (contactSaveErr, contactSaveRes) {
+          .end(function(contactSaveErr, contactSaveRes) {
             // Handle Contact save error
             if (contactSaveErr) {
               return done(contactSaveErr);
@@ -249,7 +249,7 @@ describe('Contact CRUD tests', function () {
             agent.delete('/api/contacts/' + contactSaveRes.body._id)
               .send(contact)
               .expect(200)
-              .end(function (contactDeleteErr, contactDeleteRes) {
+              .end(function(contactDeleteErr, contactDeleteRes) {
                 // Handle contact error error
                 if (contactDeleteErr) {
                   return done(contactDeleteErr);
@@ -265,7 +265,7 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an Contact if not signed in', function (done) {
+  it('should not be able to delete an Contact if not signed in', function(done) {
     // Set Contact user
     contact.user = user;
 
@@ -273,11 +273,11 @@ describe('Contact CRUD tests', function () {
     var contactObj = new Contact(contact);
 
     // Save the Contact
-    contactObj.save(function () {
+    contactObj.save(function() {
       // Try deleting Contact
       request(app).delete('/api/contacts/' + contactObj._id)
         .expect(403)
-        .end(function (contactDeleteErr, contactDeleteRes) {
+        .end(function(contactDeleteErr, contactDeleteRes) {
           // Set message assertion
           (contactDeleteRes.body.message).should.match('No Contact with that identifier has been found');
 
@@ -288,8 +288,8 @@ describe('Contact CRUD tests', function () {
     });
   });
 
-  afterEach(function (done) {
-    User.remove().exec(function () {
+  afterEach(function(done) {
+    User.remove().exec(function() {
       Contact.remove().exec(done);
     });
   });
