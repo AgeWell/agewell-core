@@ -45,7 +45,8 @@ describe('Contact CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      role: 'admin'
     });
 
     // Save a user to the test db and create new Contact
@@ -58,13 +59,14 @@ describe('Contact CRUD tests', function () {
     });
   });
 
-  it('should be able to save a Contact if logged in', function (done) {
+  it('should be able to save a Contact if logged in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
+          console.error(signinErr);
           return done(signinErr);
         }
 
@@ -143,7 +145,7 @@ describe('Contact CRUD tests', function () {
       });
   });
 
-  it('should be able to update an Contact if signed in', function (done) {
+  it('should be able to update an Contact if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -207,7 +209,7 @@ describe('Contact CRUD tests', function () {
     request(app).get('/api/contacts/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Contact with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'User is not authorized');
 
         // Call the assertion callback
         done();

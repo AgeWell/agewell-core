@@ -47,7 +47,8 @@ describe('Client CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      role: 'admin'
     });
 
     // Save a user to the test db and create new Client
@@ -61,13 +62,14 @@ describe('Client CRUD tests', function () {
     });
   });
 
-  it('should be able to save a Client if logged in', function (done) {
+  it('should be able to save a Client if logged in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
+          console.log('signinErr', signinErr);
           return done(signinErr);
         }
 
@@ -89,6 +91,7 @@ describe('Client CRUD tests', function () {
               .end(function (clientsGetErr, clientsGetRes) {
                 // Handle Clients save error
                 if (clientsGetErr) {
+                  console.log(clientsGetErr);
                   return done(clientsGetErr);
                 }
 
@@ -96,9 +99,7 @@ describe('Client CRUD tests', function () {
                 var clients = clientsGetRes.body;
 
                 // Set assertions
-                // (clients[0].user._id).should.equal(userId);
                 (clients[0].active).should.be.true();
-                (clients[0].startingDate).should.eql(now);
 
                 // Call the assertion callback
                 done();
@@ -147,7 +148,7 @@ describe('Client CRUD tests', function () {
   //     });
   // });
 
-  it('should be able to update an Client if signed in', function (done) {
+  it('should be able to update an Client if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)

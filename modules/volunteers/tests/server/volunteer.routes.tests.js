@@ -45,7 +45,8 @@ describe('Volunteer CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      role: 'admin'
     });
 
     // Save a user to the test db and create new Volunteer
@@ -59,7 +60,7 @@ describe('Volunteer CRUD tests', function () {
     });
   });
 
-  it('should be able to save a Volunteer if logged in', function (done) {
+  it('should be able to save a Volunteer if logged in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -143,7 +144,7 @@ describe('Volunteer CRUD tests', function () {
   //     });
   // });
 
-  it('should be able to update an Volunteer if signed in', function (done) {
+  it('should be able to update an Volunteer if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
