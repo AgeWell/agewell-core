@@ -9,7 +9,7 @@
   AddressController.$inject = ['coreService'];
 
   function AddressController(coreService) {
-    var vm = this;
+    let vm = this;
 
     vm.options = coreService.getOptions('Address');
     vm.error = null;

@@ -8,7 +8,7 @@
   ContactsListController.$inject = ['ContactsService'];
 
   function ContactsListController(ContactsService) {
-    var vm = this;
+    let vm = this;
 
     vm.contacts = ContactsService.query();
   }

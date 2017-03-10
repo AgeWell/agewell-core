@@ -14,6 +14,7 @@
     vm.authentication = Authentication;
     vm.client = client;
     vm.options = coreService.getOptions('Client');
+    vm.error = null;
     vm.remove = remove;
     vm.save = save;
 
@@ -32,10 +33,13 @@
 
     // Save Client
     function save(isValid) {
+      console.log(vm);
+
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.clientForm');
         return false;
       }
+
 
       // TODO: move create/update logic to service
       if (vm.client._id) {
