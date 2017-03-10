@@ -49,7 +49,7 @@ gulp.task('mocha', function(done) {
         // When the tests are done, disconnect mongoose and pass the error state back to gulp
         mongoose.disconnect(function() {
           done(error);
-          process.exit();
+          // process.exit();
         });
       });
   });

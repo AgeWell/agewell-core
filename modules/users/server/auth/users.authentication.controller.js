@@ -18,7 +18,7 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup = function (req, res) {
+exports.signup = function(req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -28,7 +28,7 @@ exports.signup = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
 
   // Then save the user
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -38,7 +38,7 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function (err) {
+      req.login(user, function(err) {
         if (err) {
           res.status(400).send(err);
         } else {
@@ -52,23 +52,22 @@ exports.signup = function (req, res) {
 /**
  * Signin after passport authentication
  */
-exports.signin = function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
+exports.signin = function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
     if (err || !user) {
-      res.status(422).send(info);
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
+      return res.status(422).send(info);
     }
+    // Remove sensitive data before login
+    user.password = undefined;
+    user.salt = undefined;
+
+    req.login(user, function(err) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.json(user);
+      }
+    });
   })(req, res, next);
 };
 
@@ -236,14 +235,12 @@ exports.removeOAuthProvider = function(req, res, next) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      req.login(user, function(err) {
-        if (err) {
-          return res.status(400).send(err);
-        } else {
-          return res.json(user);
-        }
-      });
     }
+    req.login(user, function(err) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      return res.json(user);
+    });
   });
 };

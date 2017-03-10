@@ -33,7 +33,7 @@ describe('Contact CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials
     credentials = {
-      username: 'username',
+      usernameOrEmail: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -43,14 +43,20 @@ describe('Contact CRUD tests', function () {
       lastName: 'Name',
       displayName: 'Full Name',
       email: 'test@test.com',
-      username: credentials.username,
+      username: credentials.usernameOrEmail,
       password: credentials.password,
       provider: 'local',
       role: 'admin'
     });
 
     // Save a user to the test db and create new Contact
-    user.save(function () {
+    user.save(function (err, user) {
+      if (err) {
+        return console.error(err);
+      }
+
+      console.log(err);
+
       contact = {
         name: 'Contact name'
       };
@@ -66,7 +72,6 @@ describe('Contact CRUD tests', function () {
       .end(function (signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
-          console.error(signinErr);
           return done(signinErr);
         }
 
@@ -80,6 +85,7 @@ describe('Contact CRUD tests', function () {
           .end(function (contactSaveErr, contactSaveRes) {
             // Handle Contact save error
             if (contactSaveErr) {
+              console.error(contactSaveErr);
               return done(contactSaveErr);
             }
 
@@ -209,7 +215,7 @@ describe('Contact CRUD tests', function () {
     request(app).get('/api/contacts/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'User is not authorized');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'No Contact with that identifier has been found');
 
         // Call the assertion callback
         done();
@@ -273,7 +279,7 @@ describe('Contact CRUD tests', function () {
         .expect(403)
         .end(function (contactDeleteErr, contactDeleteRes) {
           // Set message assertion
-          (contactDeleteRes.body.message).should.match('User is not authorized');
+          (contactDeleteRes.body.message).should.match('No Contact with that identifier has been found');
 
           // Handle Contact error error
           done(contactDeleteErr);

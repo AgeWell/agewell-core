@@ -24,6 +24,7 @@ module.exports = {
       json: false
     }
   },
+  port: process.env.PORT || 3001,
   app: {
     title: defaultEnvConfig.app.title + ' - Development Environment'
   },
