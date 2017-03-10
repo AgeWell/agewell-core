@@ -115,23 +115,6 @@ function reportError(reject) {
   };
 }
 
-function loadSeeds(callback) {
-  let totalSeeds = config.files.server.seeds.length;
-  let seeded = 0;
-  // Globbing model files
-  config.files.server.seeds.forEach(function(seedPath) {
-    console.log('\n\n\n\n\nSeeding\n\n\n\n\n' + seedPath + '\n\n\n\n\n\n');
-    require(path.resolve(seedPath)).seed(function() {
-      seeded + 1;
-      if (seeded === totalSeeds) {
-        if (callback) {
-          callback();
-        }
-      }
-    });
-  });
-}
-
 module.exports.start = function start(options) {
   // Initialize the default seed options
   seedOptions = _.clone(config.seedDB.options, true);
@@ -155,28 +138,25 @@ module.exports.start = function start(options) {
   return new Promise(function(resolve, reject) {
     var adminAccount = new User(seedOptions.seedAdmin);
     var userAccount = new User(seedOptions.seedUser);
+    // If production only seed admin if it does not exist
+    if (process.env.NODE_ENV === 'production') {
+      User.generateRandomPassphrase()
+        .then(seedTheUser(adminAccount))
+        .then(function() {
+          resolve();
+        })
+        .catch(reportError(reject));
+    } else {
+      // Add both Admin and User account
 
-    loadSeeds(function() {
-      // If production only seed admin if it does not exist
-      if (process.env.NODE_ENV === 'production') {
-        User.generateRandomPassphrase()
-          .then(seedTheUser(adminAccount))
-          .then(function() {
-            resolve();
-          })
-          .catch(reportError(reject));
-      } else {
-        // Add both Admin and User account
-
-        User.generateRandomPassphrase()
-          .then(seedTheUser(userAccount))
-          .then(User.generateRandomPassphrase)
-          .then(seedTheUser(adminAccount))
-          .then(function() {
-            resolve();
-          })
-          .catch(reportError(reject));
-      }
-    });
+      User.generateRandomPassphrase()
+        .then(seedTheUser(userAccount))
+        .then(User.generateRandomPassphrase)
+        .then(seedTheUser(adminAccount))
+        .then(function() {
+          resolve();
+        })
+        .catch(reportError(reject));
+    }
   });
 };
