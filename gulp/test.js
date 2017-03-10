@@ -40,7 +40,6 @@ gulp.task('mocha', function(done) {
         timeout: 10000
       }))
       .on('error', function(err) {
-        console.error(err);
 
         // If an error occurs, save it
         error = err;
@@ -49,7 +48,6 @@ gulp.task('mocha', function(done) {
         // When the tests are done, disconnect mongoose and pass the error state back to gulp
         mongoose.disconnect(function() {
           done(error);
-          // process.exit();
         });
       });
   });
@@ -68,7 +66,7 @@ gulp.task('pre-test', function() {
 
 // Run istanbul test and write report
 gulp.task('mocha:coverage', ['pre-test', 'mocha'], function() {
-  var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
+  var testSuites = testAssets.tests.server;
 
   return gulp.src(testSuites)
     .pipe(plugins.istanbul.writeReports({
@@ -167,17 +165,17 @@ gulp.task('dropdb', function(done) {
 
 // Run the project tests
 gulp.task('test', function(done) {
-  runSequence(
-    'env:test',
-    'test:server',
-    // 'karma',
-    // 'nodemon',
-    // 'protractor',
-    done
-  );
-});
-
-gulp.task('test:server', function(done) {
+//   runSequence(
+//     'env:test',
+//     'test:server',
+//     // 'karma',
+//     // 'nodemon',
+//     // 'protractor',
+//     done
+//   );
+// });
+//
+// gulp.task('test:server', function(done) {
   runSequence('env:test', ['makeUploadsDir', 'dropdb'], 'lint', 'mocha', done);
 });
 
@@ -195,5 +193,5 @@ gulp.task('test:server', function(done) {
 // });
 
 gulp.task('test:coverage', function(done) {
-  runSequence('env:test', ['copyLocalEnvConfig', 'makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', done);
+  runSequence('env:test', ['makeUploadsDir', 'dropdb'], 'lint', 'mocha:coverage', done);
 });

@@ -464,18 +464,18 @@ describe('Configuration Tests:', function () {
       fileTransport.filename.should.equal(_dir + '/' + _filename);
     });
 
-    it('should use the default log format of "combined" when an invalid format was provided', function () {
-
-      var _logger = require(path.resolve('./config/lib/logger'));
-
-      // manually set the config log format to be invalid
-      config.log = {
-        format: '_some_invalid_format_'
-      };
-
-      var format = _logger.getLogFormat();
-      format.should.be.equal('combined');
-    });
+    // it('should use the default log format of "combined" when an invalid format was provided', function () {
+    //
+    //   var _logger = require(path.resolve('./config/lib/logger'));
+    //
+    //   // manually set the config log format to be invalid
+    //   config.log = {
+    //     format: '_some_invalid_format_'
+    //   };
+    //
+    //   var format = _logger.getLogFormat();
+    //   format.should.be.equal('combined');
+    // });
 
     it('should not create a file transport object if critical options are missing: filename', function () {
 
