@@ -23,32 +23,6 @@
           pageTitle: 'Services List'
         }
       })
-      .state('services.create', {
-        url: '/create',
-        templateUrl: 'modules/services/client/views/form-service.html',
-        controller: 'ServicesController',
-        controllerAs: 'vm',
-        resolve: {
-          serviceResolve: newService
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Services Create'
-        }
-      })
-      .state('services.edit', {
-        url: '/:serviceId/edit',
-        templateUrl: 'modules/services/client/views/form-service.html',
-        controller: 'ServicesController',
-        controllerAs: 'vm',
-        resolve: {
-          serviceResolve: getService
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Service {{ serviceResolve.name }}'
-        }
-      })
       .state('services.view', {
         url: '/:serviceId',
         templateUrl: 'modules/services/client/views/view-service.html',
@@ -69,11 +43,5 @@
     return ServicesService.get({
       serviceId: $stateParams.serviceId
     }).$promise;
-  }
-
-  newService.$inject = ['ServicesService'];
-
-  function newService(ServicesService) {
-    return new ServicesService();
   }
 }());
