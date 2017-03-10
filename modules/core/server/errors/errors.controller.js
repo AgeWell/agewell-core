@@ -61,9 +61,9 @@ exports.getErrorMessage = function (err) {
   } else if (err.message && !err.errors) {
     message = err.message;
   } else {
-    err.errors.forEach(function(error) {
-      if (error.message) {
-        message = error.message;
+    Object.keys(err.errors).forEach(function(field) {
+      if (err.errors[field].message) {
+        message = err.errors[field].message;
       }
     });
   }

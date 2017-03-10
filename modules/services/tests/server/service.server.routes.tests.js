@@ -33,7 +33,7 @@ describe('Service CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials
     credentials = {
-      username: 'username',
+      usernameOrEmail: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -43,15 +43,20 @@ describe('Service CRUD tests', function () {
       lastName: 'Name',
       displayName: 'Full Name',
       email: 'test@test.com',
-      username: credentials.username,
+      username: credentials.usernameOrEmail,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      roles: 'admin'
     });
 
     // Save a user to the test db and create new Service
     user.save(function () {
       service = {
-        name: 'Service name'
+        title: 'Service Name',
+        description: 'test',
+        avalibility: 'Weekly',
+        price: 1000,
+        pricePer: 'Hour'
       };
 
       done();
@@ -69,7 +74,7 @@ describe('Service CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Service
         agent.post('/api/services')
@@ -90,11 +95,10 @@ describe('Service CRUD tests', function () {
                 }
 
                 // Get Services list
-                var services = servicesGetRes.body;
+                let services = servicesGetRes.body;
 
                 // Set assertions
-                (services[0].user._id).should.equal(userId);
-                (services[0].name).should.match('Service name');
+                (services[0].title).should.match('Service Name');
 
                 // Call the assertion callback
                 done();
@@ -113,9 +117,9 @@ describe('Service CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Service if no name is provided', function (done) {
+  it('should not be able to save an Service if no title is provided', function (done) {
     // Invalidate name field
-    service.name = '';
+    service.title = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -135,7 +139,7 @@ describe('Service CRUD tests', function () {
           .expect(400)
           .end(function (serviceSaveErr, serviceSaveRes) {
             // Set message assertion
-            (serviceSaveRes.body.message).should.match('Please fill Service name');
+            (serviceSaveRes.body.message).should.match('Please enter a title');
 
             // Handle Service save error
             done(serviceSaveErr);
@@ -167,7 +171,7 @@ describe('Service CRUD tests', function () {
             }
 
             // Update Service name
-            service.name = 'WHY YOU GOTTA BE SO MEAN?';
+            service.title = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing Service
             agent.put('/api/services/' + serviceSaveRes.body._id)
@@ -181,7 +185,7 @@ describe('Service CRUD tests', function () {
 
                 // Set assertions
                 (serviceUpdateRes.body._id).should.equal(serviceSaveRes.body._id);
-                (serviceUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (serviceUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -205,7 +209,6 @@ describe('Service CRUD tests', function () {
           // Call the assertion callback
           done();
         });
-
     });
   });
 
@@ -218,7 +221,7 @@ describe('Service CRUD tests', function () {
       request(app).get('/api/services/' + serviceObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', service.name);
+          res.body.should.be.instanceof(Object).and.have.property('title', service.title);
 
           // Call the assertion callback
           done();
@@ -313,93 +316,6 @@ describe('Service CRUD tests', function () {
           done(serviceDeleteErr);
         });
 
-    });
-  });
-
-  it('should be able to get a single Service that has an orphaned user reference', function (done) {
-    // Create orphan user creds
-    var _creds = {
-      username: 'orphan',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create orphan user
-    var _orphan = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'orphan@test.com',
-      username: _creds.username,
-      password: _creds.password,
-      provider: 'local'
-    });
-
-    _orphan.save(function (err, orphan) {
-      // Handle save error
-      if (err) {
-        return done(err);
-      }
-
-      agent.post('/api/auth/signin')
-        .send(_creds)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get the userId
-          var orphanId = orphan._id;
-
-          // Save a new Service
-          agent.post('/api/services')
-            .send(service)
-            .expect(200)
-            .end(function (serviceSaveErr, serviceSaveRes) {
-              // Handle Service save error
-              if (serviceSaveErr) {
-                return done(serviceSaveErr);
-              }
-
-              // Set assertions on new Service
-              (serviceSaveRes.body.name).should.equal(service.name);
-              should.exist(serviceSaveRes.body.user);
-              should.equal(serviceSaveRes.body.user._id, orphanId);
-
-              // force the Service to have an orphaned user reference
-              orphan.remove(function () {
-                // now signin with valid user
-                agent.post('/api/auth/signin')
-                  .send(credentials)
-                  .expect(200)
-                  .end(function (err, res) {
-                    // Handle signin error
-                    if (err) {
-                      return done(err);
-                    }
-
-                    // Get the Service
-                    agent.get('/api/services/' + serviceSaveRes.body._id)
-                      .expect(200)
-                      .end(function (serviceInfoErr, serviceInfoRes) {
-                        // Handle Service error
-                        if (serviceInfoErr) {
-                          return done(serviceInfoErr);
-                        }
-
-                        // Set assertions
-                        (serviceInfoRes.body._id).should.equal(serviceSaveRes.body._id);
-                        (serviceInfoRes.body.name).should.equal(service.name);
-                        should.equal(serviceInfoRes.body.user, undefined);
-
-                        // Call the assertion callback
-                        done();
-                      });
-                  });
-              });
-            });
-        });
     });
   });
 
