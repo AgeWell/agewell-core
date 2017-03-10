@@ -50,7 +50,11 @@ describe('Volunteer CRUD tests', function () {
     });
 
     // Save a user to the test db and create new Volunteer
-    user.save(function () {
+    user.save(function (err) {
+      if (err) {
+        return console.error(err);
+      }
+
       volunteer = {
         startingDate: new Date(),
         active: true,

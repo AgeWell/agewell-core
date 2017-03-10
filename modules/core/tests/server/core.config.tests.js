@@ -57,9 +57,6 @@ describe('Configuration Tests:', function () {
         userFromSeedConfig = config.seedDB.options.seedUser;
         adminFromSeedConfig = config.seedDB.options.seedAdmin;
 
-        console.log(userFromSeedConfig);
-        console.log(adminFromSeedConfig);
-
         return done();
 
       });

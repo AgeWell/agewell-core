@@ -13,20 +13,30 @@ module.exports = {
     debug: process.env.MONGODB_DEBUG || false
   },
   log: {
-    // logging with Morgan - https://github.com/expressjs/morgan
-    // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
-    format: 'dev',
-    fileLogger: {
-      directoryPath: process.cwd(),
-      fileName: 'app.log',
-      maxsize: 10485760,
-      maxFiles: 2,
-      json: false
-    }
+    // // logging with Morgan - https://github.com/expressjs/morgan
+    // // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
+    // format: 'none',
+    // fileLogger: {
+    //   directoryPath: process.cwd(),
+    //   fileName: 'app.log',
+    //   maxsize: 10485760,
+    //   maxFiles: 2,
+    //   json: false
+    // }
   },
   port: process.env.PORT || 3001,
   app: {
     title: defaultEnvConfig.app.title + ' - Development Environment'
+  },
+  uploads: {
+    profile: {
+      image: {
+        dest: './modules/users/client/img/profile/uploads/',
+        limits: {
+          fileSize: 100000 // Limit filesize (100kb) for testing purposes
+        }
+      }
+    }
   },
   google: {
     clientID: process.env.GOOGLE_ID || 'APP_ID',

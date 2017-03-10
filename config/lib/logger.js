@@ -7,7 +7,7 @@ const fs = require('fs');
 const winston = require('winston');
 
 // list of valid formats for the logging
-var validFormats = ['combined', 'common', 'dev', 'short', 'tiny'];
+var validFormats = ['combined', 'common', 'dev', 'short', 'tiny', 'none'];
 
 // Instantiating the default winston application logger with the Console
 // transport
@@ -30,7 +30,9 @@ var logger = new winston.Logger({
 // option to log all HTTP requests to a file
 logger.stream = {
   write: function(msg) {
-    logger.info(msg);
+    if (config.log.format !== 'none') {
+      logger.info(msg);
+    }
   }
 };
 
@@ -107,11 +109,9 @@ logger.getLogOptions = function getLogOptions() {
  * file logging transport (if available)
  */
 logger.getMorganOptions = function getMorganOptions() {
-
   return {
     stream: logger.stream
   };
-
 };
 
 /**

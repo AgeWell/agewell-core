@@ -52,7 +52,7 @@ describe('Client CRUD tests', function() {
     });
 
     // Save a user to the test db and create new Client
-    user.save(function(err, user) {
+    user.save(function(err) {
       if (err) {
         return console.error(err);
       }

@@ -293,8 +293,8 @@ describe('User CRUD tests', function () {
     user.save(function (err) {
       should.not.exist(err);
       agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
+        .send(credentials).expect(200)
+
         .end(function (signinErr, signinRes) {
           // Handle signin error
           if (signinErr) {
@@ -1022,7 +1022,7 @@ describe('User CRUD tests', function () {
 
         agent.post('/api/users/picture')
           .attach('newProfilePicture', './modules/users/tests/server/img/too-big-file.png')
-          .send(credentials)
+          // .send(credentials)
           .expect(422)
           .end(function (userInfoErr, userInfoRes) {
             done(userInfoErr);
