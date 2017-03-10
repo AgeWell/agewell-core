@@ -42,6 +42,7 @@ after_script:
   - nsp check
   - gulp test:coverage
   - node_modules/.bin/lcov-result-merger 'coverage/**/lcov.info' | node_modules/coveralls/bin/coveralls.js
+repo_token: $REPO_TOKEN
 notifications:
   webhooks:
     urls:
