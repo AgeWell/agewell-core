@@ -953,7 +953,7 @@ describe('User CRUD tests', function () {
         }
 
         agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
+          .attach('newProfilePicture', './modules/users/client/assets/images/profile/default.png')
           .expect(200)
           .end(function (userInfoErr, userInfoRes) {
             // Handle change profile picture error
@@ -981,7 +981,7 @@ describe('User CRUD tests', function () {
         }
 
         agent.post('/api/users/picture')
-          .attach('fieldThatDoesntWork', './modules/users/client/img/profile/default.png')
+          .attach('fieldThatDoesntWork', './modules/users/client/assets/images/profile/default.png')
           .send(credentials)
           .expect(422)
           .end(function (userInfoErr, userInfoRes) {

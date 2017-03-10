@@ -145,7 +145,7 @@ exports.volunteerByID = function(req, res, next, id) {
       }
       if (!volunteer) {
         return res.status(404).send({
-          message: 'No Client with that identifier has been found'
+          message: 'No Volunteer with that identifier has been found'
         });
       }
       req.volunteer = volunteer;

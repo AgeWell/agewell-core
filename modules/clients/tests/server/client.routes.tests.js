@@ -185,7 +185,7 @@ describe('Client CRUD tests', function () {
 
                 // Set assertions
                 (clientUpdateRes.body._id).should.equal(clientSaveRes.body._id);
-                (clientUpdateRes.body.active).should.not.be.false();
+                (clientUpdateRes.body.active).should.be.false();
 
                 // Call the assertion callback
                 done();
