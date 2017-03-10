@@ -4,11 +4,11 @@
   // TODO this should be Services service
   angular
     .module('services.admin')
-    .factory('ServiceAdminService', ServiceAdminService);
+    .factory('ServicesAdminService', ServicesAdminService);
 
-  ServiceAdminService.$inject = ['$resource'];
+  ServicesAdminService.$inject = ['$resource'];
 
-  function ServiceAdminService($resource) {
+  function ServicesAdminService($resource) {
     return $resource('/api/services/:serviceId', {
       serviceId: '@_id'
     }, {

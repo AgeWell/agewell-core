@@ -13,16 +13,16 @@
       .state('admin.services', {
         url: '/services',
         templateUrl: '/modules/services/client/admin/views/list-services.html',
-        controller: 'ServiceListController',
+        controller: 'ServicesAdminListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Services List'
         }
       })
-      .state('admin.service', {
-        url: '/services/:serviceId',
+      .state('admin.services.view', {
+        url: '/:serviceId',
         templateUrl: '/modules/services/client/admin/views/view-service.html',
-        controller: 'ServiceController',
+        controller: 'ServicesAdminController',
         controllerAs: 'vm',
         resolve: {
           serviceResolve: getService
@@ -31,25 +31,43 @@
           pageTitle: 'Edit {{ serviceResolve.displayName }}'
         }
       })
-      .state('admin.service-edit', {
-        url: '/services/:serviceId/edit',
+      .state('admin.services.create', {
+        url: '/create',
+        templateUrl: 'modules/services/client/views/form-service.html',
+        controller: 'ServicesAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          serviceResolve: newService
+        },
+        data: {
+          pageTitle: 'Services Create'
+        }
+      })
+      .state('admin.services.edit', {
+        url: '/:serviceId/edit',
         templateUrl: '/modules/services/client/admin/views/edit-service.html',
-        controller: 'ServiceController',
+        controller: 'ServicesAdminController',
         controllerAs: 'vm',
         resolve: {
           serviceResolve: getService
         },
         data: {
-          pageTitle: 'Edit Service {{ serviceResolve.displayName }}'
+          pageTitle: 'Edit Service {{ serviceResolve.name }}'
         }
       });
 
-    getService.$inject = ['$stateParams', 'AdminService'];
+    getService.$inject = ['$stateParams', 'ServicesAdminService'];
 
-    function getService($stateParams, AdminService) {
-      return AdminService.get({
+    function getService($stateParams, ServicesAdminService) {
+      return ServicesAdminService.get({
         serviceId: $stateParams.serviceId
       }).$promise;
+    }
+
+    newService.$inject = ['ServicesAdminService'];
+
+    function newService(ServicesAdminService) {
+      return new ServicesAdminService();
     }
   }
 }());

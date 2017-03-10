@@ -3,11 +3,11 @@
 
   angular
     .module('services.admin')
-    .controller('ServiceController', ServiceController);
+    .controller('ServicesAdminController', ServicesAdminController);
 
-  ServiceController.$inject = ['$scope', '$state', '$window', 'Authentication', 'serviceResolve', 'Notification'];
+  ServicesAdminController.$inject = ['$scope', '$state', '$window', 'Authentication', 'serviceResolve', 'Notification'];
 
-  function ServiceController($scope, $state, $window, Authentication, service, Notification) {
+  function ServicesAdminController($scope, $state, $window, Authentication, service, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
