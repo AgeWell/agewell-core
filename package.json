@@ -1,7 +1,7 @@
 {
   "name": "agewell-core",
   "description": "A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "private": false,
   "author": "https://github.com/agewell/agewell-core/graphs/contributors",
   "license": "GPLv3",
