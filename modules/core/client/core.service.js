@@ -10,7 +10,8 @@
   function coreService($window) {
     var options;
     var service = {
-      getOptions: getOptions
+      getOptions: getOptions,
+      getServices: getServices
     };
 
     init();
@@ -23,6 +24,13 @@
         return options[model];
       }
       return console.error('Model has no options.');
+    }
+
+    function getServices() {
+      if (options.hasOwnProperty('Services')) {
+        return options.Services;
+      }
+      return console.error('No Services Avalible.');
     }
 
     function init() {

@@ -82,7 +82,8 @@ exports.delete = function(req, res) {
  * List of Services
  */
 exports.list = function(req, res) {
-  Service.find().sort('-created')
+  Service.find()
+    .sort('-created')
     // .populate('user', 'displayName')
     .exec(function(err, services) {
       if (err) {
