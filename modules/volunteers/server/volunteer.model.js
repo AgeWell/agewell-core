@@ -27,8 +27,7 @@ var VolunteerSchema = new Schema({
   RSVPVolunteer: Boolean,
   driversLicense: String,
   driversLicenseExpiration: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
   lifetimePledges: Number,
   lifetimeDonations: Number,

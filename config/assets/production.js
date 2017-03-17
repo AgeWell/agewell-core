@@ -32,7 +32,6 @@ module.exports = {
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-ui-select/dist/select.min.js',
         'public/lib/angular-sanitize/angular-sanitize.min.js',
-        'public/lib/angular-input-masks/angular-input-masks-standalone.min.js',
         // endbower
       ]
     },

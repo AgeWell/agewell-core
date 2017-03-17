@@ -8,7 +8,6 @@ const Volunteer = mongoose.model('Volunteer');
 
 let docArray = [{
   '_id': '58cc2d921206fd7fed39c01c',
-  'driversLicenseExpiration': new Date('2017-03-17T18:40:18.987Z'),
   'startingDate': new Date('2017-03-17T18:40:18.987Z')
 }];
 
