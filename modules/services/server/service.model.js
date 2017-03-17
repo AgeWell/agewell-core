@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+const shortid = require('shortid');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -10,6 +11,10 @@ const Schema = mongoose.Schema;
  * Service Schema
  */
 let ServiceSchema = new Schema({
+  _id: {
+    type: String,
+    'default': shortid.generate
+  },
   title: {
     type: String,
     default: '',
