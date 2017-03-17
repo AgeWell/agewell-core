@@ -172,6 +172,8 @@ describe('Service CRUD tests', function () {
 
             // Update Service name
             service.title = 'WHY YOU GOTTA BE SO MEAN?';
+            console.log(serviceSaveRes.body);
+            console.log('/api/services/' + serviceSaveRes.body._id);
 
             // Update an existing Service
             agent.put('/api/services/' + serviceSaveRes.body._id)

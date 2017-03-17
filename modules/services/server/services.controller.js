@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 const path = require('path');
+const shortid = require('shortid');
 const mongoose = require('mongoose');
 const Service = mongoose.model('Service');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
@@ -98,7 +99,7 @@ exports.list = function(req, res) {
  */
 exports.serviceByID = function(req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!shortid.isValid(id)) {
     return res.status(400).send({
       message: 'Service is invalid'
     });
