@@ -8,7 +8,7 @@
         <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="true"/>
       </div>
       <div class="col-md-4 text-right" style="margin-top: 2em">
-        <button class="btn btn-default" ui-sref="clients.create"><i class="glyphicon glyphicon-plus" aria-label="Add New Client"></i></button>
+        <button class="btn btn-default" ui-sref="clients.create" tooltip-placement="top" uib-tooltip="Add New Client"><i class="glyphicon glyphicon-plus" aria-label="Add New Client"></i></button>
       </div>
     </div>
   </div>
@@ -30,8 +30,8 @@
           <span ng-if="!client.user">Deleted User</span>
         </td>
         <td class="text-right">
-          <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-          <button class="btn btn-default" ui-sref="clients.edit({ clientId: client._id })"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="clients.edit({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>

@@ -19,7 +19,7 @@ module.exports = {
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap.min.js',
-        'public/lib/angular-input-masks/angular-input-masks-standalone.min.js',
+        // 'public/lib/angular-input-masks/angular-input-masks-standalone.min.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-mocks/angular-mocks.js',
         'public/lib/angular-resource/angular-resource.js',

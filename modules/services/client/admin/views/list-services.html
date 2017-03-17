@@ -8,7 +8,7 @@
         <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
       </div>
       <div class="col-md-4 text-right" style="margin-top: 2em">
-        <button class="btn btn-default" ui-sref="admin.services.create"><i class="glyphicon glyphicon-plus" aria-label="Add New Service"></i></button>
+        <button class="btn btn-default" ui-sref="admin.services.create" tooltip-placement="top" uib-tooltip="Add New Service"><i class="glyphicon glyphicon-plus" aria-label="Add New Service"></i></button>
       </div>
     </div>
   </div>
@@ -28,15 +28,15 @@
         <td>{{service.title}} per {{service.title}}</td>
         <td>{{service.avalibility}}</td>
         <td class="text-right">
-          <button class="btn btn-default" ui-sref="admin.services.view({ serviceId: service._id })"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-          <button class="btn btn-default" ui-sref="admin.services.edit({ serviceId: service._id })"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          <button class="btn btn-default" ui-sref="admin.services.view({ serviceId: service._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button> 
+          <button class="btn btn-default" ui-sref="admin.services.edit({ serviceId: service._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <script>
-    $(function () {
+    $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     })
   </script>

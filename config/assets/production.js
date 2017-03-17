@@ -31,6 +31,8 @@ module.exports = {
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-ui-select/dist/select.min.js',
+        'public/lib/angular-sanitize/angular-sanitize.min.js',
+        'public/lib/angular-input-masks/angular-input-masks-standalone.min.js',
         // endbower
       ]
     },

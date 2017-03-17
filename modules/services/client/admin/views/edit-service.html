@@ -27,7 +27,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="price">Price</label>
-          <input type="textr" id="price" name="price" class="form-control" ng-model="vm.service.price" placeholder="Price" required ng-model="money" ui-money-mask/>
+          <input type="text" id="price" name="price" class="form-control" ng-model="vm.service.price" placeholder="Price" required ng-model="money"/>
           <div ng-messages="vm.serviceForm.price.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Price is required.</p>
           </div>
