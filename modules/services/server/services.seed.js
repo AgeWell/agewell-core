@@ -92,7 +92,7 @@ exports.seed = function(done) {
 
       result.push(saved[0]);
 
-      if (total - 1) {
+      if (result.length !== total) {
         return saveAll();
       }
       return done();
