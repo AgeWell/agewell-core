@@ -1,0 +1,36 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 ng-bind="vm.request.title"></h1>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-primary" ui-sref="admin.services.edit({serviceId: vm.request._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="vm.remove()" ng-if="!vm.isContextServiceSelf()">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3"><strong>Description</strong></div>
+        <div class="col-md-6" ng-bind="vm.request.description"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Avalibility</strong></div>
+        <div class="col-md-6" ng-bind="vm.request.avalibility"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Price</strong></div>
+        <div class="col-md-6">{{vm.request.price | currency}} per <span ng-hide="vm.request.pricePer === 'Unit'" ng-bind="vm.request.pricePer"></span><span ng-show="vm.request.pricePer === 'Unit'" ng-bind="vm.request.unitName"></span></div>
+      </div>
+    </div>
+  </div>
+</section>

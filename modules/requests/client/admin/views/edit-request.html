@@ -1,0 +1,58 @@
+<section>
+  <div class="page-header">
+    <h1>Service <span ng-bind="vm.request.title"></span></h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.requestForm" class="form-horizontal" ng-submit="vm.save(vm.requestForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" class="form-control" ng-model="vm.request.title" placeholder="Title" required autofocus />
+          <div ng-messages="vm.requestForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" type="text" ng-model="vm.request.description" id="description" class="form-control" placeholder="Description" rows="6"></textarea>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="avalibility">Avalibility</label>
+          <select name="avalibility" ng-model="vm.request.avalibility" class="form-control">
+            <option ng-repeat="option in vm.options.avalibility" value="{{option}}">{{option}}</option>
+          </select>
+          <div ng-messages="vm.requestForm.avalibility.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Avalibility is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="price">Price</label>
+          <input type="text" id="price" name="price" class="form-control" ng-model="vm.request.price" placeholder="Price" required ng-model="money"/>
+          <div ng-messages="vm.requestForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="pricePer">Price Per</label>
+          <select name="pricePer" ng-model="vm.request.pricePer" class="form-control">
+            <option ng-repeat="option in vm.options.pricePer" value="{{option}}">{{option}}</option>
+          </select>
+          <div ng-messages="vm.requestForm.pricePer.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Price Per is required.</p>
+          </div>
+        </div>
+        <div class="form-group" ng-show="vm.request.pricePer === 'Unit'">
+          <label for="unitName">Unit Name</label>
+          <input type="text" id="unitName" name="unitName" class="form-control" ng-model="vm.request.unitName" placeholder="Unit Name" autofocus />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.request._id ? 'Update' : 'Create'}}</button>
+          <button ng-click="vm.log" class="btn btn-default">Log</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

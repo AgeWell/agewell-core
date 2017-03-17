@@ -1,0 +1,49 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Requests</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+      </div>
+      <div class="col-md-4 text-right" style="margin-top: 2em">
+        <button class="btn btn-default" ui-sref="admin.services.create" tooltip-placement="top" uib-tooltip="Add New Service"><i class="glyphicon glyphicon-plus" aria-label="Add New Service"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Avalibility</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="service in vm.pagedItems" ui-sref="admin.services.view({ serviceId: service._id })">
+        <td>{{service.title}}</td>
+        <td>{{service.title}} per {{service.title}}</td>
+        <td>{{service.avalibility}}</td>
+        <td class="text-right">
+          <button class="btn btn-default" ui-sref="admin.services.view({ serviceId: service._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="admin.services.edit({ serviceId: service._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  <div class="alert alert-warning text-center" ng-if="vm.requests.$resolved && !vm.requests.length">
+    No Requests yet, why don't you <a ui-sref="admin.services.create">create one</a>?
+  </div>
+
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+</section>
