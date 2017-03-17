@@ -10,6 +10,10 @@ const Schema = mongoose.Schema;
  * Volunteer Schema
  */
 var VolunteerSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.ObjectId,
+    default: mongoose.Types.ObjectId
+  },
   volunteerNo: Number,
   // GroupOfVolunteers: Boolean,
   // GroupName: String,

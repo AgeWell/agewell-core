@@ -10,6 +10,10 @@ const Schema = mongoose.Schema;
  * Client Schema
  */
 var ClientSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.ObjectId,
+    default: mongoose.Types.ObjectId
+  },
   startingDate: {
     type: Date,
     default: Date.now

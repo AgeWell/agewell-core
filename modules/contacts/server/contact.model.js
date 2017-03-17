@@ -23,6 +23,10 @@ let validateEmail = function(email) {
  * Contact Schema
  */
 let ContactSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.ObjectId,
+    default: mongoose.Types.ObjectId
+  },
   name: {
     first: {
       type: String,
