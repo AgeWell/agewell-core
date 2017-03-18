@@ -10,19 +10,33 @@ const Schema = mongoose.Schema;
  * Request Schema
  */
 let RequestSchema = new Schema({
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Request name',
-    trim: true
+  _id: {
+    type: mongoose.Schema.ObjectId,
+    default: mongoose.Types.ObjectId
   },
   created: {
     type: Date,
     default: Date.now
   },
-  user: {
+  requestService: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'Service'
+  },
+  requestDate: {
+    type: Date,
+    required: 'Please select a Request date',
+    default: Date.now
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  completedDate: {
+    type: Date
+  },
+  clientId: {
+    type: Schema.ObjectId,
+    ref: 'Client'
   }
 });
 
