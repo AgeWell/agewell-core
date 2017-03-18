@@ -104,7 +104,8 @@ function getServices() {
   return Service.find({})
     .select({
       'title': 1,
-      '_id': 1
+      '_id': 1,
+      'serviceFor': 1
     })
     .exec(function(err, services) {
       if (err) {

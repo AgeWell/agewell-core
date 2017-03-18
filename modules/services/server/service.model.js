@@ -27,6 +27,11 @@ let ServiceSchema = new Schema({
     required: 'Please enter a description',
     trim: true
   },
+  serviceFor: {
+    type: String,
+    enum: ['Client', 'Caregiver', 'Organization'],
+    required: 'Who is this service for?'
+  },
   avalibility: {
     type: String,
     enum: ['On-demand', 'Weekly', 'Monthly'],
