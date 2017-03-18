@@ -9,53 +9,56 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('requests', {
+      .state('services.view.requests', {
         abstract: true,
         url: '/requests',
         template: '<ui-view/>'
       })
-      .state('requests.list', {
+      .state('services.view.requests.list', {
         url: '',
-        templateUrl: 'modules/requests/client/views/list-requests.html',
+        templateUrl: '/modules/requests/client/views/list-requests.html',
         controller: 'RequestsListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Requests List'
         }
       })
-      .state('requests.create', {
-        url: '/create',
-        templateUrl: 'modules/requests/client/views/form-request.html',
+      .state('services.view.requests.create', {
+        url: '/:serviceId/request',
+        templateUrl: '/modules/requests/client/views/form-request.html',
         controller: 'RequestsController',
         controllerAs: 'vm',
         resolve: {
-          requestResolve: newRequest
+          requestResolve: newRequest,
+          requestService: getService
         },
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Requests Create'
         }
       })
-      .state('requests.edit', {
+      .state('services.view.requests.edit', {
         url: '/:requestId/edit',
-        templateUrl: 'modules/requests/client/views/form-request.html',
+        templateUrl: '/modules/requests/client/views/form-request.html',
         controller: 'RequestsController',
         controllerAs: 'vm',
         resolve: {
-          requestResolve: getRequest
+          requestResolve: getRequest,
+          requestService: getService
         },
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Edit Request {{ requestResolve.name }}'
         }
       })
-      .state('requests.view', {
+      .state('services.view.requests.view', {
         url: '/:requestId',
-        templateUrl: 'modules/requests/client/views/view-request.html',
+        templateUrl: '/modules/requests/client/views/view-request.html',
         controller: 'RequestsController',
         controllerAs: 'vm',
         resolve: {
-          requestResolve: getRequest
+          requestResolve: getRequest,
+          requestService: getService
         },
         data: {
           pageTitle: 'Request {{ requestResolve.name }}'
@@ -75,5 +78,17 @@
 
   function newRequest(RequestsService) {
     return new RequestsService();
+  }
+
+  getService.$inject = ['$stateParams', 'ServicesService'];
+
+  function getService($stateParams, ServicesService) {
+    console.log($stateParams.serviceId);
+    if ($stateParams.serviceId) {
+      return ServicesService.get({
+        requestId: $stateParams.serviceId
+      }).$promise;
+    }
+    return null;
   }
 }());

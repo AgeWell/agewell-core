@@ -16,12 +16,34 @@
   </div>
   <div class="col-md-4">
     <div class="pull-right" ng-show="vm.client.canEdit">
-      <a class="btn btn-primary" ui-sref="clients.edit({ clientId: vm.client._id })">
-        <i class="glyphicon glyphicon-edit"></i> Edit Client
-      </a>
-      <a class="btn btn-primary" ng-click="vm.remove()">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
+      <h4>Service Requests</h4>
+      <div class="btn-group-vertical" role="group" aria-label="Client Actions">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'careConsultation' })" ng-disabled="true">
+          <i class="glyphicon glyphicon-edit"></i> Care Consultation
+        </button>
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'choreAssistance' })" ng-disabled="true">
+          <i class="glyphicon glyphicon-edit"></i> Chore
+        </button>
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'homemakerAssistance' })" ng-disabled="true">
+          <i class="glyphicon glyphicon-edit"></i> Homemaking
+        </button>
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'seniorWheelTransportation' })" ng-disabled="true">
+          <i class="glyphicon glyphicon-edit"></i> Appointment
+        </button>
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'errandsTransportation' })" ng-disabled="true">
+          <i class="glyphicon glyphicon-edit"></i> Errand
+        </button>
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'groceriesToGo' })">
+          <i class="glyphicon glyphicon-edit"></i> Groceries
+        </button>
+        <button class="btn btn-secondary" ng-disabled="true"></button>
+        <button class="btn btn-primary" ui-sref="clients.edit({ clientId: vm.client._id })">
+          <i class="glyphicon glyphicon-edit"></i> Edit Client
+        </button>
+        <button class="btn btn-primary" ng-click="vm.remove()">
+          <i class="glyphicon glyphicon-trash"></i> Delete Client
+        </button>
+      </div>
     </div>
   </div>
   <!-- <small>

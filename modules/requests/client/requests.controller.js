@@ -6,16 +6,20 @@
     .module('requests')
     .controller('RequestsController', RequestsController);
 
-  RequestsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'requestResolve'];
+  RequestsController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'requestResolve', 'requestService'];
 
-  function RequestsController ($scope, $state, $window, Authentication, request) {
+  function RequestsController ($scope, $state, $stateParams, $window, Authentication, request, service) {
     let vm = this;
 
     vm.authentication = Authentication;
     vm.request = request;
+    vm.service = service;
     vm.error = null;
     vm.remove = remove;
     vm.save = save;
+
+    console.log($stateParams);
+    console.log(vm);
 
     // Remove existing Request
     function remove() {
