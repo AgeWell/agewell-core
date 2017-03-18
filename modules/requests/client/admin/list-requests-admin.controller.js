@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('services.admin')
+    .module('requests.admin')
     .controller('RequestsAdminListController', RequestsAdminListController);
 
   RequestsAdminListController.$inject = ['$scope', '$filter', 'RequestsAdminService'];

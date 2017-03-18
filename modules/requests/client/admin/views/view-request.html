@@ -5,7 +5,7 @@
         <h1 ng-bind="vm.request.title"></h1>
       </div>
       <div class="col-md-4">
-        <a class="btn btn-primary" ui-sref="admin.services.edit({serviceId: vm.request._id})">
+        <a class="btn btn-primary" ui-sref="admin.requests.edit({serviceId: vm.request._id})">
           <i class="glyphicon glyphicon-edit"></i>
         </a>
         <a class="btn btn-primary" ng-click="vm.remove()" ng-if="!vm.isContextServiceSelf()">

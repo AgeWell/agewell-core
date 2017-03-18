@@ -2,75 +2,75 @@
   'use strict';
 
   angular
-    .module('services.admin')
+    .module('requests.admin')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('admin.services', {
+      .state('admin.requests', {
         abstract: true,
-        url: '/services',
+        url: '/requests',
         template: '<ui-view/>'
       })
-      .state('admin.services.list', {
+      .state('admin.requests.list', {
         url: '',
-        templateUrl: '/modules/services/client/admin/views/list-services.html',
+        templateUrl: '/modules/requests/client/admin/views/list-requests.html',
         controller: 'RequestsAdminListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Requests List'
         }
       })
-      .state('admin.services.create', {
+      .state('admin.requests.create', {
         url: '/create',
-        templateUrl: '/modules/services/client/admin/views/edit-service.html',
+        templateUrl: '/modules/requests/client/admin/views/edit-request.html',
         controller: 'RequestsAdminController',
         controllerAs: 'vm',
         resolve: {
-          serviceResolve: newService
+          serviceResolve: newRequest
         },
         data: {
           pageTitle: 'Requests Create'
         }
       })
-      .state('admin.services.edit', {
+      .state('admin.requests.edit', {
         url: '/:serviceId/edit',
-        templateUrl: '/modules/services/client/admin/views/edit-service.html',
+        templateUrl: '/modules/requests/client/admin/views/edit-request.html',
         controller: 'RequestsAdminController',
         controllerAs: 'vm',
         resolve: {
-          serviceResolve: getService
+          serviceResolve: getRequest
         },
         data: {
           pageTitle: 'Edit Service {{ serviceResolve.name }}'
         }
       })
-      .state('admin.services.view', {
+      .state('admin.requests.view', {
         url: '/:serviceId',
-        templateUrl: '/modules/services/client/admin/views/view-service.html',
+        templateUrl: '/modules/requests/client/admin/views/view-request.html',
         controller: 'RequestsAdminController',
         controllerAs: 'vm',
         resolve: {
-          serviceResolve: getService
+          serviceResolve: getRequest
         },
         data: {
           pageTitle: 'Service {{ serviceResolve.name }}'
         }
       });
 
-    getService.$inject = ['$stateParams', 'RequestsAdminService'];
+    getRequest.$inject = ['$stateParams', 'RequestsAdminService'];
 
-    function getService($stateParams, RequestsAdminService) {
+    function getRequest($stateParams, RequestsAdminService) {
       return RequestsAdminService.get({
         serviceId: $stateParams.serviceId
       }).$promise;
     }
 
-    newService.$inject = ['RequestsAdminService'];
+    newRequest.$inject = ['RequestsAdminService'];
 
-    function newService(RequestsAdminService) {
+    function newRequest(RequestsAdminService) {
       return new RequestsAdminService();
     }
   }

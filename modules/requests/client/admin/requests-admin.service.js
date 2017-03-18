@@ -3,7 +3,7 @@
 
   // TODO this should be Requests service
   angular
-    .module('services.admin')
+    .module('requests.admin')
     .factory('RequestsAdminService', RequestsAdminService);
 
   RequestsAdminService.$inject = ['$resource'];

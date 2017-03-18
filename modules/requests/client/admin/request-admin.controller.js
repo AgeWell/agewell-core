@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('services.admin')
+    .module('requests.admin')
     .controller('RequestsAdminController', RequestsAdminController);
 
   RequestsAdminController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'serviceResolve', 'Notification'];
@@ -28,7 +28,7 @@
           Notification.success('Service deleted successfully!');
         } else {
           vm.request.$remove(function () {
-            $state.go('admin.services');
+            $state.go('admin.requests');
             Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Service deleted successfully!' });
           });
         }
@@ -52,7 +52,7 @@
       }
 
       function successCallback(res) {
-        $state.go('admin.services.view', {
+        $state.go('admin.requests.view', {
           serviceId: res._id
         });
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Service saved successfully!' });

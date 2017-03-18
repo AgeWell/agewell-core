@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('services.admin')
+    .module('requests.admin')
     .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
@@ -11,7 +11,7 @@
   function menuConfig(menuService) {
     menuService.addSubMenuItem('topbar', 'admin', {
       title: 'Manage Requests',
-      state: 'admin.services.list'
+      state: 'admin.requests.list'
     });
   }
 }());
