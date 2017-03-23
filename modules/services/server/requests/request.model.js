@@ -14,29 +14,33 @@ let RequestSchema = new Schema({
     type: mongoose.Schema.ObjectId,
     default: mongoose.Types.ObjectId
   },
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  requestService: {
+  service: {
     type: Schema.ObjectId,
     ref: 'Service'
   },
-  requestDate: {
+  date: {
     type: Date,
-    required: 'Please select a Request date',
-    default: Date.now
+    required: 'Please select a Request date'
   },
-  completed: {
+  payment: {
+    status: Boolean,
+    date: Date
+  },
+  fullfilled: {
     type: Boolean,
-    default: false
+    date: Date
   },
-  completedDate: {
-    type: Date
+  canceled: {
+    type: Boolean,
+    date: Date
   },
   clientId: {
     type: Schema.ObjectId,
     ref: 'Client'
+  },
+  created: {
+    type: Date,
+    default: Date.now
   }
 });
 

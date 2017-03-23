@@ -27,6 +27,11 @@ let ServiceSchema = new Schema({
     required: 'Please enter a description',
     trim: true
   },
+  serviceType: {
+    type: String,
+    enum: ['Service', 'Order', 'Training'],
+    default: 'Service'
+  },
   serviceFor: {
     type: String,
     enum: ['Client', 'Caregiver', 'Organization'],
