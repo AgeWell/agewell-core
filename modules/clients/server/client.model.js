@@ -14,7 +14,7 @@ var ClientSchema = new Schema({
     type: mongoose.Schema.ObjectId,
     default: mongoose.Types.ObjectId
   },
-  startingDate: {
+  started: {
     type: Date,
     default: Date.now
   },

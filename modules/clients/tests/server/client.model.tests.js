@@ -7,6 +7,8 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Client = mongoose.model('Client');
+  
+  console.log(mongoose);
 
 /**
  * Globals
@@ -30,7 +32,7 @@ describe('Client Model Unit Tests:', function() {
 
     user.save(function() {
       client = new Client({
-        startingDate: new Date(),
+        started: new Date(),
         active: true
       });
 

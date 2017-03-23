@@ -17,7 +17,7 @@ var VolunteerSchema = new Schema({
   volunteerNo: Number,
   // GroupOfVolunteers: Boolean,
   // GroupName: String,
-  startingDate: {
+  started: {
     type: Date,
     default: Date.now
   },

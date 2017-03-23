@@ -58,7 +58,7 @@ describe('Client CRUD tests', function() {
       }
 
       client = {
-        startingDate: now,
+        started: now,
         active: true,
         contact: {
           name: {

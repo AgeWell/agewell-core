@@ -10,7 +10,7 @@ let docArray = [{
   '_id': '58cc257b0ed1c8650836036a',
   'monthlyIncomeSingle': '$1,486-1,980',
   'transportation': 'No I am unable to drive',
-  'startingDate': new Date('2017-03-17T18:05:47.699Z')
+  'started': new Date('2017-03-17T18:05:47.699Z')
 }];
 
 /**

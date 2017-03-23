@@ -56,7 +56,7 @@ describe('Volunteer CRUD tests', function () {
       }
 
       volunteer = {
-        startingDate: new Date(),
+        started: new Date(),
         active: true,
         contact: {
           name: {

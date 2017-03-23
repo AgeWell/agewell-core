@@ -30,7 +30,7 @@ describe('Volunteer Model Unit Tests:', function() {
 
     user.save(function() {
       volunteer = new Volunteer({
-        startingDate: new Date(),
+        started: new Date(),
         active: true
       });
 
