@@ -1,18 +1,18 @@
 'use strict';
 
-var should = require('should'),
-  testRequest = require('supertest'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Client = mongoose.model('User'),
-  Request = mongoose.model('Request'),
-  express = require(path.resolve('./config/lib/express'));
+const should = require('should');
+const testRequest = require('supertest');
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Client = mongoose.model('User');
+const Request = mongoose.model('Request');
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -81,7 +81,7 @@ describe('Request CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Request
         agent.post('/api/requests')
@@ -102,7 +102,7 @@ describe('Request CRUD tests', function () {
                 }
 
                 // Get Requests list
-                var requests = requestsGetRes.body;
+                let requests = requestsGetRes.body;
 
                 // Set assertions
                 (requests[0].clientId).should.match(client._id.toString());
@@ -139,7 +139,7 @@ describe('Request CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Request
         agent.post('/api/requests')
@@ -166,7 +166,7 @@ describe('Request CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Request
         agent.post('/api/requests')
@@ -205,7 +205,7 @@ describe('Request CRUD tests', function () {
 
   it('should be able to get a list of Requests if not signed in', function (done) {
     // Create new Request model instance
-    var requestObj = new Request(request);
+    let requestObj = new Request(request);
 
     // Save the request
     requestObj.save(function () {
@@ -257,7 +257,7 @@ describe('Request CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Request
         agent.post('/api/requests')
@@ -294,7 +294,7 @@ describe('Request CRUD tests', function () {
     request.user = user;
 
     // Create new Request model instance
-    var requestObj = new Request(request);
+    let requestObj = new Request(request);
 
     // Save the Request
     requestObj.save(function () {

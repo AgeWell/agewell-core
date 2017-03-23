@@ -3,7 +3,7 @@
 
   describe('Edit Profile Controller Tests', function () {
     // Initialize global variables
-    var EditProfileController,
+    let EditProfileController,
       $scope,
       $httpBackend,
       $location,
@@ -86,7 +86,7 @@
       }));
 
       it('should call Notification.error if error', inject(function (UsersService) {
-        var errorMessage = 'error';
+        let errorMessage = 'error';
         $httpBackend.expectPUT(/api\/users/).respond(400, {
           message: errorMessage
         });

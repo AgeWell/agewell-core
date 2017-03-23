@@ -3,7 +3,7 @@
 
   describe('Contacts Route Tests', function () {
     // Initialize global variables
-    var $scope,
+    let $scope,
       ContactsService;
 
     // We can start by loading the main application module
@@ -20,7 +20,7 @@
 
     describe('Route Config', function () {
       describe('Main Route', function () {
-        var mainstate;
+        let mainstate;
         beforeEach(inject(function ($state) {
           mainstate = $state.get('contacts');
         }));
@@ -39,7 +39,7 @@
       });
 
       describe('View Route', function () {
-        var viewstate,
+        let viewstate,
           ContactsController,
           mockContact;
 
@@ -89,7 +89,7 @@
       });
 
       describe('Create Route', function () {
-        var createstate,
+        let createstate,
           ContactsController,
           mockContact;
 
@@ -135,7 +135,7 @@
       });
 
       describe('Edit Route', function () {
-        var editstate,
+        let editstate,
           ContactsController,
           mockContact;
 

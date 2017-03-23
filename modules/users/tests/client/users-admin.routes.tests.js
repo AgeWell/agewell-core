@@ -3,7 +3,7 @@
 
   describe('Users Admin Route Tests', function () {
     // Initialize global variables
-    var $scope,
+    let $scope,
       Authentication,
       $httpBackend;
 
@@ -21,7 +21,7 @@
 
     describe('Route Config', function () {
       describe('Main Route', function () {
-        var mainstate;
+        let mainstate;
         beforeEach(inject(function ($state) {
           mainstate = $state.get('admin.users');
         }));
@@ -40,7 +40,7 @@
       });
 
       describe('View Route', function () {
-        var viewstate;
+        let viewstate;
         beforeEach(inject(function ($state) {
           viewstate = $state.get('admin.user');
         }));
@@ -59,7 +59,7 @@
       });
 
       describe('Edit Route', function () {
-        var editstate;
+        let editstate;
         beforeEach(inject(function ($state) {
           editstate = $state.get('admin.user-edit');
         }));

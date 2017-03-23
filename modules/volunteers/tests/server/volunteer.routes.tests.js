@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('should'),
+let should = require('should'),
   request = require('supertest'),
   path = require('path'),
   mongoose = require('mongoose'),
@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -81,7 +81,7 @@ describe('Volunteer CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Volunteer
         agent.post('/api/volunteers')
@@ -102,7 +102,7 @@ describe('Volunteer CRUD tests', function () {
                 }
 
                 // Get Volunteers list
-                var volunteers = volunteersGetRes.body;
+                let volunteers = volunteersGetRes.body;
 
                 // Set assertions
                 (volunteers[0].active).should.be.true();
@@ -138,7 +138,7 @@ describe('Volunteer CRUD tests', function () {
   //       }
   //
   //       // Get the userId
-  //       var userId = user.id;
+  //       let userId = user.id;
   //
   //       // Save a new Volunteer
   //       agent.post('/api/volunteers')
@@ -165,7 +165,7 @@ describe('Volunteer CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Volunteer
         agent.post('/api/volunteers')
@@ -203,7 +203,7 @@ describe('Volunteer CRUD tests', function () {
 
   // it('should be able to get a list of Volunteers if not signed in', function (done) {
   //   // Create new Volunteer model instance
-  //   var volunteerObj = new Volunteer(volunteer);
+  //   let volunteerObj = new Volunteer(volunteer);
   //
   //   // Save the volunteer
   //   volunteerObj.save(function () {
@@ -222,7 +222,7 @@ describe('Volunteer CRUD tests', function () {
 
   // it('should be able to get a single Volunteer if not signed in', function (done) {
   //   // Create new Volunteer model instance
-  //   var volunteerObj = new Volunteer(volunteer);
+  //   let volunteerObj = new Volunteer(volunteer);
   //
   //   // Save the Volunteer
   //   volunteerObj.save(function () {
@@ -272,7 +272,7 @@ describe('Volunteer CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Volunteer
         agent.post('/api/volunteers')
@@ -309,7 +309,7 @@ describe('Volunteer CRUD tests', function () {
     volunteer.user = user;
 
     // Create new Volunteer model instance
-    var volunteerObj = new Volunteer(volunteer);
+    let volunteerObj = new Volunteer(volunteer);
 
     // Save the Volunteer
     volunteerObj.save(function () {

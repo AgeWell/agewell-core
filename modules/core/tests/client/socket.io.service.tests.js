@@ -6,11 +6,11 @@
    * the chat controller tests.
    */
 
-  var ngInjector = angular.injector(['ng']),
+  let ngInjector = angular.injector(['ng']),
     $window = ngInjector.get('$window');
 
-  var mock = function () {
-    var io = {
+  let mock = function () {
+    let io = {
       cbs: {},
       connect: connect,
       emit: emit,

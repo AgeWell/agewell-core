@@ -1,17 +1,17 @@
 'use strict';
 
-var should = require('should'),
-  request = require('supertest'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Client = mongoose.model('Client'),
-  express = require(path.resolve('./config/lib/express'));
+const should = require('should');
+const request = require('supertest');
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Client = mongoose.model('Client');
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -83,7 +83,7 @@ describe('Client CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Client
         agent.post('/api/clients')
@@ -104,7 +104,7 @@ describe('Client CRUD tests', function() {
                 }
 
                 // Get Clients list
-                var clients = clientsGetRes.body;
+                let clients = clientsGetRes.body;
 
                 // Set assertions
                 (clients[0].active).should.be.true();
@@ -140,7 +140,7 @@ describe('Client CRUD tests', function() {
   //       }
   //
   //       // Get the userId
-  //       var userId = user.id;
+  //       let userId = user.id;
   //
   //       // Save a new Client
   //       agent.post('/api/clients')
@@ -167,7 +167,7 @@ describe('Client CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Client
         agent.post('/api/clients')
@@ -205,7 +205,7 @@ describe('Client CRUD tests', function() {
 
   // it('should be able to get a list of Clients if not signed in', function (done) {
   //   // Create new Client model instance
-  //   var clientObj = new Client(client);
+  //   let clientObj = new Client(client);
   //
   //   // Save the client
   //   clientObj.save(function () {
@@ -224,7 +224,7 @@ describe('Client CRUD tests', function() {
 
   // it('should be able to get a single Client if not signed in', function (done) {
   //   // Create new Client model instance
-  //   var clientObj = new Client(client);
+  //   let clientObj = new Client(client);
   //
   //   // Save the Client
   //   clientObj.save(function () {
@@ -274,7 +274,7 @@ describe('Client CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Client
         agent.post('/api/clients')
@@ -311,7 +311,7 @@ describe('Client CRUD tests', function() {
     client.user = user;
 
     // Create new Client model instance
-    var clientObj = new Client(client);
+    let clientObj = new Client(client);
 
     // Save the Client
     clientObj.save(function() {

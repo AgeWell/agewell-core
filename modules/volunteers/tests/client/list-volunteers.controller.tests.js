@@ -3,7 +3,7 @@
 
   describe('Volunteers List Controller Tests', function () {
     // Initialize global variables
-    var VolunteersListController,
+    let VolunteersListController,
       $scope,
       $httpBackend,
       $state,
@@ -67,7 +67,7 @@
     }));
 
     describe('Instantiate', function () {
-      var mockVolunteerList;
+      let mockVolunteerList;
 
       beforeEach(function () {
         mockVolunteerList = [mockVolunteer, mockVolunteer];

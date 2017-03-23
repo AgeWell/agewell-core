@@ -4,7 +4,7 @@
   // Password controller Spec
   describe('PasswordController', function() {
     // Initialize global variables
-    var PasswordController,
+    let PasswordController,
       scope,
       $httpBackend,
       $stateParams,
@@ -92,7 +92,7 @@
       });
 
       describe('askForPasswordReset', function() {
-        var credentials = {
+        let credentials = {
           username: 'test',
           password: 'P@ssw0rd!!'
         };
@@ -101,7 +101,7 @@
         });
 
         describe('POST error', function() {
-          var errorMessage = 'No account with that username has been found';
+          let errorMessage = 'No account with that username has been found';
           beforeEach(function() {
             $httpBackend.when('POST', '/api/auth/forgot', credentials).respond(400, {
               'message': errorMessage
@@ -121,7 +121,7 @@
         });
 
         describe('POST success', function() {
-          var successMessage = 'An email has been sent to the provided email with further instructions.';
+          let successMessage = 'An email has been sent to the provided email with further instructions.';
           beforeEach(function() {
             $httpBackend.when('POST', '/api/auth/forgot', credentials).respond({
               'message': successMessage
@@ -142,8 +142,8 @@
       });
 
       describe('resetUserPassword', function() {
-        var token = 'testToken';
-        var passwordDetails = {
+        let token = 'testToken';
+        let passwordDetails = {
           password: 'test'
         };
         beforeEach(function() {
@@ -152,7 +152,7 @@
         });
 
         it('POST error should call Notification.error with response message', function() {
-          var errorMessage = 'Passwords do not match';
+          let errorMessage = 'Passwords do not match';
           $httpBackend.when('POST', '/api/auth/reset/' + token, passwordDetails).respond(400, {
             'message': errorMessage
           });
@@ -164,7 +164,7 @@
         });
 
         describe('POST success', function() {
-          var user = {
+          let user = {
             username: 'test'
           };
           beforeEach(function() {

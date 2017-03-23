@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('should'),
+let should = require('should'),
   request = require('supertest'),
   path = require('path'),
   mongoose = require('mongoose'),
@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -70,7 +70,7 @@ describe('Groceries to go CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Groceries to go
         agent.post('/api/groceriesToGos')
@@ -91,7 +91,7 @@ describe('Groceries to go CRUD tests', function () {
                 }
 
                 // Get Groceries to gos list
-                var groceriesToGos = groceriesToGosGetRes.body;
+                let groceriesToGos = groceriesToGosGetRes.body;
 
                 // Set assertions
                 (groceriesToGos[0].user._id).should.equal(userId);
@@ -128,7 +128,7 @@ describe('Groceries to go CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Groceries to go
         agent.post('/api/groceriesToGos')
@@ -155,7 +155,7 @@ describe('Groceries to go CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Groceries to go
         agent.post('/api/groceriesToGos')
@@ -193,7 +193,7 @@ describe('Groceries to go CRUD tests', function () {
 
   it('should be able to get a list of Groceries to gos if not signed in', function (done) {
     // Create new Groceries to go model instance
-    var groceriesToGoObj = new GroceriesToGo(groceriesToGo);
+    let groceriesToGoObj = new GroceriesToGo(groceriesToGo);
 
     // Save the groceriesToGo
     groceriesToGoObj.save(function () {
@@ -212,7 +212,7 @@ describe('Groceries to go CRUD tests', function () {
 
   it('should be able to get a single Groceries to go if not signed in', function (done) {
     // Create new Groceries to go model instance
-    var groceriesToGoObj = new GroceriesToGo(groceriesToGo);
+    let groceriesToGoObj = new GroceriesToGo(groceriesToGo);
 
     // Save the Groceries to go
     groceriesToGoObj.save(function () {
@@ -262,7 +262,7 @@ describe('Groceries to go CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Groceries to go
         agent.post('/api/groceriesToGos')
@@ -299,7 +299,7 @@ describe('Groceries to go CRUD tests', function () {
     groceriesToGo.user = user;
 
     // Create new Groceries to go model instance
-    var groceriesToGoObj = new GroceriesToGo(groceriesToGo);
+    let groceriesToGoObj = new GroceriesToGo(groceriesToGo);
 
     // Save the Groceries to go
     groceriesToGoObj.save(function () {
@@ -319,13 +319,13 @@ describe('Groceries to go CRUD tests', function () {
 
   it('should be able to get a single Groceries to go that has an orphaned user reference', function (done) {
     // Create orphan user creds
-    var _creds = {
+    let _creds = {
       usernameOrEmail: 'orphan',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
     // Create orphan user
-    var _orphan = new User({
+    let _orphan = new User({
       firstName: 'Full',
       lastName: 'Name',
       displayName: 'Full Name',
@@ -351,7 +351,7 @@ describe('Groceries to go CRUD tests', function () {
           }
 
           // Get the userId
-          var orphanId = orphan._id;
+          let orphanId = orphan._id;
 
           // Save a new Groceries to go
           agent.post('/api/groceriesToGos')

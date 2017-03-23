@@ -3,7 +3,7 @@
 
   describe('Clients Controller Tests', function () {
     // Initialize global variables
-    var ClientsController,
+    let ClientsController,
       $scope,
       $httpBackend,
       $state,
@@ -68,7 +68,7 @@
     }));
 
     describe('vm.save() as create', function () {
-      var sampleClientPostData;
+      let sampleClientPostData;
 
       beforeEach(function () {
         // Create a sample Client object
@@ -94,7 +94,7 @@
       }));
 
       it('should set $scope.vm.error if error', function () {
-        var errorMessage = 'this is an error message';
+        let errorMessage = 'this is an error message';
         $httpBackend.expectPOST('api/clients', sampleClientPostData).respond(400, {
           message: errorMessage
         });
@@ -127,7 +127,7 @@
       }));
 
       it('should set $scope.vm.error if error', inject(function (ClientsService) {
-        var errorMessage = 'error';
+        let errorMessage = 'error';
         $httpBackend.expectPUT(/api\/clients\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage
         });

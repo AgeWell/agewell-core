@@ -3,23 +3,23 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
-  should = require('should'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  path = require('path'),
-  fs = require('fs'),
-  mock = require('mock-fs'),
-  request = require('supertest'),
-  config = require(path.resolve('./config/config')),
-  logger = require(path.resolve('./config/lib/logger')),
-  seed = require(path.resolve('./config/lib/seed')),
-  express = require(path.resolve('./config/lib/express'));
+const _ = require('lodash');
+const should = require('should');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const path = require('path');
+const fs = require('fs');
+const mock = require('mock-fs');
+const request = require('supertest');
+const config = require(path.resolve('./config/config'));
+const logger = require(path.resolve('./config/lib/logger'));
+const seed = require(path.resolve('./config/lib/seed'));
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   user1,
   admin1,
@@ -100,7 +100,7 @@ describe('Configuration Tests:', function () {
     it('should seed ONLY the admin user account when NODE_ENV is set to "production"', function(done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'production';
 
@@ -117,7 +117,7 @@ describe('Configuration Tests:', function () {
               should.not.exist(err);
               users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-              var _admin = users.pop();
+              let _admin = users.pop();
               _admin.username.should.equal(adminFromSeedConfig.username);
 
               // Restore original NODE_ENV environment variable
@@ -135,7 +135,7 @@ describe('Configuration Tests:', function () {
     it('should seed admin, and "regular" user accounts when NODE_ENV is set to "test"', function(done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'test';
 
@@ -152,7 +152,7 @@ describe('Configuration Tests:', function () {
               should.not.exist(err);
               users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-              var _admin = users.pop();
+              let _admin = users.pop();
               _admin.username.should.equal(adminFromSeedConfig.username);
 
               User.find({ username: userFromSeedConfig.username }, function(err, users) {
@@ -160,7 +160,7 @@ describe('Configuration Tests:', function () {
                 should.not.exist(err);
                 users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-                var _user = users.pop();
+                let _user = users.pop();
                 _user.username.should.equal(userFromSeedConfig.username);
 
                 // Restore original NODE_ENV environment variable
@@ -179,12 +179,12 @@ describe('Configuration Tests:', function () {
     it('should seed admin, and "regular" user accounts when NODE_ENV is set to "test" when they already exist', function (done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'test';
 
-      var _user = new User(userFromSeedConfig);
-      var _admin = new User(adminFromSeedConfig);
+      let _user = new User(userFromSeedConfig);
+      let _admin = new User(adminFromSeedConfig);
 
       _admin.save(function (err) {
         // There shouldn't be any errors
@@ -223,7 +223,7 @@ describe('Configuration Tests:', function () {
     it('should ONLY seed admin user account when NODE_ENV is set to "production" with custom admin', function(done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'production';
 
@@ -240,7 +240,7 @@ describe('Configuration Tests:', function () {
               should.not.exist(err);
               users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-              var _admin = users.pop();
+              let _admin = users.pop();
               _admin.username.should.equal(admin1.username);
 
               // Restore original NODE_ENV environment variable
@@ -258,7 +258,7 @@ describe('Configuration Tests:', function () {
     it('should seed admin, and "regular" user accounts when NODE_ENV is set to "test" with custom options', function(done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'test';
 
@@ -275,7 +275,7 @@ describe('Configuration Tests:', function () {
               should.not.exist(err);
               users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-              var _admin = users.pop();
+              let _admin = users.pop();
               _admin.username.should.equal(admin1.username);
 
               User.find({ username: user1.username }, function(err, users) {
@@ -283,7 +283,7 @@ describe('Configuration Tests:', function () {
                 should.not.exist(err);
                 users.should.be.instanceof(Array).and.have.lengthOf(1);
 
-                var _user = users.pop();
+                let _user = users.pop();
                 _user.username.should.equal(user1.username);
 
                 // Restore original NODE_ENV environment variable
@@ -302,11 +302,11 @@ describe('Configuration Tests:', function () {
     it('should NOT seed admin user account if it already exists when NODE_ENV is set to "production"', function(done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
       process.env.NODE_ENV = 'production';
 
-      var _admin = new User(adminFromSeedConfig);
+      let _admin = new User(adminFromSeedConfig);
 
       _admin.save(function(err, user) {
         // There shouldn't be any errors
@@ -346,11 +346,11 @@ describe('Configuration Tests:', function () {
     it('should NOT seed "regular" user account if missing email when NODE_ENV set to "test"', function (done) {
 
       // Save original value
-      var nodeEnv = process.env.NODE_ENV;
+      let nodeEnv = process.env.NODE_ENV;
       // Set node env ro test environment
       process.env.NODE_ENV = 'test';
 
-      var _user = new User(user1);
+      let _user = new User(user1);
       _user.email = '';
 
       seed
@@ -384,7 +384,7 @@ describe('Configuration Tests:', function () {
 
   describe('Testing Session Secret Configuration', function () {
     it('should warn if using default session secret when running in production', function (done) {
-      var conf = { sessionSecret: 'MEAN' };
+      let conf = { sessionSecret: 'MEAN' };
       // set env to production for this test
       process.env.NODE_ENV = 'production';
       config.utils.validateSessionSecret(conf, true).should.equal(false);
@@ -394,7 +394,7 @@ describe('Configuration Tests:', function () {
     });
 
     it('should accept non-default session secret when running in production', function () {
-      var conf = { sessionSecret: 'super amazing secret' };
+      let conf = { sessionSecret: 'super amazing secret' };
       // set env to production for this test
       process.env.NODE_ENV = 'production';
       config.utils.validateSessionSecret(conf, true).should.equal(true);
@@ -403,7 +403,7 @@ describe('Configuration Tests:', function () {
     });
 
     it('should accept default session secret when running in development', function () {
-      var conf = { sessionSecret: 'MEAN' };
+      let conf = { sessionSecret: 'MEAN' };
       // set env to development for this test
       process.env.NODE_ENV = 'development';
       config.utils.validateSessionSecret(conf, true).should.equal(true);
@@ -412,7 +412,7 @@ describe('Configuration Tests:', function () {
     });
 
     it('should accept default session secret when running in test', function () {
-      var conf = { sessionSecret: 'MEAN' };
+      let conf = { sessionSecret: 'MEAN' };
       config.utils.validateSessionSecret(conf, true).should.equal(true);
     });
   });
@@ -435,13 +435,13 @@ describe('Configuration Tests:', function () {
         format: 'tiny'
       };
 
-      var format = logger.getLogFormat();
+      let format = logger.getLogFormat();
       format.should.be.equal('tiny');
     });
 
     it('should retrieve the log options from the logger configuration for a valid stream object', function () {
 
-      var options = logger.getMorganOptions();
+      let options = logger.getMorganOptions();
 
       options.should.be.instanceof(Object);
       options.should.have.property('stream');
@@ -449,8 +449,8 @@ describe('Configuration Tests:', function () {
     });
 
     it('should verify that a file logger object was created using the logger configuration', function () {
-      var _dir = process.cwd();
-      var _filename = 'unit-test-access.log';
+      let _dir = process.cwd();
+      let _filename = 'unit-test-access.log';
 
       config.log = {
         fileLogger: {
@@ -459,21 +459,21 @@ describe('Configuration Tests:', function () {
         }
       };
 
-      var fileTransport = logger.getLogOptions(config);
+      let fileTransport = logger.getLogOptions(config);
       fileTransport.should.be.instanceof(Object);
       fileTransport.filename.should.equal(_dir + '/' + _filename);
     });
 
     // it('should use the default log format of "combined" when an invalid format was provided', function () {
     //
-    //   var _logger = require(path.resolve('./config/lib/logger'));
+    //   let _logger = require(path.resolve('./config/lib/logger'));
     //
     //   // manually set the config log format to be invalid
     //   config.log = {
     //     format: '_some_invalid_format_'
     //   };
     //
-    //   var format = _logger.getLogFormat();
+    //   let format = _logger.getLogFormat();
     //   format.should.be.equal('combined');
     // });
 
@@ -490,7 +490,7 @@ describe('Configuration Tests:', function () {
         }
       };
 
-      var fileTransport = logger.getLogOptions(config);
+      let fileTransport = logger.getLogOptions(config);
       fileTransport.should.be.false();
     });
 
@@ -507,7 +507,7 @@ describe('Configuration Tests:', function () {
         }
       };
 
-      var fileTransport = logger.getLogOptions(config);
+      let fileTransport = logger.getLogOptions(config);
       fileTransport.should.be.false();
     });
   });

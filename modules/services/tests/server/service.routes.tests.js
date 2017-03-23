@@ -1,17 +1,17 @@
 'use strict';
 
-var should = require('should'),
-  request = require('supertest'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Service = mongoose.model('Service'),
-  express = require(path.resolve('./config/lib/express'));
+const should = require('should');
+const request = require('supertest');
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Service = mongoose.model('Service');
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -132,7 +132,7 @@ describe('Service CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Service
         agent.post('/api/services')
@@ -159,7 +159,7 @@ describe('Service CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Service
         agent.post('/api/services')
@@ -199,7 +199,7 @@ describe('Service CRUD tests', function () {
 
   it('should be able to get a list of Services if not signed in', function (done) {
     // Create new Service model instance
-    var serviceObj = new Service(service);
+    let serviceObj = new Service(service);
 
     // Save the service
     serviceObj.save(function () {
@@ -217,7 +217,7 @@ describe('Service CRUD tests', function () {
 
   it('should be able to get a single Service if not signed in', function (done) {
     // Create new Service model instance
-    var serviceObj = new Service(service);
+    let serviceObj = new Service(service);
 
     // Save the Service
     serviceObj.save(function () {
@@ -267,7 +267,7 @@ describe('Service CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Service
         agent.post('/api/services')
@@ -304,7 +304,7 @@ describe('Service CRUD tests', function () {
     service.user = user;
 
     // Create new Service model instance
-    var serviceObj = new Service(service);
+    let serviceObj = new Service(service);
 
     // Save the Service
     serviceObj.save(function () {

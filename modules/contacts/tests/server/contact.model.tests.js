@@ -3,15 +3,15 @@
 /**
  * Module dependencies.
  */
-var should = require('should'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Contact = mongoose.model('Contact');
+const should = require('should');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Contact = mongoose.model('Contact');
 
 /**
  * Globals
  */
-var user,
+let user,
   contact;
 
 /**

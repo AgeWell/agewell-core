@@ -3,7 +3,7 @@
 
   describe('Groceries to gos Controller Tests', function () {
     // Initialize global variables
-    var GroceriesToGosController,
+    let GroceriesToGosController,
       $scope,
       $httpBackend,
       $state,
@@ -68,7 +68,7 @@
     }));
 
     describe('vm.save() as create', function () {
-      var sampleGroceriesToGoPostData;
+      let sampleGroceriesToGoPostData;
 
       beforeEach(function () {
         // Create a sample Groceries to go object
@@ -94,7 +94,7 @@
       }));
 
       it('should set $scope.vm.error if error', function () {
-        var errorMessage = 'this is an error message';
+        let errorMessage = 'this is an error message';
         $httpBackend.expectPOST('api/groceries-to-go', sampleGroceriesToGoPostData).respond(400, {
           message: errorMessage
         });
@@ -127,7 +127,7 @@
       }));
 
       it('should set $scope.vm.error if error', inject(function (GroceriesToGosService) {
-        var errorMessage = 'error';
+        let errorMessage = 'error';
         $httpBackend.expectPUT(/api\/groceries-to-go\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage
         });

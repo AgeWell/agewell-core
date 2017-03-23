@@ -1,17 +1,17 @@
 'use strict';
 
-var should = require('should'),
-  request = require('supertest'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Contact = mongoose.model('Contact'),
-  express = require(path.resolve('./config/lib/express'));
+const should = require('should');
+const request = require('supertest');
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Contact = mongoose.model('Contact');
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app,
+let app,
   agent,
   credentials,
   user,
@@ -77,7 +77,7 @@ describe('Contact CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Contact
         agent.post('/api/contacts')
@@ -98,7 +98,7 @@ describe('Contact CRUD tests', function() {
                 }
 
                 // Get Contacts list
-                var contacts = contactsGetRes.body;
+                let contacts = contactsGetRes.body;
 
                 // Set assertions
                 (contacts[0].name.first).should.match('test');
@@ -135,7 +135,7 @@ describe('Contact CRUD tests', function() {
   //       }
   //
   //       // Get the userId
-  //       var userId = user.id;
+  //       let userId = user.id;
   //
   //       // Save a new Contact
   //       agent.post('/api/contacts')
@@ -162,7 +162,7 @@ describe('Contact CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Contact
         agent.post('/api/contacts')
@@ -233,7 +233,7 @@ describe('Contact CRUD tests', function() {
         }
 
         // Get the userId
-        var userId = user.id;
+        let userId = user.id;
 
         // Save a new Contact
         agent.post('/api/contacts')
@@ -270,7 +270,7 @@ describe('Contact CRUD tests', function() {
     contact.user = user;
 
     // Create new Contact model instance
-    var contactObj = new Contact(contact);
+    let contactObj = new Contact(contact);
 
     // Save the Contact
     contactObj.save(function() {

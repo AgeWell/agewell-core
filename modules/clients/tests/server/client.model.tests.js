@@ -3,17 +3,17 @@
 /**
  * Module dependencies.
  */
-var should = require('should'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Client = mongoose.model('Client');
-  
+const should = require('should');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Client = mongoose.model('Client');
+
   console.log(mongoose);
 
 /**
  * Globals
  */
-var user,
+let user,
   client;
 
 /**

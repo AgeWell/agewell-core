@@ -3,7 +3,7 @@
 
   describe('Groceries to gos Route Tests', function () {
     // Initialize global variables
-    var $scope,
+    let $scope,
       GroceriesToGosService;
 
     // We can start by loading the main application module
@@ -20,7 +20,7 @@
 
     describe('Route Config', function () {
       describe('Main Route', function () {
-        var mainstate;
+        let mainstate;
         beforeEach(inject(function ($state) {
           mainstate = $state.get('groceries-to-go');
         }));
@@ -39,7 +39,7 @@
       });
 
       describe('View Route', function () {
-        var viewstate,
+        let viewstate,
           GroceriesToGosController,
           mockGroceriesToGo;
 
@@ -89,7 +89,7 @@
       });
 
       describe('Create Route', function () {
-        var createstate,
+        let createstate,
           GroceriesToGosController,
           mockGroceriesToGo;
 
@@ -135,7 +135,7 @@
       });
 
       describe('Edit Route', function () {
-        var editstate,
+        let editstate,
           GroceriesToGosController,
           mockGroceriesToGo;
 
