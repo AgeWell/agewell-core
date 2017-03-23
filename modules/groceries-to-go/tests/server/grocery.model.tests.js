@@ -10,7 +10,7 @@ const Grocery = mongoose.model('Grocery');
 /**
  * Globals
  */
-var grocery;
+let grocery;
 
 /**
  * Unit tests

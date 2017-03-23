@@ -13,7 +13,7 @@ let GrocerySchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Groceries to go name',
+    required: 'Please fill Grocery item name',
     trim: true
   },
   qty: Number,
