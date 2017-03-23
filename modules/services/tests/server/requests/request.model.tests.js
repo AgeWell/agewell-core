@@ -5,13 +5,13 @@
  */
 var should = require('should'),
   mongoose = require('mongoose'),
-  User = mongoose.model('User'),
+  Client = mongoose.model('User'),
   Request = mongoose.model('Request');
 
 /**
  * Globals
  */
-var user,
+var client,
   request;
 
 /**
@@ -19,19 +19,15 @@ var user,
  */
 describe('Request Model Unit Tests:', function() {
   beforeEach(function(done) {
-    user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      username: 'username',
-      password: 'password'
+    client = new Client({
+      started: new Date(),
+      active: true
     });
 
-    user.save(function() {
+    client.save(function() {
       request = new Request({
-        name: 'Request Name',
-        user: user
+        date: new Date(),
+        clientId: client._id
       });
 
       done();
@@ -47,8 +43,8 @@ describe('Request Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without name', function(done) {
-      request.name = '';
+    it('should be able to show an error when try to save without a date', function(done) {
+      request.date = '';
 
       request.save(function(err) {
         should.exist(err);
@@ -59,7 +55,7 @@ describe('Request Model Unit Tests:', function() {
 
   afterEach(function(done) {
     Request.remove().exec(function() {
-      User.remove().exec(function() {
+      Client.remove().exec(function() {
         done();
       });
     });

@@ -32,6 +32,7 @@ describe('Service Model Unit Tests:', function() {
       service = new Service({
         title: 'Service Name',
         description: 'test',
+        for: 'Client',
         avalibility: 'Weekly',
         price: 1000,
         pricePer: 'Hour'

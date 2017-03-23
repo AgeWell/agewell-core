@@ -5,6 +5,7 @@ var should = require('should'),
   path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Client = mongoose.model('User'),
   Request = mongoose.model('Request'),
   express = require(path.resolve('./config/lib/express'));
 
@@ -15,7 +16,9 @@ var app,
   agent,
   credentials,
   user,
-  request;
+  client,
+  request,
+  now = new Date();
 
 /**
  * Request routes tests
@@ -51,11 +54,19 @@ describe('Request CRUD tests', function () {
 
     // Save a user to the test db and create new Request
     user.save(function () {
-      request = {
-        name: 'Request name'
-      };
+      client = new Client({
+        started: new Date(),
+        active: true
+      });
 
-      done();
+      client.save(function() {
+        request = new Request({
+          date: now,
+          clientId: client._id
+        });
+
+        done();
+      });
     });
   });
 
@@ -94,8 +105,8 @@ describe('Request CRUD tests', function () {
                 var requests = requestsGetRes.body;
 
                 // Set assertions
-                (requests[0].user._id).should.equal(userId);
-                (requests[0].name).should.match('Request name');
+                (requests[0].clientId).should.match(client._id.toString());
+                (new Date(requests[0].date)).should.match(now);
 
                 // Call the assertion callback
                 done();
@@ -114,9 +125,9 @@ describe('Request CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Request if no name is provided', function (done) {
+  it('should not be able to save an Request if no date is provided', function (done) {
     // Invalidate name field
-    request.name = '';
+    request.date = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -136,7 +147,7 @@ describe('Request CRUD tests', function () {
           .expect(400)
           .end(function (requestSaveErr, requestSaveRes) {
             // Set message assertion
-            (requestSaveRes.body.message).should.match('Please fill Request name');
+            (requestSaveRes.body.message).should.match('Please select a Request date');
 
             // Handle Request save error
             done(requestSaveErr);
@@ -168,7 +179,8 @@ describe('Request CRUD tests', function () {
             }
 
             // Update Request name
-            request.name = 'WHY YOU GOTTA BE SO MEAN?';
+            let newDate = new Date();
+            request.date = newDate;
 
             // Update an existing Request
             agent.put('/api/requests/' + requestSaveRes.body._id)
@@ -182,7 +194,7 @@ describe('Request CRUD tests', function () {
 
                 // Set assertions
                 (requestUpdateRes.body._id).should.equal(requestSaveRes.body._id);
-                (requestUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (new Date(requestUpdateRes.body.date)).should.match(newDate);
 
                 // Call the assertion callback
                 done();
@@ -207,23 +219,6 @@ describe('Request CRUD tests', function () {
           done();
         });
 
-    });
-  });
-
-  it('should be able to get a single Request if not signed in', function (done) {
-    // Create new Request model instance
-    var requestObj = new Request(request);
-
-    // Save the Request
-    requestObj.save(function () {
-      testRequest(app).get('/api/requests/' + requestObj._id)
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', request.name);
-
-          // Call the assertion callback
-          done();
-        });
     });
   });
 
