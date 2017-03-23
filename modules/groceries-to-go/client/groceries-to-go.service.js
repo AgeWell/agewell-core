@@ -3,13 +3,13 @@
   'use strict';
 
   angular
-    .module('groceries-to-gos')
+    .module('groceries-to-go')
     .factory('GroceriesToGosService', GroceriesToGosService);
 
   GroceriesToGosService.$inject = ['$resource'];
 
   function GroceriesToGosService($resource) {
-    return $resource('api/groceries-to-gos/:groceriesToGoId', {
+    return $resource('api/groceries-to-go/:groceriesToGoId', {
       groceriesToGoId: '@_id'
     }, {
       update: {

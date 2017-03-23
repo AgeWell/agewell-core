@@ -75,7 +75,7 @@
 
       it('should send a GET request and return all Groceries to gos', inject(function (GroceriesToGosService) {
         // Set POST response
-        $httpBackend.expectGET('api/groceries-to-gos').respond(mockGroceriesToGoList);
+        $httpBackend.expectGET('api/groceries-to-go').respond(mockGroceriesToGoList);
 
 
         $httpBackend.flush();

@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('groceries-to-gos');
+  app.registerModule('groceries-to-go');
 }(ApplicationConfiguration));

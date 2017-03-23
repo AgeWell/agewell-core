@@ -3,16 +3,16 @@
 /**
  * Module dependencies
  */
-const groceriesToGosPolicy = require('./groceries-to-gos.policy');
-const groceriesToGos = require('./groceries-to-gos.controller');
+const groceriesToGosPolicy = require('./groceries-to-go.policy');
+const groceriesToGos = require('./groceries-to-go.controller');
 
 module.exports = function(app) {
   // Groceries to gos Routes
-  app.route('/api/groceries-to-gos').all(groceriesToGosPolicy.isAllowed)
+  app.route('/api/groceries-to-go').all(groceriesToGosPolicy.isAllowed)
     .get(groceriesToGos.list)
     .post(groceriesToGos.create);
 
-  app.route('/api/groceries-to-gos/:groceriesToGoId').all(groceriesToGosPolicy.isAllowed)
+  app.route('/api/groceries-to-go/:groceriesToGoId').all(groceriesToGosPolicy.isAllowed)
     .get(groceriesToGos.read)
     .put(groceriesToGos.update)
     .delete(groceriesToGos.delete);

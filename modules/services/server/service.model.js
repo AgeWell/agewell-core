@@ -56,6 +56,7 @@ let ServiceSchema = new Schema({
   //   type: [String],
   //   enum: []
   // },
+  active: Boolean,
   created: {
     type: Date,
     default: Date.now

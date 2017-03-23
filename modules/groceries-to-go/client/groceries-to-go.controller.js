@@ -3,7 +3,7 @@
 
   // Groceries to gos controller
   angular
-    .module('groceries-to-gos')
+    .module('groceries-to-go')
     .controller('GroceriesToGosController', GroceriesToGosController);
 
   GroceriesToGosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'groceriesToGoResolve'];
@@ -20,7 +20,7 @@
     // Remove existing Groceries to go
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
-        vm.groceriesToGo.$remove($state.go('groceries-to-gos.list'));
+        vm.groceriesToGo.$remove($state.go('groceries-to-go.list'));
       }
     }
 
@@ -39,7 +39,7 @@
       }
 
       function successCallback(res) {
-        $state.go('groceries-to-gos.view', {
+        $state.go('groceries-to-go.view', {
           groceriesToGoId: res._id
         });
       }

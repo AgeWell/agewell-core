@@ -22,11 +22,11 @@
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('groceries-to-gos');
+          mainstate = $state.get('groceries-to-go');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/groceries-to-gos');
+          expect(mainstate.url).toEqual('/groceries-to-go');
         });
 
         it('Should be abstract', function () {
@@ -44,8 +44,8 @@
           mockGroceriesToGo;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('groceries-to-gos.view');
-          $templateCache.put('modules/groceries-to-gos/client/views/view-groceries-to-go.client.view.html', '');
+          viewstate = $state.get('groceries-to-go.view');
+          $templateCache.put('modules/groceries-to-go/client/views/view-groceries-to-go.client.view.html', '');
 
           // create mock Groceries to go
           mockGroceriesToGo = new GroceriesToGosService({
@@ -72,7 +72,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(viewstate, {
             groceriesToGoId: 1
-          })).toEqual('/groceries-to-gos/1');
+          })).toEqual('/groceries-to-go/1');
         }));
 
         it('should attach an Groceries to go to the controller scope', function () {
@@ -84,7 +84,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('modules/groceries-to-gos/client/views/view-groceries-to-go.client.view.html');
+          expect(viewstate.templateUrl).toBe('modules/groceries-to-go/client/views/view-groceries-to-go.client.view.html');
         });
       });
 
@@ -94,8 +94,8 @@
           mockGroceriesToGo;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          createstate = $state.get('groceries-to-gos.create');
-          $templateCache.put('modules/groceries-to-gos/client/views/form-groceries-to-go.client.view.html', '');
+          createstate = $state.get('groceries-to-go.create');
+          $templateCache.put('modules/groceries-to-go/client/views/form-groceries-to-go.client.view.html', '');
 
           // create mock Groceries to go
           mockGroceriesToGo = new GroceriesToGosService();
@@ -117,7 +117,7 @@
         });
 
         it('should respond to URL', inject(function ($state) {
-          expect($state.href(createstate)).toEqual('/groceries-to-gos/create');
+          expect($state.href(createstate)).toEqual('/groceries-to-go/create');
         }));
 
         it('should attach an Groceries to go to the controller scope', function () {
@@ -130,7 +130,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(createstate.templateUrl).toBe('modules/groceries-to-gos/client/views/form-groceries-to-go.client.view.html');
+          expect(createstate.templateUrl).toBe('modules/groceries-to-go/client/views/form-groceries-to-go.client.view.html');
         });
       });
 
@@ -140,8 +140,8 @@
           mockGroceriesToGo;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          editstate = $state.get('groceries-to-gos.edit');
-          $templateCache.put('modules/groceries-to-gos/client/views/form-groceries-to-go.client.view.html', '');
+          editstate = $state.get('groceries-to-go.edit');
+          $templateCache.put('modules/groceries-to-go/client/views/form-groceries-to-go.client.view.html', '');
 
           // create mock Groceries to go
           mockGroceriesToGo = new GroceriesToGosService({
@@ -168,7 +168,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(editstate, {
             groceriesToGoId: 1
-          })).toEqual('/groceries-to-gos/1/edit');
+          })).toEqual('/groceries-to-go/1/edit');
         }));
 
         it('should attach an Groceries to go to the controller scope', function () {
@@ -180,7 +180,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(editstate.templateUrl).toBe('modules/groceries-to-gos/client/views/form-groceriesToGo.client.view.html');
+          expect(editstate.templateUrl).toBe('modules/groceries-to-go/client/views/form-groceriesToGo.client.view.html');
         });
 
         xit('Should go to unauthorized route', function () {
