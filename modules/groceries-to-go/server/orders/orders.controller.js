@@ -5,7 +5,7 @@
  */
 const path = require('path');
 const mongoose = require('mongoose');
-const Grocery = mongoose.model('Grocery');
+const Order = mongoose.model('Order');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 const _ = require('lodash');
 
@@ -13,16 +13,16 @@ const _ = require('lodash');
  * Create a Groceries to go
  */
 exports.create = function(req, res) {
-  let groceriesToGo = new Grocery(req.body);
-  groceriesToGo.user = req.user;
+  let order = new Order(req.body);
+  order.user = req.user;
 
-  groceriesToGo.save(function(err) {
+  order.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    res.jsonp(groceriesToGo);
+    res.jsonp(order);
   });
 };
 
@@ -31,30 +31,30 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  let groceriesToGo = req.groceriesToGo ? req.groceriesToGo.toJSON() : {};
+  let order = req.order ? req.order.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  groceriesToGo.isCurrentUserOwner = req.user && groceriesToGo.user && groceriesToGo.user._id.toString() === req.user._id.toString();
+  order.isCurrentUserOwner = req.user && order.user && order.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(groceriesToGo);
+  res.jsonp(order);
 };
 
 /**
  * Update a Groceries to go
  */
 exports.update = function(req, res) {
-  let groceriesToGo = req.groceriesToGo;
+  let order = req.order;
 
-  groceriesToGo = _.extend(groceriesToGo, req.body);
+  order = _.extend(order, req.body);
 
-  groceriesToGo.save(function(err) {
+  order.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    res.jsonp(groceriesToGo);
+    res.jsonp(order);
   });
 };
 
@@ -62,15 +62,15 @@ exports.update = function(req, res) {
  * Delete an Groceries to go
  */
 exports.delete = function(req, res) {
-  var groceriesToGo = req.groceriesToGo;
+  var order = req.order;
 
-  groceriesToGo.remove(function(err) {
+  order.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    res.jsonp(groceriesToGo);
+    res.jsonp(order);
   });
 };
 
@@ -78,20 +78,20 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  Grocery.find().sort('-created').populate('user', 'displayName').exec(function(err, groceriesToGos) {
+  Order.find().sort('-created').populate('user', 'displayName').exec(function(err, orders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    res.jsonp(groceriesToGos);
+    res.jsonp(orders);
   });
 };
 
 /**
  * Groceries to go middleware
  */
-exports.groceriesToGoByID = function(req, res, next, id) {
+exports.orderByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -99,16 +99,16 @@ exports.groceriesToGoByID = function(req, res, next, id) {
     });
   }
 
-  Grocery.findById(id).populate('user', 'displayName').exec(function (err, groceriesToGo) {
+  Order.findById(id).populate('user', 'displayName').exec(function (err, order) {
     if (err) {
       return next(err);
     }
-    if (!groceriesToGo) {
+    if (!order) {
       return res.status(404).send({
         message: 'No Groceries to go with that identifier has been found'
       });
     }
-    req.groceriesToGo = groceriesToGo;
+    req.order = order;
     next();
   });
 };

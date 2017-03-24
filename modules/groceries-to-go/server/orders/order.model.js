@@ -3,17 +3,19 @@
 /**
  * Module dependencies.
  */
+const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Request = require(path.resolve('./modules/services/server/requests/request.model'));
 
 /**
- * Groceries to go Schema
+ * Orders to go Schema
  */
-let GrocerySchema = new Schema({
+let OrderSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Grocery item name',
+    required: 'Please fill Order.',
     trim: true
   },
   qty: Number,
@@ -34,4 +36,4 @@ let GrocerySchema = new Schema({
   }
 });
 
-mongoose.model('Grocery', GrocerySchema);
+mongoose.model('Order', OrderSchema);
