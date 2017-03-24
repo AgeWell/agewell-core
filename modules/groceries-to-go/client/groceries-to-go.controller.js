@@ -3,7 +3,7 @@
 
   // Groceries to gos controller
   angular
-    .module('groceries-to-go')
+    .module('groceriesToGo')
     .controller('GroceriesToGosController', GroceriesToGosController);
 
   GroceriesToGosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'groceriesToGoResolve'];

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('groceries-to-go')
+    .module('groceriesToGo')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
@@ -29,7 +29,7 @@
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
-          groceries-to-goResolve: newGroceriesToGo
+          groceriesResolve: newGroceriesToGo
         },
         data: {
           roles: ['user', 'admin'],
@@ -42,7 +42,7 @@
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
-          groceries-to-goResolve: getGroceriesToGo
+          groceriesResolve: getGroceriesToGo
         },
         data: {
           roles: ['user', 'admin'],
@@ -55,7 +55,7 @@
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
-          groceries-to-goResolve: getGroceriesToGo
+          groceriesResolve: getGroceriesToGo
         },
         data: {
           pageTitle: 'Groceries to go {{ groceries-to-goResolve.name }}'
