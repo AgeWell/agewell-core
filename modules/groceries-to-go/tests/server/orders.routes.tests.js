@@ -69,8 +69,8 @@ describe('Orders to go CRUD tests', function() {
           return done(signinErr);
         }
 
-        // Get the userId
-        let userId = user.id;
+        // Get the clientId
+        // let clientId = client.id;
 
         // Save a new Orders to go
         agent.post('/api/orders')
@@ -94,7 +94,7 @@ describe('Orders to go CRUD tests', function() {
                 let order = orderGetRes.body;
 
                 // Set assertions
-                (order[0].user._id).should.equal(userId);
+                // (order[0].client._id).should.equal(clientId);
                 (order[0].name).should.match('Orders to go name');
 
                 // Call the assertion callback
@@ -127,8 +127,8 @@ describe('Orders to go CRUD tests', function() {
           return done(signinErr);
         }
 
-        // Get the userId
-        let userId = user.id;
+        // Get the clientId
+        // let clientId = client.id;
 
         // Save a new Orders to go
         agent.post('/api/orders')
@@ -154,8 +154,8 @@ describe('Orders to go CRUD tests', function() {
           return done(signinErr);
         }
 
-        // Get the userId
-        let userId = user.id;
+        // Get the clientId
+        // let clientId = client.id;
 
         // Save a new Orders to go
         agent.post('/api/orders')
@@ -261,8 +261,8 @@ describe('Orders to go CRUD tests', function() {
           return done(signinErr);
         }
 
-        // Get the userId
-        let userId = user.id;
+        // Get the clientId
+        // let clientId = client.id;
 
         // Save a new Orders to go
         agent.post('/api/orders')
@@ -296,7 +296,7 @@ describe('Orders to go CRUD tests', function() {
 
   it('should not be able to delete an Orders to go if not signed in', function(done) {
     // Set Orders to go user
-    order.user = user;
+    // order.user = user;
 
     // Create new Orders to go model instance
     let orderObj = new Grocery(order);
@@ -314,93 +314,6 @@ describe('Orders to go CRUD tests', function() {
           done(orderDeleteErr);
         });
 
-    });
-  });
-
-  it('should be able to get a single Orders to go that has an orphaned user reference', function(done) {
-    // Create orphan user creds
-    let _creds = {
-      usernameOrEmail: 'orphan',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create orphan user
-    let _orphan = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'orphan@test.com',
-      usernameOrEmail: _creds.usernameOrEmail,
-      password: _creds.password,
-      provider: 'local'
-    });
-
-    _orphan.save(function(err, orphan) {
-      // Handle save error
-      if (err) {
-        return done(err);
-      }
-
-      agent.post('/api/auth/signin')
-        .send(_creds)
-        .expect(200)
-        .end(function(signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get the userId
-          let orphanId = orphan._id;
-
-          // Save a new Orders to go
-          agent.post('/api/orders')
-            .send(order)
-            .expect(200)
-            .end(function(orderSaveErr, orderSaveRes) {
-              // Handle Orders to go save error
-              if (orderSaveErr) {
-                return done(orderSaveErr);
-              }
-
-              // Set assertions on new Orders to go
-              (orderSaveRes.body.name).should.equal(order.name);
-              should.exist(orderSaveRes.body.user);
-              should.equal(orderSaveRes.body.user._id, orphanId);
-
-              // force the Orders to go to have an orphaned user reference
-              orphan.remove(function() {
-                // now signin with valid user
-                agent.post('/api/auth/signin')
-                  .send(credentials)
-                  .expect(200)
-                  .end(function(err, res) {
-                    // Handle signin error
-                    if (err) {
-                      return done(err);
-                    }
-
-                    // Get the Orders to go
-                    agent.get('/api/orders/' + orderSaveRes.body._id)
-                      .expect(200)
-                      .end(function(orderInfoErr, orderInfoRes) {
-                        // Handle Orders to go error
-                        if (orderInfoErr) {
-                          return done(orderInfoErr);
-                        }
-
-                        // Set assertions
-                        (orderInfoRes.body._id).should.equal(orderSaveRes.body._id);
-                        (orderInfoRes.body.name).should.equal(order.name);
-                        should.equal(orderInfoRes.body.user, undefined);
-
-                        // Call the assertion callback
-                        done();
-                      });
-                  });
-              });
-            });
-        });
     });
   });
 

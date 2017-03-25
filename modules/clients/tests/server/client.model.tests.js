@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Client = mongoose.model('Client');
 
-  console.log(mongoose);
-
 /**
  * Globals
  */
