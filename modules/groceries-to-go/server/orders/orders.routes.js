@@ -18,5 +18,5 @@ module.exports = function(app) {
     .delete(orders.delete);
 
   // Finish by binding the Groceries to go middleware
-  app.param('orderId', orders.ordersByID);
+  app.param('orderId', orders.orderByID);
 };

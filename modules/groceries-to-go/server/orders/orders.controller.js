@@ -35,7 +35,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  order.isCurrentUserOwner = req.user && order.user && order.user._id.toString() === req.user._id.toString();
+  // order.isCurrentUserOwner = req.user && order.user && order.user._id.toString() === req.user._id.toString();
 
   res.jsonp(order);
 };
@@ -78,7 +78,10 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  Order.find().sort('-created').populate('user', 'displayName').exec(function(err, orders) {
+  Order.find()
+  .sort('-created')
+  // .populate('user', 'displayName')
+  .exec(function(err, orders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -99,16 +102,18 @@ exports.orderByID = function(req, res, next, id) {
     });
   }
 
-  Order.findById(id).populate('user', 'displayName').exec(function (err, order) {
-    if (err) {
-      return next(err);
-    }
-    if (!order) {
-      return res.status(404).send({
-        message: 'No Groceries to go with that identifier has been found'
-      });
-    }
-    req.order = order;
-    next();
-  });
+  Order.findById(id)
+    // .populate('user', 'displayName')
+    .exec(function(err, order) {
+      if (err) {
+        return next(err);
+      }
+      if (!order) {
+        return res.status(404).send({
+          message: 'No Groceries to go with that identifier has been found'
+        });
+      }
+      req.order = order;
+      next();
+    });
 };

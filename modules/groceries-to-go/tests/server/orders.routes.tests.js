@@ -15,14 +15,14 @@ let app,
   agent,
   credentials,
   user,
-  grocery;
+  order;
 
 /**
- * Groceries to go routes tests
+ * Orders to go routes tests
  */
-describe('Groceries to go CRUD tests', function () {
+describe('Orders to go CRUD tests', function() {
 
-  before(function (done) {
+  before(function(done) {
     // Get application
     app = express.init(mongoose);
     agent = request.agent(app);
@@ -30,7 +30,7 @@ describe('Groceries to go CRUD tests', function () {
     done();
   });
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     // Create user credentials
     credentials = {
       usernameOrEmail: 'username',
@@ -49,21 +49,21 @@ describe('Groceries to go CRUD tests', function () {
       roles: 'admin'
     });
 
-    // Save a user to the test db and create new Groceries to go
-    user.save(function () {
-      grocery = {
-        name: 'Groceries to go name'
+    // Save a user to the test db and create new Orders to go
+    user.save(function() {
+      order = {
+        name: 'Orders to go name'
       };
 
       done();
     });
   });
 
-  it('should be able to save a Groceries to go if logged in', function (done) {
+  it('should be able to save a Orders to go if logged in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -72,30 +72,30 @@ describe('Groceries to go CRUD tests', function () {
         // Get the userId
         let userId = user.id;
 
-        // Save a new Groceries to go
-        agent.post('/api/groceries')
-          .send(grocery)
+        // Save a new Orders to go
+        agent.post('/api/orders')
+          .send(order)
           .expect(200)
-          .end(function (grocerySaveErr, grocerySaveRes) {
-            // Handle Groceries to go save error
-            if (grocerySaveErr) {
-              return done(grocerySaveErr);
+          .end(function(orderSaveErr, orderSaveRes) {
+            // Handle Orders to go save error
+            if (orderSaveErr) {
+              return done(orderSaveErr);
             }
 
-            // Get a list of Groceries to gos
-            agent.get('/api/groceries')
-              .end(function (groceryGetErr, groceryGetRes) {
-                // Handle Groceries to gos save error
-                if (groceryGetErr) {
-                  return done(groceryGetErr);
+            // Get a list of Orders to gos
+            agent.get('/api/orders')
+              .end(function(orderGetErr, orderGetRes) {
+                // Handle Orders to gos save error
+                if (orderGetErr) {
+                  return done(orderGetErr);
                 }
 
-                // Get Groceries to gos list
-                let grocery = groceryGetRes.body;
+                // Get Orders to gos list
+                let order = orderGetRes.body;
 
                 // Set assertions
-                (grocery[0].user._id).should.equal(userId);
-                (grocery[0].name).should.match('Groceries to go name');
+                (order[0].user._id).should.equal(userId);
+                (order[0].name).should.match('Orders to go name');
 
                 // Call the assertion callback
                 done();
@@ -104,24 +104,24 @@ describe('Groceries to go CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Groceries to go if not logged in', function (done) {
-    agent.post('/api/groceries')
-      .send(grocery)
+  it('should not be able to save an Orders to go if not logged in', function(done) {
+    agent.post('/api/orders')
+      .send(order)
       .expect(403)
-      .end(function (grocerySaveErr, grocerySaveRes) {
+      .end(function(orderSaveErr, orderSaveRes) {
         // Call the assertion callback
-        done(grocerySaveErr);
+        done(orderSaveErr);
       });
   });
 
-  it('should not be able to save an Groceries to go if no name is provided', function (done) {
+  it('should not be able to save an Orders to go if no name is provided', function(done) {
     // Invalidate name field
-    grocery.name = '';
+    order.name = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -130,25 +130,25 @@ describe('Groceries to go CRUD tests', function () {
         // Get the userId
         let userId = user.id;
 
-        // Save a new Groceries to go
-        agent.post('/api/groceries')
-          .send(grocery)
+        // Save a new Orders to go
+        agent.post('/api/orders')
+          .send(order)
           .expect(400)
-          .end(function (grocerySaveErr, grocerySaveRes) {
+          .end(function(orderSaveErr, orderSaveRes) {
             // Set message assertion
-            (grocerySaveRes.body.message).should.match('Please fill Groceries to go name');
+            (orderSaveRes.body.message).should.match('Please fill Orders to go name');
 
-            // Handle Groceries to go save error
-            done(grocerySaveErr);
+            // Handle Orders to go save error
+            done(orderSaveErr);
           });
       });
   });
 
-  it('should be able to update an Groceries to go if signed in', function (done) {
+  it('should be able to update an Orders to go if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -157,32 +157,32 @@ describe('Groceries to go CRUD tests', function () {
         // Get the userId
         let userId = user.id;
 
-        // Save a new Groceries to go
-        agent.post('/api/groceries')
-          .send(grocery)
+        // Save a new Orders to go
+        agent.post('/api/orders')
+          .send(order)
           .expect(200)
-          .end(function (grocerySaveErr, grocerySaveRes) {
-            // Handle Groceries to go save error
-            if (grocerySaveErr) {
-              return done(grocerySaveErr);
+          .end(function(orderSaveErr, orderSaveRes) {
+            // Handle Orders to go save error
+            if (orderSaveErr) {
+              return done(orderSaveErr);
             }
 
-            // Update Groceries to go name
-            grocery.name = 'WHY YOU GOTTA BE SO MEAN?';
+            // Update Orders to go name
+            order.name = 'WHY YOU GOTTA BE SO MEAN?';
 
-            // Update an existing Groceries to go
-            agent.put('/api/groceries/' + grocerySaveRes.body._id)
-              .send(grocery)
+            // Update an existing Orders to go
+            agent.put('/api/orders/' + orderSaveRes.body._id)
+              .send(order)
               .expect(200)
-              .end(function (groceryUpdateErr, groceryUpdateRes) {
-                // Handle Groceries to go update error
-                if (groceryUpdateErr) {
-                  return done(groceryUpdateErr);
+              .end(function(orderUpdateErr, orderUpdateRes) {
+                // Handle Orders to go update error
+                if (orderUpdateErr) {
+                  return done(orderUpdateErr);
                 }
 
                 // Set assertions
-                (groceryUpdateRes.body._id).should.equal(grocerySaveRes.body._id);
-                (groceryUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (orderUpdateRes.body._id).should.equal(orderSaveRes.body._id);
+                (orderUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -191,15 +191,15 @@ describe('Groceries to go CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of Groceries to gos if not signed in', function (done) {
-    // Create new Groceries to go model instance
-    let groceryObj = new Grocery(grocery);
+  it('should be able to get a list of Orders to gos if not signed in', function(done) {
+    // Create new Orders to go model instance
+    let orderObj = new Grocery(order);
 
-    // Save the grocery
-    groceryObj.save(function () {
-      // Request Groceries to gos
-      request(app).get('/api/groceries')
-        .end(function (req, res) {
+    // Save the order
+    orderObj.save(function() {
+      // Request Orders to gos
+      request(app).get('/api/orders')
+        .end(function(req, res) {
           // Set assertion
           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
@@ -210,16 +210,16 @@ describe('Groceries to go CRUD tests', function () {
     });
   });
 
-  it('should be able to get a single Groceries to go if not signed in', function (done) {
-    // Create new Groceries to go model instance
-    let groceryObj = new Grocery(grocery);
+  it('should be able to get a single Orders to go if not signed in', function(done) {
+    // Create new Orders to go model instance
+    let orderObj = new Grocery(order);
 
-    // Save the Groceries to go
-    groceryObj.save(function () {
-      request(app).get('/api/groceries/' + groceryObj._id)
-        .end(function (req, res) {
+    // Save the Orders to go
+    orderObj.save(function() {
+      request(app).get('/api/orders/' + orderObj._id)
+        .end(function(req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', grocery.name);
+          res.body.should.be.instanceof(Object).and.have.property('name', order.name);
 
           // Call the assertion callback
           done();
@@ -227,35 +227,35 @@ describe('Groceries to go CRUD tests', function () {
     });
   });
 
-  it('should return proper error for single Groceries to go with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single Orders to go with an invalid Id, if not signed in', function(done) {
     // test is not a valid mongoose Id
-    request(app).get('/api/groceries/test')
-      .end(function (req, res) {
+    request(app).get('/api/orders/test')
+      .end(function(req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Groceries to go is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'Orders to go is invalid');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should return proper error for single Groceries to go which doesnt exist, if not signed in', function (done) {
-    // This is a valid mongoose Id but a non-existent Groceries to go
-    request(app).get('/api/groceries/559e9cd815f80b4c256a8f41')
-      .end(function (req, res) {
+  it('should return proper error for single Orders to go which doesnt exist, if not signed in', function(done) {
+    // This is a valid mongoose Id but a non-existent Orders to go
+    request(app).get('/api/orders/559e9cd815f80b4c256a8f41')
+      .end(function(req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Groceries to go with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'No Orders to go with that identifier has been found');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should be able to delete an Groceries to go if signed in', function (done) {
+  it('should be able to delete an Orders to go if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -264,28 +264,28 @@ describe('Groceries to go CRUD tests', function () {
         // Get the userId
         let userId = user.id;
 
-        // Save a new Groceries to go
-        agent.post('/api/groceries')
-          .send(grocery)
+        // Save a new Orders to go
+        agent.post('/api/orders')
+          .send(order)
           .expect(200)
-          .end(function (grocerySaveErr, grocerySaveRes) {
-            // Handle Groceries to go save error
-            if (grocerySaveErr) {
-              return done(grocerySaveErr);
+          .end(function(orderSaveErr, orderSaveRes) {
+            // Handle Orders to go save error
+            if (orderSaveErr) {
+              return done(orderSaveErr);
             }
 
-            // Delete an existing Groceries to go
-            agent.delete('/api/groceries/' + grocerySaveRes.body._id)
-              .send(grocery)
+            // Delete an existing Orders to go
+            agent.delete('/api/orders/' + orderSaveRes.body._id)
+              .send(order)
               .expect(200)
-              .end(function (groceryDeleteErr, groceryDeleteRes) {
-                // Handle grocery error error
-                if (groceryDeleteErr) {
-                  return done(groceryDeleteErr);
+              .end(function(orderDeleteErr, orderDeleteRes) {
+                // Handle order error error
+                if (orderDeleteErr) {
+                  return done(orderDeleteErr);
                 }
 
                 // Set assertions
-                (groceryDeleteRes.body._id).should.equal(grocerySaveRes.body._id);
+                (orderDeleteRes.body._id).should.equal(orderSaveRes.body._id);
 
                 // Call the assertion callback
                 done();
@@ -294,30 +294,30 @@ describe('Groceries to go CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an Groceries to go if not signed in', function (done) {
-    // Set Groceries to go user
-    grocery.user = user;
+  it('should not be able to delete an Orders to go if not signed in', function(done) {
+    // Set Orders to go user
+    order.user = user;
 
-    // Create new Groceries to go model instance
-    let groceryObj = new Grocery(grocery);
+    // Create new Orders to go model instance
+    let orderObj = new Grocery(order);
 
-    // Save the Groceries to go
-    groceryObj.save(function () {
-      // Try deleting Groceries to go
-      request(app).delete('/api/groceries/' + groceryObj._id)
+    // Save the Orders to go
+    orderObj.save(function() {
+      // Try deleting Orders to go
+      request(app).delete('/api/orders/' + orderObj._id)
         .expect(403)
-        .end(function (groceryDeleteErr, groceryDeleteRes) {
+        .end(function(orderDeleteErr, orderDeleteRes) {
           // Set message assertion
-          (groceryDeleteRes.body.message).should.match('User is not authorized');
+          (orderDeleteRes.body.message).should.match('User is not authorized');
 
-          // Handle Groceries to go error error
-          done(groceryDeleteErr);
+          // Handle Orders to go error error
+          done(orderDeleteErr);
         });
 
     });
   });
 
-  it('should be able to get a single Groceries to go that has an orphaned user reference', function (done) {
+  it('should be able to get a single Orders to go that has an orphaned user reference', function(done) {
     // Create orphan user creds
     let _creds = {
       usernameOrEmail: 'orphan',
@@ -335,7 +335,7 @@ describe('Groceries to go CRUD tests', function () {
       provider: 'local'
     });
 
-    _orphan.save(function (err, orphan) {
+    _orphan.save(function(err, orphan) {
       // Handle save error
       if (err) {
         return done(err);
@@ -344,7 +344,7 @@ describe('Groceries to go CRUD tests', function () {
       agent.post('/api/auth/signin')
         .send(_creds)
         .expect(200)
-        .end(function (signinErr, signinRes) {
+        .end(function(signinErr, signinRes) {
           // Handle signin error
           if (signinErr) {
             return done(signinErr);
@@ -353,46 +353,46 @@ describe('Groceries to go CRUD tests', function () {
           // Get the userId
           let orphanId = orphan._id;
 
-          // Save a new Groceries to go
-          agent.post('/api/groceries')
-            .send(grocery)
+          // Save a new Orders to go
+          agent.post('/api/orders')
+            .send(order)
             .expect(200)
-            .end(function (grocerySaveErr, grocerySaveRes) {
-              // Handle Groceries to go save error
-              if (grocerySaveErr) {
-                return done(grocerySaveErr);
+            .end(function(orderSaveErr, orderSaveRes) {
+              // Handle Orders to go save error
+              if (orderSaveErr) {
+                return done(orderSaveErr);
               }
 
-              // Set assertions on new Groceries to go
-              (grocerySaveRes.body.name).should.equal(grocery.name);
-              should.exist(grocerySaveRes.body.user);
-              should.equal(grocerySaveRes.body.user._id, orphanId);
+              // Set assertions on new Orders to go
+              (orderSaveRes.body.name).should.equal(order.name);
+              should.exist(orderSaveRes.body.user);
+              should.equal(orderSaveRes.body.user._id, orphanId);
 
-              // force the Groceries to go to have an orphaned user reference
-              orphan.remove(function () {
+              // force the Orders to go to have an orphaned user reference
+              orphan.remove(function() {
                 // now signin with valid user
                 agent.post('/api/auth/signin')
                   .send(credentials)
                   .expect(200)
-                  .end(function (err, res) {
+                  .end(function(err, res) {
                     // Handle signin error
                     if (err) {
                       return done(err);
                     }
 
-                    // Get the Groceries to go
-                    agent.get('/api/groceries/' + grocerySaveRes.body._id)
+                    // Get the Orders to go
+                    agent.get('/api/orders/' + orderSaveRes.body._id)
                       .expect(200)
-                      .end(function (groceryInfoErr, groceryInfoRes) {
-                        // Handle Groceries to go error
-                        if (groceryInfoErr) {
-                          return done(groceryInfoErr);
+                      .end(function(orderInfoErr, orderInfoRes) {
+                        // Handle Orders to go error
+                        if (orderInfoErr) {
+                          return done(orderInfoErr);
                         }
 
                         // Set assertions
-                        (groceryInfoRes.body._id).should.equal(grocerySaveRes.body._id);
-                        (groceryInfoRes.body.name).should.equal(grocery.name);
-                        should.equal(groceryInfoRes.body.user, undefined);
+                        (orderInfoRes.body._id).should.equal(orderSaveRes.body._id);
+                        (orderInfoRes.body.name).should.equal(order.name);
+                        should.equal(orderInfoRes.body.user, undefined);
 
                         // Call the assertion callback
                         done();
@@ -404,8 +404,8 @@ describe('Groceries to go CRUD tests', function () {
     });
   });
 
-  afterEach(function (done) {
-    User.remove().exec(function () {
+  afterEach(function(done) {
+    User.remove().exec(function() {
       Grocery.remove().exec(done);
     });
   });

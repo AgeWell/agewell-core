@@ -10,15 +10,16 @@ const Order = mongoose.model('Order');
 /**
  * Globals
  */
-let grocery;
+let order;
 
 /**
  * Unit tests
  */
 describe('Order Model Unit Tests:', function() {
   beforeEach(function(done) {
-    grocery = new Order({
+    order = new Order({
       name: 'Order Name',
+      date: new Date(),
       qty: 5
     });
 
@@ -28,16 +29,16 @@ describe('Order Model Unit Tests:', function() {
   describe('Method Save', function() {
     it('should be able to save without problems', function(done) {
       this.timeout(0);
-      grocery.save(function(err) {
+      order.save(function(err) {
         should.not.exist(err);
         done();
       });
     });
 
     it('should be able to show an error when try to save without name', function(done) {
-      grocery.name = '';
+      order.name = '';
 
-      grocery.save(function(err) {
+      order.save(function(err) {
         should.exist(err);
         done();
       });
