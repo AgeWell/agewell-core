@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-const groceriesToGosPolicy = require('../groceries-to-go.policy');
+const groceriesToGosPolicy = require('./groceries.policy');
 const groceries = require('./groceries.controller');
 
 module.exports = function(app) {

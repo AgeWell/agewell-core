@@ -5,7 +5,7 @@ const request = require('supertest');
 const path = require('path');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const Grocery = mongoose.model('Grocery');
+const Order = mongoose.model('Order');
 const express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -52,7 +52,8 @@ describe('Orders to go CRUD tests', function() {
     // Save a user to the test db and create new Orders to go
     user.save(function() {
       order = {
-        name: 'Orders to go name'
+        name: 'Orders to go name',
+        date: new Date()
       };
 
       done();
@@ -94,7 +95,6 @@ describe('Orders to go CRUD tests', function() {
                 let order = orderGetRes.body;
 
                 // Set assertions
-                // (order[0].client._id).should.equal(clientId);
                 (order[0].name).should.match('Orders to go name');
 
                 // Call the assertion callback
@@ -136,7 +136,7 @@ describe('Orders to go CRUD tests', function() {
           .expect(400)
           .end(function(orderSaveErr, orderSaveRes) {
             // Set message assertion
-            (orderSaveRes.body.message).should.match('Please fill Orders to go name');
+            (orderSaveRes.body.message).should.match('Please fill Order name.');
 
             // Handle Orders to go save error
             done(orderSaveErr);
@@ -191,63 +191,32 @@ describe('Orders to go CRUD tests', function() {
       });
   });
 
-  it('should be able to get a list of Orders to gos if not signed in', function(done) {
-    // Create new Orders to go model instance
-    let orderObj = new Grocery(order);
+  it('should be able to get a list of Orders to gos if signed in', function(done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function(signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Create new Orders to go model instance
+        let orderObj = new Order(order);
 
-    // Save the order
-    orderObj.save(function() {
-      // Request Orders to gos
-      request(app).get('/api/orders')
-        .end(function(req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
+        // Save the order
+        orderObj.save(function() {
+          // Request Orders to gos
+          agent.get('/api/orders')
+            .end(function(req, res) {
+              console.log(res.body);
+              // Set assertion
+              res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
-          // Call the assertion callback
-          done();
+              // Call the assertion callback
+              done();
+            });
+
         });
-
-    });
-  });
-
-  it('should be able to get a single Orders to go if not signed in', function(done) {
-    // Create new Orders to go model instance
-    let orderObj = new Grocery(order);
-
-    // Save the Orders to go
-    orderObj.save(function() {
-      request(app).get('/api/orders/' + orderObj._id)
-        .end(function(req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', order.name);
-
-          // Call the assertion callback
-          done();
-        });
-    });
-  });
-
-  it('should return proper error for single Orders to go with an invalid Id, if not signed in', function(done) {
-    // test is not a valid mongoose Id
-    request(app).get('/api/orders/test')
-      .end(function(req, res) {
-        // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Orders to go is invalid');
-
-        // Call the assertion callback
-        done();
-      });
-  });
-
-  it('should return proper error for single Orders to go which doesnt exist, if not signed in', function(done) {
-    // This is a valid mongoose Id but a non-existent Orders to go
-    request(app).get('/api/orders/559e9cd815f80b4c256a8f41')
-      .end(function(req, res) {
-        // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Orders to go with that identifier has been found');
-
-        // Call the assertion callback
-        done();
       });
   });
 
@@ -299,7 +268,7 @@ describe('Orders to go CRUD tests', function() {
     // order.user = user;
 
     // Create new Orders to go model instance
-    let orderObj = new Grocery(order);
+    let orderObj = new Order(order);
 
     // Save the Orders to go
     orderObj.save(function() {
@@ -319,7 +288,7 @@ describe('Orders to go CRUD tests', function() {
 
   afterEach(function(done) {
     User.remove().exec(function() {
-      Grocery.remove().exec(done);
+      Order.remove().exec(done);
     });
   });
 });

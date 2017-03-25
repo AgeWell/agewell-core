@@ -15,7 +15,7 @@ let OrderSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Order.',
+    required: 'Please fill Order name.',
     trim: true
   },
   qty: Number,

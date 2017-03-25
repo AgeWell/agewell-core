@@ -64,15 +64,6 @@ let docArray = [{
   avalibility: 'On-demand',
   pricePer: 'Hour'
 }, {
-  _id: 'groceriesToGo',
-  title: 'Groceries to Go',
-  description: 'A grocery shopping and delivery service for adults age 60 and older. Clients phone in their order and we shop for them and deliver to their door and assist them with putting the groceries away if necessary. This service includes a wellness check.\nMeal planning and preparation are available for an additional fee.',
-  for: 'Client',
-  price: 10,
-  avalibility: 'Weekly',
-  pricePer: 'Unit',
-  'unitName': 'Delivery'
-}, {
   _id: 'dementiaTraining',
   title: 'Dementia Training',
   description: 'A customized dementia training for businesses including information about dementia and dementia related diseases such as Alzheimer’s disease, how to communicate with someone who has dementia and is on site at your business or organization, how to communicate in a retail setting, how to create a dementia friendly physical space, and help to become a dementia friendly workplace.  We work with organizations to identify and implement changes that promote a dementia friendly workplace.',
@@ -109,7 +100,7 @@ exports.seed = function(done) {
   }
 
   Service.find({}, function(err, services) {
-    if (services.length !== total) {
+    if (services.length < total) {
       saveAll();
     }
   });
