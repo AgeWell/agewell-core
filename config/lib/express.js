@@ -127,6 +127,11 @@ module.exports.initSession = function(app, db) {
  * Invoke modules server configuration
  */
 module.exports.initModulesConfiguration = function(app, db) {
+  // add options object for passing options to frontend
+  app.use(function(req, res, next) {
+    req.options = {};
+    next();
+  });
   config.files.server.configs.forEach(function(configPath) {
     require(path.resolve(configPath))(app, db);
   });

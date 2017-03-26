@@ -1,14 +1,17 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.groceries._id ? 'Edit Groceries to go' : 'New Groceries to go'}}</h1>
+    <h1>{{vm.groceries._id ? 'Edit Groceries Order' : 'New Groceries Order'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.groceriesForm" class="form-horizontal" ng-submit="vm.save(vm.groceriesForm.$valid)" novalidate>
+    <div class="alert alert-info" role="alert">
+      You order must be submitted by ___ inorder to be delivered ___. Any submission after ___ will be delivered at our next delivery date of ___.
+    </div>
+    <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
           <input name="name" type="text" ng-model="vm.groceries.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.groceriesForm.name.$error" role="alert">
+          <div ng-messages="vm.orderForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Groceries to go name is required.</p>
           </div>
         </div>

@@ -6,13 +6,14 @@
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'orderResolve'];
 
-  function OrdersController ($scope, $state, $window, Authentication, order) {
+  function OrdersController ($scope, $state, $window, Authentication, coreService, order) {
     let vm = this;
 
     vm.authentication = Authentication;
     vm.order = order;
+    vm.options = coreService.getOptions('Order');
     vm.error = null;
     vm.remove = remove;
     vm.save = save;

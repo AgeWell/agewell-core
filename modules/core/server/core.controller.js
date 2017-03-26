@@ -1,9 +1,9 @@
 'use strict';
 
-const validator = require('validator');
 const path = require('path');
+const _ = require('lodash');
 const mongoose = require('mongoose');
-const Service = mongoose.model('Service');
+const validator = require('validator');
 const config = require(path.resolve('./config/config'));
 
 /**
@@ -27,17 +27,12 @@ exports.renderIndex = function(req, res) {
     };
   }
 
-  let options = getEnums();
+  let options = _.merge(req.options, getEnums());
 
-  getServices().then(function(services) {
-
-    options.Services = services;
-
-    res.render('modules/core/server/index', {
-      user: JSON.stringify(safeUserObject),
-      options: JSON.stringify(options),
-      sharedConfig: JSON.stringify(config.shared)
-    });
+  res.render('modules/core/server/index', {
+    user: JSON.stringify(safeUserObject),
+    options: JSON.stringify(req.options),
+    sharedConfig: JSON.stringify(config.shared)
   });
 };
 
@@ -98,20 +93,4 @@ function getEnums() {
   }
 
   return options;
-}
-
-function getServices() {
-  return Service.find({})
-    .select({
-      'title': 1,
-      '_id': 1,
-      'for': 1
-    })
-    .exec(function(err, services) {
-      if (err) {
-        console.error(err);
-      }
-
-      return services;
-    });
 }
