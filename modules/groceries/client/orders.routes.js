@@ -9,11 +9,6 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('groceries', {
-        abstract: true,
-        url: '/groceries',
-        template: '<ui-view/>'
-      })
       .state('groceries.orders', {
         url: '',
         templateUrl: 'modules/groceries/client/views/list-orders.html',

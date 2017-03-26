@@ -22,6 +22,7 @@ let RequestSchema = new Schema({
     type: Date,
     required: 'Please select a Request date'
   },
+  notes: String,
   payment: {
     status: Boolean,
     date: Date

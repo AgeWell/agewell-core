@@ -8,6 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Request = require(path.resolve('./modules/services/server/requests/request.model'));
+const Money = require(path.resolve('./modules/services/server/money')).schema;
 
 /**
  * Orders to go Schema
@@ -17,26 +18,50 @@ let OrderSchema = new Schema({
     type: String,
     'default': shortid.generate
   },
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Order name.',
-    trim: true
+  items: {
+    type: [{
+      sku: {
+        type: String
+      },
+      qty: {
+        type: Number,
+        default: 1
+      },
+      title: {
+        type: String
+      },
+      price: {
+        type: Money
+      },
+      product: {
+        type: Schema.ObjectId,
+        ref: 'Grocery'
+      }
+    }]
   },
-  qty: Number,
-  unit: String,
-  price: Number,
-  category: {
+  subTotal: {
+    type: Money,
+    required: true
+  },
+  deliveryCost: {
+    type: Number,
+    required: true
+  },
+  total: {
+    type: Money,
+    required: true
+  },
+  // payment info
+  status: {
     type: String,
+    default: 'pending',
     enum: [
-      'Produce',
-      'Deli',
-      'Meats',
-      'Dairy/Refrigerated',
-      'Bakery',
-      'Frozen',
-      'Miscellaneous',
-      'Non-food'
+      'pending',
+      'confirmed',
+      'purchased',
+      'delivered',
+      'canceled',
+      'refunded'
     ]
   }
 });
