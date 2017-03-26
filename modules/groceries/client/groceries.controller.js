@@ -20,7 +20,7 @@
     // Remove existing Groceries to go
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
-        vm.groceriesToGo.$remove($state.go('groceries-to-go.list'));
+        vm.groceriesToGo.$remove($state.go('groceries.list'));
       }
     }
 
@@ -39,7 +39,7 @@
       }
 
       function successCallback(res) {
-        $state.go('groceries-to-go.view', {
+        $state.go('groceries.view', {
           groceriesToGoId: res._id
         });
       }

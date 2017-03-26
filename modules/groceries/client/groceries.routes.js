@@ -9,23 +9,23 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('groceries', {
+      .state('groceries-to-go', {
         abstract: true,
-        url: '/groceries',
+        url: '/groceries-to-go',
         template: '<ui-view/>'
       })
-      .state('groceries.list', {
+      .state('groceries-to-go.list', {
         url: '',
-        templateUrl: '/modules/groceries/client/views/list-groceries.html',
+        templateUrl: 'modules/groceries-to-go/client/views/list-groceries-to-go.html',
         controller: 'GroceriesToGosListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Groceries to gos List'
         }
       })
-      .state('groceries.create', {
+      .state('groceries-to-go.create', {
         url: '/create',
-        templateUrl: '/modules/groceries/client/views/form-groceries.html',
+        templateUrl: 'modules/groceries-to-go/client/views/form-groceries-to-go.html',
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
@@ -36,9 +36,9 @@
           pageTitle: 'Groceries to gos Create'
         }
       })
-      .state('groceries.edit', {
+      .state('groceries-to-go.edit', {
         url: '/:groceriesToGoId/edit',
-        templateUrl: '/modules/groceries/client/views/form-groceries.html',
+        templateUrl: 'modules/groceries-to-go/client/views/form-groceries-to-go.html',
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
@@ -46,19 +46,19 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Groceries to go {{ groceriesResolve.name }}'
+          pageTitle: 'Edit Groceries to go {{ groceries-to-goResolve.name }}'
         }
       })
-      .state('groceries.view', {
+      .state('groceries-to-go.view', {
         url: '/:groceriesToGoId',
-        templateUrl: '/modules/groceries/client/views/view-groceries.html',
+        templateUrl: 'modules/groceries-to-go/client/views/view-groceries-to-go.html',
         controller: 'GroceriesToGosController',
         controllerAs: 'vm',
         resolve: {
           groceriesResolve: getGroceriesToGo
         },
         data: {
-          pageTitle: 'Groceries to go {{ groceriesResolve.name }}'
+          pageTitle: 'Groceries to go {{ groceries-to-goResolve.name }}'
         }
       });
   }

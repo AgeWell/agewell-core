@@ -15,28 +15,28 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/groceries-to-go',
+      resources: '/api/groceries',
       permissions: '*'
     }, {
-      resources: '/api/groceries-to-go/:groceriesToGoId',
+      resources: '/api/groceries/:groceriesToGoId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/groceries-to-go',
+      resources: '/api/groceries',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/groceries-to-go/:groceriesToGoId',
+      resources: '/api/groceries/:groceriesToGoId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/groceries-to-go',
+      resources: '/api/groceries',
       permissions: ['get']
     }, {
-      resources: '/api/groceries-to-go/:groceriesToGoId',
+      resources: '/api/groceries/:groceriesToGoId',
       permissions: ['get']
     }]
   }]);

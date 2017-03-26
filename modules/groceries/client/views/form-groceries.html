@@ -1,19 +1,19 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.groceries-to-go._id ? 'Edit Groceries to go' : 'New Groceries to go'}}</h1>
+    <h1>{{vm.groceries._id ? 'Edit Groceries to go' : 'New Groceries to go'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.groceries-to-goForm" class="form-horizontal" ng-submit="vm.save(vm.groceries-to-goForm.$valid)" novalidate>
+    <form name="vm.groceriesForm" class="form-horizontal" ng-submit="vm.save(vm.groceriesForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.groceries-to-go.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.groceries-to-goForm.name.$error" role="alert">
+          <input name="name" type="text" ng-model="vm.groceries.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.groceriesForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Groceries to go name is required.</p>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.groceries-to-go._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-default">{{vm.groceries._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

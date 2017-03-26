@@ -81,21 +81,21 @@
 
       it('should send a POST request with the form input values and then locate to new object URL', inject(function (GroceriesToGosService) {
         // Set POST response
-        $httpBackend.expectPOST('api/groceries-to-go', sampleGroceriesToGoPostData).respond(mockGroceriesToGo);
+        $httpBackend.expectPOST('api/groceries', sampleGroceriesToGoPostData).respond(mockGroceriesToGo);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
         // Test URL redirection after the Groceries to go was created
-        expect($state.go).toHaveBeenCalledWith('groceries-to-go.view', {
+        expect($state.go).toHaveBeenCalledWith('groceries.view', {
           groceriesToGoId: mockGroceriesToGo._id
         });
       }));
 
       it('should set $scope.vm.error if error', function () {
         let errorMessage = 'this is an error message';
-        $httpBackend.expectPOST('api/groceries-to-go', sampleGroceriesToGoPostData).respond(400, {
+        $httpBackend.expectPOST('api/groceries', sampleGroceriesToGoPostData).respond(400, {
           message: errorMessage
         });
 
@@ -114,21 +114,21 @@
 
       it('should update a valid Groceries to go', inject(function (GroceriesToGosService) {
         // Set PUT response
-        $httpBackend.expectPUT(/api\/groceries-to-go\/([0-9a-fA-F]{24})$/).respond();
+        $httpBackend.expectPUT(/api\/groceries\/([0-9a-fA-F]{24})$/).respond();
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('groceries-to-go.view', {
+        expect($state.go).toHaveBeenCalledWith('groceries.view', {
           groceriesToGoId: mockGroceriesToGo._id
         });
       }));
 
       it('should set $scope.vm.error if error', inject(function (GroceriesToGosService) {
         let errorMessage = 'error';
-        $httpBackend.expectPUT(/api\/groceries-to-go\/([0-9a-fA-F]{24})$/).respond(400, {
+        $httpBackend.expectPUT(/api\/groceries\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage
         });
 
@@ -149,12 +149,12 @@
         // Return true on confirm message
         spyOn(window, 'confirm').and.returnValue(true);
 
-        $httpBackend.expectDELETE(/api\/groceries-to-go\/([0-9a-fA-F]{24})$/).respond(204);
+        $httpBackend.expectDELETE(/api\/groceries\/([0-9a-fA-F]{24})$/).respond(204);
 
         $scope.vm.remove();
         $httpBackend.flush();
 
-        expect($state.go).toHaveBeenCalledWith('groceries-to-go.list');
+        expect($state.go).toHaveBeenCalledWith('groceries.list');
       });
 
       it('should should not delete the Groceries to go and not redirect', function () {
