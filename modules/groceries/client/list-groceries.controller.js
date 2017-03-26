@@ -2,14 +2,14 @@
   'use strict';
 
   angular
-    .module('groceriesToGo')
-    .controller('GroceriesToGosListController', GroceriesToGosListController);
+    .module('groceries')
+    .controller('GroceriesListController', GroceriesListController);
 
-  GroceriesToGosListController.$inject = ['GroceriesToGosService'];
+  GroceriesListController.$inject = ['GroceriesService'];
 
-  function GroceriesToGosListController(GroceriesToGosService) {
+  function GroceriesListController(GroceriesService) {
     let vm = this;
 
-    vm.groceriesToGos = GroceriesToGosService.query();
+    vm.groceries = GroceriesService.query();
   }
 }());

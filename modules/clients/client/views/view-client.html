@@ -18,22 +18,22 @@
     <div class="pull-right" ng-show="vm.client.canEdit">
       <h4>Service Requests</h4>
       <div class="btn-group-vertical" role="group" aria-label="Client Actions">
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'careConsultation' })" ng-disabled="true">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Care Consultation
         </button>
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'choreAssistance' })" ng-disabled="true">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Chore
         </button>
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'homemakerAssistance' })" ng-disabled="true">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Homemaking
         </button>
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'seniorWheelTransportation' })" ng-disabled="true">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Appointment
         </button>
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'errandsTransportation' })" ng-disabled="true">
+        <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Errand
         </button>
-        <button class="btn btn-primary" ui-sref="services.view.requests.create({ serviceId: 'groceriesToGo' })">
+        <button class="btn btn-primary" ui-sref="groceries.orders.create()">
           <i class="glyphicon glyphicon-edit"></i> Groceries
         </button>
         <button class="btn btn-secondary" ng-disabled="true"></button>

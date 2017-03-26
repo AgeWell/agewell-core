@@ -3,12 +3,12 @@
 
   // Groceries to gos controller
   angular
-    .module('groceriesToGo')
-    .controller('GroceriesToGosController', GroceriesToGosController);
+    .module('groceries')
+    .controller('GroceriesController', GroceriesController);
 
-  GroceriesToGosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'groceriesToGoResolve'];
+  GroceriesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'groceriesToGoResolve'];
 
-  function GroceriesToGosController ($scope, $state, $window, Authentication, groceriesToGo) {
+  function GroceriesController ($scope, $state, $window, Authentication, groceriesToGo) {
     let vm = this;
 
     vm.authentication = Authentication;

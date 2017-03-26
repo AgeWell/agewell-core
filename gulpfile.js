@@ -47,6 +47,9 @@ gulp.task('lint', function(done) {
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function(done) {
+  runSequence('env:dev', 'wiredep', 'lint', done);
+});
+gulp.task('build:prod', function(done) {
   runSequence('env:dev', 'wiredep:prod', 'lint', ['uglify', 'cssmin'], done);
 });
 
