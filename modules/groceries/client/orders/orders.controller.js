@@ -6,9 +6,9 @@
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'coreService', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', 'Authentication', 'coreService', 'orderResolve'];
 
-  function OrdersController($scope, $state, $stateParams, $window, Authentication, coreService, order) {
+  function OrdersController($scope, $state, $filter, $stateParams, $window, Authentication, coreService, order) {
     let vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,11 @@
     vm.error = null;
     vm.remove = remove;
     vm.save = save;
+
+    vm.showStatus = showStatus;
+    vm.checkName = checkName;
+    vm.removeItem = removeItem;
+    vm.addItem = addItem;
 
     vm.dates = {
       now: new Date(),
@@ -28,6 +33,7 @@
 
     if (!vm.order._id) {
       vm.order.clientId = $stateParams;
+      vm.order.items = [];
     }
 
     console.log(vm);
@@ -65,21 +71,39 @@
       }
     }
 
+    function showStatus(item) {
+      var selected = [];
+      if (item.status) {
+        selected = $filter('filter')(vm.options.status, {
+          value: item.status
+        });
+      }
+      return selected.length ? selected[0].text : 'Not set';
+    }
+
+    function checkName(data, id) {
+      if (id === 2 && data !== 'awesome') {
+        return 'Username 2 should be `awesome`';
+      }
+    }
+
 
     // remove user
-    vm.removeItem = function(index) {
+    function removeItem(index) {
       vm.users.splice(index, 1);
-    };
+    }
 
     // add user
-    vm.addItem = function() {
+    function addItem() {
       vm.inserted = {
         id: vm.order.items.length + 1,
         name: '',
-        status: null,
-        group: null
+        qty: 0,
+        price: 0,
+        category: ''
       };
       vm.order.items.push(vm.inserted);
-    };
+      console.log(vm.order);
+    }
   }
 }());

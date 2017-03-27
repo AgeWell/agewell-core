@@ -2,7 +2,7 @@
   <div class="page-header">
     <h1>{{vm.groceries._id ? 'Edit Groceries Order' : 'New Groceries Order'}}</h1>
   </div>
-  <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
+  <form editable-form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
     <div class="col-md-8">
       <div class="alert alert-info" role="alert">
         You order must be submitted by <strong>{{vm.dates.orderBy | date:'EEEE, MMMM d'}}</strong> to be delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
@@ -13,6 +13,9 @@
         <div class="col-md-4"><strong>To be Delivered:</strong> {{vm.dates.delivery | date:'MM/dd/yyyy'}}</div>
       </div>
       <fieldset>
+        <p>
+          Move this piece to a directive of its own.
+        </p>
         <table class="table table-bordered table-hover table-condensed">
           <tr style="font-weight: bold">
             <td style="width:35%">Name</td>
@@ -24,46 +27,44 @@
           <tr ng-repeat="item in vm.order.items">
             <td>
               <!-- editable username (text with validation) -->
-              <span editable-text="item.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, item.id)">
-          {{ item.name || 'empty' }}
-        </span>
+              <div editable-text="item.name" e-name="name" e-form="rowform">{{ item.name || 'empty' }}</div>
             </td>
             <td>
               <!-- editable status (select-local) -->
-              <span editable-select="item.qty" e-name="status" e-form="rowform" e-name="qty">
-          {{ item.qty || 'empty' }}
-        </span>
+              <div editable-select="item.qty" e-name="status" e-form="rowform" e-name="qty">
+                {{ item.qty || 'empty' }}
+              </div>
             </td>
             <td>
               <!-- editable status (select-local) -->
-              <span editable-select="item.price" e-name="status" e-form="rowform" e-name="price">
-          {{ item.price || 'empty' }}
-        </span>
+              <div editable-select="item.price" e-name="status" e-form="rowform" e-name="price">
+                {{ item.price || 'empty' }}
+              </div>
             </td>
-      <td>
-        <!-- editable status (select-local) -->
-        <span editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="s.value as s.text for s in vm.options.status">
-          {{ showStatus(item) }}
-        </span>
-      </td>
+            <td>
+              <!-- editable status (select-local) -->
+              <div editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="s.value as s.text for s in vm.options.status">
+                {{ showCategory(item) }}
+              </div>
+            </td>
             <td style="white-space: nowrap">
               <!-- form -->
-              <form editable-form name="rowform" onbeforesave="saveUser($data, item.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
+              <!-- <form editable-form name="rowform" onbeforesave="saveItem($data, item.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item"> -->
                 <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-            save
-          </button>
+                  save
+                </button>
                 <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
-            cancel
-          </button>
-              </form>
+                  cancel
+                </button>
+              <!-- </form> -->
               <div class="buttons" ng-show="!rowform.$visible">
                 <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                <button type="button" class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)">del</button>
               </div>
             </td>
           </tr>
         </table>
-        <button type="button" class="btn btn-default" ng-click="addItem()">Add Item</button>
+        <button type="button" class="btn btn-default" ng-click="vm.addItem()">Add Item</button>
         <div class="form-group">
           <label class="control-label" for="notes">Notes</label>
           <textarea name="notes" type="text" ng-model="vm.order.notes" id="notes" class="form-control" placeholder="Notes"></textarea>
