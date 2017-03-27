@@ -151,9 +151,6 @@ describe('Groceries to go CRUD tests', function() {
   });
 
   it('should not be able to delete an Groceries to go if not signed in', function(done) {
-    // Set Groceries to go user
-    grocery.user = user;
-
     // Create new Groceries to go model instance
     let groceryObj = new Grocery(grocery);
 

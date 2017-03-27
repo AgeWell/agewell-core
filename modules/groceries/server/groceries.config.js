@@ -14,8 +14,8 @@ module.exports = function(app, db) {
   app.use(function (req, res, next) {
     let options = {
       Order: {
-        orderDates: orderDates(),
-        deliveryDates: deliveryDates()
+        order: orderDates(),
+        delivery: deliveryDates()
       }
     };
 
@@ -29,7 +29,7 @@ function orderDates() {
   let base = getBase();
 
   dates.push(moment().startOf('week').add('days', base + 3));
-  // dates.push(moment().startOf('week').add('days', base + 10));
+  dates.push(moment().startOf('week').add('days', base + 10));
   // dates.push(moment().startOf('week').add('days', base + 17));
 
   return dates;
@@ -40,7 +40,7 @@ function deliveryDates() {
   let base = getBase();
 
   dates.push(moment().startOf('week').add('days', base + 4));
-  // dates.push(moment().startOf('week').add('days', base + 11));
+  dates.push(moment().startOf('week').add('days', base + 11));
   // dates.push(moment().startOf('week').add('days', base + 18));
 
   return dates;

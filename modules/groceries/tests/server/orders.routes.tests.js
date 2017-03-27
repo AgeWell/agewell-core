@@ -53,7 +53,10 @@ describe('Orders to go CRUD tests', function() {
     user.save(function() {
       order = {
         name: 'Orders to go name',
-        date: new Date()
+        date: new Date(),
+        subTotal: 0,
+        deliveryCost: 0,
+        total: 0
       };
 
       done();

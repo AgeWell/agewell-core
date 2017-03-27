@@ -2,18 +2,71 @@
   <div class="page-header">
     <h1>{{vm.groceries._id ? 'Edit Groceries Order' : 'New Groceries Order'}}</h1>
   </div>
-  <div class="col-md-12">
-    <div class="alert alert-info" role="alert">
-      You order must be submitted by ___ inorder to be delivered ___. Any submission after ___ will be delivered at our next delivery date of ___.
-    </div>
-    <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
+  <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
+    <div class="col-md-8">
+      <div class="alert alert-info" role="alert">
+        You order must be submitted by <strong>{{vm.dates.orderBy | date:'EEEE, MMMM d'}}</strong> to be delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Order by Date:</strong> {{ vm.dates.now | date:'MM/dd/yyyy'}}</div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><strong>To be Delivered:</strong> {{vm.dates.delivery | date:'MM/dd/yyyy'}}</div>
+      </div>
       <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.groceries.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.orderForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Groceries to go name is required.</p>
-          </div>
+        <table class="table table-bordered table-hover table-condensed">
+          <tr style="font-weight: bold">
+            <td style="width:35%">Name</td>
+            <td style="width:20%">Qty</td>
+            <td style="width:20%">Price</td>
+            <td style="width:25%">Category</td>
+            <td style="width:25%">Actions</td>
+          </tr>
+          <tr ng-repeat="item in vm.order.items">
+            <td>
+              <!-- editable username (text with validation) -->
+              <span editable-text="item.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, item.id)">
+          {{ item.name || 'empty' }}
+        </span>
+            </td>
+            <td>
+              <!-- editable status (select-local) -->
+              <span editable-select="item.qty" e-name="status" e-form="rowform" e-name="qty">
+          {{ item.qty || 'empty' }}
+        </span>
+            </td>
+            <td>
+              <!-- editable status (select-local) -->
+              <span editable-select="item.price" e-name="status" e-form="rowform" e-name="price">
+          {{ item.price || 'empty' }}
+        </span>
+            </td>
+      <td>
+        <!-- editable status (select-local) -->
+        <span editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="s.value as s.text for s in vm.options.status">
+          {{ showStatus(item) }}
+        </span>
+      </td>
+            <td style="white-space: nowrap">
+              <!-- form -->
+              <form editable-form name="rowform" onbeforesave="saveUser($data, item.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
+                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            save
+          </button>
+                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancel
+          </button>
+              </form>
+              <div class="buttons" ng-show="!rowform.$visible">
+                <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                <button type="button" class="btn btn-danger" ng-click="removeUser($index)">del</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <button type="button" class="btn btn-default" ng-click="addItem()">Add Item</button>
+        <div class="form-group">
+          <label class="control-label" for="notes">Notes</label>
+          <textarea name="notes" type="text" ng-model="vm.order.notes" id="notes" class="form-control" placeholder="Notes"></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.groceries._id ? 'Update' : 'Create'}}</button>
@@ -22,6 +75,26 @@
           <strong ng-bind="vm.error"></strong>
         </div>
       </fieldset>
-    </form>
-  </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong>Important Info</strong></div>
+        <div class="panel-body">
+          <div>
+            <strong>Order Deadline:</strong> {{vm.dates.orderBy | date:'EEEE, MMMM d'}}
+          </div>
+          <div>
+            <strong>Delivery Date:</strong> {{vm.dates.delivery | date:'EEEE, MMMM d'}}
+          </div>
+          <div>
+            <strong>Next Deadline:</strong> {{vm.dates.orderBy | date:'EEEE, MMMM d'}}
+          </div>
+          <div>
+            <strong>Next Delivery:</strong> {{vm.dates.orderBy | date:'EEEE, MMMM d'}}
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </form>
 </section>

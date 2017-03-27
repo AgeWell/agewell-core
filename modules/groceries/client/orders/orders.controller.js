@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Groceries to gos controller
@@ -6,9 +6,9 @@
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'coreService', 'orderResolve'];
 
-  function OrdersController ($scope, $state, $window, Authentication, coreService, order) {
+  function OrdersController($scope, $state, $stateParams, $window, Authentication, coreService, order) {
     let vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,21 @@
     vm.error = null;
     vm.remove = remove;
     vm.save = save;
+
+    vm.dates = {
+      now: new Date(),
+      orderBy: new Date(vm.options.order[0]),
+      nextOrderBy: new Date(vm.options.order[1]),
+      delivery: new Date(vm.options.delivery[0]),
+      nextDelivery: new Date(vm.options.delivery[1])
+    };
+
+    if (!vm.order._id) {
+      vm.order.clientId = $stateParams;
+    }
+
+    console.log(vm);
+    console.log($stateParams);
 
     // Remove existing Groceries to go
     function remove() {
@@ -49,5 +64,22 @@
         vm.error = res.data.message;
       }
     }
+
+
+    // remove user
+    vm.removeItem = function(index) {
+      vm.users.splice(index, 1);
+    };
+
+    // add user
+    vm.addItem = function() {
+      vm.inserted = {
+        id: vm.order.items.length + 1,
+        name: '',
+        status: null,
+        group: null
+      };
+      vm.order.items.push(vm.inserted);
+    };
   }
 }());

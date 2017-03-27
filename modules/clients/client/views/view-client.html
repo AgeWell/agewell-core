@@ -33,7 +33,7 @@
         <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
           <i class="glyphicon glyphicon-edit"></i> Errand
         </button>
-        <button class="btn btn-primary" ui-sref="groceries.orders.create()">
+        <button class="btn btn-primary" ui-sref="groceries.orders.create({ clientId: vm.client._id })">
           <i class="glyphicon glyphicon-edit"></i> Groceries
         </button>
         <button class="btn btn-secondary" ng-disabled="true"></button>

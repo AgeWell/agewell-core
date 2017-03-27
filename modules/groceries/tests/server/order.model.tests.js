@@ -20,7 +20,9 @@ describe('Order Model Unit Tests:', function() {
     order = new Order({
       name: 'Order Name',
       date: new Date(),
-      qty: 5
+      subTotal: 0,
+      deliveryCost: 0,
+      total: 0
     });
 
     done();
