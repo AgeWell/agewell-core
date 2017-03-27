@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 const path = require('path');
+const shortid = require('shortid');
 const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
@@ -96,7 +97,7 @@ exports.list = function(req, res) {
  */
 exports.orderByID = function(req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!shortid.isValid(id)) {
     return res.status(400).send({
       message: 'Groceries to go is invalid'
     });

@@ -37,8 +37,8 @@ describe('Order Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without name', function(done) {
-      order.name = '';
+    it('should be able to show an error when try to save without date', function(done) {
+      order.date = '';
 
       order.save(function(err) {
         should.exist(err);

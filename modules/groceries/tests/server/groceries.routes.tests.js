@@ -143,7 +143,7 @@ describe('Groceries to go CRUD tests', function() {
     request(app).get('/api/groceries/559e9cd815f80b4c256a8f41')
       .end(function(req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Groceries to go with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'No Groceries with that identifier has been found');
 
         // Call the assertion callback
         done();

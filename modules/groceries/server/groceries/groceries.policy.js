@@ -18,7 +18,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/groceries',
       permissions: '*'
     }, {
-      resources: '/api/groceries/:groceriesToGoId',
+      resources: '/api/groceries/:groceryId',
       permissions: '*'
     }]
   }, {
@@ -27,7 +27,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/groceries',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/groceries/:groceriesToGoId',
+      resources: '/api/groceries/:groceryId',
       permissions: ['get']
     }]
   }, {
@@ -36,7 +36,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/groceries',
       permissions: ['get']
     }, {
-      resources: '/api/groceries/:groceriesToGoId',
+      resources: '/api/groceries/:groceryId',
       permissions: ['get']
     }]
   }]);
@@ -49,7 +49,7 @@ exports.isAllowed = function (req, res, next) {
   let roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Groceries to go is being processed and the current user created it then allow any manipulation
-  if (req.groceriesToGo && req.user && req.groceriesToGo.user && req.groceriesToGo.user.id === req.user.id) {
+  if (req.groceries && req.user && req.groceries.user && req.groceries.user.id === req.user.id) {
     return next();
   }
 

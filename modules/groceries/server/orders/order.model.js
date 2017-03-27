@@ -17,7 +17,7 @@ const Item = require(path.resolve('./modules/groceries/server/groceries/grocery.
 let OrderSchema = new Schema({
   _id: {
     type: String,
-    'default': shortid.generate
+    default: shortid.generate
   },
   items: {
     type: [Item]
@@ -32,7 +32,7 @@ let OrderSchema = new Schema({
   },
   total: {
     type: Money,
-    required: true
+    required: 'An order must have a total.'
   },
   // payment info
   status: {

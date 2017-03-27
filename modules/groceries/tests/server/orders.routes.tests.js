@@ -18,9 +18,9 @@ let app,
   order;
 
 /**
- * Orders to go routes tests
+ * Orders routes tests
  */
-describe('Orders to go CRUD tests', function() {
+describe('Orders CRUD tests', function() {
 
   before(function(done) {
     // Get application
@@ -49,10 +49,10 @@ describe('Orders to go CRUD tests', function() {
       roles: 'admin'
     });
 
-    // Save a user to the test db and create new Orders to go
+    // Save a user to the test db and create new Orders
     user.save(function() {
       order = {
-        name: 'Orders to go name',
+        status: 'pending',
         date: new Date(),
         subTotal: 0,
         deliveryCost: 0,
@@ -63,7 +63,7 @@ describe('Orders to go CRUD tests', function() {
     });
   });
 
-  it('should be able to save a Orders to go if logged in', function(done) {
+  it('should be able to save a Orders if logged in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -76,29 +76,29 @@ describe('Orders to go CRUD tests', function() {
         // Get the clientId
         // let clientId = client.id;
 
-        // Save a new Orders to go
+        // Save a new Orders
         agent.post('/api/orders')
           .send(order)
           .expect(200)
           .end(function(orderSaveErr, orderSaveRes) {
-            // Handle Orders to go save error
+            // Handle Orders save error
             if (orderSaveErr) {
               return done(orderSaveErr);
             }
 
-            // Get a list of Orders to gos
+            // Get a list of Orders
             agent.get('/api/orders')
               .end(function(orderGetErr, orderGetRes) {
-                // Handle Orders to gos save error
+                // Handle Orders save error
                 if (orderGetErr) {
                   return done(orderGetErr);
                 }
 
-                // Get Orders to gos list
+                // Get Orders list
                 let order = orderGetRes.body;
 
                 // Set assertions
-                (order[0].name).should.match('Orders to go name');
+                (order[0].status).should.match('pending');
 
                 // Call the assertion callback
                 done();
@@ -107,7 +107,7 @@ describe('Orders to go CRUD tests', function() {
       });
   });
 
-  it('should not be able to save an Orders to go if not logged in', function(done) {
+  it('should not be able to save an Orders if not logged in', function(done) {
     agent.post('/api/orders')
       .send(order)
       .expect(403)
@@ -117,9 +117,9 @@ describe('Orders to go CRUD tests', function() {
       });
   });
 
-  it('should not be able to save an Orders to go if no name is provided', function(done) {
+  it('should not be able to save an Orders if no total is provided', function(done) {
     // Invalidate name field
-    order.name = '';
+    delete order.total;
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -133,21 +133,21 @@ describe('Orders to go CRUD tests', function() {
         // Get the clientId
         // let clientId = client.id;
 
-        // Save a new Orders to go
+        // Save a new Orders
         agent.post('/api/orders')
           .send(order)
           .expect(400)
           .end(function(orderSaveErr, orderSaveRes) {
             // Set message assertion
-            (orderSaveRes.body.message).should.match('Please fill Order name.');
+            (orderSaveRes.body.message).should.match('An order must have a total.');
 
-            // Handle Orders to go save error
+            // Handle Orders save error
             done(orderSaveErr);
           });
       });
   });
 
-  it('should be able to update an Orders to go if signed in', function(done) {
+  it('should be able to update an Orders if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -160,32 +160,32 @@ describe('Orders to go CRUD tests', function() {
         // Get the clientId
         // let clientId = client.id;
 
-        // Save a new Orders to go
+        // Save a new Orders
         agent.post('/api/orders')
           .send(order)
           .expect(200)
           .end(function(orderSaveErr, orderSaveRes) {
-            // Handle Orders to go save error
+            // Handle Orders save error
             if (orderSaveErr) {
               return done(orderSaveErr);
             }
 
-            // Update Orders to go name
-            order.name = 'WHY YOU GOTTA BE SO MEAN?';
+            // Update Orders status
+            order.status = 'ordered';
 
-            // Update an existing Orders to go
+            // Update an existing Orders
             agent.put('/api/orders/' + orderSaveRes.body._id)
               .send(order)
               .expect(200)
               .end(function(orderUpdateErr, orderUpdateRes) {
-                // Handle Orders to go update error
+                // Handle Orders update error
                 if (orderUpdateErr) {
                   return done(orderUpdateErr);
                 }
 
                 // Set assertions
                 (orderUpdateRes.body._id).should.equal(orderSaveRes.body._id);
-                (orderUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (orderUpdateRes.body.status).should.match('ordered');
 
                 // Call the assertion callback
                 done();
@@ -194,7 +194,7 @@ describe('Orders to go CRUD tests', function() {
       });
   });
 
-  it('should be able to get a list of Orders to gos if signed in', function(done) {
+  it('should be able to get a list of Orders if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -203,27 +203,25 @@ describe('Orders to go CRUD tests', function() {
         if (signinErr) {
           return done(signinErr);
         }
-        // Create new Orders to go model instance
+        // Create new Orders model instance
         let orderObj = new Order(order);
 
         // Save the order
         orderObj.save(function() {
-          // Request Orders to gos
+          // Request Orders
           agent.get('/api/orders')
             .end(function(req, res) {
-              console.log(res.body);
               // Set assertion
               res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
               // Call the assertion callback
               done();
             });
-
         });
       });
   });
 
-  it('should be able to delete an Orders to go if signed in', function(done) {
+  it('should be able to delete an Orders if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -236,17 +234,17 @@ describe('Orders to go CRUD tests', function() {
         // Get the clientId
         // let clientId = client.id;
 
-        // Save a new Orders to go
+        // Save a new Orders
         agent.post('/api/orders')
           .send(order)
           .expect(200)
           .end(function(orderSaveErr, orderSaveRes) {
-            // Handle Orders to go save error
+            // Handle Orders save error
             if (orderSaveErr) {
               return done(orderSaveErr);
             }
 
-            // Delete an existing Orders to go
+            // Delete an existing Orders
             agent.delete('/api/orders/' + orderSaveRes.body._id)
               .send(order)
               .expect(200)
@@ -266,23 +264,24 @@ describe('Orders to go CRUD tests', function() {
       });
   });
 
-  it('should not be able to delete an Orders to go if not signed in', function(done) {
-    // Set Orders to go user
+  it('should not be able to delete an Orders if not signed in', function(done) {
+    // Set Orders user
     // order.user = user;
 
-    // Create new Orders to go model instance
+    // Create new Orders model instance
     let orderObj = new Order(order);
 
-    // Save the Orders to go
-    orderObj.save(function() {
-      // Try deleting Orders to go
+    // Save the Orders
+    orderObj.save(function(err, neworder) {
+
+      // Try deleting Orders
       request(app).delete('/api/orders/' + orderObj._id)
         .expect(403)
         .end(function(orderDeleteErr, orderDeleteRes) {
           // Set message assertion
           (orderDeleteRes.body.message).should.match('User is not authorized');
 
-          // Handle Orders to go error error
+          // Handle Orders error error
           done(orderDeleteErr);
         });
 
