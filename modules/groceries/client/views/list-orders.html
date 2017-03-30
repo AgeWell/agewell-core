@@ -3,21 +3,22 @@
     <h2>Groceries to Go Orders</h1>
   </div>
   <div class="list-group">
-    <a ng-repeat="order in vm.orders"
-       ui-sref="groceriesToGos.view({ groceriesId: groceries._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="groceriesToGo.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="groceriesToGo.user" ng-bind="groceriesToGo.user.displayName"></span>
-        <span ng-if="!groceriesToGo.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="groceries.name"></h4>
-    </a>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Other</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: client._id, orderId: order._id })">
+        <td></td>
+          <td></td>
+            <td></td>
+          </tr></tbody></table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.groceriesToGos.$resolved && !vm.groceriesToGos.length">
-    No Groceries to gos yet, why don't you <a ui-sref="groceriesToGos.create">create one</a>?
+    No Orders yet, why don't you <a ui-sref="order.create">create one</a>?
   </div>
-  Here is a list of orders.
 </section>
