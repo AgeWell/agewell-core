@@ -1,9 +1,9 @@
 <section>
   <div class="page-header">
-    <h1>Groceries to gos</h1>
+    <h2>Groceries to Go Orders</h1>
   </div>
   <div class="list-group">
-    <a ng-repeat="groceries in vm.groceriesToGos"
+    <a ng-repeat="order in vm.orders"
        ui-sref="groceriesToGos.view({ groceriesId: groceries._id })"
        class="list-group-item">
       <small class="list-group-item-text">
@@ -19,4 +19,5 @@
   <div class="alert alert-warning text-center" ng-if="vm.groceriesToGos.$resolved && !vm.groceriesToGos.length">
     No Groceries to gos yet, why don't you <a ui-sref="groceriesToGos.create">create one</a>?
   </div>
+  Here is a list of orders.
 </section>

@@ -11,5 +11,7 @@
     let vm = this;
 
     vm.orders = OrdersService.query();
+
+    console.log(vm);
   }
 }());
