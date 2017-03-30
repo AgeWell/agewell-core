@@ -49,6 +49,7 @@
     }
 
     function updateOrder() {
+      console.log('emit update');
       $scope.$emit('updateOrder');
     }
   }

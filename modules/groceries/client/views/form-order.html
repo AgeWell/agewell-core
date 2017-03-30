@@ -18,7 +18,7 @@
           SubTotal:
         </td>
         <td style="width:25%">
-          {{ vm.order.subtotal }}
+          {{ vm.order.subtotal | currency }}
         </td>
       </tr>
       <tr style="font-weight: bold">
@@ -26,7 +26,7 @@
           Delivery Cost:
         </td>
         <td style="width:25%">
-          {{ vm.order.deliveryCost }}
+          {{ vm.order.deliveryCost | currency }}
         </td>
       </tr>
       <tr style="font-weight: bold">
@@ -34,7 +34,7 @@
           Total:
         </td>
         <td style="width:25%">
-          {{ vm.order.total }}
+          {{ vm.order.total | currency }}
         </td>
       </tr>
     </table>

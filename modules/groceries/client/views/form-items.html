@@ -14,26 +14,26 @@
         <div editable-text="item.name" e-name="name" e-form="rowform">{{ item.name || '' }}</div>
       </td>
       <td>
-        <!-- editable status (select-local) -->
-        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty" onaftersave="updateOrder()">
+        <!-- editable status (number-local) -->
+        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty">
           {{ item.qty || '0' }}
         </div>
       </td>
       <td>
-        <!-- editable status (select-local) -->
+        <!-- editable status (number-local) -->
         <div editable-number="item.price" e-name="price" e-form="rowform" e-name="price">
-          {{ item.price || '0.00' }}
+          {{ item.price || '0.00' | currency }}
         </div>
       </td>
       <td>
-        <!-- editable status (select-local) -->
+        <!-- editable status (select-category) -->
         <div editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="c as c for c in vm.options.category">
           {{ item.category }}
         </div>
       </td>
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" onbeforesave="saveItem($data, item.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
+        <form editable-form name="rowform" onbeforesave="saveItem($data, item.id)" onaftersave="vm.updateOrder()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
           <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
         </form>

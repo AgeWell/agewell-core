@@ -32,7 +32,7 @@
       vm.order.items = [];
       vm.order.subtotal = 0.00;
       vm.order.deliveryCost = 10.00;
-      vm.order.total = 0.00;
+      vm.order.total = 10.00;
     }
 
     console.log(vm);
@@ -56,6 +56,7 @@
       if (vm.order._id) {
         vm.order.$update(successCallback, errorCallback);
       } else {
+        vm.order.date = new Date();
         vm.order.$save(successCallback, errorCallback);
       }
 
@@ -78,17 +79,20 @@
     // Helpers
 
     function totals() {
-      vm.order.subtotal = vm.order.items.reduce(function(prev, curr) {
-        return prev + (curr.qty * curr.price);
-      });
+      vm.order.subtotal = 0.00;
+
+      for (var i = 0; i < vm.order.items.length; i++) {
+        vm.order.subtotal += (vm.order.items[i].qty * vm.order.items[i].price);
+      }
 
       vm.order.total = vm.order.subtotal + vm.order.deliveryCost;
+      console.log(vm);
     }
 
     // Listeners
     $scope.$on('updateOrder', function() {
       console.log('update order', vm);
-      vm.updateOrder();
+      vm.update();
     });
   }
 }());
