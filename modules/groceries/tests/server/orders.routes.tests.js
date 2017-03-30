@@ -54,7 +54,7 @@ describe('Orders CRUD tests', function() {
       order = {
         status: 'pending',
         date: new Date(),
-        subTotal: 0,
+        subtotal: 0,
         deliveryCost: 0,
         total: 0
       };
