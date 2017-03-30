@@ -22,7 +22,7 @@ let OrderSchema = new Schema({
   items: {
     type: [Item]
   },
-  subTotal: {
+  subtotal: {
     type: Money,
     required: true
   },

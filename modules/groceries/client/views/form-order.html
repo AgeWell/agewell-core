@@ -12,6 +12,32 @@
       <div class="col-md-4"><strong>To be Delivered:</strong> {{vm.dates.delivery | date:'MM/dd/yyyy'}}</div>
     </div>
     <items-form items="vm.order.items" error="vm.error" form="vm.orderForm"></items-form>
+    <table class="table table-bordered table-hover table-condensed">
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:75%">
+          SubTotal:
+        </td>
+        <td style="width:25%">
+          {{ vm.order.subtotal }}
+        </td>
+      </tr>
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:75%">
+          Delivery Cost:
+        </td>
+        <td style="width:25%">
+          {{ vm.order.deliveryCost }}
+        </td>
+      </tr>
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:75%">
+          Total:
+        </td>
+        <td style="width:25%">
+          {{ vm.order.total }}
+        </td>
+      </tr>
+    </table>
     <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group">

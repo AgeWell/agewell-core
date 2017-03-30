@@ -16,6 +16,7 @@
     vm.options = coreService.getOptions('Order');
     vm.error = null;
     vm.remove = remove;
+    vm.update = update;
     vm.save = save;
 
     vm.dates = {
@@ -29,6 +30,9 @@
     if (!vm.order._id) {
       vm.order.clientId = $stateParams;
       vm.order.items = [];
+      vm.order.subtotal = 0.00;
+      vm.order.deliveryCost = 10.00;
+      vm.order.total = 0.00;
     }
 
     console.log(vm);
@@ -66,10 +70,25 @@
       }
     }
 
+    // updates the order when new items are added.
+    function update() {
+      totals();
+    }
+
+    // Helpers
+
+    function totals() {
+      vm.order.subtotal = vm.order.items.reduce(function(prev, curr) {
+        return prev + (curr.qty * curr.price);
+      });
+
+      vm.order.total = vm.order.subtotal + vm.order.deliveryCost;
+    }
 
     // Listeners
     $scope.$on('updateOrder', function() {
       console.log('update order', vm);
+      vm.updateOrder();
     });
   }
 }());
