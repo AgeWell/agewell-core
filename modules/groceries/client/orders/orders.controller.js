@@ -18,11 +18,6 @@
     vm.remove = remove;
     vm.save = save;
 
-    vm.showStatus = showStatus;
-    vm.checkName = checkName;
-    vm.removeItem = removeItem;
-    vm.addItem = addItem;
-
     vm.dates = {
       now: new Date(),
       orderBy: new Date(vm.options.order[0]),
@@ -69,41 +64,6 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-    }
-
-    function showStatus(item) {
-      var selected = [];
-      if (item.status) {
-        selected = $filter('filter')(vm.options.status, {
-          value: item.status
-        });
-      }
-      return selected.length ? selected[0].text : 'Not set';
-    }
-
-    function checkName(data, id) {
-      if (id === 2 && data !== 'awesome') {
-        return 'Username 2 should be `awesome`';
-      }
-    }
-
-
-    // remove user
-    function removeItem(index) {
-      vm.users.splice(index, 1);
-    }
-
-    // add user
-    function addItem() {
-      vm.inserted = {
-        id: vm.order.items.length + 1,
-        name: '',
-        qty: 0,
-        price: 0,
-        category: ''
-      };
-      vm.order.items.push(vm.inserted);
-      console.log(vm.order);
     }
   }
 }());

@@ -23,8 +23,8 @@
           pageTitle: 'Groceries To Go Orders List'
         }
       })
-      .state('groceries.orders.create', {
-        url: '/create',
+      .state('order.create', {
+        url: '/clients/:clientId/orders/create',
         templateUrl: '/modules/groceries/client/views/form-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
@@ -36,8 +36,8 @@
           pageTitle: 'Groceries To Go Order'
         }
       })
-      .state('groceries.orders.edit', {
-        url: '/:orderId/edit',
+      .state('order.edit', {
+        url: '/clients/:clientId/orders/:orderId/edit',
         templateUrl: '/modules/groceries/client/views/form-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
@@ -49,8 +49,8 @@
           pageTitle: 'Edit Groceries To Go Order'
         }
       })
-      .state('groceries.orders.view', {
-        url: '/:orderId',
+      .state('order.view', {
+        url: '/clients/:clientId/orders/:orderId',
         templateUrl: '/modules/groceries/client/views/view-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',

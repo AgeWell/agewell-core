@@ -22,8 +22,6 @@
       vm.client.contact = {};
     }
 
-    console.log(vm);
-
     // Remove existing Client
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -33,7 +31,6 @@
 
     // Save Client
     function save(isValid) {
-      console.log(vm);
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.clientForm');
