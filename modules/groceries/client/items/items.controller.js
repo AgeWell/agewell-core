@@ -24,7 +24,7 @@
     console.log(vm);
 
     function saveItem(data, id) {
-      // angular.extend(data, {id: id});
+      angular.extend(data, {id: id});
       // return $http.post('/saveUser', data);
       return console.log('Item Saved');
     }
