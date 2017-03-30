@@ -28,7 +28,7 @@
     };
 
     if (!vm.order._id) {
-      vm.order.clientId = $stateParams;
+      vm.order.clientId = $stateParams.clientId;
       vm.order.items = [];
       vm.order.subtotal = 0.00;
       vm.order.deliveryCost = 10.00;
@@ -52,6 +52,10 @@
         return false;
       }
 
+      for (var i = 0; i < vm.order.items.length; i++) {
+        vm.order.items[i].id = undefined;
+      }
+
       // TODO: move create/update logic to service
       if (vm.order._id) {
         vm.order.$update(successCallback, errorCallback);
@@ -61,7 +65,8 @@
       }
 
       function successCallback(res) {
-        $state.go('groceries.orders.view', {
+        $state.go('order.view', {
+          clientId: vm.order.clientId,
           orderId: res._id
         });
       }
