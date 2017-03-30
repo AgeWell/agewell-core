@@ -15,7 +15,7 @@
       </td>
       <td>
         <!-- editable status (select-local) -->
-        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty">
+        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty" onaftersave="updateOrder()">
           {{ item.qty || '0' }}
         </div>
       </td>

@@ -19,6 +19,7 @@
     vm.saveItem = saveItem;
     vm.removeItem = removeItem;
     vm.addItem = addItem;
+    vm.updateOrder = updateOrder;
 
     console.log(vm);
 
@@ -45,6 +46,10 @@
       };
       vm.items.push(vm.inserted);
       console.log(vm.items);
+    }
+
+    function updateOrder() {
+      $scope.$emit('updateOrder');
     }
   }
 }());

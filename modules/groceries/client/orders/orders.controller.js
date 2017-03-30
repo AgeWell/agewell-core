@@ -65,5 +65,11 @@
         vm.error = res.data.message;
       }
     }
+
+
+    // Listeners
+    $scope.$on('updateOrder', function() {
+      console.log('update order', vm);
+    });
   }
 }());
