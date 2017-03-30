@@ -9,22 +9,13 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('groceries.orders', {
+      .state('order', {
         abstract: true,
-        url: '/orders',
+        url: '/clients/:clientId/orders',
         template: '<ui-view/>'
       })
-      .state('groceries.orders.list', {
-        url: '',
-        templateUrl: '/modules/groceries/client/views/list-orders.html',
-        controller: 'OrdersListController',
-        controllerAs: 'vm',
-        data: {
-          pageTitle: 'Groceries To Go Orders List'
-        }
-      })
       .state('order.create', {
-        url: '/clients/:clientId/orders/create',
+        url: '/create',
         templateUrl: '/modules/groceries/client/views/form-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
@@ -37,7 +28,7 @@
         }
       })
       .state('order.edit', {
-        url: '/clients/:clientId/orders/:orderId/edit',
+        url: '/:orderId/edit',
         templateUrl: '/modules/groceries/client/views/form-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
@@ -50,7 +41,7 @@
         }
       })
       .state('order.view', {
-        url: '/clients/:clientId/orders/:orderId',
+        url: '/:orderId',
         templateUrl: '/modules/groceries/client/views/view-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
@@ -74,6 +65,7 @@
   newOrder.$inject = ['OrdersService'];
 
   function newOrder(OrdersService) {
+    console.log('attempt new order');
     return new OrdersService();
   }
 }());

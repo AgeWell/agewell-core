@@ -22,44 +22,58 @@
         data: {
           pageTitle: 'Groceries to gos List'
         }
-      // })
-      // .state('groceries.create', {
-      //   url: '/order',
-      //   templateUrl: 'modules/groceries/client/views/form-order.html',
-      //   controller: 'GroceriesController',
-      //   controllerAs: 'vm',
-      //   resolve: {
-      //     groceriesResolve: newGroceriesToGo
-      //   },
-      //   data: {
-      //     roles: ['user', 'admin'],
-      //     pageTitle: 'Groceries to gos Create'
-      //   }
-      // })
-      // .state('groceries.edit', {
-      //   url: '/:orderId/edit',
-      //   templateUrl: 'modules/groceries/client/views/form-order.html',
-      //   controller: 'GroceriesController',
-      //   controllerAs: 'vm',
-      //   resolve: {
-      //     groceriesResolve: getGroceriesToGo
-      //   },
-      //   data: {
-      //     roles: ['user', 'admin'],
-      //     pageTitle: 'Edit Groceries to go {{ groceriesResolve.name }}'
-      //   }
-      // })
-      // .state('groceries.view', {
-      //   url: '/:orderId',
-      //   templateUrl: 'modules/groceries/client/views/view-order.html',
-      //   controller: 'GroceriesController',
-      //   controllerAs: 'vm',
-      //   resolve: {
-      //     groceriesResolve: getGroceriesToGo
-      //   },
-      //   data: {
-      //     pageTitle: 'Groceries to go {{ groceriesResolve.name }}'
-      //   }
+      })
+      .state('groceries.orders', {
+        abstract: true,
+        url: '/orders',
+        template: '<ui-view/>'
+      })
+      .state('groceries.orders.list', {
+        url: '',
+        templateUrl: '/modules/groceries/client/views/list-orders.html',
+        controller: 'OrdersListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Groceries To Go Orders List'
+        }
+        // })
+        // .state('groceries.create', {
+        //   url: '/order',
+        //   templateUrl: 'modules/groceries/client/views/form-order.html',
+        //   controller: 'GroceriesController',
+        //   controllerAs: 'vm',
+        //   resolve: {
+        //     groceriesResolve: newGroceriesToGo
+        //   },
+        //   data: {
+        //     roles: ['user', 'admin'],
+        //     pageTitle: 'Groceries to gos Create'
+        //   }
+        // })
+        // .state('groceries.edit', {
+        //   url: '/:orderId/edit',
+        //   templateUrl: 'modules/groceries/client/views/form-order.html',
+        //   controller: 'GroceriesController',
+        //   controllerAs: 'vm',
+        //   resolve: {
+        //     groceriesResolve: getGroceriesToGo
+        //   },
+        //   data: {
+        //     roles: ['user', 'admin'],
+        //     pageTitle: 'Edit Groceries to go {{ groceriesResolve.name }}'
+        //   }
+        // })
+        // .state('groceries.view', {
+        //   url: '/:orderId',
+        //   templateUrl: 'modules/groceries/client/views/view-order.html',
+        //   controller: 'GroceriesController',
+        //   controllerAs: 'vm',
+        //   resolve: {
+        //     groceriesResolve: getGroceriesToGo
+        //   },
+        //   data: {
+        //     pageTitle: 'Groceries to go {{ groceriesResolve.name }}'
+        //   }
       });
   }
 
