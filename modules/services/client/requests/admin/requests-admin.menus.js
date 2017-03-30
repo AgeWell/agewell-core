@@ -9,9 +9,9 @@
 
   // Configuring the Requests module
   function menuConfig(menuService) {
-    menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Requests',
-      state: 'admin.requests.list'
-    });
+    // menuService.addSubMenuItem('topbar', 'admin', {
+    //   title: 'Manage Requests',
+    //   state: 'admin.requests.list'
+    // });
   }
 }());
