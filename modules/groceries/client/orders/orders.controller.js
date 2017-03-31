@@ -29,6 +29,7 @@
 
     if (!vm.order._id) {
       vm.order.clientId = $stateParams.clientId;
+      vm.order.date = vm.delivery;
       vm.order.items = [];
       vm.order.subtotal = 0.00;
       vm.order.deliveryCost = 10.00;
