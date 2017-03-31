@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence');
 const Schema = mongoose.Schema;
 
 /**
@@ -18,6 +19,7 @@ let RequestSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Service'
   },
+  requestNumber: Number,
   date: {
     type: Date,
     required: 'Please select a Request date'
@@ -43,6 +45,10 @@ let RequestSchema = new Schema({
     type: Date,
     default: Date.now
   }
+});
+
+RequestSchema.plugin(AutoIncrement, {
+  inc_field: 'requestNumber'
 });
 
 module.exports = mongoose.model('Request', RequestSchema);
