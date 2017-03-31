@@ -5,13 +5,12 @@
     .module('groceries.orders')
     .controller('OrdersListController', OrdersListController);
 
-  OrdersListController.$inject = ['OrdersService'];
+  OrdersListController.$inject = ['OrdersService', '$stateParams'];
 
-  function OrdersListController(OrdersService) {
+  function OrdersListController(OrdersService, $stateParams) {
     let vm = this;
 
     vm.orders = OrdersService.query();
-
-    console.log(vm);
+    vm.clientid = $stateParams.clientId;
   }
 }());
