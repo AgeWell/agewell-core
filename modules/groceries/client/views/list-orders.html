@@ -22,8 +22,8 @@
           <td>{{ order.items.length }}</td>
           <td>{{ order.total | currency }}</td>
           <td>
-            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-            <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
           </td>
         </tr>
       </tbody>
