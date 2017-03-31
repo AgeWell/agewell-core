@@ -8,7 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Request = require(path.resolve('./modules/services/server/requests/request.model'));
-const Money = require(path.resolve('./modules/services/server/money.model')).schema;
+// const Money = require(path.resolve('./modules/services/server/money.model')).schema;
 const Item = require(path.resolve('./modules/groceries/server/groceries/grocery.model'));
 
 /**
@@ -23,7 +23,7 @@ let OrderSchema = new Schema({
     type: [Item]
   },
   subtotal: {
-    type: Money,
+    type: Number,
     required: true
   },
   deliveryCost: {
@@ -31,7 +31,7 @@ let OrderSchema = new Schema({
     required: true
   },
   total: {
-    type: Money,
+    type: Number,
     required: 'An order must have a total.'
   },
   // payment info
@@ -50,4 +50,5 @@ let OrderSchema = new Schema({
 });
 
 // mongoose.model('Order', OrderSchema);
+
 Request.discriminator('Order', OrderSchema);
