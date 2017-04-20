@@ -22,9 +22,9 @@
       Notification.error({ message: $location.search().err });
     }
 
-    // If user is signed in then redirect back home
+    // If user is signed in then redirect back the dashboard
     if (vm.authentication.user) {
-      $location.path('/');
+      $location.path('/dashboard');
     }
 
     function signup(isValid) {
@@ -70,7 +70,7 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
+      $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
     }
 
     function onUserSignupError(response) {
@@ -82,7 +82,7 @@
       vm.authentication.user = response;
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
+      $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
     }
 
     function onUserSigninError(response) {
