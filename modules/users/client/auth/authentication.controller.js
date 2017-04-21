@@ -5,13 +5,14 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'Notification'];
+  AuthenticationController.$inject = ['$scope', '$state', '$stateParams', 'UsersService', '$location', '$window', 'Authentication', 'Notification'];
 
-  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, Notification) {
+  function AuthenticationController($scope, $state, $stateParams, UsersService, $location, $window, Authentication, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
     // vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
+    vm.isSignup = false;
     vm.signup = signup;
     vm.signin = signin;
     vm.callOauthProvider = callOauthProvider;
@@ -26,6 +27,14 @@
     if (vm.authentication.user) {
       $location.path('/dashboard');
     }
+
+    if ($state.current.name === 'authentication.signup') {
+      vm.isSignup = true;
+    }
+
+    console.log(vm);
+    console.log($stateParams);
+    console.log($state);
 
     function signup(isValid) {
 

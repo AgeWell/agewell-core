@@ -1,20 +1,25 @@
 <section>
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="Age Well" class="img-responsive text-center" src="/modules/core/client/assets/images/brand/logo.png" />
-      </div>
+  <div class="row jumbotron page-header">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12 text-center">
+      <img alt="Age Well" class="img-responsive text-center" src="/modules/core/client/assets/images/brand/logo.png" />
     </div>
     <br>
-    <div class="row">
+    <div class="col-md-12">
       <p class="lead">
         A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.
       </p>
     </div>
-    <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" href="https://github.com/AgeWell/agewell-core" target="_blank">Learn more</a>
-      </p>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <h3>Become a Volunteer</h3>
+      <p class="text-left">When you serve with Age Well Arrowhead, you’ll learn that even the smallest task can make a big difference in someone else’s life. Volunteers often complete tasks like picking up groceries, dusting a ceiling fan, shoveling snow, or other light housekeeping duties.</p><br />
+      <button type="button" class="btn btn-success" ui-sref="authentication.signup({type: 'volunteer'})">Volunteer Today!</button>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <h3>Request Service</h3>
+      <p class="text-left">Multiple studies have shown that aging in a home environment is good for the head and the heart, provided you have people to support and care for you. Our qualified team of consultants and volunteers work to ensure you have a loving network of support so that you can live comfortably in your own home.</p>
+      <button type="button" class="btn btn-success"ui-sref="authentication.signup({type: 'client'})">Request Service!</button>
     </div>
   </div>
 </section>
