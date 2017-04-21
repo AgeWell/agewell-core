@@ -78,6 +78,9 @@
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+
+      console.log(response);
+
       // And redirect to the previous or home page
       $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
     }

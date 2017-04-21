@@ -20,10 +20,13 @@ var noReturnUrls = [
  */
 exports.signup = function(req, res) {
   let roles = ['user'];
+  let role = '';
 
   if (req.body.roles === 'volunteer') {
+    role = 'volunteer';
     roles.push('volunteer');
   } else if (req.body.roles === 'client') {
+    role = 'client';
     roles.push('client');
   }
 
@@ -42,19 +45,27 @@ exports.signup = function(req, res) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function(err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
     }
+    // Remove sensitive data before login
+    user.password = undefined;
+    user.salt = undefined;
+
+    req.login(user, function(err) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      let responce = {
+        user: user
+      };
+
+      if (req.body.roles === 'volunteer') {
+        roles.push('volunteer');
+      } else if (req.body.roles === 'client') {
+        roles.push('client');
+      }
+
+      res.json(responce);
+    });
   });
 };
 
@@ -72,10 +83,9 @@ exports.signin = function(req, res, next) {
 
     req.login(user, function(err) {
       if (err) {
-        res.status(400).send(err);
-      } else {
-        res.json(user);
+        return res.status(400).send(err);
       }
+      res.json(user);
     });
   })(req, res, next);
 };
@@ -93,8 +103,9 @@ exports.signout = function(req, res) {
  */
 exports.oauthCall = function(strategy, scope) {
   return function(req, res, next) {
-    if (req.query && req.query.redirect_to)
+    if (req.query && req.query.redirect_to) {
       req.session.redirect_to = req.query.redirect_to;
+    }
 
     // Authenticate
     passport.authenticate(strategy, scope)(req, res, next);

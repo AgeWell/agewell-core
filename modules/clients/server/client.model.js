@@ -18,7 +18,10 @@ var ClientSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  active: Boolean,
+  active: {
+    type: Boolean,
+    default: false
+  },
   // socialSecurity: Number Maybe later
   monthlyIncomeSingle: {
     type: String,
