@@ -1,23 +1,146 @@
 <section>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+  <div class="row page-header">
+    <div class="col-md-3 col-sm-3 col-xs-12">
       <img width="200px" alt="Age Well" class="img-responsive text-center" src="/modules/core/client/assets/images/brand/logo.png" />
     </div>
+    <div class="col-md-9 col-sm-9 col-xs-12 text-right">
+      <div class="btn-group" role="group" aria-label="..." style="margin-top: 30px;">
+        <button type="button" class="btn btn-success">Add Client</button>
+        <button type="button" class="btn btn-success">Add Volunteer</button>
+        <button type="button" class="btn btn-success">New Order</button>
+      </div>
+    </div>
   </div>
-  <br>
   <div class="row">
-    <p class="lead">
-      A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.
-    </p>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-8 col-md-8 col-sm-12">
-      <p>
-        <a class="btn btn-primary btn-lg" href="https://github.com/AgeWell/agewell-core" target="_blank">Learn more</a>
-      </p>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h4>Important Actions</h4>
+      <ul>
+        <li>
+          <h6>House Check</h6>
+          <p>
+            Needs a follow up. make sure to address this.
+          </p>
+          <div class="text-right">
+            <button class="btn btn-default" ui-sref="" tooltip-placement="top" uib-tooltip="Edit">
+              <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
+            </button>
+          </div>
+        </li>
+        <li>
+          <h6>House Check</h6>
+          <p>
+            Needs a follow up. make sure to address this.
+          </p>
+          <div class="text-right">
+            <button class="btn btn-default" ui-sref="" tooltip-placement="top" uib-tooltip="Edit">
+                <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
+              </button>
+          </div>
+        </li>
+        <li>
+          <h6>House Check</h6>
+          <p>
+            Needs a follow up. make sure to address this.
+          </p>
+          <div class="text-right">
+            <button class="btn btn-default" ui-sref="" tooltip-placement="top" uib-tooltip="Edit">
+                  <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
+                </button>
+          </div>
+        </li>
+      </ul>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
+      <h4>Call List</h4>
+      <p>
+        Dates
+      </p>
+
+      <!-- Tab panes -->
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Client</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
+            <td>{{ order.requestNumber }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.status }}</td>
+            <td class="text-right">
+              <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+              <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Dates</td>
+          </tr>
+        </tfoot>
+      </table>
+      <nav aria-label="...">
+        <ul class="pager">
+          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+          <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination> -->
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h4>Groceries Orders</h4>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Current</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Next</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Last</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Client</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
+                <td>{{ order.requestNumber }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.status }}</td>
+                <td class="text-right">
+                  <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+                  <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">Dates</td>
+              </tr>
+            </tfoot>
+          </table>
+          <nav aria-label="...">
+            <ul class="pager">
+              <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+              <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+          </nav>
+
+          <!-- <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination> -->
+        </div>
+      </div>
     </div>
   </div>
 </section>
