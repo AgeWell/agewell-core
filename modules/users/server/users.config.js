@@ -21,7 +21,9 @@ module.exports = function(app, db) {
   passport.deserializeUser(function(id, done) {
     User.findOne({
       _id: id
-    }, function(err, user) {
+    })
+    .populate('contactId')
+    .exec(function(err, user) {
       done(err, user);
     });
   });

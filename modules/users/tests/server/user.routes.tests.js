@@ -35,13 +35,13 @@ describe('User CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials with username
     credentials = {
-      usernameOrEmail: 'username',
+      email: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
     // Create user credentials with email
     credentialsEmail = {
-      usernameOrEmail: 'test@test.com',
+      email: 'test@test.com',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -51,7 +51,7 @@ describe('User CRUD tests', function () {
       lastName: 'Name',
       displayName: 'Full Name',
       email: 'test@test.com',
-      username: credentials.usernameOrEmail,
+      username: credentials.email,
       password: credentials.password,
       provider: 'local'
     };
@@ -753,11 +753,11 @@ describe('User CRUD tests', function () {
     _user2.email = 'user2_email@test.com';
 
     let credentials2 = {
-      usernameOrEmail: 'username2',
+      email: 'username2',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
-    _user2.username = credentials2.usernameOrEmail;
+    _user2.username = credentials2.email;
     _user2.password = credentials2.password;
 
     let user2 = new User(_user2);
@@ -805,11 +805,11 @@ describe('User CRUD tests', function () {
     _user2.email = 'user2_email@test.com';
 
     let credentials2 = {
-      usernameOrEmail: 'username2',
+      email: 'username2',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
-    _user2.username = credentials2.usernameOrEmail;
+    _user2.username = credentials2.email;
     _user2.password = credentials2.password;
 
     let user2 = new User(_user2);

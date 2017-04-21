@@ -8,6 +8,8 @@ const errorHandler = require(path.resolve('./modules/core/server/errors/errors.c
 const mongoose = require('mongoose');
 const passport = require('passport');
 const User = mongoose.model('User');
+const Volunteer = mongoose.model('Volunteer');
+const Contact = mongoose.model('Contact');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -24,14 +26,23 @@ exports.signup = function(req, res) {
 
   if (req.body.roles === 'volunteer') {
     role = 'volunteer';
-    roles.push('volunteer');
   } else if (req.body.roles === 'client') {
     role = 'client';
-    roles.push('client');
   }
+
+  roles.push(role);
 
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
+
+
+  let contact = new Contact({
+    name: {
+      first: req.body.firstName,
+      last: req.body.lastName
+    },
+    email: req.body.email
+  });
 
   // Init user and add missing fields
   var user = new User(req.body);
@@ -39,32 +50,31 @@ exports.signup = function(req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = roles;
 
-  // Then save the user
-  user.save(function(err) {
+  contact.save(function(err, contact) {
     if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send(err);
     }
-    // Remove sensitive data before login
-    user.password = undefined;
-    user.salt = undefined;
 
-    req.login(user, function(err) {
+    user.contactId = contact._id;
+
+    // Then save the user
+    user.save(function(err) {
       if (err) {
-        return res.status(400).send(err);
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
       }
-      let responce = {
-        user: user
-      };
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
 
-      if (req.body.roles === 'volunteer') {
-        roles.push('volunteer');
-      } else if (req.body.roles === 'client') {
-        roles.push('client');
-      }
+      req.login(user, function(err) {
+        if (err) {
+          return res.status(400).send(err);
+        }
 
-      res.json(responce);
+        res.json(user);
+      });
     });
   });
 };

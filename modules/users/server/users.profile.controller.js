@@ -18,7 +18,7 @@ var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
 /**
  * Update user details
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   // Init Variables
   var user = req.user;
 
@@ -29,13 +29,13 @@ exports.update = function (req, res) {
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;
 
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         return res.status(422).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        req.login(user, function (err) {
+        req.login(user, function(err) {
           if (err) {
             res.status(400).send(err);
           } else {
@@ -54,7 +54,7 @@ exports.update = function (req, res) {
 /**
  * Update profile picture
  */
-exports.changeProfilePicture = function (req, res) {
+exports.changeProfilePicture = function(req, res) {
   var user = req.user;
   var existingImageUrl;
 
@@ -69,10 +69,10 @@ exports.changeProfilePicture = function (req, res) {
       .then(updateUser)
       .then(deleteOldImage)
       .then(login)
-      .then(function () {
+      .then(function() {
         res.json(user);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         res.status(422).send(err);
       });
   } else {
@@ -81,9 +81,9 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function uploadImage () {
-    return new Promise(function (resolve, reject) {
-      upload(req, res, function (uploadError) {
+  function uploadImage() {
+    return new Promise(function(resolve, reject) {
+      upload(req, res, function(uploadError) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
@@ -93,10 +93,10 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function updateUser () {
-    return new Promise(function (resolve, reject) {
+  function updateUser() {
+    return new Promise(function(resolve, reject) {
       user.profileImageURL = config.uploads.profile.image.dest + req.file.filename;
-      user.save(function (err, theuser) {
+      user.save(function(err, theuser) {
         if (err) {
           reject(err);
         } else {
@@ -106,10 +106,10 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function deleteOldImage () {
-    return new Promise(function (resolve, reject) {
+  function deleteOldImage() {
+    return new Promise(function(resolve, reject) {
       if (existingImageUrl !== User.schema.path('profileImageURL').defaultValue) {
-        fs.unlink(existingImageUrl, function (unlinkError) {
+        fs.unlink(existingImageUrl, function(unlinkError) {
           if (unlinkError) {
             console.log(unlinkError);
             reject({
@@ -125,9 +125,9 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 
-  function login () {
-    return new Promise(function (resolve, reject) {
-      req.login(user, function (err) {
+  function login() {
+    return new Promise(function(resolve, reject) {
+      req.login(user, function(err) {
         if (err) {
           res.status(400).send(err);
         } else {
@@ -141,15 +141,16 @@ exports.changeProfilePicture = function (req, res) {
 /**
  * Send User
  */
-exports.me = function (req, res) {
+exports.me = function(req, res) {
   // Sanitize the user - short term solution. Copied from core.server.controller.js
   // TODO create proper passport mock: See https://gist.github.com/mweibel/5219403
   var safeUserObject = null;
   if (req.user) {
+    console.log(req.user);
+
     safeUserObject = {
       displayName: validator.escape(req.user.displayName),
       provider: validator.escape(req.user.provider),
-      username: validator.escape(req.user.username),
       created: req.user.created.toString(),
       roles: req.user.roles,
       profileImageURL: req.user.profileImageURL,

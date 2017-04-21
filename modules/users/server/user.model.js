@@ -39,13 +39,13 @@ var validateLocalStrategyEmail = function (email) {
  * - not begin or end with "."
  */
 
-var validateUsername = function(username) {
-  var usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
-  return (
-    this.provider !== 'local' ||
-    (username && usernameRegex.test(username) && config.illegalUsernames.indexOf(username) < 0)
-  );
-};
+// var validateUsername = function(username) {
+//   var usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
+//   return (
+//     this.provider !== 'local' ||
+//     (username && usernameRegex.test(username) && config.illegalUsernames.indexOf(username) < 0)
+//   );
+// };
 
 /**
  * User Schema
@@ -82,14 +82,14 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  username: {
-    type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    validate: [validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.'],
-    lowercase: true,
-    trim: true
-  },
+  // username: {
+  //   type: String,
+  //   unique: 'Username already exists',
+  //   required: 'Please fill in a username',
+  //   validate: [validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.'],
+  //   lowercase: true,
+  //   trim: true
+  // },
   password: {
     type: String,
     default: ''
@@ -179,24 +179,24 @@ UserSchema.methods.authenticate = function (password) {
 /**
  * Find possible not used username
  */
-UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
-  var _this = this;
-  var possibleUsername = username.toLowerCase() + (suffix || '');
-
-  _this.findOne({
-    username: possibleUsername
-  }, function (err, user) {
-    if (!err) {
-      if (!user) {
-        callback(possibleUsername);
-      } else {
-        return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-      }
-    } else {
-      callback(null);
-    }
-  });
-};
+// UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+//   var _this = this;
+//   var possibleUsername = username.toLowerCase() + (suffix || '');
+//
+//   _this.findOne({
+//     username: possibleUsername
+//   }, function (err, user) {
+//     if (!err) {
+//       if (!user) {
+//         callback(possibleUsername);
+//       } else {
+//         return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+//       }
+//     } else {
+//       callback(null);
+//     }
+//   });
+// };
 
 /**
 * Generates a random passphrase that passes the owasp test
@@ -233,5 +233,12 @@ UserSchema.statics.generateRandomPassphrase = function () {
     }
   });
 };
+
+UserSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: 'contactId',
+  foreignField: '_id',
+  justOne: true
+});
 
 mongoose.model('User', UserSchema);

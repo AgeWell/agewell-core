@@ -36,7 +36,7 @@ describe('Request CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials
     credentials = {
-      usernameOrEmail: 'username',
+      email: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -46,7 +46,7 @@ describe('Request CRUD tests', function () {
       lastName: 'Name',
       displayName: 'Full Name',
       email: 'test@test.com',
-      username: credentials.usernameOrEmail,
+      username: credentials.email,
       password: credentials.password,
       provider: 'local',
       roles: 'admin'

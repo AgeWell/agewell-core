@@ -427,7 +427,7 @@ describe('Users E2E Tests:', function () {
       // Sign in
       browser.get('http://localhost:3001/authentication/signin');
       // Enter UserName
-      element(by.model('vm.credentials.usernameOrEmail')).sendKeys(user1.username);
+      element(by.model('vm.credentials.email')).sendKeys(user1.username);
       // Enter Password
       element(by.model('vm.credentials.password')).sendKeys(user1.password);
       // Click Submit button
