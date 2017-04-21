@@ -19,6 +19,14 @@ var noReturnUrls = [
  * Signup
  */
 exports.signup = function(req, res) {
+  let roles = ['user'];
+
+  if (req.body.roles === 'volunteer') {
+    roles.push('volunteer');
+  } else if (req.body.roles === 'client') {
+    roles.push('client');
+  }
+
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -26,6 +34,7 @@ exports.signup = function(req, res) {
   var user = new User(req.body);
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles = roles;
 
   // Then save the user
   user.save(function(err) {

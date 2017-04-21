@@ -33,8 +33,6 @@
     }
 
     console.log(vm);
-    console.log($stateParams);
-    console.log($state);
 
     function signup(isValid) {
 
@@ -43,6 +41,8 @@
 
         return false;
       }
+
+      vm.credentials.roles = $stateParams.type;
 
       UsersService.userSignup(vm.credentials)
         .then(onUserSignupSuccess)
