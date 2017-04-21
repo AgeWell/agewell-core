@@ -63,3 +63,17 @@ a:hover .header-profile-image {
 .form-horizontal .col-md-3 > .form-group {
   margin-right: 0;
 }
+
+.editable-wrap {
+    display:block;
+    width: 100%;
+    padding-right:10px;
+    .editable-controls {
+        > input,
+        > select,
+        > textarea {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}
