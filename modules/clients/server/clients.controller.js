@@ -24,7 +24,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-    contact.clientId = client._id;
+    contact.client = client._id;
     contact.save(function(err, contact) {
       if (err) {
         return res.status(400).send({
@@ -70,7 +70,7 @@ exports.update = function(req, res) {
     req.body.contact.updated = new Date();
 
     Contact.findOneAndUpdate({
-      clientId: client._id
+      client: client._id
     }, req.body.contact, function(err, contact) {
       res.jsonp(client);
     });
@@ -84,7 +84,7 @@ exports.delete = function(req, res) {
   var client = req.client;
 
   Contact.remove({
-    clientId: client._id
+    client: client._id
   }).exec(function(err) {
     if (err) {
       return res.status(400).send({

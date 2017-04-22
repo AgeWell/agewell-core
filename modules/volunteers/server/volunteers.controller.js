@@ -26,7 +26,7 @@ exports.create = function(req, res) {
       });
     }
 
-    contact.volunteerId = volunteer._id;
+    contact.volunteer = volunteer._id;
     contact.save(function(err, contact) {
       if (err) {
         return res.status(400).send({
@@ -71,7 +71,7 @@ exports.update = function(req, res) {
     req.body.contact.updated = new Date();
 
     Contact.findOneAndUpdate({
-      volunteerId: volunteer._id
+      volunteer: volunteer._id
     }, req.body.contact, function(err, contact) {
       res.jsonp(volunteer);
     });
@@ -85,7 +85,7 @@ exports.delete = function(req, res) {
   var volunteer = req.volunteer;
 
   Contact.remove({
-    volunteerId: volunteer._id
+    volunteer: volunteer._id
   }).exec(function(err) {
     if (err) {
       return res.status(400).send({

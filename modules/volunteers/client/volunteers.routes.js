@@ -62,6 +62,37 @@
           roles: ['admin'],
           pageTitle: 'Volunteer {{ volunteerResolve.name }}'
         }
+      })
+      .state('settings.volunteer', {
+        abstract: true,
+        url: '/volunteer',
+        template: '<ui-view/>'
+      })
+      .state('settings.volunteer.create', {
+        url: '/create',
+        templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
+        controller: 'VolunteersController',
+        controllerAs: 'vm',
+        resolve: {
+          volunteerResolve: newVolunteer
+        },
+        data: {
+          roles: ['volunteer'],
+          pageTitle: 'Volunteers Create'
+        }
+      })
+      .state('settings.volunteer.edit', {
+        url: '/volunteer/:volunteerId',
+        templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
+        controller: 'VolunteersController',
+        controllerAs: 'vm',
+        resolve: {
+          volunteerResolve: getVolunteer
+        },
+        data: {
+          roles: ['volunteer'],
+          pageTitle: 'Edit Profile'
+        }
       });
   }
 

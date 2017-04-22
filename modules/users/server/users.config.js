@@ -25,8 +25,6 @@ module.exports = function(app, db) {
     .populate('contact')
     .exec(function(err, user) {
 
-      console.log(user);
-
       done(err, user);
     });
   });

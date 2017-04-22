@@ -44,7 +44,7 @@ var ClientSchema = new Schema({
 ClientSchema.virtual('contact', {
   ref: 'Contact',
   localField: '_id',
-  foreignField: 'clientId',
+  foreignField: 'client',
   justOne: true
 });
 

@@ -85,17 +85,16 @@ exports.changeProfilePicture = function(req, res) {
     return new Promise(function(resolve, reject) {
       upload(req, res, function(uploadError) {
         if (uploadError) {
-          reject(errorHandler.getErrorMessage(uploadError));
-        } else {
-          resolve();
+          return reject(errorHandler.getErrorMessage(uploadError));
         }
+        resolve();
       });
     });
   }
 
   function updateUser() {
     return new Promise(function(resolve, reject) {
-      user.profileImageURL = config.uploads.profile.image.dest + req.file.filename;
+      user.profileImageURL = '/uploads/users/profile/' + req.file.filename;
       user.save(function(err, theuser) {
         if (err) {
           reject(err);

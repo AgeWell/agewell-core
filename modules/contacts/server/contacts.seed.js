@@ -8,7 +8,7 @@ const Contact = mongoose.model('Contact');
 
 let docArray = [{
   '_id': '58cc257b0ed1c86508360368',
-  'clientId': '58cc257b0ed1c8650836036a',
+  'client': '58cc257b0ed1c8650836036a',
   'address': {
     'street': '123 Main St',
     'city': 'Duluth',
@@ -35,7 +35,7 @@ let docArray = [{
   }
 }, {
   '_id': '58cc2d921206fd7fed39c01a',
-  'volunteerId': '58cc2d921206fd7fed39c01c',
+  'volunteer': '58cc2d921206fd7fed39c01c',
   'address': {
     'street': '123 Some St.',
     'city': 'Duluth',

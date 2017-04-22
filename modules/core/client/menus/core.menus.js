@@ -5,9 +5,19 @@
     .module('core')
     .run(menuConfig);
 
-  menuConfig.$inject = ['menuService'];
+  menuConfig.$inject = ['menuService', 'Authentication'];
 
-  function menuConfig(menuService) {
+  function menuConfig(menuService, Authentication) {
+    let profileEdit = 'settings.profile';
+
+    if (Authentication.user.roles.indexOf('volunteer') !== -1) {
+      if (Authentication.user.hasOwnProperty('volunteer')) {
+        profileEdit = 'settings.volunteer.edit({volunteerId: \'' + Authentication.user.volunteer + '\'})';
+      } else {
+        profileEdit = 'settings.volunteer.create';
+      }
+    }
+
     menuService.addMenu('account', {
       roles: ['user']
     });
@@ -19,10 +29,16 @@
       roles: ['user']
     });
 
+    // menuService.addSubMenuItem('account', 'settings', {
+    //   title: 'Edit Profile',
+    //   state: 'settings.profile',
+    //   roles: ['admin']
+    // });
+
     menuService.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile',
-      state: 'settings.profile',
-      roles: ['admin']
+      state: profileEdit,
+      roles: ['user']
     });
 
     menuService.addSubMenuItem('account', 'settings', {

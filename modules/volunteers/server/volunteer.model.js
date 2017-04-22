@@ -64,7 +64,7 @@ var VolunteerSchema = new Schema({
 VolunteerSchema.virtual('contact', {
   ref: 'Contact',
   localField: '_id',
-  foreignField: 'volunteerId',
+  foreignField: 'volunteer',
   justOne: true
 });
 

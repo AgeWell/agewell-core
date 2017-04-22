@@ -82,15 +82,15 @@ let ContactSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Contact'
   },
-  userId: {
+  user: {
     type: Schema.ObjectId,
     ref: 'User'
   },
-  clientId: {
+  client: {
     type: Schema.ObjectId,
     ref: 'Client'
   },
-  volunteerId: {
+  volunteer: {
     type: Schema.ObjectId,
     ref: 'Volunteer'
   },
