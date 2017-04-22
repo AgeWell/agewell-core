@@ -129,10 +129,9 @@ exports.changeProfilePicture = function(req, res) {
     return new Promise(function(resolve, reject) {
       req.login(user, function(err) {
         if (err) {
-          res.status(400).send(err);
-        } else {
-          resolve();
+          return res.status(400).send(err);
         }
+        resolve();
       });
     });
   }
@@ -146,8 +145,6 @@ exports.me = function(req, res) {
   // TODO create proper passport mock: See https://gist.github.com/mweibel/5219403
   var safeUserObject = null;
   if (req.user) {
-    console.log(req.user);
-
     safeUserObject = {
       displayName: validator.escape(req.user.displayName),
       provider: validator.escape(req.user.provider),

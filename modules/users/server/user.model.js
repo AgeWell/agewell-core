@@ -18,15 +18,17 @@ owasp.config(config.shared.owasp);
 /**
  * A Validation function for local strategy properties
  */
-var validateLocalStrategyProperty = function (property) {
+var validateLocalStrategyProperty = function(property) {
   return ((this.provider !== 'local' && !this.updated) || property.length);
 };
 
 /**
  * A Validation function for local strategy email
  */
-var validateLocalStrategyEmail = function (email) {
-  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, { require_tld: false }));
+var validateLocalStrategyEmail = function(email) {
+  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, {
+    require_tld: false
+  }));
 };
 
 /**
@@ -51,26 +53,26 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  contactId: {
+  contact: {
     type: Schema.ObjectId,
     ref: 'Contact'
   },
-  // firstName: {
-  //   type: String,
-  //   trim: true,
-  //   default: '',
-  //   validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  // },
-  // lastName: {
-  //   type: String,
-  //   trim: true,
-  //   default: '',
-  //   validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  // },
-  // displayName: {
-  //   type: String,
-  //   trim: true
-  // },
+  firstName: {
+    type: String,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  displayName: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
     index: {
@@ -82,14 +84,6 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  // username: {
-  //   type: String,
-  //   unique: 'Username already exists',
-  //   required: 'Please fill in a username',
-  //   validate: [validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.'],
-  //   lowercase: true,
-  //   trim: true
-  // },
   password: {
     type: String,
     default: ''
@@ -134,7 +128,7 @@ var UserSchema = new Schema({
 /**
  * Hook a pre save method to hash the password
  */
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   if (this.password && this.isModified('password')) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
@@ -146,7 +140,7 @@ UserSchema.pre('save', function (next) {
 /**
  * Hook a pre validate method to test the local password
  */
-UserSchema.pre('validate', function (next) {
+UserSchema.pre('validate', function(next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
     var result = owasp.test(this.password);
     if (result.errors.length) {
@@ -161,7 +155,7 @@ UserSchema.pre('validate', function (next) {
 /**
  * Create instance method for hashing a password
  */
-UserSchema.methods.hashPassword = function (password) {
+UserSchema.methods.hashPassword = function(password) {
   if (this.salt && password) {
     return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64, 'SHA1').toString('base64');
   } else {
@@ -172,39 +166,17 @@ UserSchema.methods.hashPassword = function (password) {
 /**
  * Create instance method for authenticating user
  */
-UserSchema.methods.authenticate = function (password) {
+UserSchema.methods.authenticate = function(password) {
   return this.password === this.hashPassword(password);
 };
 
 /**
- * Find possible not used username
+ * Generates a random passphrase that passes the owasp test
+ * Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
+ * NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
  */
-// UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
-//   var _this = this;
-//   var possibleUsername = username.toLowerCase() + (suffix || '');
-//
-//   _this.findOne({
-//     username: possibleUsername
-//   }, function (err, user) {
-//     if (!err) {
-//       if (!user) {
-//         callback(possibleUsername);
-//       } else {
-//         return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-//       }
-//     } else {
-//       callback(null);
-//     }
-//   });
-// };
-
-/**
-* Generates a random passphrase that passes the owasp test
-* Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
-* NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
-*/
-UserSchema.statics.generateRandomPassphrase = function () {
-  return new Promise(function (resolve, reject) {
+UserSchema.statics.generateRandomPassphrase = function() {
+  return new Promise(function(resolve, reject) {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
@@ -233,12 +205,5 @@ UserSchema.statics.generateRandomPassphrase = function () {
     }
   });
 };
-
-UserSchema.virtual('contact', {
-  ref: 'Contact',
-  localField: 'contactId',
-  foreignField: '_id',
-  justOne: true
-});
 
 mongoose.model('User', UserSchema);

@@ -13,16 +13,15 @@ exports.renderIndex = function(req, res) {
   let safeUserObject = null;
 
   if (req.user) {
-    console.log(req.user.contactId);
     safeUserObject = {
-      displayName: validator.escape(req.user.contactId.name.first + req.user.contactId.name.last),
+      displayName: validator.escape(req.user.displayName),
       provider: validator.escape(req.user.provider),
       created: req.user.created.toString(),
       roles: req.user.roles,
       profileImageURL: req.user.profileImageURL,
       email: validator.escape(req.user.email),
-      lastName: validator.escape(req.user.contactId.name.last),
-      firstName: validator.escape(req.user.contactId.name.first),
+      lastName: validator.escape(req.user.lastName),
+      firstName: validator.escape(req.user.firstName),
       additionalProvidersData: req.user.additionalProvidersData
     };
   }

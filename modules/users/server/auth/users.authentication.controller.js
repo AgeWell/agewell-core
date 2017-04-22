@@ -26,11 +26,11 @@ exports.signup = function(req, res) {
 
   if (req.body.roles === 'volunteer') {
     role = 'volunteer';
+    roles.push(role);
   } else if (req.body.roles === 'client') {
     role = 'client';
+    roles.push(role);
   }
-
-  roles.push(role);
 
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
@@ -55,7 +55,7 @@ exports.signup = function(req, res) {
       return res.status(400).send(err);
     }
 
-    user.contactId = contact._id;
+    contact = contact._id;
 
     // Then save the user
     user.save(function(err) {
@@ -95,6 +95,7 @@ exports.signin = function(req, res, next) {
       if (err) {
         return res.status(400).send(err);
       }
+
       res.json(user);
     });
   })(req, res, next);

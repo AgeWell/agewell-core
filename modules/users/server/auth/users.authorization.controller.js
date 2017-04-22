@@ -20,7 +20,7 @@ exports.userByID = function (req, res, next, id) {
   User.findOne({
     _id: id
   })
-  .populate('contactId')
+  .populate('contact')
   .exec(function (err, user) {
     if (err) {
       return next(err);

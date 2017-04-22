@@ -121,9 +121,11 @@
         // eslint-disable-next-line no-restricted-syntax
         for (var userRoleIndex in user.roles) {
           if (user.roles.hasOwnProperty(userRoleIndex)) {
+            console.log(userRoleIndex, user.roles);
             // eslint-disable-next-line no-restricted-syntax
             for (var roleIndex in this.roles) {
               if (this.roles.hasOwnProperty(roleIndex) && this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                console.log(roleIndex, this.roles);
                 return true;
               }
             }

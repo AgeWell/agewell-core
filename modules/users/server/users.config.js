@@ -22,8 +22,11 @@ module.exports = function(app, db) {
     User.findOne({
       _id: id
     })
-    .populate('contactId')
+    .populate('contact')
     .exec(function(err, user) {
+
+      console.log(user);
+
       done(err, user);
     });
   });

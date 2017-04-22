@@ -4,6 +4,7 @@
  * Module dependencies
  */
 const passport = require('passport');
+const validator = require('validator');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('mongoose').model('User');
 
@@ -17,7 +18,7 @@ module.exports = function() {
     User.findOne({
       email: email.toLowerCase()
     })
-    .populate('contactId')
+    .populate('contact')
     .exec(function(err, user) {
       if (err) {
         return done(err);
