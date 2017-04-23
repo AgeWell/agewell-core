@@ -70,6 +70,9 @@
       })
       .state('settings.volunteer.create', {
         url: '/create',
+        params: {
+          editProfile: true
+        },
         templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
         controller: 'VolunteersController',
         controllerAs: 'vm',

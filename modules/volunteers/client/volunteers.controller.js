@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Volunteers controller
@@ -6,9 +6,9 @@
     .module('volunteers')
     .controller('VolunteersController', VolunteersController);
 
-  VolunteersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'volunteerResolve'];
+  VolunteersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'coreService', 'volunteerResolve'];
 
-  function VolunteersController ($scope, $state, $window, Authentication, coreService, volunteer) {
+  function VolunteersController($scope, $state, $stateParams, $window, Authentication, coreService, volunteer) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,8 +17,16 @@
     vm.remove = remove;
     vm.save = save;
 
-    if (!vm.volunteer._id) {
-      vm.volunteer.contact = {};
+    vm.editProfile = $stateParams.editProfile || false;
+
+    if (vm.editProfile) {
+      vm.volunteer.contact = {
+        name: {
+          first: Authentication.user.firstName,
+          last: Authentication.user.lastName
+        },
+        email: Authentication.user.email
+      };
     }
 
     console.log(vm);
@@ -56,5 +64,6 @@
         vm.error = res.data.message;
       }
     }
+
   }
 }());

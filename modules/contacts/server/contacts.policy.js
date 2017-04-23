@@ -21,6 +21,15 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/contacts/:contactId',
       permissions: '*'
     }]
+  }, {
+    roles: ['volunteer'],
+    allows: [{
+      resources: '/api/contacts',
+      permissions: ['get', 'post', 'put']
+    }, {
+      resources: '/api/contacts/:volunteerId',
+      permissions: ['get', 'post', 'put']
+    }]
   }]);
 };
 
