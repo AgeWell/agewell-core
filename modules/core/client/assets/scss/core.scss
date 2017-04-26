@@ -97,3 +97,28 @@ a {
     }
   }
 }
+
+.nav-tabs {
+  > li {
+    &.right-tab {
+      float: right;
+    }
+
+    a {
+      &:hover {
+        background: none;
+        border: 0;
+      }
+    }
+  }
+}
+
+.client-services {
+  .btn-group {
+    button {
+      &:first-child {
+        min-width: 156px;
+      }
+    }
+  }
+}

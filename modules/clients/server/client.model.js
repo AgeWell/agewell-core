@@ -3,8 +3,10 @@
 /**
  * Module dependencies.
  */
+const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Service = require(path.resolve('./modules/services/server/service.model.js'));
 
 /**
  * Client Schema
@@ -19,6 +21,16 @@ var ClientSchema = new Schema({
     default: Date.now
   },
   active: {
+    type: Boolean,
+    default: false
+  },
+  services: {
+    type: [{
+      service: Service,
+      active: Boolean
+    }]
+  },
+  groceryCallList: {
     type: Boolean,
     default: false
   },

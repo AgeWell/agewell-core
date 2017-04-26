@@ -72,6 +72,9 @@ exports.update = function(req, res) {
     Contact.findOneAndUpdate({
       client: client._id
     }, req.body.contact, function(err, contact) {
+
+      client.canEdit = req.user.roles.includes('admin');
+
       res.jsonp(client);
     });
   });
