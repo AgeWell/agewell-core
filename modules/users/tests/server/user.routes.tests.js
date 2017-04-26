@@ -14,7 +14,6 @@ let semver = require('semver'),
 let app,
   agent,
   credentials,
-  credentialsEmail,
   user,
   _user,
   admin;
@@ -35,13 +34,7 @@ describe('User CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials with username
     credentials = {
-      email: 'username',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create user credentials with email
-    credentialsEmail = {
-      email: 'test@test.com',
+      email: 'test@example.com',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -50,8 +43,7 @@ describe('User CRUD tests', function () {
       firstName: 'Full',
       lastName: 'Name',
       displayName: 'Full Name',
-      email: 'test@test.com',
-      username: credentials.email,
+      email: credentials.email,
       password: credentials.password,
       provider: 'local'
     };
@@ -67,7 +59,6 @@ describe('User CRUD tests', function () {
 
   it('should be able to register a new user', function (done) {
 
-    _user.username = 'register_new_user';
     _user.email = 'register_new_user_@test.com';
 
     agent.post('/api/auth/signup')
@@ -79,7 +70,6 @@ describe('User CRUD tests', function () {
           return done(signupErr);
         }
 
-        signupRes.body.username.should.equal(_user.username);
         signupRes.body.email.should.equal(_user.email);
         // Assert a proper profile image has been set, even if by default
         signupRes.body.profileImageURL.should.not.be.empty();
@@ -90,44 +80,10 @@ describe('User CRUD tests', function () {
       });
   });
 
-  it('should be able to login with username successfully and logout successfully', function (done) {
-    // Login with username
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Logout
-        agent.get('/api/auth/signout')
-          .expect(302)
-          .end(function (signoutErr, signoutRes) {
-            if (signoutErr) {
-              return done(signoutErr);
-            }
-
-            signoutRes.redirect.should.equal(true);
-
-            // NodeJS v4 changed the status code representation so we must check
-            // before asserting, to be comptabile with all node versions.
-            if (semver.satisfies(process.versions.node, '>=4.0.0')) {
-              signoutRes.text.should.equal('Found. Redirecting to /');
-            } else {
-              signoutRes.text.should.equal('Moved Temporarily. Redirecting to /');
-            }
-
-            return done();
-          });
-      });
-  });
-
   it('should be able to login with email successfully and logout successfully', function (done) {
     // Login with username
     agent.post('/api/auth/signin')
-      .send(credentialsEmail)
+      .send(credentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -318,14 +274,14 @@ describe('User CRUD tests', function () {
     });
   });
 
-  it('forgot password should return 400 for non-existent username', function (done) {
+  it('forgot password should return 400 for non-existent email', function (done) {
     user.roles = ['user'];
 
     user.save(function (err) {
       should.not.exist(err);
       agent.post('/api/auth/forgot')
         .send({
-          username: 'some_username_that_doesnt_exist'
+          email: 'tes@_that_doesnt_exist.com'
         })
         .expect(400)
         .end(function (err, res) {
@@ -334,13 +290,13 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          res.body.message.should.equal('No account with that username has been found');
+          res.body.message.should.equal('No account with that email has been found');
           return done();
         });
     });
   });
 
-  it('forgot password should return 400 for no username provided', function (done) {
+  it('forgot password should return 400 for no email provided', function (done) {
     let provider = 'facebook';
     user.provider = provider;
     user.roles = ['user'];
@@ -358,31 +314,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          res.body.message.should.equal('Username field must not be blank');
-          return done();
-        });
-    });
-  });
-
-  it('forgot password should return 400 for non-local provider set for the user object', function (done) {
-    let provider = 'facebook';
-    user.provider = provider;
-    user.roles = ['user'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/forgot')
-        .send({
-          username: user.username
-        })
-        .expect(400)
-        .end(function (err, res) {
-          // Handle error
-          if (err) {
-            return done(err);
-          }
-
-          res.body.message.should.equal('It seems like you signed up using your ' + user.provider + ' account');
+          res.body.message.should.equal('Email field must not be blank');
           return done();
         });
     });
@@ -395,7 +327,7 @@ describe('User CRUD tests', function () {
       should.not.exist(err);
       agent.post('/api/auth/forgot')
         .send({
-          username: user.username
+          email: user.email
         })
         .expect(400)
         .end(function (err, res) {
@@ -404,7 +336,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          User.findOne({ username: user.username.toLowerCase() }, function(err, userRes) {
+          User.findOne({ email: user.email.toLowerCase() }, function(err, userRes) {
             userRes.resetPasswordToken.should.not.be.empty();
             should.exist(userRes.resetPasswordExpires);
             res.body.message.should.be.equal('Failure sending email');
@@ -421,7 +353,7 @@ describe('User CRUD tests', function () {
       should.not.exist(err);
       agent.post('/api/auth/forgot')
         .send({
-          username: user.username
+          email: user.email
         })
         .expect(400)
         .end(function (err, res) {
@@ -430,7 +362,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          User.findOne({ username: user.username.toLowerCase() }, function(err, userRes) {
+          User.findOne({ email: user.email.toLowerCase() }, function(err, userRes) {
             userRes.resetPasswordToken.should.not.be.empty();
             should.exist(userRes.resetPasswordExpires);
 
@@ -458,7 +390,7 @@ describe('User CRUD tests', function () {
       should.not.exist(err);
       agent.post('/api/auth/forgot')
         .send({
-          username: user.username
+          email: user.email
         })
         .expect(400)
         .end(function (err, res) {
@@ -639,7 +571,6 @@ describe('User CRUD tests', function () {
             }
 
             res.body.should.be.instanceof(Object);
-            res.body.username.should.equal(user.username);
             res.body.email.should.equal(user.email);
             should.not.exist(res.body.salt);
             should.not.exist(res.body.password);
@@ -745,71 +676,18 @@ describe('User CRUD tests', function () {
     });
   });
 
-  it('should not be able to update own user details with existing username', function (done) {
-
-    let _user2 = _user;
-
-    _user2.username = 'user2_username';
-    _user2.email = 'user2_email@test.com';
-
-    let credentials2 = {
-      email: 'username2',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    _user2.username = credentials2.email;
-    _user2.password = credentials2.password;
-
-    let user2 = new User(_user2);
-
-    user2.save(function (err) {
-      should.not.exist(err);
-
-      agent.post('/api/auth/signin')
-        .send(credentials2)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          let userUpdate = {
-            firstName: 'user_update_first',
-            lastName: 'user_update_last',
-            username: user.username
-          };
-
-          agent.put('/api/users')
-            .send(userUpdate)
-            .expect(422)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              // Call the assertion callback
-              userInfoRes.body.message.should.equal('Username already exists');
-
-              return done();
-            });
-        });
-    });
-  });
-
   it('should not be able to update own user details with existing email', function (done) {
 
     let _user2 = _user;
 
-    _user2.username = 'user2_username';
     _user2.email = 'user2_email@test.com';
 
     let credentials2 = {
-      email: 'username2',
+      email: 'username2@ser.com',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
-    _user2.username = credentials2.email;
+    _user2.email = credentials2.email;
     _user2.password = credentials2.password;
 
     let user2 = new User(_user2);

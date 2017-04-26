@@ -33,7 +33,7 @@ describe('Groceries to go CRUD tests', function() {
   beforeEach(function(done) {
     // Create user credentials
     credentials = {
-      email: 'username',
+      email: 'test@example.com',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
@@ -42,8 +42,7 @@ describe('Groceries to go CRUD tests', function() {
       firstName: 'Full',
       lastName: 'Name',
       displayName: 'Full Name',
-      email: 'test@test.com',
-      username: credentials.email,
+      email: credentials.email,
       password: credentials.password,
       provider: 'local',
       roles: 'admin'
