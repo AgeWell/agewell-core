@@ -14,10 +14,10 @@ function removeUser(user) {
   return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
     User.find({
-      username: user.username
+      email: user.email
     }).remove(function(err) {
       if (err) {
-        reject(new Error('Failed to remove local ' + user.username));
+        reject(new Error('Failed to remove local ' + user.email));
       }
       resolve();
     });
@@ -30,7 +30,7 @@ function saveUser(user) {
       // Then save the user
       user.save(function(err, theuser) {
         if (err) {
-          reject(new Error('Failed to add local ' + user.username));
+          reject(new Error('Failed to add local ' + user.email));
         } else {
           resolve(theuser);
         }
@@ -43,16 +43,16 @@ function checkUserNotExists(user) {
   return new Promise(function(resolve, reject) {
     var User = mongoose.model('User');
     User.find({
-      username: user.username
+      email: user.email
     }, function(err, users) {
       if (err) {
-        reject(new Error('Failed to find local account ' + user.username));
+        reject(new Error('Failed to find local account ' + user.email));
       }
 
       if (users.length === 0) {
         resolve();
       } else {
-        reject(new Error('Failed due to local account already exists: ' + user.username));
+        reject(new Error('Failed due to local account already exists: ' + user.email));
       }
     });
   });
@@ -62,7 +62,7 @@ function reportSuccess(password) {
   return function(user) {
     return new Promise(function(resolve, reject) {
       if (seedOptions.logResults) {
-        console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
+        console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.email + ' added with password set to ' + password));
       }
       resolve();
     });

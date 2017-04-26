@@ -364,7 +364,7 @@ describe('Configuration Tests:', function () {
         })
         .catch(function (err) {
           should.exist(err);
-          err.message.should.equal('Failed to add local ' + user1.email);
+          err.message.should.equal('Failed to add local ' + _user.email);
 
           // Restore original NODE_ENV environment variable
           process.env.NODE_ENV = nodeEnv;
