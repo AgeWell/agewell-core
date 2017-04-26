@@ -10,7 +10,9 @@
   function menuConfig(menuService, Authentication) {
     let profileEdit = 'settings.profile';
 
-    if (Authentication.user.roles.indexOf('volunteer') !== -1) {
+    console.log();
+
+    if (Authentication.user !== null && Authentication.user.roles.indexOf('volunteer') !== -1) {
       if (Authentication.user.hasOwnProperty('volunteer')) {
         profileEdit = 'settings.volunteer.edit({volunteerId: \'' + Authentication.user.volunteer + '\'})';
       } else {

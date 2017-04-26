@@ -29,7 +29,7 @@
         <a ui-sref="authentication.signup">Sign up</a>
       </li>
     </ul>
-    <ul class="nav navbar-nav navbar-right" ng-if="vm.menu.shouldRender(vm.authentication.user);">
+    <ul class="nav navbar-nav navbar-right" ng-if="vm.authentication.user !== null">
       <li class="dropdown" uib-dropdown>
         <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
           <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />
