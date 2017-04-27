@@ -104,6 +104,8 @@ exports.delete = function(req, res) {
  * List of Clients
  */
 exports.list = function(req, res) {
+  console.log(req.body);
+  console.log(req.query);
   Client.find().sort('-created').exec(function(err, clients) {
     if (err) {
       return res.status(400).send({

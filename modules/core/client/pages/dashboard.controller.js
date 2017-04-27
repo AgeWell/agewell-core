@@ -5,9 +5,9 @@
     .module('core')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'coreService'];
+  DashboardController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'coreService', 'ClientsService'];
 
-  function DashboardController($scope, $state, $window, Authentication, Notification, coreService, client) {
+  function DashboardController($scope, $state, $window, Authentication, Notification, coreService, ClientsService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
     vm.callList = [];
@@ -22,6 +22,12 @@
       delivery: new Date(vm.options.delivery[0]),
       nextDelivery: new Date(vm.options.delivery[1])
     };
+
+    vm.clients = ClientsService.query({
+      active: true,
+      groceryCallList: true
+      // lastSkip: vm.dates.orderBy
+    });
 
     for (var i = 0; i < 5; i++) {
       vm.callList.push({

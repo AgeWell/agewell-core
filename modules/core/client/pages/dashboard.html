@@ -73,8 +73,9 @@
             <td>{{ client.homePhone }}</td>
             <td>{{ client.orderID }}</td>
             <td class="text-right">
-              <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
-              <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+              <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View Client"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
+              <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="New Order"><i class="glyphicon glyphicon-shopping-cart" aria-label="New Order"></i></button>
+              <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="Skip Order"><i class="glyphicon glyphicon-share-alt" aria-label="Skip Order"></i></button>
             </td>
           </tr>
         </tbody>
