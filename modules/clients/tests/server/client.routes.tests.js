@@ -60,10 +60,8 @@ describe('Client CRUD tests', function() {
         started: now,
         active: true,
         contact: {
-          name: {
-            first: 'test',
-            last: 'user'
-          }
+          firstName: 'test',
+          lastName: 'user'
         }
       };
 

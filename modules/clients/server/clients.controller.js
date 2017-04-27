@@ -106,6 +106,12 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   console.log(req.query);
 
+  if (req.query.skip) {
+    req.query.skip = {
+      $ne: new Date(req.query.skip)
+    };
+  }
+
   Client.find(req.query).sort('-created').exec(function(err, clients) {
     if (err) {
       return res.status(400).send({

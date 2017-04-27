@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="volunteer in vm.volunteers" ui-sref="volunteers.view({ volunteerId: volunteer._id })">
-        <td>{{volunteer.contact.name.first}} {{volunteer.contact.name.last}}</td>
+        <td>{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</td>
         <td class="list-group-item-text">
           Posted on
           <span ng-bind="volunteer.created | date:'mediumDate'"></span> by

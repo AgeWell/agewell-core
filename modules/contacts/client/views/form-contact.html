@@ -2,7 +2,7 @@
   <div class="col-md-3">
     <div class="form-group" show-errors>
       <label for="firstName">First Name</label>
-      <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.contact.name.first" placeholder="First Name" required autofocus>
+      <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.contact.firstName" placeholder="First Name" autofocus required>
       <div ng-messages="vm.form.firstName.$error" role="alert">
         <p class="help-block error-text" ng-message="required">First name is required.</p>
       </div>
@@ -11,7 +11,7 @@
   <div class="col-md-3">
     <div class="form-group" show-errors>
       <label for="lastName">Last Name</label>
-      <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.contact.name.last" placeholder="Last Name" required>
+      <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.contact.lastName" placeholder="Last Name" required>
       <div ng-messages="vm.form.lastName.$error" role="alert">
         <p class="help-block error-text" ng-message="required">Last name is required.</p>
       </div>
@@ -20,7 +20,7 @@
   <div class="col-md-1">
     <div class="form-group">
       <label for="middleInitial">M.I.</label>
-      <input type="text" id="middleInitial" name="middleInitial" class="form-control" ng-model="vm.contact.name.middleInitial" maxlength="1" autofocus style="max-width: 35px">
+      <input type="text" id="middleInitial" name="middleInitial" class="form-control" ng-model="vm.contact.middleInitial" maxlength="1" autofocus style="max-width: 35px">
     </div>
   </div>
 </fieldset>
@@ -58,7 +58,7 @@
 <fieldset class="col-md-12 row">
   <div class="col-md-2">
     <div class="form-group" show-errors>
-      <label for="email">Birthday</label>
+      <label for="birthday">Birthday</label>
       <p class="input-group">
         <input name="birthday" type="text" class="form-control" uib-datepicker-popup="M/dd/yyyy" ng-model="vm.contact.birthday" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
         <span class="input-group-btn">

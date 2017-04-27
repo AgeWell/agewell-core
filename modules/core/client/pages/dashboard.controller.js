@@ -23,20 +23,11 @@
       nextDelivery: new Date(vm.options.delivery[1])
     };
 
-    vm.clients = ClientsService.query({
+    vm.callList = ClientsService.query({
       active: true,
-      groceryCallList: true
-      // lastSkip: vm.dates.orderBy
+      groceryCallList: true,
+      skip: vm.dates.orderBy
     });
-
-    for (var i = 0; i < 5; i++) {
-      vm.callList.push({
-        _id: i,
-        orderID: i,
-        name: 'Jane Doe',
-        homePhone: '555-555-5555'
-      });
-    }
 
     for (var j = 0; j < 5; j++) {
       vm.orders.push({

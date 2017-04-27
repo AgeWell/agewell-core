@@ -11,6 +11,9 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h3>Groceries To Go</h3>
+    </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h4>Important Actions</h4>
       <ul>
@@ -68,10 +71,10 @@
         <tbody>
           <tr ng-repeat="client in vm.callList">
             <td>
-              <a ui-sref="clients.view({clientId: client._id })">{{ client.name }}</a>
+              <a ui-sref="clients.view({clientId: client._id })">{{ client.contact.firstName }} {{ client.contact.lastName }}</a>
             </td>
-            <td>{{ client.homePhone }}</td>
-            <td>{{ client.orderID }}</td>
+            <td>{{ client.contact.homePhone }}</td>
+            <td>{{ client.contact.orderID }}</td>
             <td class="text-right">
               <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View Client"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
               <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="New Order"><i class="glyphicon glyphicon-shopping-cart" aria-label="New Order"></i></button>
@@ -79,11 +82,11 @@
             </td>
           </tr>
         </tbody>
-        <tfoot>
+        <!-- <tfoot>
           <tr>
             <td colspan="4">Dates</td>
           </tr>
-        </tfoot>
+        </tfoot> -->
       </table>
       <nav aria-label="...">
         <ul class="pager">
@@ -93,6 +96,9 @@
       </nav>
 
       <!-- <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination> -->
+      <div class="alert alert-warning text-center" ng-if="vm.callList.$resolved && !vm.callList.length">
+        No more Clients to call.
+      </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h4>Groceries Orders</h4>

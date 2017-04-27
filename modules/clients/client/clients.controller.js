@@ -18,6 +18,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.toggle = toggle;
+    vm.log = log;
 
     if (!vm.client._id) {
       vm.client.contact = {};
@@ -26,7 +27,11 @@
     if (!vm.client.groceryCallList) {
       vm.client.groceryCallList = false;
     }
-    console.log(vm.client);
+
+    function log() {
+      console.log(vm);
+    }
+    log();
 
     // Remove existing Client
     function remove() {

@@ -34,7 +34,7 @@ describe('User CRUD tests', function () {
   beforeEach(function (done) {
     // Create user credentials with username
     credentials = {
-      email: 'test@example.com',
+      email: 'test34@example.com',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 

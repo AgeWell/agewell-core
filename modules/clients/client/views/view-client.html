@@ -1,7 +1,7 @@
 <section>
   <div class="page-header">
     <h1>
-      {{ vm.client.contact.name.first }} {{ vm.client.contact.name.middleInitial }} {{ vm.client.contact.name.last }}
+      {{ vm.client.contact.firstName }} {{ vm.client.contact.middleInitial }} {{ vm.client.contact.lastName }}
     <div class="btn-group btn-toggle" ng-click="vm.toggle('active')">
       <button class="btn btn-md" ng-class="vm.client.active ? 'btn-primary' : 'btn-default'">Active</button>
       <button class="btn btn-md" ng-class="vm.client.active ? 'btn-default' : 'btn-primary'">Inactive</button>

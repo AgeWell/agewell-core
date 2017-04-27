@@ -24,7 +24,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="client in vm.clients" ui-sref="clients.view({ clientId: client._id })">
-        <td>{{client.contact.name.first}} {{client.contact.name.last}}</td>
+        <td>{{client.contact.firstName}} {{client.contact.lastName}}</td>
         <td class="list-group-item-text">
           Some Additional Information
         </td>

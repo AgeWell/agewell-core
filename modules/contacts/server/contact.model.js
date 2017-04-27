@@ -27,21 +27,19 @@ let ContactSchema = new Schema({
     type: mongoose.Schema.ObjectId,
     default: mongoose.Types.ObjectId
   },
-  name: {
-    first: {
-      type: String,
-      required: 'Please fill first name',
-      trim: true
-    },
-    last: {
-      type: String,
-      required: 'Please fill last name',
-      trim: true
-    },
-    middleInitial: {
-      type: String,
-      maxlength: 1
-    }
+  firstName: {
+    type: String,
+    required: 'Please fill first name',
+    trim: true
+  },
+  lastName: {
+    type: String,
+    required: 'Please fill last name',
+    trim: true
+  },
+  middleInitial: {
+    type: String,
+    maxlength: 1
   },
   address: Address,
   homePhone: String,
@@ -105,11 +103,11 @@ let ContactSchema = new Schema({
 
 ContactSchema.virtual('fullname')
   .get(function() {
-    return this.name.first + ' ' + this.name.last;
+    return this.firstName + ' ' + this.lastName;
   })
   .set(function(v) {
-    this.name.first = v.substr(0, v.indexOf(' '));
-    this.name.last = v.substr(v.indexOf(' ') + 1);
+    this.firstName = v.substr(0, v.indexOf(' '));
+    this.lastName = v.substr(v.indexOf(' ') + 1);
   });
 
 module.exports = mongoose.model('Contact', ContactSchema);

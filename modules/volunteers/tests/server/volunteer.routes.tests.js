@@ -20,9 +20,9 @@ let app,
 /**
  * Volunteer routes tests
  */
-describe('Volunteer CRUD tests', function () {
+describe('Volunteer CRUD tests', function() {
 
-  before(function (done) {
+  before(function(done) {
     // Get application
     app = express.init(mongoose);
     agent = request.agent(app);
@@ -30,7 +30,7 @@ describe('Volunteer CRUD tests', function () {
     done();
   });
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     // Create user credentials
     credentials = {
       email: 'test@example.com',
@@ -49,7 +49,7 @@ describe('Volunteer CRUD tests', function () {
     });
 
     // Save a user to the test db and create new Volunteer
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         return console.error(err);
       }
@@ -58,10 +58,8 @@ describe('Volunteer CRUD tests', function () {
         started: new Date(),
         active: true,
         contact: {
-          name: {
-            first: 'test',
-            last: 'user'
-          }
+          firstName: 'test',
+          lastName: 'user'
         }
       };
 
@@ -69,11 +67,11 @@ describe('Volunteer CRUD tests', function () {
     });
   });
 
-  it('should be able to save a Volunteer if logged in as an admin', function (done) {
+  it('should be able to save a Volunteer if logged in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -86,7 +84,7 @@ describe('Volunteer CRUD tests', function () {
         agent.post('/api/volunteers')
           .send(volunteer)
           .expect(200)
-          .end(function (volunteerSaveErr, volunteerSaveRes) {
+          .end(function(volunteerSaveErr, volunteerSaveRes) {
             // Handle Volunteer save error
             if (volunteerSaveErr) {
               return done(volunteerSaveErr);
@@ -94,7 +92,7 @@ describe('Volunteer CRUD tests', function () {
 
             // Get a list of Volunteers
             agent.get('/api/volunteers')
-              .end(function (volunteersGetErr, volunteersGetRes) {
+              .end(function(volunteersGetErr, volunteersGetRes) {
                 // Handle Volunteers save error
                 if (volunteersGetErr) {
                   return done(volunteersGetErr);
@@ -113,11 +111,11 @@ describe('Volunteer CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Volunteer if not logged in', function (done) {
+  it('should not be able to save an Volunteer if not logged in', function(done) {
     agent.post('/api/volunteers')
       .send(volunteer)
       .expect(403)
-      .end(function (volunteerSaveErr, volunteerSaveRes) {
+      .end(function(volunteerSaveErr, volunteerSaveRes) {
         // Call the assertion callback
         done(volunteerSaveErr);
       });
@@ -153,11 +151,11 @@ describe('Volunteer CRUD tests', function () {
   //     });
   // });
 
-  it('should be able to update an Volunteer if signed in as an admin', function (done) {
+  it('should be able to update an Volunteer if signed in as an admin', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -170,7 +168,7 @@ describe('Volunteer CRUD tests', function () {
         agent.post('/api/volunteers')
           .send(volunteer)
           .expect(200)
-          .end(function (volunteerSaveErr, volunteerSaveRes) {
+          .end(function(volunteerSaveErr, volunteerSaveRes) {
             // Handle Volunteer save error
             if (volunteerSaveErr) {
               return done(volunteerSaveErr);
@@ -183,7 +181,7 @@ describe('Volunteer CRUD tests', function () {
             agent.put('/api/volunteers/' + volunteerSaveRes.body._id)
               .send(volunteer)
               .expect(200)
-              .end(function (volunteerUpdateErr, volunteerUpdateRes) {
+              .end(function(volunteerUpdateErr, volunteerUpdateRes) {
                 // Handle Volunteer update error
                 if (volunteerUpdateErr) {
                   return done(volunteerUpdateErr);
@@ -236,10 +234,10 @@ describe('Volunteer CRUD tests', function () {
   //   });
   // });
 
-  it('should return proper error for single Volunteer with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single Volunteer with an invalid Id, if not signed in', function(done) {
     // test is not a valid mongoose Id
     request(app).get('/api/volunteers/test')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'Volunteer is invalid');
 
@@ -248,10 +246,10 @@ describe('Volunteer CRUD tests', function () {
       });
   });
 
-  it('should return proper error for single Volunteer which doesnt exist, if not signed in', function (done) {
+  it('should return proper error for single Volunteer which doesnt exist, if not signed in', function(done) {
     // This is a valid mongoose Id but a non-existent Volunteer
     request(app).get('/api/volunteers/559e9cd815f80b4c256a8f41')
-      .end(function (req, res) {
+      .end(function(req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'No Volunteer with that identifier has been found');
 
@@ -260,11 +258,11 @@ describe('Volunteer CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an Volunteer if signed in', function (done) {
+  it('should be able to delete an Volunteer if signed in', function(done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
-      .end(function (signinErr, signinRes) {
+      .end(function(signinErr, signinRes) {
         // Handle signin error
         if (signinErr) {
           return done(signinErr);
@@ -277,7 +275,7 @@ describe('Volunteer CRUD tests', function () {
         agent.post('/api/volunteers')
           .send(volunteer)
           .expect(200)
-          .end(function (volunteerSaveErr, volunteerSaveRes) {
+          .end(function(volunteerSaveErr, volunteerSaveRes) {
             // Handle Volunteer save error
             if (volunteerSaveErr) {
               return done(volunteerSaveErr);
@@ -287,7 +285,7 @@ describe('Volunteer CRUD tests', function () {
             agent.delete('/api/volunteers/' + volunteerSaveRes.body._id)
               .send(volunteer)
               .expect(200)
-              .end(function (volunteerDeleteErr, volunteerDeleteRes) {
+              .end(function(volunteerDeleteErr, volunteerDeleteRes) {
                 // Handle volunteer error error
                 if (volunteerDeleteErr) {
                   return done(volunteerDeleteErr);
@@ -303,7 +301,7 @@ describe('Volunteer CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an Volunteer if not signed in', function (done) {
+  it('should not be able to delete an Volunteer if not signed in', function(done) {
     // Set Volunteer user
     volunteer.user = user;
 
@@ -311,11 +309,11 @@ describe('Volunteer CRUD tests', function () {
     let volunteerObj = new Volunteer(volunteer);
 
     // Save the Volunteer
-    volunteerObj.save(function () {
+    volunteerObj.save(function() {
       // Try deleting Volunteer
       request(app).delete('/api/volunteers/' + volunteerObj._id)
         .expect(403)
-        .end(function (volunteerDeleteErr, volunteerDeleteRes) {
+        .end(function(volunteerDeleteErr, volunteerDeleteRes) {
           // Set message assertion
           (volunteerDeleteRes.body.message).should.match('User is not authorized');
 
@@ -326,8 +324,8 @@ describe('Volunteer CRUD tests', function () {
     });
   });
 
-  afterEach(function (done) {
-    User.remove().exec(function () {
+  afterEach(function(done) {
+    User.remove().exec(function() {
       Volunteer.remove().exec(done);
     });
   });

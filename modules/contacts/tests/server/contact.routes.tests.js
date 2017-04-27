@@ -55,10 +55,8 @@ describe('Contact CRUD tests', function() {
       }
 
       contact = {
-        name: {
-          first: 'test',
-          last: 'user'
-        }
+        firstName: 'test',
+        lastName: 'user'
       };
 
       done();
@@ -100,8 +98,8 @@ describe('Contact CRUD tests', function() {
                 let contacts = contactsGetRes.body;
 
                 // Set assertions
-                (contacts[0].name.first).should.match('test');
-                (contacts[0].name.last).should.match('user');
+                (contacts[0].firstName).should.match('test');
+                (contacts[0].lastName).should.match('user');
 
                 // Call the assertion callback
                 done();
@@ -122,7 +120,7 @@ describe('Contact CRUD tests', function() {
 
   // it('should not be able to save an Contact if no name is provided', function(done) {
   //   // Invalidate name field
-  //   contact.name.first = '';
+  //   contact.firstName = '';
   //
   //   agent.post('/api/auth/signin')
   //     .send(credentials)
@@ -174,7 +172,7 @@ describe('Contact CRUD tests', function() {
             }
 
             // Update Contact name
-            contact.name.first = 'WHY YOU GOTTA BE SO MEAN?';
+            contact.firstName = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing Contact
             agent.put('/api/contacts/' + contactSaveRes.body._id)
@@ -188,7 +186,7 @@ describe('Contact CRUD tests', function() {
 
                 // Set assertions
                 (contactUpdateRes.body._id).should.equal(contactSaveRes.body._id);
-                (contactUpdateRes.body.name.first).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (contactUpdateRes.body.firstName).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
