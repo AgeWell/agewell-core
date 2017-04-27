@@ -5,9 +5,8 @@
     </div>
     <div class="col-md-9 col-sm-9 col-xs-12 text-right">
       <div class="btn-group" role="group" aria-label="..." style="margin-top: 30px;">
-        <button type="button" class="btn btn-success">Add Client</button>
-        <button type="button" class="btn btn-success">Add Volunteer</button>
-        <button type="button" class="btn btn-success">New Order</button>
+        <button type="button" class="btn btn-success"  ui-sref="clients.create()">Add Client</button>
+        <button type="button" class="btn btn-success"  ui-sref="volunteer.create()">Add Volunteer</button>
       </div>
     </div>
   </div>
@@ -60,10 +59,10 @@
       <table class="table table-hover table-striped">
         <thead>
           <tr>
-            <th>Order #</th>
             <th>Client</th>
-            <th>Status</th>
-            <th></th>
+            <th>Phone #</th>
+            <th>Last Order</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -72,7 +71,7 @@
             <td>{{ order.name }}</td>
             <td>{{ order.status }}</td>
             <td class="text-right">
-              <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+              <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
               <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
             </td>
           </tr>
