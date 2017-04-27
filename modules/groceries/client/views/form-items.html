@@ -3,9 +3,9 @@
   <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:30%">Name</td>
+      <td style="width:30%">Category</td>
       <td style="width:10%">Qty</td>
-      <td style="width:10%">Price</td>
-      <td style="width:20%">Category</td>
+      <!-- <td style="width:10%">Price</td> -->
       <td style="width:20%">Actions</td>
     </tr>
     <tr ng-repeat="item in vm.items">
@@ -14,23 +14,22 @@
         <div editable-text="item.name" e-name="name" e-form="rowform">{{ item.name || '' }}</div>
       </td>
       <td>
-        <!-- editable status (number-local) -->
-        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty" e-style="max-width: 60px;">
-          {{ item.qty || '0' }}
-        </div>
-      </td>
-      <td>
-        <!-- editable status (number-local) -->
-        <div editable-number="item.price" e-name="price" e-form="rowform" e-name="price" e-style="max-width: 60px;">
-          {{ item.price || '0.00' | currency }}
-        </div>
-      </td>
-      <td>
         <!-- editable status (select-category) -->
         <div editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="c as c for c in vm.options.category">
           {{ item.category }}
         </div>
       </td>
+      <td>
+        <!-- editable status (number-local) -->
+        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty" e-style="max-width: 60px;">
+          {{ item.qty || '0' }}
+        </div>
+      </td>
+      <!-- <td>
+        <div editable-number="item.price" e-name="price" e-form="rowform" e-name="price" e-style="max-width: 60px;">
+          {{ item.price || '0.00' | currency }}
+        </div>
+      </td> -->
       <td style="white-space: nowrap">
         <!-- form -->
         <form editable-form name="rowform" onbeforesave="saveItem($data, item.id)" onaftersave="vm.updateOrder()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="vm.inserted === item">

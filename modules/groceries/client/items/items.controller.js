@@ -43,7 +43,7 @@
         id: vm.items.length + 1,
         name: '',
         qty: 0,
-        price: 0,
+        // price: 0,
         category: ''
       };
       vm.items.push(vm.inserted);
