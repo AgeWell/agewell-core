@@ -1,6 +1,12 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.client.contact.name.first + ' ' + vm.client.contact.name.middleInitial + ' ' + vm.client.contact.name.last"></h1>
+    <h1>
+      {{ vm.client.contact.name.first }} {{ vm.client.contact.name.middleInitial }} {{ vm.client.contact.name.last }}
+    <div class="btn-group btn-toggle" ng-click="vm.toggle('active')">
+      <button class="btn btn-md" ng-class="vm.client.active ? 'btn-primary' : 'btn-default'">Active</button>
+      <button class="btn btn-md" ng-class="vm.client.active ? 'btn-default' : 'btn-primary'">Inactive</button>
+    </div>
+    </h1>
   </div>
 
   <uib-tabset active="active">

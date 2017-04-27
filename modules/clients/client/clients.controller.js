@@ -17,7 +17,7 @@
     vm.error = null;
     vm.remove = remove;
     vm.save = save;
-    vm.toggleCallList = toggleCallList;
+    vm.toggle = toggle;
 
     if (!vm.client._id) {
       vm.client.contact = {};
@@ -62,8 +62,8 @@
       }
     }
 
-    function toggleCallList() {
-      vm.client.groceryCallList = !vm.client.groceryCallList;
+    function toggle(field) {
+      vm.client[field] = !vm.client[field];
 
       vm.client.$update(successCallback, errorCallback);
 
@@ -75,7 +75,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        vm.client.groceryCallList = !vm.client.groceryCallList;
+        vm.client[field] = !vm.client[field];
       }
     }
   }
