@@ -18,6 +18,7 @@
         <th>Name</th>
         <th>Other</th>
         <th class="text-right">Services</th>
+        <th class="text-right">Call List</th>
         <th class="text-right">Actions</th>
       </tr>
     </thead>
@@ -45,6 +46,11 @@
           </button>
           <button class="btn btn-success" ui-sref="order.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Groceries" ng-click="$event.stopPropagation()">
             <i class="glyphicon glyphicon-shopping-cart" aria-label="Groceries"></i>
+          </button>
+        </td>
+        <td class="text-right">
+          <button class="btn" ng-click='vm.toggleCallList(client._id)' ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
+            <i class="glyphicon" ng-class="client.groceryCallList ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
           </button>
         </td>
         <td class="text-right">

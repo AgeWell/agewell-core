@@ -185,28 +185,23 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
       }
 
       if (!user) {
-        var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+        let user = new User({
+          firstName: providerUserProfile.firstName,
+          lastName: providerUserProfile.lastName,
+          displayName: providerUserProfile.displayName,
+          profileImageURL: providerUserProfile.profileImageURL,
+          provider: providerUserProfile.provider,
+          providerData: providerUserProfile.providerData
+        });
 
-        User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
-          user = new User({
-            firstName: providerUserProfile.firstName,
-            lastName: providerUserProfile.lastName,
-            username: availableUsername,
-            displayName: providerUserProfile.displayName,
-            profileImageURL: providerUserProfile.profileImageURL,
-            provider: providerUserProfile.provider,
-            providerData: providerUserProfile.providerData
-          });
+        // Email intentionally added later to allow defaults (sparse settings) to be applid.
+        // Handles case where no email is supplied.
+        // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
+        user.email = providerUserProfile.email;
 
-          // Email intentionally added later to allow defaults (sparse settings) to be applid.
-          // Handles case where no email is supplied.
-          // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
-          user.email = providerUserProfile.email;
-
-          // And save the user
-          user.save(function(err) {
-            return done(err, user, info);
-          });
+        // And save the user
+        user.save(function(err) {
+          return done(err, user, info);
         });
       } else {
         return done(err, user, info);

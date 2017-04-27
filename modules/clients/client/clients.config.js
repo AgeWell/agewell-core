@@ -13,7 +13,7 @@
       title: 'Clients',
       state: 'clients',
       type: 'dropdown',
-      roles: ['user']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
