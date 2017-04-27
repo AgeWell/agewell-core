@@ -24,20 +24,21 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
-    function toggleCallList() {
-      vm.client.groceryCallList = !vm.client.groceryCallList;
+    function toggleCallList(client) {
+      console.log('client', client);
+      client.groceryCallList = !client.groceryCallList;
 
-      vm.client.$update(successCallback, errorCallback);
+      client.$update(successCallback, errorCallback);
 
       function successCallback(res) {
         console.log(res);
-        console.log(vm.client);
+        console.log(client);
         Notification.info({ message: 'Update successful!' });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        vm.client.groceryCallList = !vm.client.groceryCallList;
+        client.groceryCallList = !client.groceryCallList;
       }
     }
 

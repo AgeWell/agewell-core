@@ -28,7 +28,7 @@
         <td class="list-group-item-text">
           Some Additional Information
         </td>
-        <td class="text-right">
+        <td class="text-right" ng-click="$event.stopPropagation()">
           <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Care Consultation" ng-disabled="true" ng-click="$event.stopPropagation()">
             <i class="glyphicon glyphicon-list-alt"></i>
           </button>
@@ -48,8 +48,8 @@
             <i class="glyphicon glyphicon-shopping-cart" aria-label="Groceries"></i>
           </button>
         </td>
-        <td class="text-right">
-          <button class="btn" ng-click='vm.toggleCallList(client._id)' ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
+        <td class="text-right" ng-click="$event.stopPropagation()">
+          <button class="btn" ng-click="vm.toggleCallList(client)" ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
             <i class="glyphicon" ng-class="client.groceryCallList ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
           </button>
         </td>
