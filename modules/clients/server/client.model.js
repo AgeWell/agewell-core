@@ -22,7 +22,7 @@ var ClientSchema = new Schema({
   },
   active: {
     type: Boolean,
-    default: false
+    default: true
   },
   services: {
     type: [{
