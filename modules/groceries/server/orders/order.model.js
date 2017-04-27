@@ -23,8 +23,13 @@ let OrderSchema = new Schema({
     type: [Item]
   },
   subtotal: {
-    type: Number,
-    required: true
+    type: Number
+  },
+  tax: {
+    type: Number
+  },
+  recieptTotal: {
+    type: Number
   },
   deliveryCost: {
     type: Number,
