@@ -6,7 +6,7 @@
     <div class="col-md-9 col-sm-9 col-xs-12 text-right">
       <div class="btn-group" role="group" aria-label="..." style="margin-top: 30px;">
         <button type="button" class="btn btn-success"  ui-sref="clients.create()">Add Client</button>
-        <button type="button" class="btn btn-success"  ui-sref="volunteer.create()">Add Volunteer</button>
+        <button type="button" class="btn btn-success"  ui-sref="volunteers.create()">Add Volunteer</button>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h4>Call List</h4>
       <p>
-        Dates
+        <strong>Order by:</strong> {{ vm.dates.orderBy | date:'EEE M/d/yy'}} <strong>Delivery:</strong> {{ vm.dates.delivery | date:'EEE M/d/yy'}}
       </p>
 
       <!-- Tab panes -->
@@ -66,10 +66,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
-            <td>{{ order.requestNumber }}</td>
-            <td>{{ order.name }}</td>
-            <td>{{ order.status }}</td>
+          <tr ng-repeat="client in vm.callList">
+            <td>
+              <a ui-sref="clients.view({clientId: client._id })">{{ client.name }}</a>
+            </td>
+            <td>{{ client.homePhone }}</td>
+            <td>{{ client.orderID }}</td>
             <td class="text-right">
               <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
               <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>

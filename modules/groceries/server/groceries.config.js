@@ -11,7 +11,7 @@ const config = require(path.resolve('./config/config'));
  * Groceries to gos module init function.
  */
 module.exports = function(app, db) {
-  app.use(function (req, res, next) {
+  app.use(function(req, res, next) {
     let options = {
       Order: {
         order: orderDates(),
@@ -28,9 +28,17 @@ function orderDates() {
   let dates = [];
   let base = getBase();
 
-  dates.push(moment().startOf('week').add('days', base + 3));
-  dates.push(moment().startOf('week').add('days', base + 10));
-  // dates.push(moment().startOf('week').add('days', base + 17));
+  dates.push(moment().startOf('week')
+    .add('days', base + 3)
+    .subtract(6, 'hours')
+  );
+  dates.push(moment().startOf('week')
+    .add('days', base + 10)
+    .subtract(6, 'hours')
+  );
+  // dates.push(moment().startOf('week')
+  //   .add('days', base + 17)
+  // );
 
   return dates;
 }
@@ -39,9 +47,17 @@ function deliveryDates() {
   let dates = [];
   let base = getBase();
 
-  dates.push(moment().startOf('week').add('days', base + 4));
-  dates.push(moment().startOf('week').add('days', base + 11));
-  // dates.push(moment().startOf('week').add('days', base + 18));
+  dates.push(moment().startOf('week')
+    .add('days', base + 4)
+    .subtract(12, 'hours')
+  );
+  dates.push(moment().startOf('week')
+    .add('days', base + 11)
+    .subtract(12, 'hours')
+  );
+  // dates.push(moment().startOf('week')
+  //   .add('days', base + 18)
+  // );
 
   return dates;
 }
