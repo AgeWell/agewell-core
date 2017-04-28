@@ -37,10 +37,8 @@ exports.signup = function(req, res) {
 
 
   let contact = new Contact({
-    name: {
-      first: req.body.firstName,
-      last: req.body.lastName
-    },
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email
   });
 
@@ -52,6 +50,7 @@ exports.signup = function(req, res) {
 
   contact.save(function(err, contact) {
     if (err) {
+      console.error('This is the error');
       return res.status(400).send(err);
     }
 

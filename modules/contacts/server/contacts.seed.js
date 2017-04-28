@@ -29,10 +29,8 @@ let docArray = [{
   'disability': 'Bad Hearing',
   'created': new Date('2017-03-17T18:05:47.693Z'),
   'email': 'info@simplyspoke.com',
-  'name': {
-    'first': 'John',
-    'last': 'Smith'
-  }
+  'firstName': 'John',
+  'lastName': 'Smith'
 }, {
   '_id': '58cc2d921206fd7fed39c01a',
   'volunteer': '58cc2d921206fd7fed39c01c',
@@ -53,10 +51,8 @@ let docArray = [{
   'allergies': 'Peanut Butter',
   'created': new Date('2017-03-17T18:40:18.980Z'),
   'email': 'tristan@simplyspoke.com',
-  'name': {
-    'first': 'Jane',
-    'last': 'Doe'
-  }
+  'firstName': 'Jane',
+  'lastName': 'Doe'
 }];
 
 /**
