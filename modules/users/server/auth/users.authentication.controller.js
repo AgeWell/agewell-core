@@ -30,6 +30,9 @@ exports.signup = function(req, res) {
   } else if (req.body.roles === 'client') {
     role = 'client';
     roles.push(role);
+  } else if (req.body.roles === 'admin') {
+    role = 'admin';
+    roles.push(role);
   }
 
   // For security measurement we remove the roles from the req.body object
