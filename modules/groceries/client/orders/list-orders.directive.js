@@ -14,6 +14,8 @@
       controller: 'OrdersListController',
       controllerAs: 'vm',
       bindToController: true,
+      replace: true,
+      transclude: true,
       templateUrl: '/modules/groceries/client/views/list-orders.html'
     };
 

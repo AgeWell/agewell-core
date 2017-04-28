@@ -21,7 +21,7 @@
     vm.addItem = addItem;
     vm.updateOrder = updateOrder;
 
-    console.log(vm);
+    // console.log(vm);
 
     function saveItem(data, id) {
       angular.extend(data, {

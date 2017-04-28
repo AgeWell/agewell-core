@@ -78,6 +78,13 @@ td {
   background: none;
 }
 
+.reciept-total {
+  input {
+    height: 30px;
+    padding: 0 10px;
+  }
+}
+
 .form-horizontal {
   .col-md-3 > .form-group {
     margin-right: 0;

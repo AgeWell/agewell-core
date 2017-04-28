@@ -7,7 +7,7 @@
 
   function itemsForm() {
     let directive = {
-      restrict: 'E',
+      restrict: 'EA',
       scope: {
         items: '=',
         form: '=',

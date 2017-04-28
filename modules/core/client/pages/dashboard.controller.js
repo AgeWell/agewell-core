@@ -7,7 +7,7 @@
 
   DashboardController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'coreService', 'ClientsService'];
 
-  function DashboardController($scope, $state, $window, $filter, Authentication, Notification, coreService, ClientsService) {
+  function DashboardController($scope, $state, $window, $filter, Authentication, Notification, coreService, ClientsService, OrdersService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
     vm.callList = [];
@@ -27,6 +27,15 @@
       active: true,
       groceryCallList: true,
       skip: vm.dates.orderBy
+    }, function(data) {
+      vm.callList = data;
+      buildPager('CallList');
+    });
+
+    OrdersService.query({
+      active: true,
+      // groceryCallList: true,
+      // date: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
       buildPager('CallList');
@@ -61,8 +70,6 @@
       vm['filter' + type + 'Length'] = vm['filtered' + type].length;
       var begin = ((vm[type + 'Page'] - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
-      console.log(begin, end);
-      console.log(vm['paged' + type]);
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
     }
 

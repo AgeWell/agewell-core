@@ -32,6 +32,8 @@
       vm.order.date = vm.delivery;
       vm.order.items = [];
       vm.order.subtotal = 0.00;
+      vm.order.tax = 0.00;
+      vm.order.recieptTotal = 0.00;
       vm.order.deliveryCost = 10.00;
       vm.order.total = 10.00;
     }
@@ -85,14 +87,17 @@
     // Helpers
 
     function totals() {
-      vm.order.subtotal = 0.00;
-
-      for (var i = 0; i < vm.order.items.length; i++) {
-        vm.order.subtotal += (vm.order.items[i].qty * vm.order.items[i].price);
-      }
-
-      vm.order.total = vm.order.subtotal + vm.order.deliveryCost;
       console.log(vm);
+      // vm.order.subtotal = 0.00;
+      // vm.order.tax = 0.00;
+      // vm.order.recieptTotal = 0.00;
+
+      // for (var i = 0; i < vm.order.items.length; i++) {
+      //   vm.order.subtotal += (vm.order.items[i].qty * vm.order.items[i].price);
+      // }
+
+      vm.order.total = +vm.order.recieptTotal + +vm.order.deliveryCost;
+      // console.log(vm);
     }
 
     // Listeners
