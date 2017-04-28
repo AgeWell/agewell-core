@@ -49,6 +49,7 @@ gulp.task('lint', function(done) {
 gulp.task('build', function(done) {
   runSequence('env:dev', 'wiredep', 'lint', done);
 });
+
 gulp.task('build:prod', function(done) {
   runSequence('env:dev', 'wiredep:prod', 'lint', ['uglify', 'cssmin'], done);
 });
