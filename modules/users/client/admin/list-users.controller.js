@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -13,14 +13,14 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    AdminService.query(function (data) {
+    AdminService.query(function(data) {
       vm.users = data;
       vm.buildPager();
     });
 
     function buildPager() {
       vm.pagedItems = [];
-      vm.itemsPerPage = 15;
+      vm.itemsPerPage = 1;
       vm.currentPage = 1;
       vm.figureOutItemsToDisplay();
     }

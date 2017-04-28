@@ -5,16 +5,137 @@
     </div>
     <div class="col-md-9 col-sm-9 col-xs-12 text-right">
       <div class="btn-group" role="group" aria-label="..." style="margin-top: 30px;">
-        <button type="button" class="btn btn-success"  ui-sref="clients.create()">Add Client</button>
-        <button type="button" class="btn btn-success"  ui-sref="volunteers.create()">Add Volunteer</button>
+        <button type="button" class="btn btn-success" ui-sref="clients.create()">Add Client</button>
+        <button type="button" class="btn btn-success" ui-sref="volunteers.create()">Add Volunteer</button>
+      </div>
+    </div>
+  </div>
+  <div class="row well">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h3>Groceries To Go</h3>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Call List</div>
+        <div class="panel-body">
+
+          <!-- Tab panes -->
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th style="width:35%">Client</th>
+                <th style="width:35%">Phone #</th>
+                <!-- <th>Last Order</th> -->
+                <th style="width:30%">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">
+                  <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('CallList')" />
+                </td>
+              </tr>
+              <tr ng-repeat="client in vm.pagedCallList" ng-hide="vm.pagedCallList.length === 0">
+                <td>
+                  <a ui-sref="clients.view({clientId: client._id })">{{ client.contact.firstName }} {{ client.contact.lastName }}</a>
+                </td>
+                <td>{{ client.contact.homePhone }}</td>
+                <!-- <td>{{ client.contact.orderID }}</td> -->
+                <td class="text-right">
+                  <div class="btn-group  btn-group-sm">
+                    <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View Client"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
+                    <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="New Order"><i class="glyphicon glyphicon-shopping-cart" aria-label="New Order"></i></button>
+                    <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="Skip Order"><i class="glyphicon glyphicon-share-alt" aria-label="Skip Order"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr ng-if="vm.callList.$resolved && !vm.callList.length">
+                <td colspan="3">
+                  <div class="alert alert-warning text-center">
+                    No more Clients to call.
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr ng-if="vm.filterCallListLength > 0">
+                <td colspan="4" class="text-center">
+                  <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterCallListLength" ng-model="vm.CallListPage" ng-change="vm.pageChanged('CallList')"></ul>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1">
+                  <strong>Order by:</strong> {{ vm.dates.orderBy | date:'EEE, M/d/yy'}}
+                </td>
+                <td colspan="2" class="text-right">
+                  <strong>Delivered on:</strong> {{ vm.dates.delivery | date:'EEE, M/d/yy'}}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Orders</div>
+        <div class="panel-body">
+
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Current</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Next</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Last</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>Order #</th>
+                    <th>Client</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
+                    <td>{{ order.requestNumber }}</td>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.status }}</td>
+                    <td class="text-right">
+                      <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+                        <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">Dates</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <nav aria-label="...">
+                <ul class="pager">
+                  <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                  <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+              </nav>
+
+              <!-- <ul uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul> -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <h3>Groceries To Go</h3>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
+
+    <div class="col-lg-2 col-md-2 col-sm-12">
       <h4>Important Actions</h4>
       <ul>
         <li>
@@ -51,104 +172,6 @@
           </div>
         </li>
       </ul>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <h4>Call List</h4>
-      <p>
-        <strong>Order by:</strong> {{ vm.dates.orderBy | date:'EEE M/d/yy'}} <strong>Delivery:</strong> {{ vm.dates.delivery | date:'EEE M/d/yy'}}
-      </p>
-
-      <!-- Tab panes -->
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Client</th>
-            <th>Phone #</th>
-            <th>Last Order</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="client in vm.callList">
-            <td>
-              <a ui-sref="clients.view({clientId: client._id })">{{ client.contact.firstName }} {{ client.contact.lastName }}</a>
-            </td>
-            <td>{{ client.contact.homePhone }}</td>
-            <td>{{ client.contact.orderID }}</td>
-            <td class="text-right">
-              <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View Client"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
-              <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="New Order"><i class="glyphicon glyphicon-shopping-cart" aria-label="New Order"></i></button>
-              <button class="btn btn-default" ui-sref="order.create({ clientId: order.clientId })" tooltip-placement="top" uib-tooltip="Skip Order"><i class="glyphicon glyphicon-share-alt" aria-label="Skip Order"></i></button>
-            </td>
-          </tr>
-        </tbody>
-        <!-- <tfoot>
-          <tr>
-            <td colspan="4">Dates</td>
-          </tr>
-        </tfoot> -->
-      </table>
-      <nav aria-label="...">
-        <ul class="pager">
-          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-          <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-      </nav>
-
-      <!-- <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination> -->
-      <div class="alert alert-warning text-center" ng-if="vm.callList.$resolved && !vm.callList.length">
-        No more Clients to call.
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <h4>Groceries Orders</h4>
-
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Current</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Next</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Last</a></li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
-
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th>Order #</th>
-                <th>Client</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
-                <td>{{ order.requestNumber }}</td>
-                <td>{{ order.name }}</td>
-                <td>{{ order.status }}</td>
-                <td class="text-right">
-                  <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-                  <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4">Dates</td>
-              </tr>
-            </tfoot>
-          </table>
-          <nav aria-label="...">
-            <ul class="pager">
-              <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-              <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-            </ul>
-          </nav>
-
-          <!-- <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination> -->
-        </div>
-      </div>
     </div>
   </div>
 </section>

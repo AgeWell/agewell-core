@@ -1,13 +1,13 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('core')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'coreService', 'ClientsService'];
+  DashboardController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'coreService', 'ClientsService'];
 
-  function DashboardController($scope, $state, $window, Authentication, Notification, coreService, ClientsService) {
+  function DashboardController($scope, $state, $window, $filter, Authentication, Notification, coreService, ClientsService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
     vm.callList = [];
@@ -23,10 +23,13 @@
       nextDelivery: new Date(vm.options.delivery[1])
     };
 
-    vm.callList = ClientsService.query({
+    ClientsService.query({
       active: true,
       groceryCallList: true,
       skip: vm.dates.orderBy
+    }, function(data) {
+      vm.callList = data;
+      buildPager('CallList');
     });
 
     for (var j = 0; j < 5; j++) {
@@ -37,6 +40,34 @@
         name: 'Jane Doe',
         status: 'Active'
       });
+    }
+
+    // Pages related functions
+    vm.buildPager = buildPager;
+    vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
+    vm.pageChanged = pageChanged;
+    vm.itemsPerPage = 6;
+
+    function buildPager(type) {
+      vm['paged' + type] = [];
+      vm[type + 'Page'] = 1;
+      vm.figureOutItemsToDisplay(type);
+    }
+
+    function figureOutItemsToDisplay(type) {
+      vm['filtered' + type] = $filter('filter')(vm.callList, {
+        $: vm.search
+      });
+      vm['filter' + type + 'Length'] = vm['filtered' + type].length;
+      var begin = ((vm[type + 'Page'] - 1) * vm.itemsPerPage);
+      var end = begin + vm.itemsPerPage;
+      console.log(begin, end);
+      console.log(vm['paged' + type]);
+      vm['paged' + type] = vm['filtered' + type].slice(begin, end);
+    }
+
+    function pageChanged(type) {
+      vm.figureOutItemsToDisplay(type);
     }
   }
 }());
