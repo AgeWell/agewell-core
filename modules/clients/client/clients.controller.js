@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Clients controller
@@ -8,7 +8,7 @@
 
   ClientsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'coreService', 'clientResolve'];
 
-  function ClientsController ($scope, $state, $window, Authentication, Notification, coreService, client) {
+  function ClientsController($scope, $state, $window, Authentication, Notification, coreService, client) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -21,7 +21,14 @@
     vm.log = log;
 
     if (!vm.client._id) {
-      vm.client.contact = {};
+      vm.client.active = true;
+      vm.client.groceryCallList = true;
+      vm.client.contact = {
+        address: {
+          city: 'Duluth',
+          state: 'MN'
+        }
+      };
     }
 
     if (!vm.client.groceryCallList) {
@@ -75,7 +82,9 @@
       function successCallback(res) {
         console.log(res);
         console.log(vm.client);
-        Notification.info({ message: 'Update successful!' });
+        Notification.info({
+          message: 'Update successful!'
+        });
       }
 
       function errorCallback(res) {

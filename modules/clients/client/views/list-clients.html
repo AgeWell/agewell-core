@@ -19,6 +19,7 @@
         <th>Other</th>
         <th class="text-right">Services</th>
         <th class="text-right">Call List</th>
+        <th class="text-right">Active</th>
         <th class="text-right">Actions</th>
       </tr>
     </thead>
@@ -49,8 +50,13 @@
           </button>
         </td>
         <td class="text-right" ng-click="$event.stopPropagation()">
-          <button class="btn" ng-click="vm.toggleCallList(client)" ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
+          <button class="btn" ng-click="vm.toggle('groceryCallList', client)" ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
             <i class="glyphicon" ng-class="client.groceryCallList ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
+          </button>
+        </td>
+        <td class="text-right" ng-click="$event.stopPropagation()">
+          <button class="btn" ng-click="vm.toggle('active', client)" ng-class="client.active ? 'btn-success' : 'btn-danger'">
+            <i class="glyphicon" ng-class="client.active ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
           </button>
         </td>
         <td class="text-right">

@@ -21,7 +21,10 @@ var VolunteerSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  active: Boolean,
+  active: {
+    type: Boolean,
+    default: false
+  },
   terminated: Boolean,
   terminationCause: String,
   RSVPVolunteer: Boolean,

@@ -10,7 +10,7 @@
   function ClientsListController($filter, Notification, ClientsService) {
     var vm = this;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
-    vm.toggleCallList = toggleCallList;
+    vm.toggle = toggle;
 
     vm.clients = ClientsService.query();
 
@@ -24,9 +24,9 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
-    function toggleCallList(client) {
+    function toggle(field, client) {
       console.log('client', client);
-      client.groceryCallList = !client.groceryCallList;
+      client[field] = !client[field];
 
       client.$update(successCallback, errorCallback);
 
@@ -38,7 +38,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        client.groceryCallList = !client.groceryCallList;
+        client[field] = !client[field];
       }
     }
 

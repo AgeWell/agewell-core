@@ -19,14 +19,18 @@
 
     vm.editProfile = $stateParams.editProfile || false;
 
-    if (vm.editProfile) {
+    if (!vm.volunteer._id) {
       vm.volunteer.contact = {
-        name: {
-          first: Authentication.user.firstName,
-          last: Authentication.user.lastName
-        },
-        email: Authentication.user.email
+        address: {
+          state: 'MN'
+        }
       };
+    }
+
+    if (vm.editProfile) {
+      vm.volunteer.contact.firstName = Authentication.user.firstName;
+      vm.volunteer.contact.lastName = Authentication.user.lastName;
+      vm.volunteer.contact.email = Authentication.user.email;
     }
 
     console.log(vm);
@@ -64,6 +68,5 @@
         vm.error = res.data.message;
       }
     }
-
   }
 }());
