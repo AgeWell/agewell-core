@@ -47,8 +47,8 @@ describe('Contact Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without email', function(done) {
-      contact.email = '';
+    it('should be able to show an error when try to save without firstName', function(done) {
+      contact.firstName = '';
 
       contact.save(function(err) {
         should.exist(err);
