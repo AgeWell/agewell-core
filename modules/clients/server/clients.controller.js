@@ -106,9 +106,15 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   console.log(req.query);
 
-  if (req.query.skip) {
-    req.query.skip = {
-      $ne: new Date(req.query.skip)
+  if (req.query.lastSkip) {
+    req.query.lastSkip = {
+      $ne: new Date(req.query.lastSkip)
+    };
+  }
+
+  if (req.query.lastOrder) {
+    req.query.lastOrder = {
+      $ne: new Date(req.query.lastOrder)
     };
   }
 

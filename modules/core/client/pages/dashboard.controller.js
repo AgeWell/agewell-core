@@ -5,11 +5,12 @@
     .module('core')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$scope', '$state', '$window', '$filter', 'Authentication', 'Notification', 'coreService', 'ClientsService'];
+  DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'OrdersService'];
 
-  function DashboardController($scope, $state, $window, $filter, Authentication, Notification, coreService, ClientsService, OrdersService) {
+  function DashboardController($scope, $state, $window, $filter, $uibModal, Authentication, Notification, coreService, ClientsService, OrdersService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
+    vm.skip = skip;
     vm.callList = [];
     vm.orders = [];
 
@@ -26,19 +27,61 @@
     ClientsService.query({
       active: true,
       groceryCallList: true,
-      skip: vm.dates.orderBy
+      lastSkip: vm.dates.orderBy,
+      lastOrder: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
       buildPager('CallList');
     });
 
+
+    function skip(client) {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        template: '<div class="modal-header"><h3 class="modal-title">Skip order</h3></div>' +
+          '<div class="modal-body">Does this client want to skip ordering this week?</div>' +
+          '<div class="modal-footer">' +
+          '<button class="btn btn-warning" type="button" ng-click="vm.modalOk()">OK</button>' +
+          '<button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancel</button>' +
+          '</div>',
+        scope: $scope
+      });
+
+      vm.modalOk = function() {
+        modalInstance.close('OK Clicked');
+      };
+      vm.modalCancel = function() {
+        modalInstance.dismiss('Cancel Clicked');
+      };
+
+      modalInstance.result.then(function() {
+        console.log(client);
+        client.lastSkip = vm.dates.orderBy;
+
+        client.$update(successCallback, errorCallback);
+
+        function successCallback(res) {
+          Notification.info({
+            message: 'Update successful!'
+          });
+          pageChanged('CallList');
+        }
+
+        function errorCallback(res) {
+          vm.error = res.data.message;
+        }
+      }, function() {
+        console.info('modal-component dismissed at: ' + new Date());
+      });
+    }
+
     OrdersService.query({
-      active: true,
+      // active: true,
       // groceryCallList: true,
       // date: vm.dates.orderBy
     }, function(data) {
-      vm.callList = data;
-      buildPager('CallList');
+      vm.orders = data;
+      buildPager('Order');
     });
 
     for (var j = 0; j < 5; j++) {

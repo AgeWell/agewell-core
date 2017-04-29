@@ -34,7 +34,8 @@ var ClientSchema = new Schema({
     type: Boolean,
     default: false
   },
-  skip: Date,
+  lastSkip: Date,
+  lastOrder: Date,
   // socialSecurity: Number Maybe later
   monthlyIncomeSingle: {
     type: String,

@@ -45,7 +45,7 @@
                   <div class="btn-group  btn-group-sm">
                     <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View Client"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
                     <button class="btn btn-default" ui-sref="order.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="New Order"><i class="glyphicon glyphicon-shopping-cart" aria-label="New Order"></i></button>
-                    <button class="btn btn-default" ui-sref="order.create()" tooltip-placement="top" uib-tooltip="Skip Order"><i class="glyphicon glyphicon-share-alt" aria-label="Skip Order"></i></button>
+                    <button class="btn btn-default" ng-click="vm.skip(client)" tooltip-placement="top" uib-tooltip="Skip Order"><i class="glyphicon glyphicon-share-alt" aria-label="Skip Order"></i></button>
                   </div>
                 </td>
               </tr>
