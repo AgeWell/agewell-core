@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   Order.find()
   .sort('-created')
-  // .populate('user', 'displayName')
+  .populate('clientId', 'contact')
   .exec(function(err, orders) {
     if (err) {
       return res.status(400).send({
