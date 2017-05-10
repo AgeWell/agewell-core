@@ -14,8 +14,6 @@
     vm.callList = [];
     vm.orders = [];
 
-    console.log(vm);
-
     vm.dates = {
       now: new Date(),
       orderBy: new Date(vm.options.order[0]),
@@ -82,17 +80,10 @@
     }, function(data) {
       vm.orders = data;
       buildPager('Order');
-    });
 
-    for (var j = 0; j < 5; j++) {
-      vm.orders.push({
-        clientId: j,
-        orderId: j,
-        requestNumber: '# ' + j,
-        name: 'Jane Doe',
-        status: 'Active'
-      });
-    }
+      console.log(vm.orders);
+      console.log(vm);
+    });
 
     // Pages related functions
     vm.buildPager = buildPager;

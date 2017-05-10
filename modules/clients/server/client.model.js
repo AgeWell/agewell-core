@@ -53,6 +53,13 @@ var ClientSchema = new Schema({
   // Referred to--CHANGE THIS LIST
   comments: String
   // placements: String,
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 ClientSchema.virtual('contact', {

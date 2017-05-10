@@ -26,15 +26,15 @@ let RequestSchema = new Schema({
   },
   notes: String,
   payment: {
-    status: Boolean,
+    paid: Boolean,
     date: Date
   },
   fullfilled: {
-    type: Boolean,
+    status: Boolean,
     date: Date
   },
   canceled: {
-    type: Boolean,
+    status: Boolean,
     date: Date
   },
   clientId: {
@@ -45,10 +45,24 @@ let RequestSchema = new Schema({
     type: Date,
     default: Date.now
   }
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 RequestSchema.plugin(AutoIncrement, {
   inc_field: 'requestNumber'
+});
+
+RequestSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: 'clientId',
+  foreignField: 'client',
+  justOne: true
 });
 
 module.exports = mongoose.model('Request', RequestSchema);
