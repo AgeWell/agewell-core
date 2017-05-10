@@ -30,7 +30,7 @@
       lastOrder: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
-      buildPager('CallList');
+      buildPager('callList', 6);
     });
 
 
@@ -63,7 +63,7 @@
           Notification.info({
             message: 'Update successful!'
           });
-          pageChanged('CallList');
+          pageChanged('callList', 6);
         }
 
         function errorCallback(res) {
@@ -80,7 +80,7 @@
       // date: vm.dates.orderBy
     }, function(data) {
       vm.orders = data;
-      buildPager('Order');
+      buildPager('orders', 5);
 
       console.log(vm.orders);
       console.log(vm);
@@ -92,19 +92,20 @@
     vm.pageChanged = pageChanged;
     vm.itemsPerPage = 6;
 
-    function buildPager(type) {
+    function buildPager(type, per) {
       vm['paged' + type] = [];
       vm[type + 'Page'] = 1;
+      vm[type + 'PerPage'] = per;
       vm.figureOutItemsToDisplay(type);
     }
 
     function figureOutItemsToDisplay(type) {
-      vm['filtered' + type] = $filter('filter')(vm.callList, {
+      vm['filtered' + type] = $filter('filter')(vm[type], {
         $: vm.search
       });
       vm['filter' + type + 'Length'] = vm['filtered' + type].length;
-      var begin = ((vm[type + 'Page'] - 1) * vm.itemsPerPage);
-      var end = begin + vm.itemsPerPage;
+      var begin = ((vm[type + 'Page'] - 1) * vm[type + 'PerPage']);
+      var end = begin + vm[type + 'PerPage'];
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
     }
 
@@ -125,5 +126,32 @@
         status: 'Active'
       });
     }
+    buildPager('actions', 3);
+
+    // Pages related functions
+    // vm.actionsPager = actionsPager;
+    // vm.actionsToDisplay = actionsToDisplay;
+    // vm.actionspageChanged = actionspageChanged;
+    // vm.actionsPerPage = 3;
+    //
+    // function actionsPager(type) {
+    //   vm['paged' + type] = [];
+    //   vm[type + 'Page'] = 1;
+    //   vm.actionsToDisplay(type);
+    // }
+    //
+    // function actionsToDisplay(type) {
+    //   vm.actionsList = $filter('filter')(vm.callList, {
+    //     $: vm.search
+    //   });
+    //   vm['filter' + type + 'Length'] = vm['filtered' + type].length;
+    //   var begin = ((vm[type + 'Page'] - 1) * vm.itemsPerPage);
+    //   var end = begin + vm.itemsPerPage;
+    //   vm['paged' + type] = vm['filtered' + type].slice(begin, end);
+    // }
+    //
+    // function actionspageChanged(type) {
+    //   vm.actionsToDisplay(type);
+    // }
   }
 }());

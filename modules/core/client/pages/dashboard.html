@@ -10,10 +10,10 @@
       </div>
     </div>
   </div>
-  <div class="row well well-sm">
+  <div class="row well well-sm" ng-hide="vm.pagedactions.length === 0">
     <h4 class="col-sm-12">Important Actions <span class="badge">{{ vm.actions.length }}</span></h4>
     <div class="row col-sm-12">
-      <div ng-repeat="action in vm.actions" class="col-xs-4">
+      <div ng-repeat="action in vm.pagedactions" class="col-xs-4">
         <div class="panel panel-primary">
           <div class="panel-heading">{{ action.type }}</div>
           <div class="panel-body">
@@ -29,6 +29,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center">
+      <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.actionsPerPage" total-items="vm.filteractionsLength" ng-model="vm.actionsPage" ng-change="vm.pageChanged('actions')"></ul>
     </div>
   </div>
   <div class="row well">
@@ -53,10 +56,10 @@
             <tbody>
               <tr>
                 <td colspan="4">
-                  <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('CallList')" />
+                  <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('callList')" />
                 </td>
               </tr>
-              <tr ng-repeat="client in vm.pagedCallList" ng-hide="vm.pagedCallList.length === 0">
+              <tr ng-repeat="client in vm.pagedcallList" ng-hide="vm.pagedcallList.length === 0">
                 <td>
                   <a ui-sref="clients.view({clientId: client._id })">{{ client.contact.firstName }} {{ client.contact.lastName }}</a>
                 </td>
@@ -79,9 +82,9 @@
               </tr>
             </tbody>
             <tfoot>
-              <tr ng-if="vm.filterCallListLength > 0">
+              <tr ng-if="vm.filtercallListLength > 0">
                 <td colspan="4" class="text-center">
-                  <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterCallListLength" ng-model="vm.CallListPage" ng-change="vm.pageChanged('CallList')"></ul>
+                  <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filtercallListLength" ng-model="vm.callListPage" ng-change="vm.pageChanged('callList')"></ul>
                 </td>
               </tr>
               <tr>
