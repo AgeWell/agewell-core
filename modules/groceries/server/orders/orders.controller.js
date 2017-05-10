@@ -105,6 +105,7 @@ exports.orderByID = function(req, res, next, id) {
 
   Order.findById(id)
     // .populate('user', 'displayName')
+    .populate('contact')
     .exec(function(err, order) {
       if (err) {
         return next(err);

@@ -1,26 +1,89 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.groceriesToGo.name"></h1>
+    <h1>Order #{{ vm.order._id }}</h1>
   </div>
-  <div class="pull-right"
-       ng-show="vm.groceriesToGo.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="groceriesToGos.edit({ groceriesToGoId: vm.groceriesToGo._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+  <div class="col-md-8">
+    <div class="alert alert-info" role="alert">
+      This order is to be delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
+    </div>
+    <table class="table table-bordered table-hover table-condensed" style="margin: 0; border-bottom: none;">
+      <tr style="font-weight: bold">
+        <td style="width:50%">Item</td>
+        <td style="width:30%">Category</td>
+        <td style="width:20%">Qty</td>
+      </tr>
+      <tr ng-repeat="item in vm.order.items">
+        <td>{{ item.name }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.qty || '0' }}</td>
+      </tr>
+    </table>
+    <table class="table table-bordered table-hover table-condensed">
+      <!-- <tr style="font-weight: bold">
+        <td class="text-right" style="width:80%">
+          SubTotal:
+        </td>
+        <td style="width:20%">
+          {{ vm.order.subtotal | currency }}
+        </td>
+      </tr> -->
+      <!-- <tr style="font-weight: bold">
+        <td class="text-right" style="width:80%">
+          Tax:
+        </td>
+        <td style="width:20%">
+          {{ vm.order.tax | currency }}
+        </td>
+      </tr> -->
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:80%">
+          Reciept Total:
+        </td>
+        <td style="width:20%; padding: 0" class="reciept-total">
+          <input type="text" id="price" name="price" class="form-control" ng-model="vm.order.recieptTotal" placeholder="0.00" ng-change="vm.update()" />
+          <!-- {{ vm.order.recieptTotal | currency }} -->
+        </td>
+      </tr>
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:80%">
+          Delivery Cost:
+        </td>
+        <td style="width:20%">
+          {{ vm.order.deliveryCost | currency }}
+        </td>
+      </tr>
+      <tr style="font-weight: bold">
+        <td class="text-right" style="width:80%">
+          Total:
+        </td>
+        <td style="width:20%">
+          {{ vm.order.total | currency }}
+        </td>
+      </tr>
+    </table>
+    <div>
+      <label class="control-label" for="notes">Notes</label>
+      <p>{{ vm.order.notes }}</p>
+    </div>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.groceriesToGo.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.groceriesToGo.user"
-            ng-bind="vm.groceriesToGo.user.displayName"></span>
-      <span ng-if="!vm.groceriesToGo.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.groceriesToGo.content"></p>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><strong>Client Info</strong></div>
+      <div class="panel-body">
+        <div>
+          <strong><a ui-sref="clients.view({ clientId: vm.order.clientId })">{{vm.order.contact.firstName}} {{vm.order.contact.lastName}}</a></strong>
+        </div>
+        <p>
+          <div ng-bind="vm.order.contact.address.street"></div>
+          <div ng-bind="vm.order.contact.address.additional" ng-show="vm.contact.order.address.additional"></div>
+          <span ng-bind="vm.order.contact.address.city"></span>,
+          <span ng-bind="vm.order.contact.address.state"></span>
+          <span ng-bind="vm.order.contact.address.zipcode"></span>
+        </p>
+        <p><strong>Home Phone:</strong> {{vm.order.contact.homePhone}}</p>
+        <p><strong>Work Phone:</strong> {{vm.order.contact.workPhone}}</p>
+        <p><strong>Cell Phone:</strong> {{vm.order.contact.cellPhone}}</p>
+      </div>
+    </div>
+  </div>
 </section>

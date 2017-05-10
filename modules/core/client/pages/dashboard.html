@@ -101,9 +101,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
-                    <td>{{ order.requestNumber }}</td>
-                    <td>{{ order.name }}</td>
+                  <tr ng-repeat="order in vm.orders">
+                    <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+                    <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
                     <td>{{ order.status }}</td>
                     <td class="text-right">
                       <div class="btn-group  btn-group-sm">
