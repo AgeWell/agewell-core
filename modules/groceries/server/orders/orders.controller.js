@@ -81,7 +81,6 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   Order.find()
   .sort('-created')
-  .populate('clientId')
   .populate('contact')
   .exec(function(err, orders) {
     if (err) {
@@ -89,7 +88,6 @@ exports.list = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-    console.log(orders[0].client);
     res.jsonp(orders);
   });
 };

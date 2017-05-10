@@ -104,7 +104,7 @@ exports.delete = function(req, res) {
  * List of Clients
  */
 exports.list = function(req, res) {
-  console.log(req.query);
+  // console.log(req.query);
 
   if (req.query.lastSkip) {
     req.query.lastSkip = {
