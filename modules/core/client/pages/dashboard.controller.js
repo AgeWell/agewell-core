@@ -13,6 +13,7 @@
     vm.skip = skip;
     vm.callList = [];
     vm.orders = [];
+    vm.actions = [];
 
     vm.dates = {
       now: new Date(),
@@ -109,6 +110,20 @@
 
     function pageChanged(type) {
       vm.figureOutItemsToDisplay(type);
+    }
+
+    for (var j = 0; j < 5; j++) {
+      vm.actions.push({
+        clientId: j,
+        actionId: j,
+        type: 'House Check',
+        note: 'Needs a follow up. make sure to address this.',
+        contact: {
+          firstName: 'Jane',
+          lastName: 'Doe'
+        },
+        status: 'Active'
+      });
     }
   }
 }());

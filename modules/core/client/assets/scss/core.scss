@@ -74,6 +74,12 @@ td {
   }
 }
 
+li {
+  &.panel {
+    list-style: none;
+  }
+}
+
 .jumbotron {
   background: none;
 }
