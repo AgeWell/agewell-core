@@ -10,7 +10,12 @@
   function PicklistController(OrdersService, $stateParams) {
     let vm = this;
 
-    vm.orders = OrdersService.query();
-    vm.clientid = $stateParams.clientId;
+    vm.orders = OrdersService.query({
+      status: 'ordered'
+    // }, function(data) {
+    //   vm.picklist = data;
+    });
+
+    console.log(vm);
   }
 }());

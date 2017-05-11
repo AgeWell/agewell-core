@@ -19,11 +19,6 @@
       vm.isMobile = true;
     }
 
-    console.log($window.innerWidth);
-
-    console.log(vm.orders);
-
-
     function getAddress(address) {
       // console.log(address);
       return address.street + ', ' + address.city + ', ' + address.state + ' ' + address.zipcode;
