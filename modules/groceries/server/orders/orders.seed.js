@@ -125,7 +125,7 @@ let docArray = [{
 }];
 
 /**
- * Create a Volunteer
+ * Seed the test orders
  */
 exports.seed = function(done) {
 
