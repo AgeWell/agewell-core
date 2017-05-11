@@ -19,7 +19,7 @@ let docArray = [{
   'notes': 'Voluptas voluptatem. Culpa, aspernatur distinctio. Fugiat vel ex facilis non doloribus fugiat, adipisci obcaecati et quod qui veritatis.',
   '__t': 'Order',
   'created': new Date('2017-04-28T23:03:55.650Z'),
-  'status': 'pending',
+  'status': 'ordered',
   'items': [{
     'category': 'Dairy/Refrigerated',
     'qty': 3,
@@ -46,7 +46,7 @@ let docArray = [{
   'notes': 'Reprehenderit, consequatur libero qui dignissimos eos, quos qui odit nulla ut odit inventore deserunt suscipit.',
   '__t': 'Order',
   'created': new Date('2017-04-28T23:04:23.078Z'),
-  'status': 'pending',
+  'status': 'ordered',
   'items': [{
     'category': 'Meats',
     'qty': 4,
@@ -73,7 +73,7 @@ let docArray = [{
   'notes': 'Cillum beatae quis ad consectetur tempor hic dignissimos magnam quia laboris.',
   '__t': 'Order',
   'created': new Date('2017-04-28T23:04:47.757Z'),
-  'status': 'pending',
+  'status': 'ordered',
   'items': [{
     'category': 'Meats',
     'qty': 20,
@@ -104,7 +104,7 @@ let docArray = [{
   'notes': 'Accusantium quam dolor quibusdam cupiditate voluptate quis id et consequatur? Adipisicing recusandae. Ea delectus, et placeat.',
   '__t': 'Order',
   'created': new Date('2017-04-28T23:18:47.909Z'),
-  'status': 'pending',
+  'status': 'ordered',
   'items': [{
     'category': 'Dairy/Refrigerated',
     'qty': 4,
