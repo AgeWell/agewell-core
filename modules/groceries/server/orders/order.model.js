@@ -46,6 +46,7 @@ let OrderSchema = new Schema({
     enum: [
       'pending',
       'ordered',
+      // 'incart',
       'purchased',
       'delivered',
       'canceled',

@@ -10,10 +10,13 @@
   function DashboardController($scope, $state, $window, $filter, $uibModal, Authentication, Notification, coreService, ClientsService, OrdersService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
+    vm.approve = approve;
     vm.skip = skip;
+    vm.setFilter = setFilter;
     vm.callList = [];
     vm.orders = [];
     vm.actions = [];
+    vm.ordersFilter = 'ordered';
 
     vm.dates = {
       now: new Date(),
@@ -101,16 +104,23 @@
 
     function figureOutItemsToDisplay(type) {
       vm['filtered' + type] = $filter('filter')(vm[type], {
-        $: vm.search
+        $: vm[type + 'Filter']
       });
       vm['filter' + type + 'Length'] = vm['filtered' + type].length;
       var begin = ((vm[type + 'Page'] - 1) * vm[type + 'PerPage']);
       var end = begin + vm[type + 'PerPage'];
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
+      console.log(vm['paged' + type]);
     }
 
     function pageChanged(type) {
       vm.figureOutItemsToDisplay(type);
+    }
+
+    function setFilter(value) {
+      vm.ordersFilter = value;
+      vm.figureOutItemsToDisplay('orders');
+      console.log(value);
     }
 
     for (var j = 0; j < 5; j++) {
@@ -153,5 +163,22 @@
     // function actionspageChanged(type) {
     //   vm.actionsToDisplay(type);
     // }
+
+    function approve(order) {
+      order.status = 'ordered';
+
+      order.$update(successCallback, errorCallback);
+
+      function successCallback(res) {
+        Notification.info({
+          message: 'Update successful!'
+        });
+        pageChanged('callList', 6);
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
   }
 }());

@@ -10,30 +10,6 @@
       </div>
     </div>
   </div>
-  <div class="row well well-sm" ng-hide="vm.pagedactions.length === 0">
-    <h4 class="col-sm-12">Important Actions <span class="badge">{{ vm.actions.length }}</span></h4>
-    <div class="row col-sm-12">
-      <div ng-repeat="action in vm.pagedactions" class="col-xs-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">{{ action.type }}</div>
-          <div class="panel-body">
-            <div>
-              <strong>{{ action.contact.firstName }} {{ action.contact.lastName }}</strong>
-            </div>
-            <p>{{ action.note }}</p>
-            <div class="text-right">
-              <button class="btn btn-default" ui-sref="dashboard" tooltip-placement="top" uib-tooltip="Edit">
-              <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
-            </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="text-center">
-      <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.actionsPerPage" total-items="vm.filteractionsLength" ng-model="vm.actionsPage" ng-change="vm.pageChanged('actions')"></ul>
-    </div>
-  </div>
   <div class="row well">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h3>Groceries To Go</h3>
@@ -56,7 +32,7 @@
             <tbody>
               <tr>
                 <td colspan="4">
-                  <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('callList')" />
+                  <input class="form-control col-md-4" type="text" ng-model="vm.callListFilter" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('callList')" />
                 </td>
               </tr>
               <tr ng-repeat="client in vm.pagedcallList" ng-hide="vm.pagedcallList.length === 0">
@@ -106,9 +82,18 @@
         <div class="panel-body">
 
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Current</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Next</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Last</a></li>
+            <li role="presentation" ng-class="{'active': vm.ordersFilter === 'pending'}">
+              <a ng-click="vm.setFilter('pending')" aria-controls="home" role="tab" data-toggle="tab">Pending</a>
+            </li>
+            <li role="presentation" ng-class="{'active': vm.ordersFilter === 'ordered'}">
+              <a ng-click="vm.setFilter('ordered')" aria-controls="profile" role="tab" data-toggle="tab">Ordered</a>
+            </li>
+            <li role="presentation" ng-class="{'active': vm.ordersFilter === 'purchased'}">
+              <a ng-click="vm.setFilter('purchased')" aria-controls="messages" role="tab" data-toggle="tab">Purchased</a>
+            </li>
+            <li role="presentation" ng-class="{'active': vm.ordersFilter === 'delivered'}">
+              <a ng-click="vm.setFilter('delivered')" aria-controls="messages" role="tab" data-toggle="tab">Delivered</a>
+            </li>
           </ul>
 
           <!-- Tab panes -->
@@ -125,36 +110,56 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="order in vm.orders">
+                  <tr ng-repeat="order in vm.pagedorders">
                     <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
                     <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
                     <td>{{ order.status }}</td>
                     <td class="text-right">
                       <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-default" ng-click="vm.approve(order)" tooltip-placement="top" uib-tooltip="Confirm Order"><i class="glyphicon glyphicon-share-alt" aria-label="Confirm Order"></i></button>
                         <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
                         <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
                       </div>
                     </td>
                   </tr>
                 </tbody>
-                <tfoot>
+                <!-- <tfoot>
                   <tr>
                     <td colspan="4">Dates</td>
                   </tr>
-                </tfoot>
+                </tfoot> -->
               </table>
-              <nav aria-label="...">
-                <ul class="pager">
-                  <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-                  <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-                </ul>
-              </nav>
-
-              <!-- <ul uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul> -->
+                <div class="text-center" ng-hide="vm.filterordersLength === 0">
+                  <ul uib-pagination boundary-links="false" max-size="5" items-per-page="vm.itemsPerPage" total-items="vm.filterordersLength" ng-model="vm.ordersPage" ng-change="vm.pageChanged('orders')"></ul>
+                </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row well well-sm" ng-hide="vm.pagedactions.length === 0">
+    <h4 class="col-sm-12">Important Actions <span class="badge">{{ vm.actions.length }}</span></h4>
+    <div class="row col-sm-12">
+      <div ng-repeat="action in vm.pagedactions" class="col-xs-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{ action.type }}</div>
+          <div class="panel-body">
+            <div>
+              <strong>{{ action.contact.firstName }} {{ action.contact.lastName }}</strong>
+            </div>
+            <p>{{ action.note }}</p>
+            <div class="text-right">
+              <button class="btn btn-default" ui-sref="dashboard" tooltip-placement="top" uib-tooltip="Edit">
+              <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.actionsPerPage" total-items="vm.filteractionsLength" ng-model="vm.actionsPage" ng-change="vm.pageChanged('actions')"></ul>
     </div>
   </div>
 </section>
