@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1>Order #{{ vm.order._id }}</h1>
+    <h1 class="text-capitalize">Order #{{ vm.order.requestNumber }} - {{ vm.order.status }}</h1>
   </div>
   <div class="col-md-8">
     <div class="alert alert-info" role="alert">
@@ -67,6 +67,13 @@
     </div>
   </div>
   <div class="col-md-4">
+    <div class="btn-group btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'canceled'">Cancle</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'ordered'">Confirm</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'purchased'">Purchase</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'delivered'">Deliver</button>
+    </div>
+    <hr />
     <div class="panel panel-primary">
       <div class="panel-heading"><strong>Client Info</strong></div>
       <div class="panel-body">
