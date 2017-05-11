@@ -150,8 +150,8 @@ exports.seed = function(done) {
   }
 
   Order.find({}, function(err, orders) {
-    if (orders.length !== total) {
-      // saveAll();
+    if (orders.length < total) {
+      saveAll();
     }
   });
 };
