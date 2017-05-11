@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
+        <tr ng-repeat="order in vm.orders">
           <td>{{ order.requestNumber }}</td>
           <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
@@ -24,6 +24,7 @@
           <td>
             <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
             <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+            <a class="btn btn-default" href="maps://maps.google.com/?q={{ vm.getAddress(order.contact.address) }}" target="_blank"><i class="glyphicon glyphicon-road" aria-label="Directions"></i></a>
           </td>
         </tr>
       </tbody>

@@ -16,7 +16,7 @@
       })
       .state('groceries.list', {
         url: '/list',
-        templateUrl: 'modules/groceries/client/views/list-groceries.html',
+        templateUrl: 'modules/groceries/client/views/picklist.html',
         controller: 'PicklistController',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('groceries.checkout', {
         url: '/checkout',
-        templateUrl: '/modules/groceries/client/views/checkout-groceries.html',
+        templateUrl: '/modules/groceries/client/views/checkout.html',
         controller: 'CheckoutController',
         controllerAs: 'vm',
         data: {
@@ -34,7 +34,7 @@
       })
       .state('groceries.delivery', {
         url: '/delivery',
-        templateUrl: '/modules/groceries/client/views/delivery-groceries.html',
+        templateUrl: '/modules/groceries/client/views/delivery.html',
         controller: 'DeliveryController',
         controllerAs: 'vm',
         data: {

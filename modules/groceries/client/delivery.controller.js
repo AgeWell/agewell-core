@@ -12,5 +12,14 @@
 
     vm.orders = OrdersService.query();
     vm.clientid = $stateParams.clientId;
+    vm.getAddress = getAddress;
+
+    console.log(vm.orders);
+
+
+    function getAddress(address) {
+      console.log(address);
+      return address.street + ', ' + address.city + ', ' + address.state + ' ' + address.zipcode;
+    }
   }
 }());

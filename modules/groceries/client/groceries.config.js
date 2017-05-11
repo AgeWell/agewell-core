@@ -32,7 +32,7 @@
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'groceries', {
-      title: 'Create Client',
+      title: 'Delivery List',
       state: 'groceries.delivery',
       roles: ['admin', 'volunteer']
     });
