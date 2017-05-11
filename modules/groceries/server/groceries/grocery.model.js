@@ -22,6 +22,10 @@ let GrocerySchema = new Schema({
     trim: true
   },
   qty: Number,
+  inCart: {
+    type: Boolean,
+    default: false
+  },
   unit: String,
   price: Number,
   category: {
