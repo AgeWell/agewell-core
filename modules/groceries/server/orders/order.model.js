@@ -8,7 +8,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Request = require(path.resolve('./modules/services/server/requests/request.model'));
-// const Money = require(path.resolve('./modules/services/server/money.model')).schema;
 const Item = require(path.resolve('./modules/groceries/server/groceries/grocery.model'));
 
 /**
@@ -20,7 +19,7 @@ let OrderSchema = new Schema({
     default: shortid.generate
   },
   items: {
-    type: [Item]
+    type: [Item.schema]
   },
   subtotal: {
     type: Number

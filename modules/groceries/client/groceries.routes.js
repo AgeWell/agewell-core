@@ -15,26 +15,30 @@
         template: '<ui-view/>'
       })
       .state('groceries.list', {
-        url: '',
-        templateUrl: 'modules/groceries/client/views/list-orders.html',
-        controller: 'GroceriesListController',
+        url: '/list',
+        templateUrl: 'modules/groceries/client/views/list-groceries.html',
+        controller: 'PicklistController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Groceries to gos List'
+          pageTitle: 'Groceries To Go - Picklist'
         }
       })
-      .state('groceries.orders', {
-        abstract: true,
-        url: '/orders',
-        template: '<ui-view/>'
-      })
-      .state('groceries.orders.list', {
-        url: '',
-        templateUrl: '/modules/groceries/client/views/list-orders.html',
-        controller: 'OrdersListController',
+      .state('groceries.checkout', {
+        url: '/checkout',
+        templateUrl: '/modules/groceries/client/views/checkout-groceries.html',
+        controller: 'CheckoutController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Groceries To Go Orders List'
+          pageTitle: 'Groceries To Go - Checkout'
+        }
+      })
+      .state('groceries.delivery', {
+        url: '/delivery',
+        templateUrl: '/modules/groceries/client/views/delivery-groceries.html',
+        controller: 'DeliveryController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Groceries To Go - Delivery'
         }
         // })
         // .state('groceries.create', {

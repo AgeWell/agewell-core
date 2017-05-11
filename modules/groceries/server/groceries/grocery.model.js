@@ -43,4 +43,4 @@ let GrocerySchema = new Schema({
   }
 });
 
-mongoose.model('Grocery', GrocerySchema);
+module.exports = mongoose.model('Grocery', GrocerySchema);
