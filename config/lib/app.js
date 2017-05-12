@@ -12,7 +12,7 @@ const chalk = require('chalk');
 mongoose.loadModels();
 
 module.exports.init = function init(callback) {
-  mongoose.connect(function (db) {
+  mongoose.connect(function(db) {
     // Initialize express
     var app = express.init(db);
     if (callback) callback(app, db, config);
@@ -23,10 +23,10 @@ module.exports.init = function init(callback) {
 module.exports.start = function start(callback) {
   var _this = this;
 
-  _this.init(function (app, db, config) {
+  _this.init(function(app, db, config) {
 
     // Start the app by listening on <port> at <host>
-    app.listen(config.port, config.host, function () {
+    app.listen(config.port, config.host, function() {
       // Create server URL
       var server = (process.env.NODE_ENV === 'secure' ? 'https://' : 'http://') + config.host + ':' + config.port;
       // Logging initialization
@@ -45,5 +45,4 @@ module.exports.start = function start(callback) {
     });
 
   });
-
 };
