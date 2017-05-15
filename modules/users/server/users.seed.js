@@ -59,7 +59,7 @@ exports.seed = function(done) {
 
   User.find({}, function(err, users) {
     if (users.length !== total) {
-      // saveAll();
+      saveAll();
     }
   });
 };
