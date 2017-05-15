@@ -176,7 +176,7 @@ exports.seed = function(done) {
 
   Client.find({}, function(err, clients) {
     if (clients.length !== total) {
-      // saveAll();
+      saveAll();
     }
   });
 };

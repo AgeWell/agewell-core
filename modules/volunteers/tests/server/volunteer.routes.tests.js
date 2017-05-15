@@ -1,12 +1,12 @@
 'use strict';
 
-let should = require('should'),
-  request = require('supertest'),
-  path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Volunteer = mongoose.model('Volunteer'),
-  express = require(path.resolve('./config/lib/express'));
+const should = require('should');
+const request = require('supertest');
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Volunteer = mongoose.model('Volunteer');
+const express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
@@ -79,6 +79,7 @@ describe('Volunteer CRUD tests', function() {
 
         // Get the userId
         let userId = user.id;
+        console.log(volunteer);
 
         // Save a new Volunteer
         agent.post('/api/volunteers')
@@ -102,6 +103,7 @@ describe('Volunteer CRUD tests', function() {
                 let volunteers = volunteersGetRes.body;
 
                 // Set assertions
+                console.log(volunteers);
                 (volunteers[0].active).should.be.true();
 
                 // Call the assertion callback

@@ -92,7 +92,7 @@ exports.seed = function(done) {
 
   Volunteer.find({}, function(err, volunteers) {
     if (volunteers.length !== total) {
-      // saveAll();
+      saveAll();
     }
   });
 };

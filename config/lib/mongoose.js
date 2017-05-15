@@ -29,15 +29,14 @@ module.exports.connect = function(cb) {
     // Log Error
     if (err) {
       console.error(chalk.red('Could not connect to MongoDB!'));
-      console.log(err);
-    } else {
-
-      // Enabling mongoose debug mode if required
-      mongoose.set('debug', config.db.debug);
-
-      // Call callback FN
-      if (cb) cb(db);
+      return console.log(err);
     }
+
+    // Enabling mongoose debug mode if required
+    mongoose.set('debug', config.db.debug);
+
+    // Call callback FN
+    if (cb) cb(db);
   });
 };
 

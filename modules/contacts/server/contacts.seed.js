@@ -626,7 +626,7 @@ exports.seed = function(done) {
 
   Contact.find({}, function(err, contacts) {
     if (contacts.length < total) {
-      // saveAll();
+      saveAll();
     }
   });
 };
