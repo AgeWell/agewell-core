@@ -7,7 +7,7 @@
       <thead>
         <tr>
           <th>Order #</th>
-          <th>Ordered Date</th>
+          <th>Client</th>
           <th>Delivery Date</th>
           <th># of Items</th>
           <th>Total</th>
@@ -15,15 +15,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
+        <tr ng-repeat="order in vm.orders">
           <td>{{ order.requestNumber }}</td>
-          <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
           <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.items.length }}</td>
-          <td>{{ order.total | currency }}</td>
-          <td>
+          <td>{{ order.recieptTotal === 0 ? '-' : (order.total | currency) }}</td>
+          <td class="text-right">
+            <button class="btn btn-default" ng-click="vm.checkout(order)" tooltip-placement="top" uib-tooltip="View">
+            Checkout</button>
             <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-            <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
           </td>
         </tr>
       </tbody>

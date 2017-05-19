@@ -82,7 +82,7 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
   Order.find()
-    .sort('created')
+    .sort('requestNumber')
     .populate('contact')
     .exec(function(err, orders) {
       if (err) {

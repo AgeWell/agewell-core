@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h3 class="modal-title">Checkout - Reciept</h3>
+</div>
+<div class="modal-body">
+  <div class="alert alert-info" role="alert"><strong>Please confirm that the following are in the cart:</strong></div>
+
+  <form name="vm.form" class="form-horizontal" ng-submit="vm.updateOrder()" novalidate>
+    <div class="col-md-9">
+      <fieldset class="col-md-12">
+        <div class="form-group" show-errors>
+          <label for="recieptTotal">Reciept Total</label>
+          <input type="text" id="recieptTotal" name="recieptTotal" class="form-control" ng-model="vm.current.recieptTotal" placeholder="$24.73" required>
+          <div ng-messages="vm.form.recieptTotal.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">A reciept total is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.client._id ? 'Update' : 'Create'}}</button>
+          <button ng-click="vm.log" class="btn btn-default">Log</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancle</button>
+  <button class="btn" type="button" ng-click="vm.modalOk()">Confirm</button>
+</div>
