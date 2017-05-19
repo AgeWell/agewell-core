@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "private": false,
   "author": "https://github.com/agewell/agewell-core/graphs/contributors",
-  "license": "GPLv3",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/agewell/agewell-core.git"

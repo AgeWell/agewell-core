@@ -16,7 +16,7 @@
       })
       .state('groceries.list', {
         url: '/list',
-        templateUrl: 'modules/groceries/client/views/picklist.html',
+        templateUrl: '/modules/groceries/client/views/picklist.html',
         controller: 'PicklistController',
         controllerAs: 'vm',
         data: {
