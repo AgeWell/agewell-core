@@ -58,7 +58,7 @@ module.exports = {
       'modules/**/*/img/**/*.gif',
       'modules/**/*/img/**/*.svg'
     ],
-    views: ['modules/*/client/**/*.tpl.html'],
+    views: ['modules/*/client/**/*.tpl.html', 'modules/*/client/**/*.html'],
     templates: ['build/templates.js']
   },
   server: {

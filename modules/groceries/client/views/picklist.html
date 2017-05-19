@@ -13,12 +13,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
-          <td>{{ order.requestNumber }}</td>
-          <td>{{ order.category }}</td>
-          <td>{{ order.items.length }}</td>
+        <tr ng-repeat="item in vm.picklist">
+          <td>{{ item.name }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.qty }}</td>
           <td>
-            <button class="btn btn-default" ng-click="vm.toggleCart(order._id, 0)" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon" ng-class="false ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
+            <button class="btn btn-default" ng-click="vm.toggle(item)" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
           </td>
         </tr>
       </tbody>

@@ -5,34 +5,49 @@
     .module('groceries')
     .controller('PicklistController', PicklistController);
 
-  PicklistController.$inject = ['OrdersService', '$stateParams'];
+  PicklistController.$inject = ['$stateParams', 'Notification', 'OrdersService'];
 
-  function PicklistController(OrdersService, $stateParams) {
+  function PicklistController($stateParams, Notification, OrdersService) {
     let vm = this;
 
+    vm.picklist = [];
     vm.toggle = toggle;
 
     vm.orders = OrdersService.query({
       status: 'ordered'
-    // }, function(data) {
-    //   vm.picklist = data;
+    }, function(orders) {
+      for (let i = 0; i < orders.length; i++) {
+        let order = orders[i];
+        for (let j = 0; j < order.items.length; j++) {
+          vm.picklist.push({
+            name: order.items[j].name,
+            keys: [i, j],
+            category: order.items[j].category,
+            qty: order.items[j].qty,
+            clientId: orders[i].clientId,
+            inCart: order.items[j].inCart
+          });
+        }
+      }
     });
 
-    function toggle(order, itemId) {
-      console.log('client', order);
-      order.items[itemId].inCart = !order.items[itemId].inCart;
+    function toggle(itemData) {
+      let order = vm.orders[itemData.keys[0]];
+      let item = order.items[itemData.keys[1]];
 
-      order.$cart(successCallback, errorCallback);
+      itemData.inCart = !itemData.inCart;
+      item.inCart = !item.inCart;
+
+      order.$update(successCallback, errorCallback);
 
       function successCallback(res) {
-        console.log(res);
-        console.log(order);
         Notification.info({ message: 'Update successful!' });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        order.items[itemId].inCart = !order.items[itemId].inCart;
+        itemData.inCart = !itemData.inCart;
+        item.inCart = !item.inCart;
       }
     }
 

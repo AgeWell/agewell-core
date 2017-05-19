@@ -17,9 +17,6 @@ module.exports = function(app) {
     .put(orders.update)
     .delete(orders.delete);
 
-  app.route('/api/orders/:orderId/items/:itemId/cart').all(ordersPolicy.isAllowed)
-    .get(orders.itemToggleCart);
-
   // Finish by binding the Groceries to go middleware
   app.param('orderId', orders.orderByID);
 };

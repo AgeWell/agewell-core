@@ -48,6 +48,7 @@ exports.update = function(req, res) {
   let order = req.order;
 
   order = _.extend(order, req.body);
+  console.log(order.items[0].inCart);
 
   order.save(function(err) {
     if (err) {
@@ -55,40 +56,9 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
+    console.log(order.items[0].inCart);
     res.jsonp(order);
   });
-};
-
-/**
- * Update a Groceries to go
- */
-exports.itemToggleCart = function(req, res) {
-  let order = req.order;
-  let itemKey = req.itemKey;
-
-  order.update({
-    'items.id': itemKey
-  }, {
-    '$set': {
-      'items.$.inCart': !order.items[itemKey].inCart
-    }
-  }, function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-    res.jsonp(order);
-  });
-
-  // order.save(function(err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   }
-  //   res.jsonp(order);
-  // });
 };
 
 /**
@@ -150,9 +120,4 @@ exports.orderByID = function(req, res, next, id) {
       req.order = order;
       next();
     });
-};
-
-exports.itemId = function(req, res, next, id) {
-  req.itemKey = id;
-  next();
 };
