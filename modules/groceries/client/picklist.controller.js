@@ -11,8 +11,10 @@
     let vm = this;
 
     vm.picklist = [];
-    vm.toggle = toggle;
     vm.complete = false;
+
+    vm.checkout = checkout;
+    vm.toggle = toggle;
 
     vm.orders = OrdersService.query({
       status: 'ordered'
@@ -83,19 +85,28 @@
 
       if (vm.complete) {
         console.log('complete');
-        checkoutReady();
+        checkout();
       }
     }
 
-    function checkoutReady() {
+    function checkout() {
+      let header = 'Pick List Complete';
+      let message = 'All the items on this picklist have been added to the cart. Would you like to continue to the checkout or stay here to review the cart?';
+      let buttonClass = 'success';
+
+      if (!vm.complete) {
+        header = 'Pick List Incomplete';
+        message = 'Some of the items on this pick list have not been added to the cart. Are you sure you would like to continue?';
+        buttonClass = 'danger';
+      }
 
       var modalInstance = $uibModal.open({
         animation: true,
-        template: '<div class="modal-header"><h3 class="modal-title">Pick List Complete</h3></div>' +
-          '<div class="modal-body">All the items on this picklist have been added to the cart. Would you like to continue to the checkout or stay here to review the cart?</div>' +
+        template: '<div class="modal-header"><h3 class="modal-title">' + header + '</h3></div>' +
+          '<div class="modal-body">' + message + '</div>' +
           '<div class="modal-footer">' +
           '<button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Stay Here</button>' +
-          '<button class="btn btn-success" type="button" ng-click="vm.modalOk()">Checkout</button>' +
+          '<button class="btn btn-' + buttonClass + '" type="button" ng-click="vm.modalOk()">Checkout</button>' +
           '</div>',
         scope: $scope
       });

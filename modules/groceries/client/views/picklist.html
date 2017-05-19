@@ -25,6 +25,14 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="text-right">
+            <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.checkout">Checkout</button>
+            <button ng-show="!vm.complete" class="btn btn-danger" ng-click="vm.checkout()">Checkout</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
