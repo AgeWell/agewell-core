@@ -9,17 +9,19 @@
           <th>Item Name</th>
           <th>Category</th>
           <th>Quantity</th>
+          <th>Client</th>
           <th>In Cart</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in vm.picklist">
+        <tr ng-repeat="item in vm.picklist" ng-class="item.inCart ? 'success' : ''">
           <td>{{ item.name }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.qty }}</td>
+          <td>{{ item.client }}</td>
           <td>
-            <button class="btn btn-default" ng-click="vm.toggle(item)" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
-            <button class="btn btn-default" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
+            <button class="btn btn-default" ng-click="vm.toggle(item)"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
           </td>
         </tr>
       </tbody>
