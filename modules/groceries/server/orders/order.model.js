@@ -38,6 +38,7 @@ let OrderSchema = new Schema({
     type: Number,
     required: 'An order must have a total.'
   },
+  recieptImage: String,
   confirmed: Boolean,
   // payment info
   status: {

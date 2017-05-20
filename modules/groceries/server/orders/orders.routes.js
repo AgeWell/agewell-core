@@ -12,10 +12,14 @@ module.exports = function(app) {
     .get(orders.list)
     .post(orders.create);
 
+  app.route('/api/orders/picture').post(users.changeProfilePicture);
+
   app.route('/api/orders/:orderId').all(ordersPolicy.isAllowed)
     .get(orders.read)
     .put(orders.update)
     .delete(orders.delete);
+
+  app.route('/api/orders/:orderId/reciept').post(orders.uploadReciept);
 
   // Finish by binding the Groceries to go middleware
   app.param('orderId', orders.orderByID);

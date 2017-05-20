@@ -94,6 +94,20 @@ exports.list = function(req, res) {
     });
 };
 
+exports.uploadReciept = function(req, res) {
+  Order.find()
+    .sort('requestNumber')
+    .populate('contact')
+    .exec(function(err, orders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(orders);
+    });
+};
+
 /**
  * Groceries to go middleware
  */
