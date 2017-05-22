@@ -131,4 +131,22 @@ ignore:
     - express > finalhandler > debug > ms:
         reason: None given
         expires: '2017-06-14T16:32:28.592Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:ms:20170412':
+    - mongoose > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - morgan > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - socket.io > socket.io-adapter > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - socket.io > socket.io-client > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - mocha > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - compression > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - mongoose > mquery > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
+    - socket.io > socket.io-adapter > socket.io-parser > debug > ms:
+        patched: '2017-05-22T03:07:09.193Z'
