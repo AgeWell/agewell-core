@@ -85,9 +85,9 @@
     function upload(dataUrl) {
 
       Upload.upload({
-        url: '/api/users/picture',
+        url: '/api/orders/reciept',
         data: {
-          newProfilePicture: dataUrl
+          reciept: dataUrl
         }
       }).then(function(response) {
         $timeout(function() {

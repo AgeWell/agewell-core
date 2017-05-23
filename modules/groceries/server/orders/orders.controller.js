@@ -3,12 +3,15 @@
 /**
  * Module dependencies.
  */
+const _ = require('lodash');
+const fs = require('fs');
 const path = require('path');
 const shortid = require('shortid');
 const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
-const _ = require('lodash');
+const upload = require(path.resolve('./config/lib/multer.js'));
+
 
 /**
  * Create a Groceries to go
@@ -94,18 +97,27 @@ exports.list = function(req, res) {
     });
 };
 
-exports.uploadReciept = function(req, res) {
-  Order.find()
-    .sort('requestNumber')
-    .populate('contact')
-    .exec(function(err, orders) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-      res.jsonp(orders);
-    });
+exports.reciept = function(req, res) {
+  upload.putObject(req, function(err, data) {
+    if (err) {
+      return res.status(400).send(err);
+    }
+
+    console.log('data', data);
+    res.jsonp(data);
+  });
+
+  // Order.find()
+  //   .sort('requestNumber')
+  //   .populate('contact')
+  //   .exec(function(err, orders) {
+  //     if (err) {
+  //       return res.status(400).send({
+  //         message: errorHandler.getErrorMessage(err)
+  //       });
+  //     }
+  //     res.jsonp(orders);
+  //   });
 };
 
 /**

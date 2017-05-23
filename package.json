@@ -34,6 +34,7 @@
   "dependencies": {
     "acl": "~0.4.9",
     "async": "~2.3.0",
+    "aws-sdk": "^2.54.0",
     "body-parser": "~1.17.0",
     "bower": "~1.8.0",
     "chalk": "~1.1.1",
@@ -60,7 +61,8 @@
     "mongoose": "~4.9.6",
     "mongoose-sequence": "^3.1.0",
     "morgan": "~1.8.1",
-    "multer": "~1.3.0",
+    "multer": "^1.3.0",
+    "multer-s3": "^2.7.0",
     "node-geocoder": "^3.16.0",
     "nodemailer": "~4.0.1",
     "owasp-password-strength-test": "^1.3.0",
