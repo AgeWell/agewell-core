@@ -51,7 +51,6 @@ exports.update = function(req, res) {
   let order = req.order;
 
   order = _.extend(order, req.body);
-  console.log(order.items[0].inCart);
 
   order.save(function(err) {
     if (err) {
@@ -59,7 +58,6 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-    console.log(order.items[0].inCart);
     res.jsonp(order);
   });
 };
