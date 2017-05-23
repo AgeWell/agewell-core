@@ -7,7 +7,7 @@
     <fieldset>
       <div class="form-group" show-errors>
         <label for="recieptTotal">Reciept Total</label>
-        <input type="text" id="recieptTotal" name="recieptTotal" class="form-control" ng-model="vm.current.recieptTotal" placeholder="$24.73" ng-blur="vm.totals()" required>
+        <input type="text" id="recieptTotal" name="recieptTotal" class="form-control" ng-model="vm.current.recieptTotal" placeholder="24.73" ng-blur="vm.totals()" ng-change="vm.roundUp(vm.current.recieptTotal)" required>
         <div ng-messages="vm.form.recieptTotal.$error" role="alert">
           <p class="help-block error-text" ng-message="required">A reciept total is required.</p>
         </div>
@@ -24,10 +24,10 @@
         <img ng-src="/modules/core/client/assets/images/loaders/loader.gif" height="50" width="50" alt="Loading image...">
       </div>
       <div ng-show="!vm.fileSelected" class="form-group">
-        <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="recieptFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Upload Reciept</button>
+        <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="recieptFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Select Reciept</button>
       </div>
       <div ng-show="vm.fileSelected" class="text-center form-group">
-        <button class="btn btn-primary" ng-click="vm.upload(recieptFile)">Use This Picture</button>
+        <button class="btn btn-primary" ng-click="vm.upload(recieptFile)">Upload Reciept</button>
         <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
       </div>
       <div ng-show="vm.fileSelected" class="progress text-center">

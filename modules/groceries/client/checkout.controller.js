@@ -13,6 +13,7 @@
     vm.clientid = $stateParams.clientId;
 
     vm.checkout = checkout;
+    vm.roundUp = roundUp;
     vm.totals = totals;
     vm.updateOrder = updateOrder;
     vm.upload = upload;
@@ -80,6 +81,11 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    function roundUp() {
+      vm.current.recieptTotal = (Math.round(vm.current.recieptTotal * 100) / 100).toFixed(2);
+      console.log(vm.current.recieptTotal);
     }
 
     function totals() {
