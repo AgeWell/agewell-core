@@ -13,6 +13,7 @@
     vm.clientid = $stateParams.clientId;
 
     vm.checkout = checkout;
+    vm.totals = totals;
     vm.updateOrder = updateOrder;
     vm.upload = upload;
 
@@ -79,6 +80,12 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    function totals() {
+      vm.current.total = vm.current.deliveryCost + +vm.current.recieptTotal;
+
+      updateOrder();
     }
 
 
