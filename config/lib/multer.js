@@ -9,7 +9,7 @@ const config = require(path.resolve('./config/config'));
 
 AWS.config.update({
   accessKeyId: config.uploads.aws.accessKeyId,
-  secretAccessKey:  config.uploads.aws.secretAccessKey,
+  secretAccessKey: config.uploads.aws.secretAccessKey,
   region: 'us-east-2'
 });
 
@@ -24,14 +24,21 @@ module.exports.upload = multer({
 });
 
 module.exports.putObject = function(req, callback) {
+  let aws = config.uploads.aws;
+  let extname = path.extname(req.file.originalname);
+  let fileKey = 'reciepts/' + req.order._id + extname;
+
   s3.putObject({
-    Bucket: config.uploads.aws.bucket,
-    Key: Date.now().toString(),
+    Bucket: aws.bucket,
+    Key: fileKey,
     Body: req.file.buffer,
     ACL: 'public-read' // your permisions
   }, (err, data) => {
     console.log(err);
-    callback(err, data);
+    callback(err, {
+      data: data,
+      key: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${fileKey}`
+    });
   });
 };
 

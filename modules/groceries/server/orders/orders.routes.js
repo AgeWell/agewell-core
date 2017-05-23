@@ -14,8 +14,8 @@ module.exports = function(app) {
     .get(orders.list)
     .post(orders.create);
 
-  app.route('/api/orders/reciept')
-    .post(upload.upload.single('reciept'), orders.reciept);
+  // app.route('/api/orders/reciept')
+  //   .post(upload.upload.single('reciept'), orders.reciept);
 
   app.route('/api/orders/:orderId').all(ordersPolicy.isAllowed)
     .get(orders.read)

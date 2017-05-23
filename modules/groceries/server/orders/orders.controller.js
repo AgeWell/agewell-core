@@ -103,21 +103,20 @@ exports.reciept = function(req, res) {
       return res.status(400).send(err);
     }
 
-    console.log('data', data);
-    res.jsonp(data);
-  });
+    let order = req.order;
 
-  // Order.find()
-  //   .sort('requestNumber')
-  //   .populate('contact')
-  //   .exec(function(err, orders) {
-  //     if (err) {
-  //       return res.status(400).send({
-  //         message: errorHandler.getErrorMessage(err)
-  //       });
-  //     }
-  //     res.jsonp(orders);
-  //   });
+    order.recieptImage = data.key;
+
+    order.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+
+      res.jsonp(order);
+    });
+  });
 };
 
 /**

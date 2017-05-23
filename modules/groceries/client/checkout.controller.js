@@ -85,7 +85,7 @@
     function upload(dataUrl) {
 
       Upload.upload({
-        url: '/api/orders/reciept',
+        url: '/api/orders/' + vm.current._id + '/reciept',
         data: {
           reciept: dataUrl
         }
