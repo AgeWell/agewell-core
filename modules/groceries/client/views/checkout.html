@@ -2,32 +2,38 @@
   <div class="page-header">
     <h1>Groceries to gos</h1>
   </div>
-  <div class="list-group">
-    <table class="table table-hover table-striped">
+  <div class="list-group table-responsive">
+    <table class="table table-condensed table-hover table-striped">
       <thead>
         <tr>
-          <th>Order #</th>
+          <th><span class="hidden-xs">Order </span>#</th>
           <th>Client</th>
-          <th>Delivery Date</th>
-          <th># of Items</th>
+          <th class="hidden-xs">Delivery Date</th>
+          <th><span class="hidden-xs"># of </span>Items</th>
           <th>Total</th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders">
-          <td>{{ order.requestNumber }}</td>
-          <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
-          <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
+        <tr ng-repeat="order in vm.orders" ng-class="order.status === 'purchased' ? 'success' : ''">
+          <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+          <td><span class="hidden-xs">{{ order.contact.firstName }} </span>{{ order.contact.lastName }}</td>
+          <td class="hidden-xs">{{ order.date | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.items.length }}</td>
-          <td>{{ order.recieptTotal === 0 ? '-' : (order.total | currency) }}</td>
+          <td>{{ order.recieptTotal === 0 ? '-' : (order.recieptTotal | currency) }}</td>
           <td class="text-right">
-            <button class="btn btn-default" ng-click="vm.checkout(order)" tooltip-placement="top" uib-tooltip="View">
-            Checkout</button>
-            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+            <button class="btn btn-default" ng-click="vm.checkout(order)"><span class="hidden-xs">{{ order.status === 'purchased' ? 'Update' : 'Checkout' }}</span><i class="glyphicon"  ng-class="order.status === 'purchased' ? 'glyphicon-pencil' : 'glyphicon-barcode'" aria-label="Checkout"></i></button>
+            <button class="btn btn-sm btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="text-right">
+            <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.checkout">Delivery</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">

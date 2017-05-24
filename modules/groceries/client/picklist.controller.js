@@ -102,6 +102,7 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
+        size: 'sm',
         template: '<div class="modal-header"><h3 class="modal-title">' + header + '</h3></div>' +
           '<div class="modal-body">' + message + '</div>' +
           '<div class="modal-footer">' +

@@ -28,7 +28,8 @@ let OrderSchema = new Schema({
     type: Number
   },
   recieptTotal: {
-    type: Number
+    type: Number,
+    default: 0
   },
   deliveryCost: {
     type: Number,

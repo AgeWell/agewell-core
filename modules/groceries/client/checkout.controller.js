@@ -11,6 +11,8 @@
     let vm = this;
 
     vm.clientid = $stateParams.clientId;
+    vm.picklist = [];
+    vm.complete = false;
 
     vm.checkout = checkout;
     vm.roundUp = roundUp;
@@ -30,6 +32,7 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
+        size: 'sm',
         templateUrl: '/modules/groceries/client/views/modals/checklist.html',
         scope: $scope
       });
@@ -49,6 +52,7 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
+        size: 'sm',
         templateUrl: '/modules/groceries/client/views/modals/reciept.html',
         scope: $scope
       });
@@ -70,6 +74,12 @@
 
     function updateOrder() {
 
+      if (vm.current.recieptTotal !== 0 && vm.current.recieptImage !== '') {
+        vm.current.status = 'purchased';
+      } else {
+        vm.current.status = 'incart';
+      }
+
       vm.current.$update(successCallback, errorCallback);
 
       function successCallback(res) {
@@ -84,16 +94,22 @@
     }
 
     function roundUp() {
-      vm.current.recieptTotal = (Math.round(vm.current.recieptTotal * 100) / 100).toFixed(2);
       console.log(vm.current.recieptTotal);
+      console.log(vm.current);
     }
 
     function totals() {
+      if (isNaN(vm.current.recieptTotal)) {
+        return Notification.error({
+          message: 'Reciept Total is needs to be a number.',
+          title: '<i class="glyphicon glyphicon-remove"></i> Invalid Input!'
+        });
+      }
+      vm.current.recieptTotal = (Math.round(vm.current.recieptTotal * 100) / 100).toFixed(2);
       vm.current.total = vm.current.deliveryCost + +vm.current.recieptTotal;
 
       updateOrder();
     }
-
 
     function upload(dataUrl) {
 
@@ -137,5 +153,54 @@
       });
     }
 
+    function checkList() {
+      vm.complete = vm.orders.every(function(order) {
+        return order.status === 'purchased';
+      });
+      console.log(vm.complete);
+
+      if (vm.complete) {
+        console.log('complete');
+        delivery();
+      }
+    }
+
+    function delivery() {
+      let header = 'Checkout Complete';
+      let message = 'All the orders have been checkedout and paid for. Would you like to continue to the delivery or stay here to review the orders?';
+      let buttonClass = 'success';
+
+      if (!vm.complete) {
+        header = 'Checkout Incomplete';
+        message = 'Some of the orders have not been checked out. Are you sure you would like to continue?';
+        buttonClass = 'danger';
+      }
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        size: 'sm',
+        template: '<div class="modal-header"><h3 class="modal-title">' + header + '</h3></div>' +
+          '<div class="modal-body">' + message + '</div>' +
+          '<div class="modal-footer">' +
+          '<button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Stay Here</button>' +
+          '<button class="btn btn-' + buttonClass + '" type="button" ng-click="vm.modalOk()">Checkout</button>' +
+          '</div>',
+        scope: $scope
+      });
+
+      vm.modalOk = function() {
+        modalInstance.close('OK Clicked');
+        $state.go('groceries.delivery');
+      };
+      vm.modalCancel = function() {
+        modalInstance.dismiss('Cancel Clicked');
+      };
+
+      modalInstance.result.then(function() {
+        console.log('Open Checkout Interface');
+      }, function() {
+        console.info('modal-component dismissed at: ' + new Date());
+      });
+    }
   }
 }());
