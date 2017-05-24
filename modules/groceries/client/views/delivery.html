@@ -1,34 +1,40 @@
 <section>
   <div class="page-header">
-    <h1>Groceries to gos</h1>
+    <h1>Grocery Deliveries</h1>
   </div>
   <div class="list-group table-responsive">
     <table class="table table-condensed table-hover table-striped">
       <thead>
         <tr>
           <th>Order #</th>
-          <th>Ordered Date</th>
-          <th>Delivery Date</th>
-          <th># of Items</th>
+          <th>Client</th>
+          <th>Phone</th>
+          <th>Address</th>
           <th>Total</th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders">
-          <td>{{ order.requestNumber }}</td>
-          <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
-          <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
-          <td>{{ order.items.length }}</td>
+        <tr ng-repeat="order in vm.orders" ng-class="order.status === 'delivered' ? 'success' : ''">
+          <td>
+            <a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a>
+          </td>
+          <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
+          <td>
+            <div class="hidden-xs">
+              {{ order.contact.homePhone }}
+            </div>
+            <a class="btn btn-default visible-xs" href="tel://{{ order.contact.homePhone }}" target="_blank"><i class="glyphicon glyphicon-earphone" aria-label="Phone"></i></a>
+          </td>
+          <td>{{ order.contact.address.street }} {{ order.contact.address.additional }}</td>
           <td>{{ order.total | currency }}</td>
           <td>
-            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-            <button ng-hide="
-            vm.isMobile" class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+
+            <!-- Directions Links -->
+            <button class="btn btn-default hidden-xs" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
             <a class="btn btn-default" href="{{
             vm.isMobile ? 'maps' : 'https' }}://maps.google.com/?q={{ vm.getAddress(order.contact.address) }}" target="_blank"><i class="glyphicon glyphicon-road" aria-label="Directions"></i></a>
-            <a ng-show="
-            vm.isMobile" class="btn btn-default" href="tel://{{ order.contact.homePhone }}" target="_blank"><i class="glyphicon glyphicon-earphone" aria-label="Phone"></i></a>
+            <a class="btn btn-default" ng-click="vm.deliver(order)" target="_blank"><i class="glyphicon glyphicon-home" aria-label="Deliver"></i></a>
           </td>
         </tr>
       </tbody>
