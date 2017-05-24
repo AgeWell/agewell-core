@@ -8,10 +8,10 @@
         <tr>
           <th><span class="hidden-xs">Order </span>#</th>
           <th>Client</th>
-          <th class="hidden-xs">Delivery Date</th>
+          <th><span class="hidden-xs">Delivery Date</span></th>
           <th><span class="hidden-xs"># of </span>Items</th>
           <th>Total</th>
-          <th class="text-right">Actions</th>
+          <th><span class="hidden-xs">Actions</span></th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
           <td>{{ order.items.length }}</td>
           <td>{{ order.recieptTotal === 0 ? '-' : (order.recieptTotal | currency) }}</td>
           <td class="text-right">
-            <button class="btn btn-default" ng-click="vm.checkout(order)"><span class="hidden-xs">{{ order.status === 'purchased' ? 'Update' : 'Checkout' }}</span><i class="glyphicon"  ng-class="order.status === 'purchased' ? 'glyphicon-pencil' : 'glyphicon-barcode'" aria-label="Checkout"></i></button>
+            <button class="btn btn-default" ng-click="vm.checkout(order)"><span class="hidden-xs">{{ order.status === 'purchased' ? 'Update ' : 'Checkout ' }}</span><i class="glyphicon"  ng-class="order.status === 'purchased' ? 'glyphicon-pencil' : 'glyphicon-barcode'" aria-label="Checkout"></i></button>
             <button class="btn btn-sm btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
           </td>
         </tr>

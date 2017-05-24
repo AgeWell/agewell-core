@@ -23,7 +23,8 @@
     vm.orders = OrdersService.query({
       status: 'incart'
     }, function(orders) {
-      console.log(orders);
+      console.log(vm);
+      checkList();
     });
 
 
@@ -32,7 +33,6 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
-        size: 'sm',
         templateUrl: '/modules/groceries/client/views/modals/checklist.html',
         scope: $scope
       });
@@ -52,7 +52,6 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
-        size: 'sm',
         templateUrl: '/modules/groceries/client/views/modals/reciept.html',
         scope: $scope
       });
@@ -86,6 +85,7 @@
         Notification.info({
           message: 'Update successful!'
         });
+        checkList();
       }
 
       function errorCallback(res) {
@@ -178,12 +178,11 @@
 
       var modalInstance = $uibModal.open({
         animation: true,
-        size: 'sm',
         template: '<div class="modal-header"><h3 class="modal-title">' + header + '</h3></div>' +
           '<div class="modal-body">' + message + '</div>' +
           '<div class="modal-footer">' +
           '<button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Stay Here</button>' +
-          '<button class="btn btn-' + buttonClass + '" type="button" ng-click="vm.modalOk()">Checkout</button>' +
+          '<button class="btn btn-' + buttonClass + '" type="button" ng-click="vm.modalOk()">Delivery</button>' +
           '</div>',
         scope: $scope
       });
