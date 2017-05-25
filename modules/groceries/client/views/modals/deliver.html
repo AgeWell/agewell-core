@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h3 class="modal-title">Deliver - Reciept</h3>
+</div>
+<div class="modal-body">
+  <div class="alert alert-info" role="alert"><strong>Please confirm that the following are in the cart:</strong></div>
+  <form name="vm.form" ng-submit="vm.updateOrder()" novalidate>
+    <fieldset class="col-md-12">
+      <div class="form-group">
+        <label>Payment Method</label>
+        <div>
+          <div class="btn-group">
+            <button type="button" class="btn" ng-class="vm.current.delivery.payment === 'Cash' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.payment = 'Cash'">Cash</button>
+            <button type="button" class="btn" ng-class="vm.current.delivery.payment === 'Brought Inside' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.payment = 'Brought Inside'">Cash</button>
+            <button type="button" class="btn" ng-class="vm.current.delivery.payment === 'Unpacked' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.payment = 'Unpacked'">Unpacked</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="col-md-12">
+      <div class="form-group">
+        <label>Delivery Method</label>
+        <div>
+          <div class="btn-group">
+            <button type="button" class="btn" ng-class="vm.current.delivery.method === 'To The Door' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.method = 'To The Door'">To The Door</button>
+            <button type="button" class="btn" ng-class="vm.current.delivery.method === 'Brought Inside' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.method = 'Brought Inside'">Brought Inside</button>
+            <button type="button" class="btn" ng-class="vm.current.delivery.method === 'Unpacked' ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.method = 'Unpacked'">Unpacked</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="col-md-12">
+      <div class="form-group">
+        <label>Followup Needed</label>
+        <div>
+          <div class="btn-group">
+            <button type="button" class="btn" ng-class="vm.current.delivery.followup === false ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.followup = false">No</button>
+            <button type="button" class="btn" ng-class="vm.current.delivery.followup ? 'btn-success' : 'btn-default'" ng-click="vm.current.delivery.followup = true">Yes</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="col-md-12">
+      <div class="form-group">
+        <label>Followup Needed</label>
+        <textarea name="notes" type="text" ng-model="vm.current.delivery.notes" id="notes" class="form-control" placeholder="Notes"></textarea>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancle</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-disabled="vm.ready();">Complete Delivery</button>
+</div>

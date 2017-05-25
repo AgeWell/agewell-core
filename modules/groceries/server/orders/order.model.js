@@ -42,6 +42,31 @@ let OrderSchema = new Schema({
   recieptImage: String,
   confirmed: Boolean,
   // payment info
+  delivery: {
+    payment: {
+      type: String,
+      enum: [
+        'Cash',
+        'Check',
+        'Credit Card'
+      ],
+      required: 'Please select a payment option.'
+    },
+    method: {
+      type: String,
+      enum: [
+        'To The Door',
+        'Brought Inside',
+        'Unpacked'
+      ],
+      required: 'Please select a delivery method.'
+    },
+    followup: {
+      type: Boolean,
+      required: 'You need to determine if a follow up is required.'
+    },
+    notes: String
+  },
   status: {
     type: String,
     default: 'pending',

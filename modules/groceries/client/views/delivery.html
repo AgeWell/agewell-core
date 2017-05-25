@@ -11,7 +11,7 @@
           <th>Phone</th>
           <th>Address</th>
           <th>Total</th>
-          <th class="text-right">Actions</th>
+          <th class="text-right"><span class="hidden-xs">Actions</span></th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +28,7 @@
           </td>
           <td>{{ order.contact.address.street }} {{ order.contact.address.additional }}</td>
           <td>{{ order.total | currency }}</td>
-          <td>
+          <td class="text-right">
 
             <!-- Directions Links -->
             <button class="btn btn-default hidden-xs" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
