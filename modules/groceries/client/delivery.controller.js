@@ -38,6 +38,8 @@
         vm.current.followupNeeded = '';
       }
 
+      console.log(vm.current);
+
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: '/modules/groceries/client/views/modals/deliver.html',
@@ -46,19 +48,43 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
+        updateOrder();
       };
       vm.modalCancel = function() {
         modalInstance.dismiss('Cancel Clicked');
       };
     }
 
-    function ready() {
-      let delivery = vm.current.delivery;
-      if (delivery.payment && delivery.method && delivery.followup) {
-        return true;
+    function updateOrder() {
+
+      vm.current.status = 'delivered';
+
+      vm.current.$update(successCallback, errorCallback);
+
+      function successCallback(res) {
+        Notification.info({
+          message: 'Update successful!'
+        });
       }
 
-      return false;
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        vm.current.status = 'purchased';
+      }
+    }
+
+    function ready() {
+      if (!vm.current.hasOwnProperty('delivery')) {
+        return true;
+      }
+      let delivery = vm.current.delivery;
+      if (
+        delivery.hasOwnProperty('payment') && delivery.hasOwnProperty('method') && delivery.hasOwnProperty('followup')
+      ) {
+        return false;
+      }
+
+      return true;
     }
   }
 }());
