@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Request = require(path.resolve('./modules/services/server/requests/request.model'));
 const Item = require(path.resolve('./modules/groceries/server/groceries/grocery.model'));
+const Delivery = require(path.resolve('./modules/groceries/server/delivery/delivery.model'));
 
 /**
  * Orders to go Schema
@@ -42,31 +43,7 @@ let OrderSchema = new Schema({
   recieptImage: String,
   confirmed: Boolean,
   // payment info
-  delivery: {
-    payment: {
-      type: String,
-      enum: [
-        'Cash',
-        'Check',
-        'Credit Card'
-      ],
-      required: 'Please select a payment option.'
-    },
-    method: {
-      type: String,
-      enum: [
-        'To The Door',
-        'Brought Inside',
-        'Unpacked'
-      ],
-      required: 'Please select a delivery method.'
-    },
-    followup: {
-      type: Boolean,
-      required: 'You need to determine if a follow up is required.'
-    },
-    notes: String
-  },
+  delivery: Delivery,
   status: {
     type: String,
     default: 'pending',
