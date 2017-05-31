@@ -148,11 +148,11 @@
             <div>
               <strong>{{ action.contact.firstName }} {{ action.contact.lastName }}</strong>
             </div>
-            <p>{{ action.note }}</p>
+            <p>{{ action.notes }}</p>
             <div class="text-right">
-              <button class="btn btn-default" ui-sref="dashboard" tooltip-placement="top" uib-tooltip="Edit">
-              <i class="glyphicon glyphicon-edit" aria-label="Edit"></i>
-            </button>
+              <button class="btn " ng-class="action.completed ? 'btn-success' : 'btn-default'" ng-click="vm.complete(action)">
+              <i class="glyphicon" ng-class="action.completed ? 'glyphicon-check' : 'glyphicon-unchecked'"></i> {{ action.completed ? 'Complete' : 'Uncomplete'}}
+              </button>
             </div>
           </div>
         </div>

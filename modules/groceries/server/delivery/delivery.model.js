@@ -33,7 +33,11 @@ let DeliverySchema = new Schema({
     type: Boolean,
     required: 'You need to determine if a follow up is required.'
   },
-  notes: String
+  notes: String,
+  action: {
+    type: Schema.ObjectId,
+    ref: 'Action'
+  }
 });
 
 

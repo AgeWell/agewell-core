@@ -80,7 +80,8 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
   Action.find().sort('-created')
-    // .populate('client', 'displayName')
+    // .populate('client')
+    .populate('contact')
     .exec(function(err, actions) {
       if (err) {
         return res.status(400).send({
@@ -103,7 +104,8 @@ exports.actionByID = function(req, res, next, id) {
   }
 
   Action.findById(id)
-    .populate('client', 'displayName')
+    // .populate('client')
+    .populate('contact')
     .exec(function(err, action) {
       if (err) {
         return next(err);

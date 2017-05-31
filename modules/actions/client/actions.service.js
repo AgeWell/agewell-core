@@ -9,7 +9,7 @@
   ActionsService.$inject = ['$resource'];
 
   function ActionsService($resource) {
-    return $resource('api/actions/:actionId', {
+    return $resource('/api/actions/:actionId', {
       actionId: '@_id'
     }, {
       update: {

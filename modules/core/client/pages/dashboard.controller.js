@@ -5,9 +5,9 @@
     .module('core')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'OrdersService'];
+  DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'ActionsService', 'OrdersService'];
 
-  function DashboardController($scope, $state, $window, $filter, $uibModal, Authentication, Notification, coreService, ClientsService, OrdersService) {
+  function DashboardController($scope, $state, $window, $filter, $uibModal, Authentication, Notification, coreService, ClientsService, ActionsService, OrdersService) {
     var vm = this;
     vm.options = coreService.getOptions('Order');
     vm.approve = approve;
@@ -123,20 +123,32 @@
       console.log(value);
     }
 
-    for (var j = 0; j < 5; j++) {
-      vm.actions.push({
-        clientId: j,
-        actionId: j,
-        type: 'House Check',
-        note: 'Needs a follow up. make sure to address this.',
-        contact: {
-          firstName: 'Jane',
-          lastName: 'Doe'
-        },
-        status: 'Active'
-      });
+    ActionsService.query({
+      completed: false
+    }, function(data) {
+      console.log();
+      vm.actions = data;
+      buildPager('actions', 3);
+    });
+
+    function complete() {
+
     }
-    buildPager('actions', 3);
+
+    // for (var j = 0; j < 5; j++) {
+    //   vm.actions.push({
+    //     clientId: j,
+    //     actionId: j,
+    //     type: 'House Check',
+    //     note: 'Needs a follow up. make sure to address this.',
+    //     contact: {
+    //       firstName: 'Jane',
+    //       lastName: 'Doe'
+    //     },
+    //     status: 'Active'
+    //   });
+    // }
+    // buildPager('actions', 3);
 
     // Pages related functions
     // vm.actionsPager = actionsPager;

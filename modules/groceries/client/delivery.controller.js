@@ -1,13 +1,13 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('groceries')
     .controller('DeliveryController', DeliveryController);
 
-  DeliveryController.$inject = ['$scope', '$stateParams', '$window', '$uibModal', 'Notification', 'OrdersService'];
+  DeliveryController.$inject = ['$scope', '$stateParams', '$window', '$uibModal', 'Notification', 'ActionsService', 'OrdersService'];
 
-  function DeliveryController($scope, $stateParams, $window, $uibModal, Notification, OrdersService) {
+  function DeliveryController($scope, $stateParams, $window, $uibModal, Notification, ActionsService, OrdersService) {
     let vm = this;
 
     vm.orders = OrdersService.query();
@@ -34,8 +34,11 @@
 
     function deliver(order) {
       vm.current = order;
-      if (typeof vm.current.followupNeeded === 'undefined') {
-        vm.current.followupNeeded = '';
+
+      if (typeof vm.current.delivery === 'undefined') {
+        vm.current.delivery = {
+          followup: ''
+        };
       }
 
       console.log(vm.current);
@@ -65,6 +68,9 @@
         Notification.info({
           message: 'Update successful!'
         });
+        if (vm.current.delivery.followup === true) {
+          createAction();
+        }
       }
 
       function errorCallback(res) {
@@ -73,18 +79,37 @@
       }
     }
 
+    function createAction() {
+      vm.action = new ActionsService({
+        created: new Date(),
+        complete: false,
+        clientId: vm.current.clientId,
+        notes: vm.current.delivery.notes
+      });
+
+      vm.action.$save(successCallback, errorCallback);
+
+      function successCallback(res) {
+        Notification.info({
+          message: 'Action Created'
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
     function ready() {
       if (!vm.current.hasOwnProperty('delivery')) {
         return true;
       }
       let delivery = vm.current.delivery;
-      if (
-        delivery.hasOwnProperty('payment') && delivery.hasOwnProperty('method') && delivery.hasOwnProperty('followup')
-      ) {
-        return false;
+      if (!delivery.hasOwnProperty('payment') && !delivery.hasOwnProperty('method') && !delivery.hasOwnProperty('followup')) {
+        return true;
       }
 
-      return true;
+      return false;
     }
   }
 }());

@@ -15,6 +15,13 @@ let ActionSchema = new Schema({
     type: String,
     'default': shortid.generate
   },
+  type: {
+    type: String,
+    default: 'Follow-up',
+    enum: [
+      'Follow-up'
+    ]
+  },
   created: Date,
   clientId: {
     type: Schema.ObjectId,
@@ -22,6 +29,20 @@ let ActionSchema = new Schema({
   },
   completed: Boolean,
   notes: String
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
+});
+
+ActionSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: 'clientId',
+  foreignField: 'client',
+  justOne: true
 });
 
 module.exports = mongoose.model('Action', ActionSchema);
