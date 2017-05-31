@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <h3 class="modal-title">Checkout - Reciept</h3>
+</div>
+<div class="modal-body">
+  <div class="alert alert-info" role="alert"><strong>Please confirm that the following are in the cart:</strong></div>
+  <form name="vm.form" ng-submit="vm.updateOrder()" novalidate>
+    <fieldset>
+      <div class="form-group" show-errors>
+        <label for="recieptTotal">Reciept Total</label>
+        <input type="text" id="recieptTotal" name="recieptTotal" class="form-control" ng-model="vm.current.recieptTotal" placeholder="24.73" ng-blur="vm.totals()" ng-change="vm.roundUp(vm.current.recieptTotal)" required>
+        <div ng-messages="vm.form.recieptTotal.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">A reciept total is required.</p>
+        </div>
+      </div>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="text-center">
+        <img ngf-src="vm.fileSelected ? recieptFile : vm.current.recieptImage" alt="Reciept" class="img-thumbnail" ngf-drop>
+      </div>
+      <div ng-show="vm.loading" class="form-group text-center">
+        <img ng-src="/modules/core/client/assets/images/loaders/loader.gif" height="50" width="50" alt="Loading image...">
+      </div>
+      <div ng-show="!vm.fileSelected" class="form-group">
+        <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="recieptFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Select Reciept</button>
+      </div>
+      <div ng-show="vm.fileSelected" class="text-center form-group">
+        <button class="btn btn-primary" ng-click="vm.upload(recieptFile)">Upload Reciept</button>
+        <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
+      </div>
+      <div ng-show="vm.fileSelected" class="progress text-center">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'">
+          <span class="sr-only">{{vm.progress}}% Complete</span>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancle</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()">Finish Checkout</button>
+</div>
