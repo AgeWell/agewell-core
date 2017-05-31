@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
+version: v1.7.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:concat-stream:20160901':
@@ -9,6 +9,9 @@ ignore:
     - phantomjs-prebuilt > extract-zip > concat-stream:
         reason: None given
         expires: '2017-05-26T17:21:21.691Z'
+    - phantomjs-prebuilt > extract-zip > concat-stream:
+        reason: None given
+        expires: '2017-06-30T20:13:06.760Z'
   'npm:growl:20160721':
     - mocha > growl:
         reason: None given
