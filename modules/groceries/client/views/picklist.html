@@ -3,7 +3,7 @@
     <h1>Grocery Pick List</h1>
   </div>
   <div class="list-group table-responsive">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped" ng-show="vm.orders.length !== 0">
       <thead>
         <tr>
           <th>Item Name</th>
@@ -36,5 +36,5 @@
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
-    No Orders yet, why don't you <a ui-sref="order.create({clientId: vm.clientid})">create one</a>?
+    No Orders are ready to be picked.
   </div>

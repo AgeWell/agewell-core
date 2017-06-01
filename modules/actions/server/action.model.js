@@ -27,7 +27,10 @@ let ActionSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Client'
   },
-  completed: Boolean,
+  completed: {
+    type: Boolean,
+    default: false
+  },
   notes: String
 }, {
   toObject: {

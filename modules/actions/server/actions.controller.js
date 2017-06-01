@@ -79,8 +79,8 @@ exports.delete = function(req, res) {
  * List of Actions to gos
  */
 exports.list = function(req, res) {
-  Action.find().sort('-created')
-    // .populate('client')
+  Action.find(req.query)
+    .sort('-created')
     .populate('contact')
     .exec(function(err, actions) {
       if (err) {

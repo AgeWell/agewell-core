@@ -133,7 +133,7 @@
     });
 
     function complete(action) {
-      action.completed = true;
+      action.completed = !action.completed;
 
       action.$update(successCallback, errorCallback);
 
@@ -146,7 +146,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        action.completed = false;
+        action.completed = !action.completed;
       }
     }
 

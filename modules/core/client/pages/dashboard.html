@@ -162,7 +162,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center">
+    <div class="text-center" ng-hide="vm.filteractionsLength < 4">
       <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.actionsPerPage" total-items="vm.filteractionsLength" ng-model="vm.actionsPage" ng-change="vm.pageChanged('actions')"></ul>
     </div>
   </div>
