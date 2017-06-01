@@ -10,8 +10,8 @@
   function DeliveryController($scope, $stateParams, $window, $uibModal, Notification, ActionsService, OrdersService) {
     let vm = this;
 
-    vm.orders = OrdersService.query();
     vm.clientid = $stateParams.clientId;
+    vm.complete = false;
     vm.isMobile = false;
     vm.paymentTypes = [
       'Cash',
@@ -22,6 +22,13 @@
     vm.ready = ready;
     vm.getAddress = getAddress;
     vm.deliver = deliver;
+
+    vm.orders = OrdersService.query({
+      status: 'purchased'
+    }, function(orders) {
+      console.log(vm);
+      checkList();
+    });
 
     if ($window.innerWidth < 992) {
       vm.isMobile = true;
@@ -98,6 +105,12 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    function checkList() {
+      vm.complete = vm.orders.every(function(order) {
+        return order.status === 'delivered';
+      });
     }
 
     function ready() {

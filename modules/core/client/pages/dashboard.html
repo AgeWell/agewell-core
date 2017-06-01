@@ -129,9 +129,9 @@
                   </tr>
                 </tfoot> -->
               </table>
-                <div class="text-center" ng-hide="vm.filterordersLength === 0">
-                  <ul uib-pagination boundary-links="false" max-size="5" items-per-page="vm.itemsPerPage" total-items="vm.filterordersLength" ng-model="vm.ordersPage" ng-change="vm.pageChanged('orders')"></ul>
-                </div>
+              <div class="text-center" ng-hide="vm.filterordersLength === 0">
+                <ul uib-pagination boundary-links="false" max-size="5" items-per-page="vm.itemsPerPage" total-items="vm.filterordersLength" ng-model="vm.ordersPage" ng-change="vm.pageChanged('orders')"></ul>
+              </div>
             </div>
           </div>
         </div>
@@ -143,16 +143,20 @@
     <div class="row col-sm-12">
       <div ng-repeat="action in vm.pagedactions" class="col-xs-4">
         <div class="panel panel-primary">
-          <div class="panel-heading">{{ action.type }}</div>
+          <div class="panel-heading"><strong>{{ action.type }}</strong> <strong style="float: right">{{ action.created | date:short }}</strong></div>
           <div class="panel-body">
             <div>
               <strong>{{ action.contact.firstName }} {{ action.contact.lastName }}</strong>
             </div>
             <p>{{ action.notes }}</p>
-            <div class="text-right">
-              <button class="btn " ng-class="action.completed ? 'btn-success' : 'btn-default'" ng-click="vm.complete(action)">
+            <div class="row">
+              <div class="col-sm-6">
+              </div>
+              <div class="col-sm-6 text-right">
+                <button class="btn " ng-class="action.completed ? 'btn-success' : 'btn-default'" ng-click="vm.complete(action)">
               <i class="glyphicon" ng-class="action.completed ? 'glyphicon-check' : 'glyphicon-unchecked'"></i> {{ action.completed ? 'Complete' : 'Uncomplete'}}
               </button>
+              </div>
             </div>
           </div>
         </div>

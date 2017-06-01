@@ -82,7 +82,8 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  Order.find()
+  console.log(req.query);
+  Order.find(req.query)
     .sort('requestNumber')
     .populate('contact')
     .exec(function(err, orders) {

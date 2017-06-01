@@ -3,7 +3,7 @@
     <h1>Grocery Checkout</h1>
   </div>
   <div class="list-group table-responsive">
-    <table class="table table-condensed table-hover table-striped">
+    <table class="table table-condensed table-hover table-striped" ng-show="vm.orders.length !== 0">
       <thead>
         <tr>
           <th><span class="hidden-xs">Order </span>#</th>
@@ -27,15 +27,15 @@
           </td>
         </tr>
       </tbody>
-      <tfoot>
+      <tfoot ng-show="vm.complete">
         <tr>
           <td colspan="5" class="text-right">
-            <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.checkout">Delivery</button>
+            <button class="btn btn-success" ui-sref="groceries.checkout">Delivery</button>
           </td>
         </tr>
       </tfoot>
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
-    No Orders ready to checkout yet!
+    No Orders ready to checkout!
   </div>

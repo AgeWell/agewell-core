@@ -159,7 +159,7 @@
       });
       console.log(vm.complete);
 
-      if (vm.complete) {
+      if (vm.complete && vm.orders.length !== 0) {
         console.log('complete');
         delivery();
       }

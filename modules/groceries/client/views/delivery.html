@@ -3,7 +3,7 @@
     <h1>Grocery Deliveries</h1>
   </div>
   <div class="list-group table-responsive">
-    <table class="table table-condensed table-hover table-striped">
+    <table class="table table-condensed table-hover table-striped"  ng-hide="vm.complete">
       <thead>
         <tr>
           <th>Order #</th>
@@ -41,5 +41,5 @@
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
-    No Orders ready for delivery yet?
+    No Orders are awaiting delivery. <a ui-sref="home">Click here</a> to return to the dashboard.
   </div>

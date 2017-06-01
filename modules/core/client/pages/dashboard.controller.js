@@ -13,6 +13,7 @@
     vm.approve = approve;
     vm.skip = skip;
     vm.setFilter = setFilter;
+    vm.complete = complete;
     vm.callList = [];
     vm.orders = [];
     vm.actions = [];
@@ -131,8 +132,22 @@
       buildPager('actions', 3);
     });
 
-    function complete() {
+    function complete(action) {
+      action.completed = true;
 
+      action.$update(successCallback, errorCallback);
+
+      function successCallback(res) {
+        Notification.info({
+          message: 'Update successful!'
+        });
+        pageChanged('actions', 3);
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        action.completed = false;
+      }
     }
 
     // for (var j = 0; j < 5; j++) {
