@@ -62,16 +62,6 @@
         .catch(onUserSigninError);
     }
 
-    // OAuth provider request
-    function callOauthProvider(url) {
-      if ($state.previous && $state.previous.href) {
-        url += '?redirect_to=' + encodeURIComponent($state.previous.href);
-      }
-
-      // Effectively call OAuth authentication route:
-      $window.location.href = url;
-    }
-
     // Authentication Callbacks
 
     function onUserSignupSuccess(response) {

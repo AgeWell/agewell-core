@@ -17,13 +17,6 @@
         method: 'POST',
         url: '/api/users/password'
       },
-      deleteProvider: {
-        method: 'DELETE',
-        url: '/api/users/accounts',
-        params: {
-          provider: '@provider'
-        }
-      },
       sendPasswordResetToken: {
         method: 'POST',
         url: '/api/auth/forgot'
@@ -45,11 +38,6 @@
     angular.extend(Users, {
       changePassword: function (passwordDetails) {
         return this.updatePassword(passwordDetails).$promise;
-      },
-      removeSocialAccount: function (provider) {
-        return this.deleteProvider({
-          provider: provider // api expects provider as a querystring parameter
-        }).$promise;
       },
       requestPasswordReset: function (credentials) {
         return this.sendPasswordResetToken(credentials).$promise;
