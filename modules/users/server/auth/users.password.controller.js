@@ -144,21 +144,19 @@ exports.reset = function (req, res, next) {
                 return res.status(422).send({
                   message: errorHandler.getErrorMessage(err)
                 });
-              } else {
-                req.login(user, function (err) {
-                  if (err) {
-                    res.status(400).send(err);
-                  } else {
-                    // Remove sensitive data before return authenticated user
-                    user.password = undefined;
-                    user.salt = undefined;
-
-                    res.json(user);
-
-                    done(err, user);
-                  }
-                });
               }
+              req.login(user, function (err) {
+                if (err) {
+                  return res.status(400).send(err);
+                }
+                // Remove sensitive data before return authenticated user
+                user.password = undefined;
+                user.salt = undefined;
+
+                res.json(user);
+
+                done(err, user);
+              });
             });
           } else {
             return res.status(422).send({
@@ -220,17 +218,15 @@ exports.changePassword = function (req, res, next) {
                   return res.status(422).send({
                     message: errorHandler.getErrorMessage(err)
                   });
-                } else {
-                  req.login(user, function (err) {
-                    if (err) {
-                      res.status(400).send(err);
-                    } else {
-                      res.send({
-                        message: 'Password changed successfully'
-                      });
-                    }
-                  });
                 }
+                req.login(user, function (err) {
+                  if (err) {
+                    return res.status(400).send(err);
+                  }
+                  res.send({
+                    message: 'Password changed successfully'
+                  });
+                });
               });
             } else {
               res.status(422).send({

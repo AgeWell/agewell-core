@@ -34,15 +34,15 @@ exports.update = function(req, res) {
         return res.status(422).send({
           message: errorHandler.getErrorMessage(err)
         });
-      } else {
-        req.login(user, function(err) {
-          if (err) {
-            res.status(400).send(err);
-          } else {
-            res.json(user);
-          }
-        });
       }
+
+      req.login(user, function(err) {
+        if (err) {
+          return res.status(400).send(err);
+        }
+
+        res.json(user);
+      });
     });
   } else {
     res.status(401).send({
@@ -152,8 +152,7 @@ exports.me = function(req, res) {
       profileImageURL: req.user.profileImageURL,
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
-      firstName: validator.escape(req.user.firstName),
-      additionalProvidersData: req.user.additionalProvidersData
+      firstName: validator.escape(req.user.firstName)
     };
   }
 

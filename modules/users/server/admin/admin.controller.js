@@ -59,7 +59,7 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({}).sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,7 +80,7 @@ exports.userByID = function (req, res, next, id) {
     });
   }
 
-  User.findById(id, '-providerData').exec(function (err, user) {
+  User.findById(id).exec(function (err, user) {
     if (err) {
       return next(err);
     } else if (!user) {

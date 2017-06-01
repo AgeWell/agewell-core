@@ -52,7 +52,7 @@
     }
 
     function isContextUserSelf() {
-      return vm.user.username === vm.authentication.user.username;
+      return vm.user.email === vm.authentication.user.email;
     }
   }
 }());
