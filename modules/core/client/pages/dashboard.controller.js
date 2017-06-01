@@ -19,6 +19,10 @@
     vm.actions = [];
     vm.ordersFilter = 'ordered';
 
+    vm.isAdmin = Authentication.user.roles.some(function(role) {
+      return role === 'admin';
+    });
+
     vm.dates = {
       now: new Date(),
       orderBy: new Date(vm.options.order[0]),
@@ -149,47 +153,6 @@
         action.completed = !action.completed;
       }
     }
-
-    // for (var j = 0; j < 5; j++) {
-    //   vm.actions.push({
-    //     clientId: j,
-    //     actionId: j,
-    //     type: 'House Check',
-    //     note: 'Needs a follow up. make sure to address this.',
-    //     contact: {
-    //       firstName: 'Jane',
-    //       lastName: 'Doe'
-    //     },
-    //     status: 'Active'
-    //   });
-    // }
-    // buildPager('actions', 3);
-
-    // Pages related functions
-    // vm.actionsPager = actionsPager;
-    // vm.actionsToDisplay = actionsToDisplay;
-    // vm.actionspageChanged = actionspageChanged;
-    // vm.actionsPerPage = 3;
-    //
-    // function actionsPager(type) {
-    //   vm['paged' + type] = [];
-    //   vm[type + 'Page'] = 1;
-    //   vm.actionsToDisplay(type);
-    // }
-    //
-    // function actionsToDisplay(type) {
-    //   vm.actionsList = $filter('filter')(vm.callList, {
-    //     $: vm.search
-    //   });
-    //   vm['filter' + type + 'Length'] = vm['filtered' + type].length;
-    //   var begin = ((vm[type + 'Page'] - 1) * vm.itemsPerPage);
-    //   var end = begin + vm.itemsPerPage;
-    //   vm['paged' + type] = vm['filtered' + type].slice(begin, end);
-    // }
-    //
-    // function actionspageChanged(type) {
-    //   vm.actionsToDisplay(type);
-    // }
 
     function approve(order) {
       order.status = 'ordered';

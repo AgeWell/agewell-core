@@ -26,6 +26,7 @@
     vm.orders = OrdersService.query({
       status: 'purchased'
     }, function(orders) {
+      console.log(orders);
       console.log(vm);
       checkList();
     });
@@ -42,11 +43,11 @@
     function deliver(order) {
       vm.current = order;
 
-      if (typeof vm.current.delivery === 'undefined') {
-        vm.current.delivery = {
-          followup: ''
-        };
-      }
+      // if (typeof vm.current.delivery === 'undefined') {
+      //   vm.current.delivery = {
+      //     followup: ''
+      //   };
+      // }
 
       console.log(vm.current);
 
@@ -76,8 +77,9 @@
           message: 'Update successful!'
         });
         if (vm.current.delivery.followup === true) {
-          createAction();
+          return createAction(checkList);
         }
+        return checkList();
       }
 
       function errorCallback(res) {
@@ -86,7 +88,7 @@
       }
     }
 
-    function createAction() {
+    function createAction(checkList) {
       vm.action = new ActionsService({
         created: new Date(),
         complete: false,
@@ -100,6 +102,7 @@
         Notification.info({
           message: 'Action Created'
         });
+        checkList();
       }
 
       function errorCallback(res) {
@@ -108,9 +111,11 @@
     }
 
     function checkList() {
+      console.log(vm.complete);
       vm.complete = vm.orders.every(function(order) {
         return order.status === 'delivered';
       });
+      console.log(vm.complete);
     }
 
     function ready() {
@@ -118,11 +123,11 @@
         return true;
       }
       let delivery = vm.current.delivery;
-      if (!delivery.hasOwnProperty('payment') && !delivery.hasOwnProperty('method') && !delivery.hasOwnProperty('followup')) {
-        return true;
+      if (delivery.hasOwnProperty('payment') && delivery.hasOwnProperty('method') && delivery.hasOwnProperty('followup')) {
+        return false;
       }
 
-      return false;
+      return true;
     }
   }
 }());

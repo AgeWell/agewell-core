@@ -19,6 +19,7 @@
     vm.orders = OrdersService.query({
       status: 'ordered'
     }, function(orders) {
+      // TODO: Sort these by the category
       for (let i = 0; i < orders.length; i++) {
         let order = orders[i];
         let client = orders[i].contact;

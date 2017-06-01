@@ -40,6 +40,6 @@
       </tbody>
     </table>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+  <div class="alert alert-warning text-center" ng-if="(vm.orders.$resolved && !vm.orders.length) || vm.complete">
     No Orders are awaiting delivery. <a ui-sref="home">Click here</a> to return to the dashboard.
   </div>

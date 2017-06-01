@@ -58,6 +58,14 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
+
+        console.log(vm.current.recieptImage);
+        if (vm.current.recieptTotal !== 0 && (vm.current.hasOwnProperty('recieptImage') && vm.current.recieptImage !== '')) {
+          vm.current.status = 'purchased';
+        } else {
+          vm.current.status = 'incart';
+        }
+
         updateOrder();
       };
       vm.modalCancel = function() {
@@ -72,13 +80,6 @@
     }
 
     function updateOrder() {
-
-      if (vm.current.recieptTotal !== 0 && vm.current.recieptImage !== '') {
-        vm.current.status = 'purchased';
-      } else {
-        vm.current.status = 'incart';
-      }
-
       vm.current.$update(successCallback, errorCallback);
 
       function successCallback(res) {
@@ -137,6 +138,7 @@
       });
 
       // Reset form
+      vm.current.recieptImage = response.recieptImage;
       vm.fileSelected = false;
       vm.progress = 0;
     }

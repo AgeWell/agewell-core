@@ -22,12 +22,18 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
+    roles: ['volunteer'],
+    allows: [{
+      resources: '/api/orders',
+      permissions: ['get']
+    }, {
+      resources: '/api/orders/:orderId',
+      permissions: ['get', 'post', 'put']
+    }]
+  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/orders',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/orders/:orderId',
       permissions: ['get']
     }]
   }]);
