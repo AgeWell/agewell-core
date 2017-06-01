@@ -15,7 +15,6 @@
     vm.isSignup = false;
     vm.signup = signup;
     vm.signin = signin;
-    vm.callOauthProvider = callOauthProvider;
     vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
 
     // Get an eventual error defined in the URL query string:
@@ -31,8 +30,6 @@
     if ($state.current.name === 'authentication.signup') {
       vm.isSignup = true;
     }
-
-    console.log(vm);
 
     function signup(isValid) {
 
@@ -69,8 +66,6 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
 
-      console.log(response);
-
       // And redirect to the previous or home page
       $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
     }
@@ -81,9 +76,6 @@
 
     function onUserSigninSuccess(response) {
       // If successful we assign the response to the global user model
-
-      console.log(response);
-
       vm.authentication.user = response;
       Notification.info({ message: 'Welcome ' + response.firstName });
       // And redirect to the previous or home page

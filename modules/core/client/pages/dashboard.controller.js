@@ -62,7 +62,6 @@
       };
 
       modalInstance.result.then(function() {
-        console.log(client);
         client.lastSkip = vm.dates.orderBy;
 
         client.$update(successCallback, errorCallback);
@@ -89,9 +88,6 @@
     }, function(data) {
       vm.orders = data;
       buildPager('orders', 5);
-
-      console.log(vm.orders);
-      console.log(vm);
     });
 
     // Pages related functions
@@ -125,13 +121,11 @@
     function setFilter(value) {
       vm.ordersFilter = value;
       vm.figureOutItemsToDisplay('orders');
-      console.log(value);
     }
 
     ActionsService.query({
       completed: false
     }, function(data) {
-      console.log();
       vm.actions = data;
       buildPager('actions', 3);
     });

@@ -158,19 +158,6 @@
           expect(Notification.success).toHaveBeenCalledWith({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
           expect($location.url()).toBe('/');
         }));
-
-        // it('should fail to register with duplicate Username', function () {
-        //   // Test expected POST request
-        //   $httpBackend.when('POST', '/api/auth/signup').respond(400, {
-        //     'message': 'Username already exists'
-        //   });
-        //
-        //   scope.vm.signup(true);
-        //   $httpBackend.flush();
-        //
-        //   // Test Notification.error is called
-        //   expect(Notification.error).toHaveBeenCalledWith({ message: 'Username already exists', title: '<i class="glyphicon glyphicon-remove"></i> Signup Error!', delay: 6000 });
-        // });
       });
     });
 

@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   'use strict';
 
   describe('Edit Profile Controller Tests', function () {
@@ -97,6 +97,5 @@
         expect(Notification.error).toHaveBeenCalledWith({ message: errorMessage, title: '<i class="glyphicon glyphicon-remove"></i> Edit profile failed!' });
       }));
     });
-
   });
 }());

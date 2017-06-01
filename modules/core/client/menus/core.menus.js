@@ -10,8 +10,6 @@
   function menuConfig(menuService, Authentication) {
     var profileEdit = 'settings.profile';
 
-    console.log();
-
     if (Authentication.user !== null && Authentication.user.roles.indexOf('volunteer') !== -1) {
       if (Authentication.user.hasOwnProperty('volunteer')) {
         profileEdit = 'settings.volunteer.edit({volunteerId: \'' + Authentication.user.volunteer + '\'})';
@@ -31,12 +29,6 @@
       roles: ['user']
     });
 
-    // menuService.addSubMenuItem('account', 'settings', {
-    //   title: 'Edit Profile',
-    //   state: 'settings.profile',
-    //   roles: ['admin']
-    // });
-
     menuService.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile',
       state: profileEdit,
@@ -48,10 +40,5 @@
       state: 'settings.picture',
       roles: ['user']
     });
-
-    // menuService.addSubMenuItem('account', 'settings', {
-    //   title: 'Manage Social Accounts',
-    //   state: 'settings.accounts'
-    // });
   }
 }());
