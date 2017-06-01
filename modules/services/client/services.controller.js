@@ -9,7 +9,7 @@
   ServicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'serviceResolve'];
 
   function ServicesController ($scope, $state, $window, Authentication, service) {
-    let vm = this;
+    var vm = this;
 
     vm.authentication = Authentication;
     vm.service = service;

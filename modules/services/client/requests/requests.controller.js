@@ -9,7 +9,7 @@
   RequestsController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'requestResolve', 'requestService'];
 
   function RequestsController ($scope, $state, $stateParams, $window, Authentication, request, service) {
-    let vm = this;
+    var vm = this;
 
     vm.authentication = Authentication;
     vm.request = request;

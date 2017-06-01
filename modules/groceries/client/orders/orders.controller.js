@@ -9,7 +9,7 @@
   OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', 'Authentication', 'coreService', 'orderResolve'];
 
   function OrdersController($scope, $state, $filter, $stateParams, $window, Authentication, coreService, order) {
-    let vm = this;
+    var vm = this;
 
     vm.authentication = Authentication;
     vm.order = order;

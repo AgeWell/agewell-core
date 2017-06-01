@@ -9,7 +9,7 @@
   GroceriesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'groceriesToGoResolve'];
 
   function GroceriesController ($scope, $state, $window, Authentication, coreService, groceriesToGo) {
-    let vm = this;
+    var vm = this;
 
     vm.authentication = Authentication;
     vm.groceriesToGo = groceriesToGo;

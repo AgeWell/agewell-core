@@ -6,7 +6,7 @@
     .directive('contactView', contactView);
 
   function contactView() {
-    let directive = {
+    var directive = {
       restrict: 'E',
       scope: {
         contact: '='

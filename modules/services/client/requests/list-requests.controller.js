@@ -8,7 +8,7 @@
   RequestsListController.$inject = ['RequestsService'];
 
   function RequestsListController(RequestsService) {
-    let vm = this;
+    var vm = this;
 
     vm.requests = RequestsService.query();
   }

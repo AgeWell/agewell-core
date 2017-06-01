@@ -6,7 +6,7 @@
     .directive('listOrders', listOrders);
 
   function listOrders() {
-    let directive = {
+    var directive = {
       restrict: 'E',
       scope: {
         clientId: '='

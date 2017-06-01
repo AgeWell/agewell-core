@@ -8,7 +8,7 @@
   OrdersListController.$inject = ['OrdersService', '$stateParams'];
 
   function OrdersListController(OrdersService, $stateParams) {
-    let vm = this;
+    var vm = this;
 
     vm.orders = OrdersService.query();
     vm.clientid = $stateParams.clientId;

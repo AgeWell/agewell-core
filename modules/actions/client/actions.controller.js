@@ -9,7 +9,7 @@
   ActionsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService', 'actionsToGoResolve'];
 
   function ActionsController ($scope, $state, $window, Authentication, coreService, actionsToGo) {
-    let vm = this;
+    var vm = this;
 
     vm.authentication = Authentication;
     vm.actionsToGo = actionsToGo;

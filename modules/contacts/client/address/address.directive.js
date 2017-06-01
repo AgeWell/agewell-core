@@ -6,7 +6,7 @@
     .directive('address', address);
 
   function address() {
-    let directive = {
+    var directive = {
       restrict: 'E',
       scope: {
         address: '=',

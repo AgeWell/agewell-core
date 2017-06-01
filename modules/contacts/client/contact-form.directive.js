@@ -6,7 +6,7 @@
     .directive('contactForm', contactForm);
 
   function contactForm() {
-    let directive = {
+    var directive = {
       restrict: 'E',
       scope: {
         contact: '=',

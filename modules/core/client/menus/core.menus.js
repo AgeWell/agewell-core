@@ -8,7 +8,7 @@
   menuConfig.$inject = ['menuService', 'Authentication'];
 
   function menuConfig(menuService, Authentication) {
-    let profileEdit = 'settings.profile';
+    var profileEdit = 'settings.profile';
 
     console.log();
 

@@ -8,7 +8,7 @@
   CheckoutController.$inject = ['$scope', '$stateParams', '$state', '$timeout', '$uibModal', 'Notification', 'OrdersService', 'Upload'];
 
   function CheckoutController($scope, $stateParams, $state, $timeout, $uibModal, Notification, OrdersService, Upload) {
-    let vm = this;
+    var vm = this;
 
     vm.clientid = $stateParams.clientId;
     vm.picklist = [];
@@ -168,9 +168,9 @@
     }
 
     function delivery() {
-      let header = 'Checkout Complete';
-      let message = 'All the orders have been checkedout and paid for. Would you like to continue to the delivery or stay here to review the orders?';
-      let buttonClass = 'success';
+      var header = 'Checkout Complete';
+      var message = 'All the orders have been checkedout and paid for. Would you like to continue to the delivery or stay here to review the orders?';
+      var buttonClass = 'success';
 
       if (!vm.complete) {
         header = 'Checkout Incomplete';

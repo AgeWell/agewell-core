@@ -9,7 +9,7 @@
   ItemsController.$inject = ['$scope', '$state', '$filter', '$window', 'coreService'];
 
   function ItemsController($scope, $state, $filter, $window, coreService) {
-    let vm = this;
+    var vm = this;
 
     vm.options = coreService.getOptions('Grocery');
     vm.error = null;

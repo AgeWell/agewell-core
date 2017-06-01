@@ -6,7 +6,7 @@
     .directive('itemsForm', itemsForm);
 
   function itemsForm() {
-    let directive = {
+    var directive = {
       restrict: 'EA',
       scope: {
         items: '=',

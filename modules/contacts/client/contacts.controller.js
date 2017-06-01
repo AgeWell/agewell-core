@@ -9,7 +9,7 @@
   ContactsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService'];
 
   function ContactsController($scope, $state, $window, Authentication, coreService) {
-    let vm = this;
+    var vm = this;
     vm.options = coreService.getOptions('Contact');
 
     console.log(vm);

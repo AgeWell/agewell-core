@@ -8,7 +8,7 @@
   DeliveryController.$inject = ['$scope', '$stateParams', '$window', '$uibModal', 'Notification', 'ActionsService', 'OrdersService'];
 
   function DeliveryController($scope, $stateParams, $window, $uibModal, Notification, ActionsService, OrdersService) {
-    let vm = this;
+    var vm = this;
 
     vm.clientid = $stateParams.clientId;
     vm.complete = false;
@@ -122,7 +122,7 @@
       if (!vm.current.hasOwnProperty('delivery')) {
         return true;
       }
-      let delivery = vm.current.delivery;
+      var delivery = vm.current.delivery;
       if (delivery.hasOwnProperty('payment') && delivery.hasOwnProperty('method') && delivery.hasOwnProperty('followup')) {
         return false;
       }

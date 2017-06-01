@@ -8,7 +8,7 @@
   PicklistController.$inject = ['$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
 
   function PicklistController($scope, $state, $stateParams, $uibModal, Notification, OrdersService) {
-    let vm = this;
+    var vm = this;
 
     vm.picklist = [];
     vm.complete = false;
@@ -20,10 +20,10 @@
       status: 'ordered'
     }, function(orders) {
       // TODO: Sort these by the category
-      for (let i = 0; i < orders.length; i++) {
-        let order = orders[i];
-        let client = orders[i].contact;
-        for (let j = 0; j < order.items.length; j++) {
+      for (var i = 0; i < orders.length; i++) {
+        var order = orders[i];
+        var client = orders[i].contact;
+        for (var j = 0; j < order.items.length; j++) {
           vm.picklist.push({
             name: order.items[j].name,
             keys: [i, j],
@@ -40,13 +40,13 @@
     });
 
     function toggle(itemData) {
-      let order = vm.orders[itemData.keys[0]];
-      let item = order.items[itemData.keys[1]];
+      var order = vm.orders[itemData.keys[0]];
+      var item = order.items[itemData.keys[1]];
 
       itemData.inCart = !itemData.inCart;
       item.inCart = !item.inCart;
 
-      let orderComplete = order.items.every(function(listItem) {
+      var orderComplete = order.items.every(function(listItem) {
         return listItem.inCart;
       });
 
@@ -91,9 +91,9 @@
     }
 
     function checkout() {
-      let header = 'Pick List Complete';
-      let message = 'All the items on this picklist have been added to the cart. Would you like to continue to the checkout or stay here to review the cart?';
-      let buttonClass = 'success';
+      var header = 'Pick List Complete';
+      var message = 'All the items on this picklist have been added to the cart. Would you like to continue to the checkout or stay here to review the cart?';
+      var buttonClass = 'success';
 
       if (!vm.complete) {
         header = 'Pick List Incomplete';
