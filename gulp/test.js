@@ -25,7 +25,6 @@ var changedTestFiles = [];
 gulp.task('mocha', function(done) {
   // Open mongoose connections
   var mongoose = require('../config/lib/mongoose.js');
-  // var testSuites = changedTestFiles.length ? changedTestFiles : testAssets.tests.server;
   var testSuites = testAssets.tests.server;
   var error;
 

@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 // Load the mongoose models
 module.exports.loadModels = function(callback) {
-  // console.log(config.files);
+
   // Globbing model files
   config.files.server.models.forEach(function(modelPath) {
     require(path.resolve(modelPath));

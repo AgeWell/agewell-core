@@ -21,7 +21,6 @@ var getGlobbedPaths = function(globPatterns, excludes) {
 
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns)) {
-    // console.log(globPatterns);
     globPatterns.forEach(function(globPattern) {
       output = _.union(output, getGlobbedPaths(globPattern, excludes));
     });
@@ -45,8 +44,6 @@ var getGlobbedPaths = function(globPatterns, excludes) {
       output = _.union(output, files);
     }
   }
-
-  // console.log(output);
 
   return output;
 };

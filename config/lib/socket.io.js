@@ -31,8 +31,6 @@ module.exports = function (app, db) {
       key: privateKey,
       cert: certificate,
       ca: caBundle,
-      //  requestCert : true,
-      //  rejectUnauthorized : true,
       secureProtocol: 'TLSv1_method',
       ciphers: [
         'ECDHE-RSA-AES128-GCM-SHA256',
