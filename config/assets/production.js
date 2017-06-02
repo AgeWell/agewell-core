@@ -13,6 +13,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
         'public/lib/angular-ui-select/dist/select.min.css',
+        'public/lib/angular-xeditable/dist/css/xeditable.min.css',
         // endbower
       ],
       js: [
@@ -32,6 +33,7 @@ module.exports = {
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-ui-select/dist/select.min.js',
         'public/lib/angular-sanitize/angular-sanitize.min.js',
+        'public/lib/angular-xeditable/dist/js/xeditable.min.js',
         // endbower
       ]
     },

@@ -40,12 +40,10 @@ gulp.task('seedDB', function(done) {
 
 // Run the project seed for dev
 gulp.task('seed', function(done) {
-  runSequence('env:dev', ['makeUploadsDir', 'dropdb'],
-    // 'lint',
-    'seedDB', done);
+  runSequence('env:dev', 'dropdb', 'seedDB', done);
 });
 
 // Run the project seed
 gulp.task('seed:prod', function(done) {
-  runSequence('env:prod', ['makeUploadsDir', 'dropdb'], 'seedDB', done);
+  runSequence('env:prod', 'dropdb', 'seedDB', done);
 });
