@@ -25,14 +25,11 @@
     }
 
     function toggle(field, client) {
-      console.log('client', client);
       client[field] = !client[field];
 
       client.$update(successCallback, errorCallback);
 
       function successCallback(res) {
-        console.log(res);
-        console.log(client);
         Notification.info({ message: 'Update successful!' });
       }
 
@@ -41,7 +38,5 @@
         client[field] = !client[field];
       }
     }
-
-    console.log(vm);
   }
 }());

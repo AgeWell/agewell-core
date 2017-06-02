@@ -15,9 +15,7 @@ const _ = require('lodash');
  */
 exports.create = function(req, res) {
   let contact = new Contact(req.body.contact);
-
-  // req.body.contact = contact._id;
-  var client = new Client(req.body);
+  let client = new Client(req.body);
   client.save(function(err, client) {
     if (err) {
       return res.status(400).send({
@@ -42,11 +40,10 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var client = req.client ? req.client.toJSON() : {};
+  let client = req.client ? req.client.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  // console.log(req.user);
   client.canEdit = req.user.roles.includes('admin');
 
   res.jsonp(client);
@@ -56,7 +53,7 @@ exports.read = function(req, res) {
  * Update a Client
  */
 exports.update = function(req, res) {
-  var client = req.client;
+  let client = req.client;
 
   client = _.extend(client, req.body);
 
@@ -84,7 +81,7 @@ exports.update = function(req, res) {
  * Delete an Client
  */
 exports.delete = function(req, res) {
-  var client = req.client;
+  let client = req.client;
 
   Contact.remove({
     client: client._id
@@ -104,8 +101,6 @@ exports.delete = function(req, res) {
  * List of Clients
  */
 exports.list = function(req, res) {
-  // console.log(req.query);
-
   if (req.query.lastSkip) {
     req.query.lastSkip = {
       $ne: new Date(req.query.lastSkip)

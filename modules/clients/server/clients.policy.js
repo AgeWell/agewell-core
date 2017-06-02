@@ -28,7 +28,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/clients/:clientId',
-      permissions: ['get', 'post', 'put']
+      permissions: ['get']
     }]
   }]);
 };
@@ -53,10 +53,9 @@ exports.isAllowed = function (req, res, next) {
     if (isAllowed) {
       // Access granted! Invoke next middleware
       return next();
-    } else {
-      return res.status(403).json({
-        message: 'User is not authorized'
-      });
     }
+    return res.status(403).json({
+      message: 'User is not authorized'
+    });
   });
 };

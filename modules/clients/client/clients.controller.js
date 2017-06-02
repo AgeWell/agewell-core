@@ -18,7 +18,6 @@
     vm.remove = remove;
     vm.save = save;
     vm.toggle = toggle;
-    vm.log = log;
 
     if (!vm.client._id) {
       vm.client.active = true;
@@ -35,11 +34,6 @@
       vm.client.groceryCallList = false;
     }
 
-    function log() {
-      console.log(vm);
-    }
-    log();
-
     // Remove existing Client
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -49,14 +43,13 @@
 
     // Save Client
     function save(isValid) {
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.clientForm');
         return false;
       }
 
 
-      // TODO: move create/update logic to service
+      // TODO: move create/update logic to service, Check repo for ideas.
       if (vm.client._id) {
         vm.client.$update(successCallback, errorCallback);
       } else {
@@ -80,8 +73,6 @@
       vm.client.$update(successCallback, errorCallback);
 
       function successCallback(res) {
-        console.log(res);
-        console.log(vm.client);
         Notification.info({
           message: 'Update successful!'
         });

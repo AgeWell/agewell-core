@@ -36,7 +36,7 @@ var ClientSchema = new Schema({
   },
   lastSkip: Date,
   lastOrder: Date,
-  // socialSecurity: Number Maybe later
+  // socialSecurity: Number Maybe later // NOTE: This is a high risk field, co not add.
   monthlyIncomeSingle: {
     type: String,
     enum: ['< $990', '$990-1,485', '$1,486-1,980', '> $1,980']
