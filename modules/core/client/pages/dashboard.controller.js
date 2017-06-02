@@ -22,6 +22,7 @@
     vm.isAdmin = Authentication.user.roles.some(function(role) {
       return role === 'admin';
     });
+    // TODO: Orders that have been skipped or created need to be removved from the call list. Maybe a data select is in order.
 
     vm.dates = {
       now: new Date(),
