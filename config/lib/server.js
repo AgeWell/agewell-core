@@ -6,11 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const cookieParser = require('cookie-parser');
-const passport = require('passport');
-const socketio = require('socket.io');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 
 // Define the Socket.io configuration method
 module.exports = function (app, db) {
