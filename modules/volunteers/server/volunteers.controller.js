@@ -50,8 +50,6 @@ exports.read = function(req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   volunteer.canEdit = req.user.roles.includes('admin');
 
-  console.log(volunteer);
-
   res.jsonp(volunteer);
 };
 

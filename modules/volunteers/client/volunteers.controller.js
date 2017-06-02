@@ -33,8 +33,6 @@
       vm.volunteer.contact.email = Authentication.user.email;
     }
 
-    console.log(vm);
-
     // Remove existing Volunteer
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -44,9 +42,8 @@
 
     // Save Volunteer
     function save(isValid) {
+      // TODO: Port this validity check to other forms.
       if (!isValid) {
-        console.log(vm);
-
         $scope.$broadcast('show-errors-check-validity', 'vm.form.volunteerForm');
         return false;
       }
