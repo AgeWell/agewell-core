@@ -7,7 +7,7 @@ const shortid = require('shortid');
 const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Request = require(path.resolve('./modules/services/server/requests/request.model'));
+const Request = require(path.resolve('./modules/services/server/request.model'));
 const Item = require(path.resolve('./modules/groceries/server/groceries/grocery.model'));
 const Delivery = require(path.resolve('./modules/groceries/server/delivery/delivery.model'));
 
