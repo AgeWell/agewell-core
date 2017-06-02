@@ -12,8 +12,6 @@
     var vm = this;
     vm.options = coreService.getOptions('Contact');
 
-    console.log(vm);
-
     $scope.dateOptions = {
       formatYear: 'yy',
       maxDate: new Date(),

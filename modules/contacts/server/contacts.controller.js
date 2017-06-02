@@ -21,9 +21,9 @@ exports.create = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(contact);
     }
+
+    res.jsonp(contact);
   });
 };
 
@@ -54,9 +54,9 @@ exports.update = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(contact);
     }
+
+    res.jsonp(contact);
   });
 };
 
@@ -71,9 +71,9 @@ exports.delete = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      res.jsonp(contact);
     }
+
+    res.jsonp(contact);
   });
 };
 
@@ -81,15 +81,18 @@ exports.delete = function(req, res) {
  * List of Contacts
  */
 exports.list = function(req, res) {
-  Contact.find().sort('-created').populate('user', 'displayName').exec(function(err, contacts) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
+  Contact.find()
+    .sort('-created')
+    .populate('user')
+    .exec(function(err, contacts) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+
       res.jsonp(contacts);
-    }
-  });
+    });
 };
 
 /**
@@ -103,15 +106,18 @@ exports.contactByID = function(req, res, next, id) {
     });
   }
 
-  Contact.findById(id).populate('user', 'displayName').exec(function (err, contact) {
-    if (err) {
-      return next(err);
-    } else if (!contact) {
-      return res.status(404).send({
-        message: 'No Contact with that identifier has been found'
-      });
-    }
-    req.contact = contact;
-    next();
-  });
+  Contact.findById(id)
+    .populate('user')
+    .exec(function(err, contact) {
+      if (err) {
+        return next(err);
+      }
+      if (!contact) {
+        return res.status(404).send({
+          message: 'No Contact with that identifier has been found'
+        });
+      }
+      req.contact = contact;
+      next();
+    });
 };
