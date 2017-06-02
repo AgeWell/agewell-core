@@ -25,15 +25,6 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/groceries',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/groceries/:groceriesToGoId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/groceries',
       permissions: ['get']
     }, {
       resources: '/api/groceries/:groceriesToGoId',

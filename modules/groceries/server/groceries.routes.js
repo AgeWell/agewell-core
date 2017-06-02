@@ -11,12 +11,4 @@ module.exports = function(app) {
   app.route('/api/groceries').all(groceriesPolicy.isAllowed)
     .get(groceries.list)
     .post(groceries.create);
-
-  // app.route('/api/groceries/:orderId').all(groceriesPolicy.isAllowed)
-  //   .get(groceries.read)
-  //   .put(groceries.update)
-  //   .delete(groceries.delete);
-
-  // Finish by binding the Groceries to go middleware
-  // app.param('orderId', groceries.orderByID);
 };

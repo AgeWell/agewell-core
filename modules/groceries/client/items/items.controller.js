@@ -42,7 +42,7 @@
       vm.inserted = {
         id: vm.items.length + 1,
         name: '',
-        qty: 0,
+        qty: '',
         // price: 0,
         category: ''
       };

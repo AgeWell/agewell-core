@@ -82,7 +82,6 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  console.log(req.query);
   Order.find(req.query)
     .sort('requestNumber')
     .populate('contact')
@@ -130,8 +129,7 @@ exports.orderByID = function(req, res, next, id) {
   }
 
   Order.findById(id)
-    // .populate('user', 'displayName')
-    .populate('contact', 'displayName')
+    .populate('contact')
     .exec(function(err, order) {
       if (err) {
         return next(err);

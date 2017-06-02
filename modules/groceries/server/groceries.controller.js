@@ -78,14 +78,17 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  Grocery.find().sort('-created').populate('user', 'displayName').exec(function(err, groceriesToGos) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-    res.jsonp(groceriesToGos);
-  });
+  Grocery.find()
+    .sort('-created')
+    .populate('user', 'displayName')
+    .exec(function(err, groceriesToGos) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(groceriesToGos);
+    });
 };
 
 /**
@@ -99,16 +102,18 @@ exports.groceriesToGoByID = function(req, res, next, id) {
     });
   }
 
-  Grocery.findById(id).populate('user', 'displayName').exec(function (err, groceriesToGo) {
-    if (err) {
-      return next(err);
-    }
-    if (!groceriesToGo) {
-      return res.status(404).send({
-        message: 'No Groceries to go with that identifier has been found'
-      });
-    }
-    req.groceriesToGo = groceriesToGo;
-    next();
-  });
+  Grocery.findById(id)
+    .populate('user', 'displayName')
+    .exec(function(err, groceriesToGo) {
+      if (err) {
+        return next(err);
+      }
+      if (!groceriesToGo) {
+        return res.status(404).send({
+          message: 'No Groceries to go with that identifier has been found'
+        });
+      }
+      req.groceriesToGo = groceriesToGo;
+      next();
+    });
 };
