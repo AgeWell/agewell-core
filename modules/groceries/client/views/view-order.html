@@ -20,29 +20,12 @@
       </tr>
     </table>
     <table class="table table-bordered table-hover table-condensed">
-      <!-- <tr style="font-weight: bold">
-        <td class="text-right" style="width:80%">
-          SubTotal:
-        </td>
-        <td style="width:20%">
-          {{ vm.order.subtotal | currency }}
-        </td>
-      </tr> -->
-      <!-- <tr style="font-weight: bold">
-        <td class="text-right" style="width:80%">
-          Tax:
-        </td>
-        <td style="width:20%">
-          {{ vm.order.tax | currency }}
-        </td>
-      </tr> -->
       <tr style="font-weight: bold">
         <td class="text-right" style="width:80%">
           Reciept Total:
         </td>
         <td style="width:20%; padding: 0" class="reciept-total">
           <input type="text" id="price" name="price" class="form-control" ng-model="vm.order.recieptTotal" placeholder="0.00" ng-change="vm.update()" />
-          <!-- {{ vm.order.recieptTotal | currency }} -->
         </td>
       </tr>
       <tr style="font-weight: bold">

@@ -26,8 +26,6 @@
     vm.orders = OrdersService.query({
       status: 'purchased'
     }, function(orders) {
-      console.log(orders);
-      console.log(vm);
       checkList();
     });
 
@@ -36,20 +34,11 @@
     }
 
     function getAddress(address) {
-      // console.log(address);
       return address.street + ', ' + address.city + ', ' + address.state + ' ' + address.zipcode;
     }
 
     function deliver(order) {
       vm.current = order;
-
-      // if (typeof vm.current.delivery === 'undefined') {
-      //   vm.current.delivery = {
-      //     followup: ''
-      //   };
-      // }
-
-      console.log(vm.current);
 
       var modalInstance = $uibModal.open({
         animation: true,
@@ -67,7 +56,6 @@
     }
 
     function updateOrder() {
-
       vm.current.status = 'delivered';
 
       vm.current.$update(successCallback, errorCallback);
@@ -111,11 +99,9 @@
     }
 
     function checkList() {
-      console.log(vm.complete);
       vm.complete = vm.orders.every(function(order) {
         return order.status === 'delivered';
       });
-      console.log(vm.complete);
     }
 
     function ready() {

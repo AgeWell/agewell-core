@@ -82,10 +82,8 @@
       vm.complete = vm.picklist.every(function(listItem) {
         return listItem.inCart;
       });
-      console.log(vm.complete);
 
       if (vm.complete && vm.orders.length !== 0) {
-        console.log('complete');
         checkout();
       }
     }
@@ -126,7 +124,5 @@
         console.info('modal-component dismissed at: ' + new Date());
       });
     }
-
-    console.log(vm);
   }
 }());

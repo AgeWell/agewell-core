@@ -31,15 +31,10 @@
       vm.order.clientId = $stateParams.clientId;
       vm.order.date = vm.orderBy;
       vm.order.items = [];
-      vm.order.subtotal = 0.00;
-      vm.order.tax = 0.00;
       vm.order.recieptTotal = 0.00;
       vm.order.deliveryCost = 10.00;
       vm.order.total = 10.00;
     }
-
-    console.log(vm);
-    console.log($stateParams);
 
     // Remove existing Groceries to go
     function remove() {
@@ -85,19 +80,8 @@
     }
 
     // Helpers
-
     function totals() {
-      console.log(vm);
-      // vm.order.subtotal = 0.00;
-      // vm.order.tax = 0.00;
-      // vm.order.recieptTotal = 0.00;
-
-      // for (var i = 0; i < vm.order.items.length; i++) {
-      //   vm.order.subtotal += (vm.order.items[i].qty * vm.order.items[i].price);
-      // }
-
       vm.order.total = +vm.order.recieptTotal + +vm.order.deliveryCost;
-      // console.log(vm);
     }
 
     // Listeners

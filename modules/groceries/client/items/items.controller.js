@@ -14,20 +14,15 @@
     vm.options = coreService.getOptions('Grocery');
     vm.error = null;
 
-    // vm.showStatus = showStatus;
-    // vm.checkName = checkName;
     vm.saveItem = saveItem;
     vm.removeItem = removeItem;
     vm.addItem = addItem;
     vm.updateOrder = updateOrder;
 
-    // console.log(vm);
-
     function saveItem(data, id) {
       angular.extend(data, {
         id: id
       });
-      // return $http.post('/saveUser', data);
       return console.log('Item Saved');
     }
 
@@ -43,7 +38,6 @@
         id: vm.items.length + 1,
         name: '',
         qty: '',
-        // price: 0,
         category: ''
       };
       vm.items.push(vm.inserted);
@@ -51,7 +45,6 @@
     }
 
     function updateOrder() {
-      console.log('emit update');
       $scope.$emit('updateOrder');
     }
   }

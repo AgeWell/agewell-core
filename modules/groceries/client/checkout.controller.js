@@ -15,7 +15,6 @@
     vm.complete = false;
 
     vm.checkout = checkout;
-    vm.roundUp = roundUp;
     vm.totals = totals;
     vm.updateOrder = updateOrder;
     vm.upload = upload;
@@ -23,7 +22,6 @@
     vm.orders = OrdersService.query({
       status: 'incart'
     }, function(orders) {
-      console.log(vm);
       checkList();
     });
 
@@ -59,7 +57,6 @@
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
 
-        console.log(vm.current.recieptImage);
         if (vm.current.recieptTotal !== 0 && (vm.current.hasOwnProperty('recieptImage') && vm.current.recieptImage !== '')) {
           vm.current.status = 'purchased';
         } else {
@@ -92,11 +89,6 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-    }
-
-    function roundUp() {
-      console.log(vm.current.recieptTotal);
-      console.log(vm.current);
     }
 
     function totals() {
@@ -159,10 +151,8 @@
       vm.complete = vm.orders.every(function(order) {
         return order.status === 'purchased';
       });
-      console.log(vm.complete);
 
       if (vm.complete && vm.orders.length !== 0) {
-        console.log('complete');
         delivery();
       }
     }

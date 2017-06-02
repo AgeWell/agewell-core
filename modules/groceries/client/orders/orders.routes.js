@@ -23,7 +23,7 @@
           orderResolve: newOrder
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Groceries To Go Order'
         }
       })
@@ -36,7 +36,7 @@
           orderResolve: getOrder
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin'],
           pageTitle: 'Edit Groceries To Go Order'
         }
       })
