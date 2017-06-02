@@ -35,8 +35,8 @@ module.exports.initLocalVariables = function(app) {
   app.locals.googleAnalyticsTrackingID = config.app.googleAnalyticsTrackingID;
   app.locals.jsFiles = config.files.client.js;
   app.locals.cssFiles = config.files.client.css;
-  app.locals.logo = config.logo;
-  app.locals.favicon = config.favicon;
+  // app.locals.logo = config.logo;
+  // app.locals.favicon = config.favicon;
   app.locals.livereload = config.livereload;
   app.locals.env = process.env.NODE_ENV;
   app.locals.domain = config.domain;
@@ -62,7 +62,7 @@ module.exports.initMiddleware = function(app) {
   }));
 
   // Initialize favicon middleware
-  app.use(favicon(app.locals.favicon));
+  // app.use(favicon(app.locals.favicon));
 
   // Enable logger (morgan) if enabled in the configuration file
   if (_.has(config, 'log.format')) {
