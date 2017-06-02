@@ -17,8 +17,6 @@
     vm.remove = remove;
     vm.save = save;
 
-    console.log(vm);
-
     function remove(service) {
       if ($window.confirm('Are you sure you want to delete this service?')) {
         if (service) {
@@ -36,9 +34,6 @@
     }
 
     function save(isValid) {
-
-      console.log(vm);
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.serviceForm');
 

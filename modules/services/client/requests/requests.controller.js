@@ -18,9 +18,6 @@
     vm.remove = remove;
     vm.save = save;
 
-    console.log($stateParams);
-    console.log(vm);
-
     // Remove existing Request
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {

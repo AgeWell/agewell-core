@@ -83,7 +83,6 @@
   getService.$inject = ['$stateParams', 'ServicesService'];
 
   function getService($stateParams, ServicesService) {
-    console.log($stateParams.serviceId);
     if ($stateParams.serviceId) {
       return ServicesService.get({
         requestId: $stateParams.serviceId

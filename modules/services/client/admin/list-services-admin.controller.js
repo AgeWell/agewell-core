@@ -18,8 +18,6 @@
       vm.buildPager();
     });
 
-    console.log(vm);
-
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
