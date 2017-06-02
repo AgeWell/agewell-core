@@ -66,5 +66,5 @@ gulp.task('debug', function(done) {
 
 // Run the project in production mode
 gulp.task('prod', function(done) {
-  runSequence('build:prod', 'seed:prod', 'env:prod', 'nodemon', done);
+  runSequence('build:prod', 'seed:prod', 'env:prod', 'nodemon:prod', done);
 });

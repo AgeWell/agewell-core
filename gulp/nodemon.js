@@ -8,10 +8,17 @@ const nodemon = require('gulp-nodemon');
 gulp.task('nodemon', function() {
   return nodemon({
     script: 'server.js',
-    nodeArgs: ['--debug'],
+    nodeArgs: ['--inspect'],
     ext: 'js,html',
     verbose: true,
     watch: _.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
+  });
+});
+
+// Nodemon task
+gulp.task('nodemon:prod', function() {
+  return nodemon({
+    script: 'server.js'
   });
 });
 
