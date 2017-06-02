@@ -62,6 +62,13 @@ var VolunteerSchema = new Schema({
   availableTimes: String,
   comments: String
   // placements: String,
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 VolunteerSchema.virtual('contact', {

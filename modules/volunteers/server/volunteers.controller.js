@@ -50,6 +50,8 @@ exports.read = function(req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   volunteer.canEdit = req.user.roles.includes('admin');
 
+  console.log(volunteer);
+
   res.jsonp(volunteer);
 };
 
@@ -102,15 +104,10 @@ exports.delete = function(req, res) {
  * List of Volunteers
  */
 exports.list = function(req, res) {
-  Volunteer.find().sort('-created').populate('user', 'displayName').exec(function(err, volunteers) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-    Volunteer.populate(volunteers, {
-      path: 'contact'
-    }, function(err) {
+  Volunteer.find()
+    .sort('-created')
+    .populate('contact')
+    .exec(function(err, volunteers) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -118,7 +115,6 @@ exports.list = function(req, res) {
       }
       res.jsonp(volunteers);
     });
-  });
 };
 
 /**
@@ -132,14 +128,9 @@ exports.volunteerByID = function(req, res, next, id) {
     });
   }
 
-  Volunteer.findById(id).exec(function(err, volunteer) {
-    if (err) {
-      return next(err);
-    }
-
-    Volunteer.populate(volunteer, {
-      path: 'contact'
-    }, function(err) {
+  Volunteer.findById(id)
+    .populate('contact')
+    .exec(function(err, volunteer) {
       if (err) {
         return next(err);
       }
@@ -151,5 +142,4 @@ exports.volunteerByID = function(req, res, next, id) {
       req.volunteer = volunteer;
       next();
     });
-  });
 };

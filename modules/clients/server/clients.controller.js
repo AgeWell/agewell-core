@@ -118,15 +118,10 @@ exports.list = function(req, res) {
     };
   }
 
-  Client.find(req.query).sort('-created').exec(function(err, clients) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-    Client.populate(clients, {
-      path: 'contact'
-    }, function(err) {
+  Client.find(req.query)
+    .sort('-created')
+    .populate('contact')
+    .exec(function(err, clients) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -134,7 +129,6 @@ exports.list = function(req, res) {
       }
       res.jsonp(clients);
     });
-  });
 };
 
 /**
@@ -148,13 +142,9 @@ exports.clientByID = function(req, res, next, id) {
     });
   }
 
-  Client.findById(id).exec(function(err, client) {
-    if (err) {
-      return next(err);
-    }
-    Client.populate(client, {
-      path: 'contact'
-    }, function(err) {
+  Client.findById(id)
+    .populate('contact')
+    .exec(function(err, client) {
       if (err) {
         return next(err);
       }
@@ -166,5 +156,4 @@ exports.clientByID = function(req, res, next, id) {
       req.client = client;
       next();
     });
-  });
 };

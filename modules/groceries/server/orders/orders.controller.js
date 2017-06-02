@@ -131,7 +131,7 @@ exports.orderByID = function(req, res, next, id) {
 
   Order.findById(id)
     // .populate('user', 'displayName')
-    .populate('contact')
+    .populate('contact', 'displayName')
     .exec(function(err, order) {
       if (err) {
         return next(err);
