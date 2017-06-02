@@ -137,38 +137,6 @@ describe('Groceries to go CRUD tests', function() {
       });
   });
 
-  it('should return proper error for single Groceries to go which doesnt exist, if not signed in', function(done) {
-    // This is a valid mongoose Id but a non-existent Groceries to go
-    request(app).get('/api/groceries/559e9cd815f80b4c256a8f41')
-      .end(function(req, res) {
-        // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Groceries with that identifier has been found');
-
-        // Call the assertion callback
-        done();
-      });
-  });
-
-  it('should not be able to delete an Groceries to go if not signed in', function(done) {
-    // Create new Groceries to go model instance
-    let groceryObj = new Grocery(grocery);
-
-    // Save the Groceries to go
-    groceryObj.save(function() {
-      // Try deleting Groceries to go
-      request(app).delete('/api/groceries/' + groceryObj._id)
-        .expect(403)
-        .end(function(groceryDeleteErr, groceryDeleteRes) {
-          // Set message assertion
-          (groceryDeleteRes.body.message).should.match('User is not authorized');
-
-          // Handle Groceries to go error error
-          done(groceryDeleteErr);
-        });
-
-    });
-  });
-
   afterEach(function(done) {
     User.remove().exec(function() {
       Grocery.remove().exec(done);
