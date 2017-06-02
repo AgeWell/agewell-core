@@ -19,7 +19,7 @@
     "clean": "rm -rf node_modules/ public/lib/",
     "dropdb": "gulp dropdb",
     "reinstall": "npm cache clean && npm run clean && npm install",
-    "start": "gulp",
+    "start": "gulp prod",
     "start:dev": "gulp dev",
     "lint": "gulp lint",
     "test": "gulp test",

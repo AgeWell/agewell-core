@@ -5,6 +5,7 @@
   angular
     .module('contacts')
     .controller('ContactsController', ContactsController);
+    // TODO: Fixe form error displays
 
   ContactsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService'];
 

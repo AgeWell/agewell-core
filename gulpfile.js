@@ -22,7 +22,7 @@ fs.readdirSync('./gulp')
 
 // Run the project in development mode
 gulp.task('default', function(done) {
-  runSequence('prod', done);
+  runSequence('dev', done);
 });
 
 // Run the project in development mode

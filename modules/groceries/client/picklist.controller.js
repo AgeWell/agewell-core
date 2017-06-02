@@ -4,6 +4,8 @@
   angular
     .module('groceries')
     .controller('PicklistController', PicklistController);
+  // TODO: Add a function to handle items that are not avalible.
+  // TODO: Add a function to assign orders to volunteers
 
   PicklistController.$inject = ['$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
 
