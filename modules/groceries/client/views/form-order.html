@@ -18,7 +18,7 @@
           Reciept Total:
         </td>
         <td style="width:25%; padding: 0" class="reciept-total">
-          <input type="text" id="price" name="price" class="form-control" ng-model="vm.order.recieptTotal" placeholder="0.00" ng-change="vm.update()"/>
+          <input type="text" id="price" name="price" class="form-control" ng-model="vm.order.recieptTotal" placeholder="0.00" ng-change="vm.update()" />
         </td>
       </tr>
       <tr style="font-weight: bold">
@@ -38,6 +38,12 @@
         </td>
       </tr>
     </table>
+    <div ng-show="!vm.groceries._id" class="form-group">
+      <label>Status</label>
+      <select name="state" ng-model="vm.order.status" class="form-control">
+        <option ng-repeat="option in vm.options.status" value="{{option}}">{{option}}</option>
+      </select>
+    </div>
     <form name="vm.orderForm" class="form-horizontal" ng-submit="vm.save(vm.orderForm.$valid)" novalidate>
       <fieldset>
         <div>
