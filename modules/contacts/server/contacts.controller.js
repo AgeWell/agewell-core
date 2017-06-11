@@ -35,7 +35,6 @@ exports.read = function(req, res) {
   var contact = req.contact ? req.contact.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   contact.isCurrentUserOwner = req.user && contact.user && contact.user._id.toString() === req.user._id.toString();
 
   res.jsonp(contact);

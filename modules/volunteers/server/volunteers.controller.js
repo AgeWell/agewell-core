@@ -47,7 +47,6 @@ exports.read = function(req, res) {
   var volunteer = req.volunteer ? req.volunteer.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   volunteer.canEdit = req.user.roles.includes('admin');
 
   res.jsonp(volunteer);

@@ -35,7 +35,6 @@ exports.read = function(req, res) {
   let service = req.service ? req.service.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   service.isCurrentUserOwner = req.user && service.user && service.user._id.toString() === req.user._id.toString();
 
   res.jsonp(service);
