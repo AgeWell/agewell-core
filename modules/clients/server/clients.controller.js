@@ -106,9 +106,9 @@ exports.list = function(req, res) {
     };
   }
 
-  if (req.query.lastOrder) {
-    req.query.lastOrder = {
-      $ne: new Date(req.query.lastOrder)
+  if (req.query.lastOrdered) {
+    req.query.lastOrdered = {
+      $ne: new Date(req.query.lastOrdered)
     };
   }
 

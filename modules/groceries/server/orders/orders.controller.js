@@ -28,7 +28,8 @@ exports.create = function(req, res) {
       });
     }
     Client.findByIdAndUpdate(order.clientId, {
-      lastOrder: new Date(req.options.Order.order[0])
+      lastOrdered: new Date(req.options.Order.order[0]),
+      lastOrder: order._id
     }, function(err) {
       res.jsonp(order);
     });
