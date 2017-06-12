@@ -19,6 +19,7 @@ exports.renderIndex = function(req, res) {
       provider: validator.escape(req.user.provider),
       created: req.user.created.toString(),
       roles: req.user.roles,
+      isAdmin: req.user.isAdmin,
       profileImageURL: req.user.profileImageURL,
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
@@ -55,12 +56,10 @@ exports.loadVolunteers = function(req, res, next) {
           console.error(err);
           next();
         }
-        console.log(volunteers);
         req.volunteers = volunteers;
         next();
       });
   } else {
-    console.log('test');
     next();
   }
 };
