@@ -3,6 +3,7 @@
 const path = require('path');
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const Volunteer = mongoose.model('Volunteer');
 const validator = require('validator');
 const config = require(path.resolve('./config/config'));
 
@@ -28,11 +29,40 @@ exports.renderIndex = function(req, res) {
 
   let options = _.merge(req.options, getEnums());
 
+  options.volunteers = req.volunteers;
+
   res.render('modules/core/server/index', {
     user: JSON.stringify(safeUserObject),
     options: JSON.stringify(req.options),
     sharedConfig: JSON.stringify(config.shared)
   });
+};
+
+/**
+ * Render the main application page
+ */
+exports.loadVolunteers = function(req, res, next) {
+  if (req.user && req.user.isAdmin) {
+    Volunteer.find()
+      .select({ id: 1 })
+      .populate({
+        path: 'contact',
+        select: 'firstName lastName user -_id'
+      })
+      .sort('-contact.lastName')
+      .exec(function(err, volunteers) {
+        if (err) {
+          console.error(err);
+          next();
+        }
+        console.log(volunteers);
+        req.volunteers = volunteers;
+        next();
+      });
+  } else {
+    console.log('test');
+    next();
+  }
 };
 
 /**

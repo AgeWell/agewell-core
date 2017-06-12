@@ -104,6 +104,13 @@ var UserSchema = new Schema({
   resetPasswordExpires: {
     type: Date
   }
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 /**
@@ -184,5 +191,12 @@ UserSchema.statics.generateRandomPassphrase = function() {
     }
   });
 };
+
+UserSchema.virtual('isAdmin')
+  .get(function() {
+    return this.roles.some(function isAdmin(role) {
+      return role === 'admin';
+    });
+  });
 
 mongoose.model('User', UserSchema);

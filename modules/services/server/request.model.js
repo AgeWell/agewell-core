@@ -41,6 +41,10 @@ let RequestSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Client'
   },
+  volunteer: {
+    type: Schema.ObjectId,
+    ref: 'Volunteer'
+  },
   created: {
     type: Date,
     default: Date.now
