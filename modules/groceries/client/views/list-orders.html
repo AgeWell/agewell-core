@@ -15,8 +15,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">
-          <td>{{ order.requestNumber }}</td>
+        <tr ng-repeat="order in vm.orders" >
+          <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
           <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.items.length }}</td>

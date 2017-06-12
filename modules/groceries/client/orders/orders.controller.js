@@ -16,6 +16,7 @@
     vm.authentication = Authentication;
     vm.order = order;
     vm.options = coreService.getOptions('Order');
+    vm.volunteers = coreService.getOptions('volunteers');
     vm.error = null;
     vm.remove = remove;
     vm.update = update;
