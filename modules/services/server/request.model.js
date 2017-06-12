@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence');
 const Schema = mongoose.Schema;
+const Counter = mongoose.model('Counter');
 
 /**
  * Request Schema
@@ -58,8 +58,20 @@ let RequestSchema = new Schema({
   }
 });
 
-RequestSchema.plugin(AutoIncrement, {
-  inc_field: 'requestNumber'
+RequestSchema.pre('save', function(next) {
+  let request = this;
+  Counter.findByIdAndUpdate({
+    id: 'requestNumber'
+  }, {
+    $inc: {
+      seq: 1
+    }
+  }, function(error, counter) {
+    if (error)
+      return next(error);
+    request.requestNumber = counter.seq;
+    next();
+  });
 });
 
 RequestSchema.virtual('contact', {
