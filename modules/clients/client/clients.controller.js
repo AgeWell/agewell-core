@@ -48,8 +48,6 @@
         return false;
       }
 
-
-      // TODO: move create/update logic to service, Check repo for ideas.
       vm.client.createOrUpdate()
         .then(successCallback)
         .catch(errorCallback);

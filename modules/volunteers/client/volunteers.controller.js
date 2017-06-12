@@ -48,7 +48,6 @@
         return false;
       }
 
-      // TODO: move create/update logic to service
       vm.volunteer.createOrUpdate()
         .then(successCallback)
         .catch(errorCallback);

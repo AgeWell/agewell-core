@@ -57,14 +57,9 @@
         vm.order.items[i].id = undefined;
       }
 
-      // TODO: move create/update logic to service
       vm.order.createOrUpdate()
         .then(successCallback)
         .catch(errorCallback);
-      if (vm.order._id) {} else {
-        vm.order.date = new Date();
-        vm.order.$save(successCallback, errorCallback);
-      }
 
       function successCallback(res) {
         $state.go('order.view', {

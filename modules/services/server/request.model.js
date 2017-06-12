@@ -60,18 +60,22 @@ let RequestSchema = new Schema({
 
 RequestSchema.pre('save', function(next) {
   let request = this;
-  Counter.findByIdAndUpdate({
-    id: 'requestNumber'
-  }, {
-    $inc: {
-      seq: 1
-    }
-  }, function(error, counter) {
-    if (error)
-      return next(error);
-    request.requestNumber = counter.seq;
+  if (!request.requestNumber) {
+    Counter.findByIdAndUpdate({
+      id: 'requestNumber'
+    }, {
+      $inc: {
+        seq: 1
+      }
+    }, function(error, counter) {
+      if (error)
+        return next(error);
+      request.requestNumber = counter.seq;
+      next();
+    });
+  } else {
     next();
-  });
+  }
 });
 
 RequestSchema.virtual('contact', {

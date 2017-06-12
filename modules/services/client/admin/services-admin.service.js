@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  // TODO this should be Services service
   angular
     .module('services.admin')
     .factory('ServicesAdminService', ServicesAdminService);
