@@ -9,6 +9,7 @@ const path = require('path');
 const shortid = require('shortid');
 const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
+const Client = mongoose.model('Client');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 const upload = require(path.resolve('./config/lib/multer.js'));
 
@@ -26,7 +27,11 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-    res.jsonp(order);
+    Client.findByIdAndUpdate(order.clientId, {
+      lastOrder: new Date(req.options.Order.order[0])
+    }, function(err) {
+      res.jsonp(order);
+    });
   });
 };
 

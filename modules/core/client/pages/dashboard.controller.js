@@ -43,7 +43,7 @@
     });
 
 
-    function skip(client) {
+    function skip(index, client) {
       var modalInstance = $uibModal.open({
         animation: true,
         template: '<div class="modal-header"><h3 class="modal-title">Skip order</h3></div>' +
@@ -71,6 +71,7 @@
           Notification.info({
             message: 'Update successful!'
           });
+          vm.callList.splice(index, 1);
           pageChanged('callList', 6);
         }
 
