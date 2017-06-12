@@ -7,9 +7,9 @@
   // TODO: Add a function to handle items that are not avalible.
   // TODO: Add a function to assign orders to volunteers
 
-  PicklistController.$inject = ['$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
+  PicklistController.$inject = ['$filter', '$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
 
-  function PicklistController($scope, $state, $stateParams, $uibModal, Notification, OrdersService) {
+  function PicklistController($filter, $scope, $state, $stateParams, $uibModal, Notification, OrdersService) {
     var vm = this;
 
     vm.picklist = [];
@@ -21,7 +21,6 @@
     vm.orders = OrdersService.query({
       status: 'ordered'
     }, function(orders) {
-      // TODO: Sort these by the category
       for (var i = 0; i < orders.length; i++) {
         var order = orders[i];
         var client = orders[i].contact;
@@ -38,8 +37,11 @@
           });
         }
       }
+      vm.picklist = $filter('orderBy')(vm.picklist, 'category');
       checkList();
     });
+
+    console.log(vm);
 
     function toggle(itemData) {
       var order = vm.orders[itemData.keys[0]];
