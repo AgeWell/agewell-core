@@ -1,7 +1,7 @@
 {
   "name": "agewell-core",
   "description": "A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.",
-  "license": "GPLv3",
+  "license": "MIT",
   "dependencies": {
     "angular": "^1.6.2",
     "angular-animate": "^1.6.2",
