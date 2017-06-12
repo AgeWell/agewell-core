@@ -32,12 +32,9 @@
         return false;
       }
 
-      // TODO: move create/update logic to service
-      if (vm.groceriesToGo._id) {
-        vm.groceriesToGo.$update(successCallback, errorCallback);
-      } else {
-        vm.groceriesToGo.$save(successCallback, errorCallback);
-      }
+      vm.groceriesToGo.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('groceries.view', {

@@ -19,6 +19,10 @@ let OrderSchema = new Schema({
     type: String,
     default: shortid.generate
   },
+  type: {
+    type: String,
+    default: 'order'
+  },
   items: {
     type: [Item.schema]
   },

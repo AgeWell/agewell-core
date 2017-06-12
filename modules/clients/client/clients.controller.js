@@ -50,11 +50,9 @@
 
 
       // TODO: move create/update logic to service, Check repo for ideas.
-      if (vm.client._id) {
-        vm.client.$update(successCallback, errorCallback);
-      } else {
-        vm.client.$save(successCallback, errorCallback);
-      }
+      vm.client.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('clients.view', {

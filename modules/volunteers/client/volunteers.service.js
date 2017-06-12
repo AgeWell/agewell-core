@@ -6,10 +6,10 @@
     .module('volunteers')
     .factory('VolunteersService', VolunteersService);
 
-  VolunteersService.$inject = ['$resource'];
+  VolunteersService.$inject = ['$log', '$resource'];
 
-  function VolunteersService($resource) {
-    return $resource('/api/volunteers/:volunteerId', {
+  function VolunteersService($log, $resource) {
+    var Volunteer = $resource('/api/volunteers/:volunteerId', {
       volunteerId: '@_id'
     }, {
       get: {
@@ -26,5 +26,39 @@
         method: 'PUT'
       }
     });
+
+    angular.extend(Volunteer.prototype, {
+      createOrUpdate: function () {
+        var volunteer = this;
+        return createOrUpdate(volunteer);
+      }
+    });
+
+    return Volunteer;
+
+    function createOrUpdate(volunteer) {
+      if (volunteer._id) {
+        return volunteer.$update(onSuccess, onError);
+      } else {
+        return volunteer.$save(onSuccess, onError);
+      }
+
+      // Handle successful response
+      function onSuccess(volunteer) {
+        // Any required internal processing from inside the service, goes here.
+      }
+
+      // Handle error response
+      function onError(errorResponse) {
+        var error = errorResponse.data;
+        // Handle error internally
+        handleError(error);
+      }
+    }
+
+    function handleError(error) {
+      // Log error
+      $log.error(error);
+    }
   }
 }());

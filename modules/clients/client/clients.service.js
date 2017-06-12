@@ -6,10 +6,10 @@
     .module('clients')
     .factory('ClientsService', ClientsService);
 
-  ClientsService.$inject = ['$resource'];
+  ClientsService.$inject = ['$log', '$resource'];
 
-  function ClientsService($resource) {
-    return $resource('/api/clients/:clientId', {
+  function ClientsService($log, $resource) {
+    var Client = $resource('/api/clients/:clientId', {
       clientId: '@_id'
     }, {
       get: {
@@ -26,5 +26,32 @@
         method: 'PUT'
       }
     });
+
+    return Client;
+
+    function createOrUpdate(client) {
+      if (client._id) {
+        return client.$update(onSuccess, onError);
+      } else {
+        return client.$save(onSuccess, onError);
+      }
+
+      // Handle successful response
+      function onSuccess(client) {
+        // Any required internal processing from inside the service, goes here.
+      }
+
+      // Handle error response
+      function onError(errorResponse) {
+        var error = errorResponse.data;
+        // Handle error internally
+        handleError(error);
+      }
+    }
+
+    function handleError(error) {
+      // Log error
+      $log.error(error);
+    }
   }
 }());

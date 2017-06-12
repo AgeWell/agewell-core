@@ -58,9 +58,10 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.order._id) {
-        vm.order.$update(successCallback, errorCallback);
-      } else {
+      vm.order.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
+      if (vm.order._id) {} else {
         vm.order.date = new Date();
         vm.order.$save(successCallback, errorCallback);
       }

@@ -33,11 +33,9 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.actionsToGo._id) {
-        vm.actionsToGo.$update(successCallback, errorCallback);
-      } else {
-        vm.actionsToGo.$save(successCallback, errorCallback);
-      }
+      vm.actionsToGo.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('actions.view', {

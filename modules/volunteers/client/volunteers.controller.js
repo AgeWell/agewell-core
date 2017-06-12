@@ -49,11 +49,9 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.volunteer._id) {
-        vm.volunteer.$update(successCallback, errorCallback);
-      } else {
-        vm.volunteer.$save(successCallback, errorCallback);
-      }
+      vm.volunteer.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('volunteers.view', {

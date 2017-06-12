@@ -32,11 +32,9 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.service._id) {
-        vm.service.$update(successCallback, errorCallback);
-      } else {
-        vm.service.$save(successCallback, errorCallback);
-      }
+      vm.service.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         $state.go('services.view', {
