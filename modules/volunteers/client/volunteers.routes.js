@@ -33,7 +33,7 @@
           volunteerResolve: newVolunteer
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'volunteer'],
           pageTitle: 'Volunteers Create'
         }
       })
@@ -46,7 +46,7 @@
           volunteerResolve: getVolunteer
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'volunteer'],
           pageTitle: 'Edit Volunteer {{ volunteerResolve.name }}'
         }
       })
@@ -59,7 +59,7 @@
           volunteerResolve: getVolunteer
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'volunteer'],
           pageTitle: 'Volunteer {{ volunteerResolve.name }}'
         }
       })
@@ -68,6 +68,7 @@
         url: '/volunteer',
         template: '<ui-view/>'
       })
+      // TODO: The voluteers profile should be loaded instead of the create page.
       .state('settings.volunteer.create', {
         url: '/create',
         params: {

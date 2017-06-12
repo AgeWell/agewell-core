@@ -50,7 +50,7 @@ var VolunteerSchema = new Schema({
   countyArea: String,
   employerPastPresent: String,
   occupationPastPresent: String,
-  // Location: String, // TODO: Using a keyword, so should be changed
+  // Location: String, Using a keyword, so should be changed
   source: String,
   transportation: String,
   skills: {

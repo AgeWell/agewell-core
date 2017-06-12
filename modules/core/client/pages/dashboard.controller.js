@@ -17,12 +17,11 @@
     vm.callList = [];
     vm.orders = [];
     vm.actions = [];
-    vm.ordersFilter = 'ordered';
+    vm.ordersFilter = 'pending';
 
-    vm.isAdmin = Authentication.user.roles.some(function(role) {
-      return role === 'admin';
-    });
-    // TODO: Orders that have been skipped or created need to be removved from the call list. Maybe a data select is in order.
+    console.log(Authentication.user);
+
+    vm.isAdmin = Authentication.user.isAdmin;
 
     vm.dates = {
       now: new Date(),

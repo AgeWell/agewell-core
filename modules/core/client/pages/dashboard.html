@@ -83,10 +83,10 @@
 
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" ng-class="{'active': vm.ordersFilter === 'pending'}">
-              <a ng-click="vm.setFilter('pending')" aria-controls="home" role="tab" data-toggle="tab">Assign</a>
+              <a ng-click="vm.setFilter('pending')" aria-controls="home" role="tab" data-toggle="tab">Ordered</a>
             </li>
             <li role="presentation" ng-class="{'active': vm.ordersFilter === 'ordered'}">
-              <a ng-click="vm.setFilter('ordered')" aria-controls="profile" role="tab" data-toggle="tab">Ordered</a>
+              <a ng-click="vm.setFilter('ordered')" aria-controls="profile" role="tab" data-toggle="tab">Assigned</a>
             </li>
             <li role="presentation" ng-class="{'active': vm.ordersFilter === 'purchased'}">
               <a ng-click="vm.setFilter('purchased')" aria-controls="messages" role="tab" data-toggle="tab">Purchased</a>
