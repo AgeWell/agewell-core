@@ -61,7 +61,7 @@ let RequestSchema = new Schema({
 RequestSchema.pre('save', function(next) {
   let request = this;
   if (!request.requestNumber) {
-    Counter.findByIdAndUpdate({
+    Counter.findOneAndUpdate({
       id: 'requestNumber'
     }, {
       $inc: {
