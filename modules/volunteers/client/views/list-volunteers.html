@@ -16,18 +16,15 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Other</th>
+        <th>Phone</th>
         <th class="text-right">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="volunteer in vm.volunteers" ui-sref="volunteers.view({ volunteerId: volunteer._id })">
-        <td>{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</td>
+      <tr ng-repeat="volunteer in vm.volunteers">
+        <td><a ui-sref="volunteers.view({ volunteerId: volunteer._id })">{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</a></td>
         <td class="list-group-item-text">
-          Posted on
-          <span ng-bind="volunteer.created | date:'mediumDate'"></span> by
-          <span ng-if="volunteer.user" ng-bind="volunteer.user.displayName"></span>
-          <span ng-if="!volunteer.user">Deleted User</span>
+          {{volunteer.contact.homePhone}}
         </td>
         <td class="text-right">
           <button class="btn btn-default" ui-sref="volunteers.view({ volunteerId: volunteer._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>

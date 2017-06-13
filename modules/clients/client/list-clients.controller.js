@@ -23,6 +23,7 @@
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
+    // TODO: Add pagenation
 
     function toggle(field, client) {
       client[field] = !client[field];

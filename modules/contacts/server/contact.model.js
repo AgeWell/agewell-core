@@ -42,7 +42,7 @@ let ContactSchema = new Schema({
     maxlength: 1
   },
   address: Address,
-  homePhone: String,
+  homePhone: String, // TODO: This needs to be adjustest to primary phone.
   workPhone: String,
   cellPhone: String,
   email: {
