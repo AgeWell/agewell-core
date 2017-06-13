@@ -16,7 +16,7 @@ const CounterSchema = new Schema({
   },
   seq: {
     type: Number,
-    default: 0
+    default: 1
   }
 });
 

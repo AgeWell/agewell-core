@@ -60,14 +60,11 @@ let RequestSchema = new Schema({
 
 RequestSchema.pre('save', function(next) {
   let request = this;
+  let query = { id: 'requestNumber' };
+  let update = { $inc: { seq: 1 } };
+  let options = { upsert: true, new: true, setDefaultsOnInsert: true };
   if (!request.requestNumber) {
-    Counter.findOneAndUpdate({
-      id: 'requestNumber'
-    }, {
-      $inc: {
-        seq: 1
-      }
-    }, function(error, counter) {
+    Counter.findOneAndUpdate(query, update, options, function(error, counter) {
       if (error)
         return next(error);
       request.requestNumber = counter.seq;
