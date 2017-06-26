@@ -8,15 +8,16 @@
     // TODO: Add a function to duplicate the prior orders items
     // TODO: Limit the ability to creat new orders if one already exists for the time period
 
-  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', 'Authentication', 'coreService', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'Authentication', 'coreService', 'orderResolve'];
 
-  function OrdersController($scope, $state, $filter, $stateParams, $window, Authentication, coreService, order) {
+  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, Authentication, coreService, order) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.order = order;
     vm.options = coreService.getOptions('Order');
     vm.volunteers = coreService.getOptions('volunteers');
+    vm.assign = assign;
     vm.error = null;
     vm.remove = remove;
     vm.update = update;
@@ -71,6 +72,31 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    // Assign an order to a volunteer.
+    function assign(order) {
+      vm.current = order;
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: '/modules/groceries/client/views/modals/assign.html',
+        scope: $scope
+      });
+
+      vm.modalOk = function() {
+        modalInstance.close('OK Clicked');
+        save(true);
+      };
+      vm.modalCancel = function() {
+        modalInstance.dismiss('Cancel Clicked');
+      };
+
+      modalInstance.result.then(function() {
+        console.log('Open Checkout Interface');
+      }, function() {
+        console.info('modal-component dismissed at: ' + new Date());
+      });
     }
 
     // updates the order when new items are added.

@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h3 class="modal-title">Checkout - Reciept</h3>
+</div>
+<div class="modal-body">
+  <div class="alert alert-info" role="alert"><strong>Please confirm that the following are in the cart:</strong></div>
+  <form name="vm.form" ng-submit="vm.updateOrder()" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <label>Assign Volunteer</label>
+        <select name="state" ng-model="vm.order.volunteer" class="form-control">
+          <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.contact.lastName}}, {{option.contact.firstName}}</option>
+        </select>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancle</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-disabled="!vm.order.volunteer">Assign</button>
+</div>

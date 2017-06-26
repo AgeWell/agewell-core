@@ -52,8 +52,7 @@
   <div class="col-md-4">
     <div class="btn-group btn-group" role="group" aria-label="...">
       <button type="button" class="btn btn-primary" ui-sref="order.edit({ clientId: vm.order.clientId, orderId: vm.order._id })">Edit</button>
-      <!-- TODO: Add functions to these buttons -->
-      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'canceled'">Assign</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'canceled'" ng-click="vm.assign()">Assign</button>
     </div>
     <hr />
     <div class="panel panel-primary">
