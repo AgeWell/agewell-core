@@ -41,7 +41,7 @@ let RequestSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Client'
   },
-  volunteer: {
+  volunteerId: {
     type: Schema.ObjectId,
     ref: 'Volunteer'
   },
@@ -79,6 +79,13 @@ RequestSchema.virtual('contact', {
   ref: 'Contact',
   localField: 'clientId',
   foreignField: 'client',
+  justOne: true
+});
+
+RequestSchema.virtual('volunteer', {
+  ref: 'Contact',
+  localField: 'volunteerId',
+  foreignField: 'volunteer',
   justOne: true
 });
 

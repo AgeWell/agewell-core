@@ -96,6 +96,7 @@ exports.list = function(req, res) {
   Order.find(req.query)
     .sort('requestNumber')
     .populate('contact')
+    .populate('volunteer')
     .exec(function(err, orders) {
       if (err) {
         return res.status(400).send({
@@ -141,6 +142,7 @@ exports.orderByID = function(req, res, next, id) {
 
   Order.findById(id)
     .populate('contact')
+    .populate('volunteer')
     .exec(function(err, order) {
       if (err) {
         return next(err);

@@ -105,18 +105,18 @@
                   <tr>
                     <th>Order #</th>
                     <th>Client</th>
-                    <th>Status</th>
+                    <th>Volunteer</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="order in vm.pagedorders">
                     <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
-                    <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
-                    <td>{{ order.status }}</td>
+                    <td><a ui-sref="clients.view({ clientId: order.clientId })">{{ order.contact.firstName }} {{ order.contact.lastName }}</a></td>
+                    <td><a ui-sref="volunteers.view({ volunteerId: order.volunteerId })">{{ order.volunteer.firstName }} {{ order.volunteer.lastName }}</a></td>
                     <td class="text-right">
                       <div class="btn-group  btn-group-sm">
-                        <button class="btn btn-default" ng-click="vm.approve(order)" tooltip-placement="top" uib-tooltip="Confirm Order"><i class="glyphicon glyphicon-share-alt" aria-label="Confirm Order"></i></button>
+                        <button class="btn btn-default" ng-click="vm.assign(order)" tooltip-placement="top" uib-tooltip="Assign Order" ng-hide="order.status === 'ordered'"><i class="glyphicon glyphicon-user" aria-label="Assign Order"></i></button>
                         <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
                         <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
                       </div>

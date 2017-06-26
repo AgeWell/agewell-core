@@ -10,13 +10,16 @@
 
   function DashboardController($scope, $state, $window, $filter, $uibModal, Authentication, Notification, coreService, ClientsService, ActionsService, OrdersService) {
     var vm = this;
+    vm.dashboard = true;
     vm.options = coreService.getOptions('Order');
+    vm.volunteers = coreService.getOptions('volunteers');
     vm.approve = approve;
     vm.skip = skip;
     vm.setFilter = setFilter;
     vm.complete = complete;
     vm.callList = [];
     vm.orders = [];
+    vm.assign = assign;
     vm.actions = [];
     vm.ordersFilter = 'pending';
 
@@ -91,6 +94,48 @@
       vm.orders = data;
       buildPager('orders', 5);
     });
+
+    // Assign an order to a volunteer.
+    function assign(order) {
+      vm.current = order;
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: '/modules/groceries/client/views/modals/assign.html',
+        scope: $scope
+      });
+
+      vm.modalOk = function() {
+        modalInstance.close('OK Clicked');
+
+        vm.current.status = 'ordered';
+
+        vm.current.createOrUpdate()
+          .then(successCallback)
+          .catch(errorCallback);
+
+        function successCallback(res) {
+          Notification.info({
+            message: 'Update successful!'
+          });
+          pageChanged('orders', 5);
+        }
+
+        function errorCallback(res) {
+          vm.current.status = 'pending';
+          vm.error = res.data.message;
+        }
+      };
+      vm.modalCancel = function() {
+        modalInstance.dismiss('Cancel Clicked');
+      };
+
+      modalInstance.result.then(function() {
+        console.log('Open Checkout Interface');
+      }, function() {
+        console.info('modal-component dismissed at: ' + new Date());
+      });
+    }
 
     // Pages related functions
     vm.buildPager = buildPager;
