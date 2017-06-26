@@ -4,6 +4,7 @@
   angular
     .module('core')
     .controller('DashboardController', DashboardController);
+    // TODO: Volunteers need to not be able to access this page or return any results until they are set to active.
 
   DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'ActionsService', 'OrdersService'];
 

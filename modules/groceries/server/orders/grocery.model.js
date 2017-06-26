@@ -26,6 +26,10 @@ let GrocerySchema = new Schema({
     type: Boolean,
     default: false
   },
+  notAvailable: {
+    type: Boolean,
+    default: false
+  },
   unit: String,
   price: Number,
   category: {

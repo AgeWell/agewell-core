@@ -4,7 +4,6 @@
   angular
     .module('groceries')
     .controller('PicklistController', PicklistController);
-  // TODO: Add a function to handle items that are not avalible.
   // TODO: Add a function to assign orders to volunteers
 
   PicklistController.$inject = ['$filter', '$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
@@ -17,6 +16,7 @@
 
     vm.checkout = checkout;
     vm.toggle = toggle;
+    vm.notAvailable = notAvailable;
 
     vm.orders = OrdersService.query({
       status: 'ordered'
@@ -33,15 +33,14 @@
             client: client.firstName + ' ' + client.lastName,
             clientId: orders[i].clientId,
             orderId: orders[i]._id,
-            inCart: order.items[j].inCart
+            inCart: order.items[j].inCart,
+            notAvailable: order.items[j].notAvailable
           });
         }
       }
       vm.picklist = $filter('orderBy')(vm.picklist, 'category');
       checkList();
     });
-
-    console.log(vm);
 
     function toggle(itemData) {
       var order = vm.orders[itemData.keys[0]];
@@ -50,8 +49,13 @@
       itemData.inCart = !itemData.inCart;
       item.inCart = !item.inCart;
 
+      if (itemData.notAvailable) {
+        itemData.notAvailable = false;
+        item.notAvailable = false;
+      }
+
       var orderComplete = order.items.every(function(listItem) {
-        return listItem.inCart;
+        return listItem.inCart || listItem.notAvailable;
       });
 
       if (orderComplete) {
@@ -73,7 +77,46 @@
         item.inCart = !item.inCart;
 
         orderComplete = order.items.every(function(listItem) {
-          return listItem.inCart;
+          return listItem.inCart || listItem.notAvailable;
+        });
+
+        if (!orderComplete) {
+          order.status = 'ordered';
+        }
+      }
+    }
+
+    function notAvailable(itemData) {
+      var order = vm.orders[itemData.keys[0]];
+      var item = order.items[itemData.keys[1]];
+
+      itemData.notAvailable = !itemData.notAvailable;
+      item.notAvailable = !item.notAvailable;
+
+      var orderComplete = order.items.every(function(listItem) {
+        return listItem.inCart || listItem.notAvailable;
+      });
+
+      if (orderComplete) {
+        order.status = 'incart';
+      }
+
+      order.$update(successCallback, errorCallback);
+
+      function successCallback(res) {
+        Notification.info({
+          message: 'Update successful!'
+        });
+        checkList();
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        itemData.notAvailable = !itemData.notAvailable;
+        item.notAvailable = !item.notAvailable;
+
+        orderComplete = order.items.every(function(listItem) {
+          return listItem.inCart || listItem.notAvailable;
         });
 
         if (!orderComplete) {
@@ -84,7 +127,7 @@
 
     function checkList() {
       vm.complete = vm.picklist.every(function(listItem) {
-        return listItem.inCart;
+        return listItem.inCart || listItem.notAvailable;
       });
 
       if (vm.complete && vm.orders.length !== 0) {
