@@ -5,7 +5,7 @@
         <h1>Volunteers</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="true"/>
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="false"/>
       </div>
       <div class="col-md-4 text-right" style="margin-top: 2em">
         <button class="btn btn-default" ui-sref="volunteers.create" tooltip-placement="top" uib-tooltip="Add New Volunteer"><i class="glyphicon glyphicon-plus" aria-label="Add New Volunteer"></i></button>
@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="volunteer in vm.volunteers">
+      <tr ng-repeat="volunteer in vm.pagedItems">
         <td><a ui-sref="volunteers.view({ volunteerId: volunteer._id })">{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</a></td>
         <td class="list-group-item-text">
           {{volunteer.contact.homePhone}}
@@ -32,6 +32,13 @@
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr ng-if="vm.filterLength > vm.itemsPerPage">
+        <td colspan="6" class="text-center">
+          <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+        </td>
+      </tr>
+    </tfoot>
   </table>
   <script>
     $(function() {

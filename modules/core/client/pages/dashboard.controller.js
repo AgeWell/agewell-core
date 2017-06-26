@@ -35,7 +35,7 @@
       active: true,
       groceryCallList: true,
       lastSkip: vm.dates.orderBy,
-      lastOrder: vm.dates.orderBy
+      lastOrdered: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
       buildPager('callList', 6);

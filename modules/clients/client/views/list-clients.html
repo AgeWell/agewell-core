@@ -5,7 +5,7 @@
         <h1>Clients</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="true"/>
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="false"/>
       </div>
       <div class="col-md-4 text-right" style="margin-top: 2em">
         <button class="btn btn-default" ui-sref="clients.create" tooltip-placement="top" uib-tooltip="Add New Client"><i class="glyphicon glyphicon-plus" aria-label="Add New Client"></i></button>
@@ -24,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="client in vm.clients" ui-sref="clients.view({ clientId: client._id })">
+      <tr ng-repeat="client in vm.pagedItems" ui-sref="clients.view({ clientId: client._id })">
         <td>{{client.contact.firstName}} {{client.contact.lastName}}</td>
         <td class="list-group-item-text">
           Some Additional Information
@@ -65,6 +65,13 @@
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr ng-if="vm.filterLength > vm.itemsPerPage">
+        <td colspan="6" class="text-center">
+          <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+        </td>
+      </tr>
+    </tfoot>
   </table>
   <script>
     $(function() {

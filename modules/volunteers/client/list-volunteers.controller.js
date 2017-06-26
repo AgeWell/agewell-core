@@ -9,20 +9,36 @@
 
   function VolunteersListController($filter, Notification, VolunteersService) {
     var vm = this;
+
+    vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
+    vm.pageChanged = pageChanged;
     vm.toggle = toggle;
 
-    vm.volunteers = VolunteersService.query();
-    // TODO: Add pagenation
+    VolunteersService.query(function (data) {
+      vm.volunteers = data;
+      vm.buildPager();
+    });
+
+    function buildPager() {
+      vm.pagedItems = [];
+      vm.itemsPerPage = 10;
+      vm.currentPage = 1;
+      vm.figureOutItemsToDisplay();
+    }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.services, {
+      vm.filteredItems = $filter('filter')(vm.volunteers, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);
+    }
+
+    function pageChanged() {
+      vm.figureOutItemsToDisplay();
     }
 
     function toggle(field, client) {
