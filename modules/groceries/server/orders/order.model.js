@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-const shortid = require('shortid');
 const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -15,10 +14,6 @@ const Delivery = require(path.resolve('./modules/groceries/server/orders/deliver
  * Orders to go Schema
  */
 let OrderSchema = new Schema({
-  _id: {
-    type: String,
-    default: shortid.generate
-  },
   type: {
     type: String,
     default: 'order'

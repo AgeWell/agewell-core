@@ -31,6 +31,15 @@
       };
     }
 
+    vm.orderBy = vm.orders.order[0];
+    if (vm.client.lastOrdered === vm.orderBy) {
+      console.log('Already ordered');
+    } else {
+      console.log(vm.client.lastOrdered, vm.orderBy);
+    }
+
+    console.log(vm);
+
     if (!vm.client.groceryCallList) {
       vm.client.groceryCallList = false;
     }

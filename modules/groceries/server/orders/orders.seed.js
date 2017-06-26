@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Order = mongoose.model('Order');
 
 let docArray = [{
-  '_id': 'SyNwcB-yZ',
+  '_id': '5940a7615199c24c447971c1',
   'requestNumber': 1,
   'clientId': '59036c9bf3895a15640d781a',
   'date': new Date('2017-04-28T23:03:55.629Z'),
@@ -34,9 +34,9 @@ let docArray = [{
     'name': 'Burke Wells'
   }]
 }, {
-  '_id': 'S11Y9Sb1-',
+  '_id': '5940a7615199c24c447971c5',
   'requestNumber': 2,
-  'clientId': '59036cb5f3895a15640d7826',
+  'clientId': '5940a7615199c24c447971c3',
   'date': new Date('2017-04-28T23:04:23.062Z'),
   'subtotal': 0,
   'tax': 0,
@@ -61,7 +61,7 @@ let docArray = [{
     'name': 'Courtney Morton'
   }]
 }, {
-  '_id': 'rku5qSb1b',
+  '_id': '5940a7615199c24c447971c2',
   'requestNumber': 3,
   'clientId': '59036cbff3895a15640d782a',
   'date': new Date('2017-04-28T23:04:47.735Z'),
@@ -92,7 +92,7 @@ let docArray = [{
     'name': 'Alexa Stark'
   }]
 }, {
-  '_id': 'HkxkRSW1W',
+  '_id': '5940a7615199c24c447971c4',
   'requestNumber': 4,
   'clientId': '59036cbff3895a15640d782a',
   'date': new Date('2017-04-28T23:18:47.885Z'),

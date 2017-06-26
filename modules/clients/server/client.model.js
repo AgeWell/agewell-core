@@ -35,11 +35,11 @@ var ClientSchema = new Schema({
     default: false
   },
   lastSkip: Date,
-  lastOrder: Date,
-  lastOrdered: {
+  lastOrder: {
     type: Schema.ObjectId,
     ref: 'Order'
   },
+  lastOrdered: Date,
   // socialSecurity: Number Maybe later This is a high risk field, can not add.
   monthlyIncomeSingle: {
     type: String,

@@ -31,6 +31,12 @@ exports.create = function(req, res) {
       lastOrdered: new Date(req.options.Order.order[0]),
       lastOrder: order._id
     }, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      console.log(req.options.Order.order[0], order._id);
       res.jsonp(order);
     });
   });
