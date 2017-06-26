@@ -42,9 +42,8 @@
 
     // Save Volunteer
     function save(isValid) {
-      // TODO: Port this validity check to other forms.
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.volunteerForm');
+        $scope.$broadcast('show-errors-check-validity', 'vm.volunteerForm');
         return false;
       }
 

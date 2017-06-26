@@ -5,7 +5,6 @@
   angular
     .module('contacts')
     .controller('ContactsController', ContactsController);
-    // TODO: Fixe form error displays
 
   ContactsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'coreService'];
 
@@ -18,6 +17,8 @@
       maxDate: new Date(),
       startingDay: 1
     };
+
+    console.log(vm);
 
     $scope.open1 = function() {
       $scope.popup1.opened = true;

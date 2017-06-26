@@ -54,7 +54,7 @@
     // Save Client
     function save(isValid) {
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.clientForm');
+        $scope.$broadcast('show-errors-check-validity', 'vm.clientForm');
         return false;
       }
 
