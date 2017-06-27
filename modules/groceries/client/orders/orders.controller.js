@@ -31,6 +31,8 @@
       nextDelivery: new Date(vm.options.delivery[1])
     };
 
+    console.log(vm);
+
     if (!vm.order._id) {
       vm.order.clientId = $stateParams.clientId;
       vm.order.date = vm.orderBy;
@@ -75,8 +77,8 @@
     }
 
     // Assign an order to a volunteer.
-    function assign(order) {
-      vm.current = order;
+    function assign() {
+      vm.current = vm.order;
 
       var modalInstance = $uibModal.open({
         animation: true,
@@ -86,6 +88,7 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
+        console.log(vm.current);
         save(true);
       };
       vm.modalCancel = function() {

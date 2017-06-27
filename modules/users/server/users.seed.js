@@ -29,7 +29,8 @@ let docArray = [{
   'email': 'volunteer@agewellarrowhead.com',
   'password': process.env.PASSWORD,
   'lastName': 'Volunteer',
-  'firstName': 'Test'
+  'firstName': 'Test',
+  'active': true
 }];
 
 /**

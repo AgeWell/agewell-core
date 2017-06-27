@@ -5,6 +5,7 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// TODO intergrate the user check and check if user is set to active for query
 
 /**
  * Volunteer Schema

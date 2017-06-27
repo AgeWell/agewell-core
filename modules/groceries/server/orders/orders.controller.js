@@ -93,7 +93,26 @@ exports.delete = function(req, res) {
  * List of Groceries to gos
  */
 exports.list = function(req, res) {
-  Order.find(req.query)
+  let query = req.query;
+
+  if (req.user.roles.includes('volunteer')) {
+    console.log(req.user);
+    query = {
+      $and: [
+        query,
+        {
+          $or: [
+            { volunteerId: req.user._id },
+            { volunteerId: { $exists: false } }
+          ]
+        }
+      ]
+    };
+    console.log('Is a volunteer!');
+    // Do something
+  }
+
+  Order.find(query)
     .sort('requestNumber')
     .populate('contact')
     .populate('volunteer')

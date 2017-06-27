@@ -39,7 +39,7 @@
         return false;
       }
 
-      vm.credentials.roles = $stateParams.type;
+      vm.credentials.roleRequested = $stateParams.type;
 
       UsersService.userSignup(vm.credentials)
         .then(onUserSignupSuccess)

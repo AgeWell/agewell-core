@@ -3,7 +3,7 @@
 const path = require('path');
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const Volunteer = mongoose.model('Volunteer');
+const User = mongoose.model('User');
 const validator = require('validator');
 const config = require(path.resolve('./config/config'));
 
@@ -44,13 +44,14 @@ exports.renderIndex = function(req, res) {
  */
 exports.loadVolunteers = function(req, res, next) {
   if (req.user && req.user.isAdmin) {
-    Volunteer.find()
-      .select({ id: 1 })
-      .populate({
-        path: 'contact',
-        select: 'firstName lastName user -_id'
-      })
-      .sort('-contact.lastName')
+    User.find({
+      roles: {
+        $in: ['volunteer']
+      },
+      active: true
+    })
+      .select('firstName lastName roles')
+      .sort('lastName')
       .exec(function(err, volunteers) {
         if (err) {
           console.error(err);
