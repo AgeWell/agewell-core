@@ -5,12 +5,14 @@
     </div>
     <br>
     <div class="col-md-12">
-      <p class="lead">
+      <p class="lead" ng-show="!vm.authentication.user">
         A managment solution for organizations that connect older adults and caregivers with services that support healthy aging and independence.
       </p>
+      <p class="text-center" ng-show="vm.authentication.user && !vm.authentication.user.active">We are in the process of reviewing your application. Once we have completed this process, we will active your account and send you a email notifying you of the account activation.</p>
+      </div>
     </div>
   </div>
-  <div class="row text-center">
+  <div class="row text-center" ng-show="!vm.authentication.user">
     <div class="col-md-6 col-sm-6 col-xs-12">
       <h3>Become a Volunteer</h3>
       <p class="text-left">When you serve with Age Well Arrowhead, you’ll learn that even the smallest task can make a big difference in someone else’s life. Volunteers often complete tasks like picking up groceries, dusting a ceiling fan, shoveling snow, or other light housekeeping duties.</p><br />

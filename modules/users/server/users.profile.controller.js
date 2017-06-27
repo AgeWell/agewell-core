@@ -13,7 +13,7 @@ const config = require(path.resolve('./config/config'));
 const User = mongoose.model('User');
 const validator = require('validator');
 
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
+var whitelistedFields = ['firstName', 'lastName', 'email'];
 
 /**
  * Update user details
@@ -148,6 +148,8 @@ exports.me = function(req, res) {
       provider: validator.escape(req.user.provider),
       created: req.user.created.toString(),
       roles: req.user.roles,
+      isAdmin: req.user.isAdmin,
+      active: req.user.active,
       profileImageURL: req.user.profileImageURL,
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),

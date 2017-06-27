@@ -12,8 +12,13 @@
 
     vm.authentication = Authentication;
 
-    if (vm.authentication.user) {
-      $location.path('/dashboard');
+    // if (!vm.authentication.user.active) {
+    //   console.log(vm.authentication.user);
+    //   return $location.path('/inactive');
+    // }
+
+    if (vm.authentication.user && vm.authentication.user.active) {
+      return $location.path('/dashboard');
     }
 
     vm.open = function(parentSelector) {

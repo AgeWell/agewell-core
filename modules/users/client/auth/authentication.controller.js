@@ -68,7 +68,7 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
 
-      if (response.roles.includes('volunteer') && response.active === false) {
+      if (response.roles.indexOf('volunteer') !== -1 && response.active === false) {
         return $state.go('volunteers.create', $state.previous.params);
       }
 

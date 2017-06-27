@@ -118,6 +118,10 @@
           return false;
         }
 
+        if (this.roles.indexOf('volunteer') !== -1 && !this.active) {
+          return false;
+        }
+
         // eslint-disable-next-line no-restricted-syntax
         for (var userRoleIndex in user.roles) {
           if (user.roles.hasOwnProperty(userRoleIndex)) {
