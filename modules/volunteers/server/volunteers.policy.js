@@ -16,16 +16,16 @@ exports.invokeRolesPolicies = function () {
     roles: ['admin'],
     allows: [{
       resources: '/api/volunteers',
-      permissions: '*'
+      permissions: ['get']
     }, {
       resources: '/api/volunteers/:volunteerId',
-      permissions: '*'
+      permissions: ['get', 'put', 'delete']
     }]
   }, {
     roles: ['volunteer'],
     allows: [{
       resources: '/api/volunteers',
-      permissions: ['get', 'post', 'put']
+      permissions: ['get', 'post']
     }, {
       resources: '/api/volunteers/:volunteerId',
       permissions: ['get', 'post', 'put']
