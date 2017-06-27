@@ -78,12 +78,13 @@ exports.forgot = function (req, res, next) {
         subject: 'Password Reset',
         html: emailHTML
       };
-      smtpTransport.sendMail(mailOptions, function (err) {
+      smtpTransport.sendMail(mailOptions, function(err) {
         if (!err) {
           res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
         } else {
+          console.log(err);
           return res.status(400).send({
             message: 'Failure sending email'
           });
