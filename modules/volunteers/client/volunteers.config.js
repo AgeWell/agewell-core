@@ -24,9 +24,16 @@
     });
 
     // Add the dropdown create item
+    // menuService.addSubMenuItem('topbar', 'volunteers', {
+    //   title: 'Create Volunteer',
+    //   state: 'volunteers.create',
+    //   roles: ['admin']
+    // });
+
+    // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'volunteers', {
-      title: 'Create Volunteer',
-      state: 'volunteers.create',
+      title: 'Approve Volunteers',
+      state: 'volunteers.approve',
       roles: ['admin']
     });
   }

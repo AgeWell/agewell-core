@@ -101,7 +101,7 @@ exports.delete = function(req, res) {
  * List of Volunteers
  */
 exports.list = function(req, res) {
-  Volunteer.find()
+  Volunteer.find(req.query)
     .sort('-created')
     .populate('contact')
     .exec(function(err, volunteers) {

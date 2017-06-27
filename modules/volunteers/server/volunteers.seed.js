@@ -91,7 +91,7 @@ exports.seed = function(done) {
   }
 
   Volunteer.find({}, function(err, volunteers) {
-    if (volunteers.length >= total) {
+    if (volunteers.length < total) {
       saveAll();
     }
   });

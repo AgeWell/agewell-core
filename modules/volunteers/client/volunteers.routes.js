@@ -24,6 +24,16 @@
           pageTitle: 'Volunteers List'
         }
       })
+      .state('volunteers.approve', {
+        url: '/approve',
+        templateUrl: '/modules/volunteers/client/views/approve-volunteers.html',
+        controller: 'ApproveVolunteersController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['admin'],
+          pageTitle: 'Approve Volunteers'
+        }
+      })
       .state('volunteers.create', {
         url: '/create',
         templateUrl: '/modules/volunteers/client/views/form-volunteer.html',
