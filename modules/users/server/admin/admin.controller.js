@@ -26,6 +26,8 @@ exports.update = function (req, res) {
   user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  user.active = req.body.active;
+  user.roleRequested = req.body.roleRequested;
 
   user.save(function (err) {
     if (err) {
@@ -60,7 +62,8 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
   User.find(req.query)
-  .sort('-created')
+  .sort('lastName')
+  .select('lastName firstName roles roleRequested active')
   .populate('user', 'displayName')
   .exec(function (err, users) {
     if (err) {

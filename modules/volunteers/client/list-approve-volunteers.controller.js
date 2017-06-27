@@ -6,9 +6,9 @@
     .controller('ApproveVolunteersController', ApproveVolunteersController);
     // TODO: Make sure not senetive fields are not returned from the server.
 
-  ApproveVolunteersController.$inject = ['$filter', 'Notification', 'UsersService'];
+  ApproveVolunteersController.$inject = ['$filter', 'Notification', 'AdminService'];
 
-  function ApproveVolunteersController($filter, Notification, UsersService) {
+  function ApproveVolunteersController($filter, Notification, AdminService) {
     var vm = this;
 
     vm.buildPager = buildPager;
@@ -16,7 +16,7 @@
     vm.pageChanged = pageChanged;
     vm.approve = approve;
 
-    UsersService.query({
+    AdminService.query({
       roleRequested: 'volunteer'
     }, function(data) {
       vm.users = data;
@@ -47,15 +47,17 @@
 
     function approve(user, index) {
       user.roles.push('volunteer');
+      user.active = true;
       user.roleRequested = '';
-
-      console.log(user);
 
       user.createOrUpdate()
         .then(successCallback)
         .catch(errorCallback);
 
       function successCallback(res) {
+        let userKey = ((vm.currentPage - 1) * vm.itemsPerPage) + index;
+        vm.users.splice(userKey, 1);
+        vm.figureOutItemsToDisplay();
         Notification.info({ message: 'Update successful!' });
       }
 

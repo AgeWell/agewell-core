@@ -99,7 +99,7 @@ var UserSchema = new Schema({
   },
   roleRequested: {
     type: String,
-    enum: ['client', 'caretaker', 'volunteer', 'admin']
+    enum: ['', 'client', 'caretaker', 'volunteer', 'admin']
   },
   active: {
     type: Boolean,
