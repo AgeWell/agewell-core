@@ -6,9 +6,9 @@
     .module('users.services')
     .factory('UsersService', UsersService);
 
-  UsersService.$inject = ['$resource'];
+  UsersService.$inject = ['$log', '$resource'];
 
-  function UsersService($resource) {
+  function UsersService($log, $resource) {
     var Users = $resource('/api/users', {}, {
       update: {
         method: 'PUT'
@@ -55,6 +55,39 @@
       }
     });
 
+    angular.extend(Users.prototype, {
+      createOrUpdate: function () {
+        var user = this;
+        return createOrUpdate(user);
+      }
+    });
+
     return Users;
+
+    function createOrUpdate(user) {
+      if (user._id) {
+        return user.$update(onSuccess, onError);
+      } else {
+        user.date = new Date();
+        return user.$save(onSuccess, onError);
+      }
+
+      // Handle successful response
+      function onSuccess(user) {
+        // Any required internal processing from inside the service, goes here.
+      }
+
+      // Handle error response
+      function onError(errorResponse) {
+        var error = errorResponse.data;
+        // Handle error internally
+        handleError(error);
+      }
+    }
+
+    function handleError(error) {
+      // Log error
+      $log.error(error);
+    }
   }
 }());

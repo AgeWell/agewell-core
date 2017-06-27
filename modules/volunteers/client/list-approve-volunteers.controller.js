@@ -4,6 +4,7 @@
   angular
     .module('volunteers')
     .controller('ApproveVolunteersController', ApproveVolunteersController);
+    // TODO: Make sure not senetive fields are not returned from the server.
 
   ApproveVolunteersController.$inject = ['$filter', 'Notification', 'UsersService'];
 
@@ -13,12 +14,12 @@
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
-    vm.toggle = toggle;
+    vm.approve = approve;
 
     UsersService.query({
       roleRequested: 'volunteer'
     }, function(data) {
-      vm.volunteers = data;
+      vm.users = data;
       vm.buildPager();
     });
     console.log(vm);
@@ -31,8 +32,8 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.volunteers, {
-        $: vm.search
+      vm.filteredItems = $filter('filter')(vm.users, {
+        roleRequested: 'volunteer'
       });
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
@@ -44,10 +45,15 @@
       vm.figureOutItemsToDisplay();
     }
 
-    function toggle(field, client) {
-      client[field] = !client[field];
+    function approve(user, index) {
+      user.roles.push('volunteer');
+      user.roleRequested = '';
 
-      client.$update(successCallback, errorCallback);
+      console.log(user);
+
+      user.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
 
       function successCallback(res) {
         Notification.info({ message: 'Update successful!' });
@@ -55,7 +61,8 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        client[field] = !client[field];
+        user.roles.pop();
+        user.roleRequested = 'volunteer';
       }
     }
   }

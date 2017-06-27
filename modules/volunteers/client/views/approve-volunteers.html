@@ -1,14 +1,8 @@
 <section>
   <div class="page-header">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-12">
         <h1>Volunteers</h1>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="false"/>
-      </div>
-      <div class="col-md-4 text-right" style="margin-top: 2em">
-        <button class="btn btn-default" ui-sref="volunteers.create" tooltip-placement="top" uib-tooltip="Add New Volunteer"><i class="glyphicon glyphicon-plus" aria-label="Add New Volunteer"></i></button>
       </div>
     </div>
   </div>
@@ -21,14 +15,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="volunteer in vm.pagedItems">
-        <td><a ui-sref="volunteers.view({ volunteerId: volunteer._id })">{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</a></td>
+      <tr ng-repeat="user in vm.pagedItems">
+        <td><a ui-sref="volunteers.view({ volunteerId: user._id })">{{user.firstName}} {{user.lastName}}</a></td>
         <td class="list-group-item-text">
-          {{volunteer.contact.homePhone}}
+          {{user.contact.homePhone}}
         </td>
         <td class="text-right">
-          <button class="btn btn-default" ui-sref="volunteers.view({ volunteerId: volunteer._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-          <button class="btn btn-default" ui-sref="volunteers.edit({ volunteerId: volunteer._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          <button class="btn btn-default" tooltip-placement="top" uib-tooltip="Approve" ng-click="vm.approve(user, $index)"><i class="glyphicon glyphicon-thumbs-up" aria-label="Approve"></i></button>
+          <button class="btn btn-default" ui-sref="admin.user({ userId: user._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="admin.user-edit({ userId: user._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>
