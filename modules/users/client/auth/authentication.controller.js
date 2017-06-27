@@ -39,7 +39,9 @@
         return false;
       }
 
-      vm.credentials.roleRequested = $stateParams.type;
+      if ($stateParams.type) {
+        vm.credentials.roles = $stateParams.type;
+      }
 
       UsersService.userSignup(vm.credentials)
         .then(onUserSignupSuccess)
@@ -65,6 +67,10 @@
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+
+      if (response.roles.includes('volunteer') && response.active === false) {
+        return $state.go('volunteers.create', $state.previous.params);
+      }
 
       // And redirect to the previous or home page
       $state.go($state.previous.state.name || 'dashboard', $state.previous.params);

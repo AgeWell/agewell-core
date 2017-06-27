@@ -44,6 +44,12 @@ exports.isAllowed = function (req, res, next) {
     return next();
   }
 
+  if (req.user && req.user.roles.includes('volunteer') && req.user.active === false) {
+    return res.status(403).json({
+      message: 'User is not authorized'
+    });
+  }
+
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
     if (err) {
