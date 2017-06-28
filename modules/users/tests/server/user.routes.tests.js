@@ -234,7 +234,6 @@ describe('User CRUD tests', function() {
               userInfoRes.body.firstName.should.be.equal('admin_update_first');
               userInfoRes.body.lastName.should.be.equal('admin_update_last');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
-              userInfoRes.body._id.should.be.equal(String(user._id));
 
               // Call the assertion callback
               return done();
@@ -629,7 +628,6 @@ describe('User CRUD tests', function() {
               userInfoRes.body.lastName.should.be.equal('user_update_last');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
-              userInfoRes.body._id.should.be.equal(String(user._id));
 
               // Call the assertion callback
               return done();
@@ -671,7 +669,6 @@ describe('User CRUD tests', function() {
               userInfoRes.body.lastName.should.be.equal('user_update_last');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
-              userInfoRes.body._id.should.be.equal(String(user._id));
 
               // Call the assertion callback
               return done();
