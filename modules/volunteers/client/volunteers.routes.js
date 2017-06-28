@@ -78,7 +78,6 @@
         url: '/volunteer',
         template: '<ui-view/>'
       })
-      // TODO: The voluteers profile should be loaded instead of the create page.
       .state('settings.volunteer.create', {
         url: '/create',
         params: {

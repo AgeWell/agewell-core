@@ -3,22 +3,23 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const path = require('path');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const validator = require('validator');
+const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 
 /**
  * Show the current user
  */
-exports.read = function (req, res) {
+exports.read = function(req, res) {
   res.json(req.model);
 };
 
 /**
  * Update a User
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   var user = req.model;
 
   // For security purposes only merge these parameters
@@ -29,24 +30,39 @@ exports.update = function (req, res) {
   user.active = req.body.active;
   user.roleRequested = req.body.roleRequested ? req.body.roleRequested : '';
 
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
 
-    res.json(user);
+    let safeUserObject = {
+      displayName: validator.escape(user.displayName),
+      provider: validator.escape(user.provider),
+      created: user.created.toString(),
+      volunteerId: user.volunteerId,
+      roles: user.roles,
+      isAdmin: user.isAdmin,
+      active: user.active,
+      profileImageURL: user.profileImageURL,
+      email: validator.escape(user.email),
+      lastName: validator.escape(user.lastName),
+      firstName: validator.escape(user.firstName),
+      additionalProvidersData: user.additionalProvidersData
+    };
+
+    res.json(safeUserObject);
   });
 };
 
 /**
  * Delete a user
  */
-exports.delete = function (req, res) {
+exports.delete = function(req, res) {
   var user = req.model;
 
-  user.remove(function (err) {
+  user.remove(function(err) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -60,33 +76,33 @@ exports.delete = function (req, res) {
 /**
  * List of Users
  */
-exports.list = function (req, res) {
+exports.list = function(req, res) {
   User.find(req.query)
-  .sort('lastName')
-  .select('lastName firstName roles roleRequested active')
-  .populate('user', 'displayName')
-  .exec(function (err, users) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
+    .sort('lastName')
+    .select('lastName firstName roles active')
+    .populate('user', 'displayName')
+    .exec(function(err, users) {
+      if (err) {
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
 
-    res.json(users);
-  });
+      res.json(users);
+    });
 };
 
 /**
  * User middleware
  */
-exports.userByID = function (req, res, next, id) {
+exports.userByID = function(req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'User is invalid'
     });
   }
 
-  User.findById(id).exec(function (err, user) {
+  User.findById(id).exec(function(err, user) {
     if (err) {
       return next(err);
     } else if (!user) {

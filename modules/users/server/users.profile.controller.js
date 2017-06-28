@@ -41,7 +41,22 @@ exports.update = function(req, res) {
           return res.status(400).send(err);
         }
 
-        res.json(user);
+        let safeUserObject = {
+          displayName: validator.escape(user.displayName),
+          provider: validator.escape(user.provider),
+          created: user.created.toString(),
+          volunteerId: user.volunteerId,
+          roles: user.roles,
+          isAdmin: user.isAdmin,
+          active: user.active,
+          profileImageURL: user.profileImageURL,
+          email: validator.escape(user.email),
+          lastName: validator.escape(user.lastName),
+          firstName: validator.escape(user.firstName),
+          additionalProvidersData: user.additionalProvidersData
+        };
+
+        res.json(safeUserObject);
       });
     });
   } else {

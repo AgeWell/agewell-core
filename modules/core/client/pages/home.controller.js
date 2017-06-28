@@ -5,20 +5,19 @@
     .module('core')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$location', '$uibModal', 'Authentication'];
+  HomeController.$inject = ['$state', '$uibModal', 'Authentication'];
 
-  function HomeController($location, $uibModal, Authentication) {
+  function HomeController($state, $uibModal, Authentication) {
     var vm = this;
 
     vm.authentication = Authentication;
 
-    // if (!vm.authentication.user.active) {
-    //   console.log(vm.authentication.user);
-    //   return $location.path('/inactive');
-    // }
+    if (vm.authentication.user && vm.authentication.user.roles.indexOf('volunteer') !== -1 && vm.authentication.user.active) {
+      return $state.go('groceries.list');
+    }
 
     if (vm.authentication.user && vm.authentication.user.active) {
-      return $location.path('/dashboard');
+      return $state.go('dashboard');
     }
 
     vm.open = function(parentSelector) {

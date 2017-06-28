@@ -5,6 +5,8 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
+    // TODO: SOrth the users list
+
   UserListController.$inject = ['$scope', '$filter', 'AdminService'];
 
   function UserListController($scope, $filter, AdminService) {
@@ -12,6 +14,8 @@
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+
+    console.log(vm);
 
     AdminService.query(function(data) {
       vm.users = data;

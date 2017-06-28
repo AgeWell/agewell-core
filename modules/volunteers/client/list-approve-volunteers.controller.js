@@ -4,7 +4,6 @@
   angular
     .module('volunteers')
     .controller('ApproveVolunteersController', ApproveVolunteersController);
-    // TODO: Make sure not senetive fields are not returned from the server.
 
   ApproveVolunteersController.$inject = ['$filter', 'Notification', 'AdminService'];
 
@@ -55,6 +54,7 @@
         .catch(errorCallback);
 
       function successCallback(res) {
+        console.log(res);
         let userKey = ((vm.currentPage - 1) * vm.itemsPerPage) + index;
         vm.users.splice(userKey, 1);
         vm.figureOutItemsToDisplay();
