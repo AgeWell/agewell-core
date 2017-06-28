@@ -35,10 +35,6 @@ var validateLocalStrategyEmail = function(email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  contact: {
-    type: Schema.ObjectId,
-    ref: 'Contact'
-  },
   firstName: {
     type: String,
     trim: true,
@@ -206,5 +202,12 @@ UserSchema.virtual('isAdmin')
       return role === 'admin';
     });
   });
+
+UserSchema.virtual('contact', {
+  ref: 'Contact',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: true
+});
 
 mongoose.model('User', UserSchema);

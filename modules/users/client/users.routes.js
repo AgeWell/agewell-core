@@ -27,6 +27,7 @@
         controller: 'EditProfileController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Settings'
         }
       })

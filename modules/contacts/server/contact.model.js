@@ -80,17 +80,9 @@ let ContactSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Contact'
   },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
   client: {
     type: Schema.ObjectId,
     ref: 'Client'
-  },
-  volunteer: {
-    type: Schema.ObjectId,
-    ref: 'Volunteer'
   },
   created: {
     type: Date,
@@ -110,4 +102,5 @@ ContactSchema.virtual('fullname')
     this.lastName = v.substr(v.indexOf(' ') + 1);
   });
 
-module.exports = mongoose.model('Contact', ContactSchema);
+module.exports = ContactSchema;
+mongoose.model('Contact', ContactSchema);

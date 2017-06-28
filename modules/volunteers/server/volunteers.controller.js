@@ -14,10 +14,8 @@ const _ = require('lodash');
  * Create a Volunteer
  */
 exports.create = function(req, res) {
-  let contact = new Contact(req.body.contact);
-
   var volunteer = new Volunteer(req.body);
-  volunteer.user = req.user;
+  volunteer.userId = req.user;
 
   volunteer.save(function(err, volunteer) {
     if (err) {
@@ -25,17 +23,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-
-    contact.volunteer = volunteer._id;
-    contact.save(function(err, contact) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-      volunteer.contact = contact;
-      res.jsonp(volunteer);
-    });
+    res.jsonp(volunteer);
   });
 };
 
@@ -60,6 +48,8 @@ exports.update = function(req, res) {
 
   volunteer = _.extend(volunteer, req.body);
 
+  volunteer.contact.updated = new Date();
+
   volunteer.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -67,13 +57,7 @@ exports.update = function(req, res) {
       });
     }
 
-    req.body.contact.updated = new Date();
-
-    Contact.findOneAndUpdate({
-      volunteer: volunteer._id
-    }, req.body.contact, function(err, contact) {
-      res.jsonp(volunteer);
-    });
+    res.jsonp(volunteer);
   });
 };
 
@@ -83,17 +67,13 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var volunteer = req.volunteer;
 
-  Contact.remove({
-    volunteer: volunteer._id
-  }).exec(function(err) {
+  volunteer.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    volunteer.remove(function(err) {
-      res.jsonp(volunteer);
-    });
+    res.jsonp(volunteer);
   });
 };
 
@@ -103,7 +83,6 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   Volunteer.find(req.query)
     .sort('-created')
-    .populate('contact')
     .exec(function(err, volunteers) {
       if (err) {
         return res.status(400).send({
@@ -126,7 +105,6 @@ exports.volunteerByID = function(req, res, next, id) {
   }
 
   Volunteer.findById(id)
-    .populate('contact')
     .exec(function(err, volunteer) {
       if (err) {
         return next(err);

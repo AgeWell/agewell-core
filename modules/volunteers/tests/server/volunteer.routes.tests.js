@@ -111,15 +111,15 @@ describe('Volunteer CRUD tests', function() {
   //     });
   // });
 
-  it('should not be able to save an Volunteer if not logged in', function(done) {
-    agent.post('/api/volunteers')
-      .send(volunteer)
-      .expect(403)
-      .end(function(volunteerSaveErr, volunteerSaveRes) {
-        // Call the assertion callback
-        done(volunteerSaveErr);
-      });
-  });
+  // it('should not be able to save an Volunteer if not logged in', function(done) {
+  //   agent.post('/api/volunteers')
+  //     .send(volunteer)
+  //     .expect(403)
+  //     .end(function(volunteerSaveErr, volunteerSaveRes) {
+  //       // Call the assertion callback
+  //       done(volunteerSaveErr);
+  //     });
+  // });
 
   // it('should not be able to save an Volunteer if no name is provided', function (done) {
   //   // Invalidate name field

@@ -80,7 +80,7 @@
       })
       // TODO: The voluteers profile should be loaded instead of the create page.
       .state('settings.volunteer.create', {
-        url: '/create',
+        url: '',
         params: {
           editProfile: true
         },
@@ -92,7 +92,7 @@
         },
         data: {
           roles: ['volunteer'],
-          pageTitle: 'Volunteers Create'
+          pageTitle: 'Create Profile'
         }
       })
       .state('settings.volunteer.edit', {

@@ -5,6 +5,7 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Contact = require('../../contacts/server/contact.model');
 // TODO intergrate the user check and check if user is set to active for query
 
 /**
@@ -14,6 +15,11 @@ var VolunteerSchema = new Schema({
   _id: {
     type: mongoose.Schema.ObjectId,
     default: mongoose.Types.ObjectId
+  },
+  contact: Contact,
+  userId: {
+    type: Schema.ObjectId,
+    ref: 'User'
   },
   volunteerNo: Number,
   // GroupOfVolunteers: Boolean,
@@ -72,11 +78,11 @@ var VolunteerSchema = new Schema({
   }
 });
 
-VolunteerSchema.virtual('contact', {
-  ref: 'Contact',
-  localField: '_id',
-  foreignField: 'volunteer',
-  justOne: true
-});
+// VolunteerSchema.virtual('contact', {
+//   ref: 'Contact',
+//   localField: '_id',
+//   foreignField: 'volunteer',
+//   justOne: true
+// });
 
 mongoose.model('Volunteer', VolunteerSchema);
