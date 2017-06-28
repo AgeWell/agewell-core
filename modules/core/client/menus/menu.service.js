@@ -118,7 +118,7 @@
           return false;
         }
 
-        if (this.roles.indexOf('volunteer') !== -1 && !this.active) {
+        if (this.roles.indexOf('volunteer') !== -1 && !user.active) {
           return false;
         }
 

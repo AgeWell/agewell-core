@@ -17,7 +17,8 @@
     vm.approve = approve;
 
     AdminService.query({
-      roleRequested: 'volunteer'
+      roles: 'volunteer',
+      active: false
     }, function(data) {
       vm.users = data;
       vm.buildPager();
@@ -33,7 +34,8 @@
 
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.users, {
-        roleRequested: 'volunteer'
+        roles: 'volunteer',
+        active: false
       });
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
@@ -46,9 +48,7 @@
     }
 
     function approve(user, index) {
-      user.roles.push('volunteer');
       user.active = true;
-      user.roleRequested = '';
 
       user.createOrUpdate()
         .then(successCallback)
@@ -63,8 +63,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
-        user.roles.pop();
-        user.roleRequested = 'volunteer';
+        user.active = false;
       }
     }
   }
