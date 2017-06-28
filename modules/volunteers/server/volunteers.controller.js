@@ -15,7 +15,7 @@ const _ = require('lodash');
  */
 exports.create = function(req, res) {
   var volunteer = new Volunteer(req.body);
-  volunteer.userId = req.user;
+  volunteer.userId = req.user._id;
 
   volunteer.save(function(err, volunteer) {
     if (err) {
@@ -23,6 +23,18 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
+    User.findOneAndUpdate({
+      _id: volunteer.userId
+    }, {
+      volunteerId: volunteer._id
+    }, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(volunteer);
+    });
     res.jsonp(volunteer);
   });
 };

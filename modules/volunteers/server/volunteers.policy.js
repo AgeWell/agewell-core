@@ -45,7 +45,6 @@ exports.isAllowed = function (req, res, next) {
     return next();
   }
 
-
   if (req.method !== 'GET' && req.volunteer && req.user && req.user.roles.includes('volunteer') && req.user.active === false) {
     return res.status(403).json({
       message: 'User is not authorized'

@@ -147,6 +147,7 @@ exports.me = function(req, res) {
       displayName: validator.escape(req.user.displayName),
       provider: validator.escape(req.user.provider),
       created: req.user.created.toString(),
+      volunteerId: req.user.volunteerId,
       roles: req.user.roles,
       isAdmin: req.user.isAdmin,
       active: req.user.active,

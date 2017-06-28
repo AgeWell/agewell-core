@@ -107,6 +107,10 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  volunteerId: {
+    type: Schema.ObjectId,
+    ref: 'Volunteer'
   }
 }, {
   toObject: {
@@ -203,10 +207,10 @@ UserSchema.virtual('isAdmin')
     });
   });
 
-UserSchema.virtual('contact', {
-  ref: 'Contact',
+UserSchema.virtual('volunteer', {
+  ref: 'Volunteer',
   localField: '_id',
-  foreignField: 'user',
+  foreignField: 'userId',
   justOne: true
 });
 

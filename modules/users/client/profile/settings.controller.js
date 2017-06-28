@@ -14,8 +14,8 @@
     vm.profileEdit = 'settings.profile';
 
     if (vm.user.roles.indexOf('volunteer') !== -1) {
-      if (vm.user.hasOwnProperty('volunteer')) {
-        vm.profileEdit = 'settings.volunteer.edit({volunteerId: \'' + vm.user.volunteer + '\'})';
+      if (vm.user.hasOwnProperty('volunteerId')) {
+        vm.profileEdit = 'settings.volunteer.edit({volunteerId: \'' + vm.user.volunteerId + '\'})';
       } else {
         vm.profileEdit = 'settings.volunteer.create';
       }

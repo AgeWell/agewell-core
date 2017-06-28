@@ -15,8 +15,6 @@
     vm.pageChanged = pageChanged;
     vm.toggle = toggle;
 
-    console.log(vm);
-
     VolunteersService.query(function (data) {
       vm.volunteers = data;
       vm.buildPager();

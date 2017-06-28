@@ -5,13 +5,23 @@
     .module('users')
     .controller('EditProfileController', EditProfileController);
 
-  EditProfileController.$inject = ['$scope', '$http', '$location', 'UsersService', 'Authentication', 'Notification'];
+  EditProfileController.$inject = ['$scope', '$http', '$state', 'UsersService', 'Authentication', 'Notification'];
 
-  function EditProfileController($scope, $http, $location, UsersService, Authentication, Notification) {
+  function EditProfileController($scope, $http, $state, UsersService, Authentication, Notification) {
     var vm = this;
 
     vm.user = Authentication.user;
     vm.updateUserProfile = updateUserProfile;
+
+    if (vm.user.roles.indexOf('volunteer') !== -1) {
+      if (vm.user.hasOwnProperty('volunteerId')) {
+        $state.go('settings.volunteer.edit', {
+          volunteerId: vm.user.volunteerId
+        });
+      } else {
+        $state.go('settings.volunteer.create');
+      }
+    }
 
     // Update a user profile
     function updateUserProfile(isValid) {
