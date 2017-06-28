@@ -41,6 +41,9 @@
         templateUrl: '/modules/users/client/admin/views/view-user.html',
         controller: 'UserController',
         controllerAs: 'vm',
+        params: {
+          userId: ''
+        },
         resolve: {
           userResolve: getUser
         },

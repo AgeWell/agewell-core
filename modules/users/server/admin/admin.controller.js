@@ -4,11 +4,14 @@
  * Module dependencies
  */
 const path = require('path');
+const config = require(path.resolve('./config/config'));
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const nodemailer = require('nodemailer');
 const validator = require('validator');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 
+const smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Show the current user
  */
@@ -21,6 +24,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var user = req.model;
+  let activation = false;
 
   // For security purposes only merge these parameters
   user.firstName = req.body.firstName;
@@ -28,7 +32,6 @@ exports.update = function(req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
   user.active = req.body.active;
-  user.roleRequested = req.body.roleRequested ? req.body.roleRequested : '';
 
   user.save(function(err) {
     if (err) {

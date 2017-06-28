@@ -19,13 +19,10 @@
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group">
           <label class="control-label" for="roles">Roles</label>
-          <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
-            <div ng-messages="vm.userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
-            </div>
+          <div class="controls" ng-repeat="role in vm.users.roles">
+            <input type="checkbox" name="roles" ng-checked="vm.user.roles.indexOf(role) > -1" ng-click="vm.toggleRole(role)" id="roles"/> {{ role }}
           </div>
         </div>
         <div class="form-group">

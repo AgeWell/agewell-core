@@ -5,8 +5,6 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-    // TODO: SOrth the users list
-
   UserListController.$inject = ['$scope', '$filter', 'Notification', 'AdminService'];
 
   function UserListController($scope, $filter, Notification, AdminService) {

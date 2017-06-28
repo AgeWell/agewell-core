@@ -93,10 +93,6 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  roleRequested: {
-    type: String,
-    enum: ['', 'client', 'caretaker', 'volunteer', 'admin']
-  },
   active: {
     type: Boolean,
     default: false

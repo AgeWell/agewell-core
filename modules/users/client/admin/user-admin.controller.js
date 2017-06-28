@@ -5,17 +5,57 @@
     .module('users.admin')
     .controller('UserController', UserController);
 
-  UserController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'userResolve', 'Notification'];
+  UserController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'userResolve', 'Notification', 'coreService'];
 
-  function UserController($scope, $state, $stateParams, $window, Authentication, user, Notification) {
+  function UserController($scope, $state, $stateParams, $window, Authentication, user, Notification, coreService) {
     var vm = this;
 
     vm.title = $stateParams.pageTitle;
     vm.authentication = Authentication;
+    vm.users = coreService.getOptions('User');
     vm.user = user;
+    vm.toggleRole = toggleRole;
     vm.remove = remove;
     vm.update = update;
     vm.isContextUserSelf = isContextUserSelf;
+
+    // Toggle selection for a given fruit by name
+    function toggleRole(role) {
+      var idx = vm.user.roles.indexOf(role);
+
+      // Is currently selected
+      if (idx > -1) {
+        vm.user.roles.splice(idx, 1);
+      } else {
+        // Is newly selected
+        vm.user.roles.push(role);
+      }
+      console.log(vm.user.roles);
+    }
+
+    function update(isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
+
+        return false;
+      }
+
+      console.log(vm.user);
+
+      vm.user.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
+
+      function successCallback(res) {
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User saved successfully!' });
+        $state.go($state.previous.state.name, $state.previous.params);
+      }
+
+      function errorCallback(res) {
+        console.log(res);
+        Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
+      }
+    }
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
@@ -28,27 +68,6 @@
             Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
           });
         }
-      }
-    }
-
-    function update(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
-
-        return false;
-      }
-
-      vm.user.$update(successCallback, errorCallback);
-
-      function successCallback(res) {
-        $state.go('admin.users.view', {
-          userId: vm.user._id
-        });
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User saved successfully!' });
-      }
-
-      function errorCallback(res) {
-        Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
       }
     }
 

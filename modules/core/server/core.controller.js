@@ -13,8 +13,6 @@ const config = require(path.resolve('./config/config'));
 exports.renderIndex = function(req, res) {
   let safeUserObject = null;
 
-  console.log(req.user);
-
   if (req.user) {
     safeUserObject = {
       displayName: validator.escape(req.user.displayName),
@@ -120,10 +118,16 @@ function getEnums() {
           if (typeof schema.paths[path].enumValues !== 'undefined' && schema.paths[path].enumValues.length > 0) {
             options[model][path] = schema.paths[path].enumValues;
           }
+
+          if (typeof schema.paths[path].caster !== 'undefined' && typeof schema.paths[path].caster.enumValues !== 'undefined' && schema.paths[path].caster.enumValues.length > 0) {
+            options[model][path] = schema.paths[path].caster.enumValues;
+          }
         }
       }
     }
   }
+
+  // console.log(options);
 
   return options;
 }
