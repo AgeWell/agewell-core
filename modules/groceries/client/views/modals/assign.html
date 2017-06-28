@@ -8,7 +8,7 @@
     <fieldset>
       <div class="form-group">
         <label>Assign Volunteer</label>
-        <select name="state" ng-model="vm.current.volunteerId" class="form-control">
+        <select name="volunteer" ng-model="vm.current.assignedTo" class="form-control">
           <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.lastName}}, {{option.firstName}}</option>
         </select>
       </div>
@@ -17,7 +17,6 @@
 </div>
 <div class="modal-footer">
   <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancle</button>
-  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-disabled="!vm.current.volunteerId" ng-hide="
-  vm.dashboard">Assign</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-disabled="!vm.current.assignedTo" ng-hide="vm.dashboard">Assign</button>
   <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-hide="!vm.dashboard">Confirm</button>
 </div>

@@ -36,7 +36,6 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       }
-      console.log(req.options.Order.order[0], order._id);
       res.jsonp(order);
     });
   });
@@ -96,14 +95,13 @@ exports.list = function(req, res) {
   let query = req.query;
 
   if (req.user.roles.includes('volunteer')) {
-    console.log(req.user);
     query = {
       $and: [
         query,
         {
           $or: [
-            { volunteerId: req.user._id },
-            { volunteerId: { $exists: false } }
+            { assignedTo: req.user._id },
+            { assignedTo: { $exists: false } }
           ]
         }
       ]
@@ -115,7 +113,7 @@ exports.list = function(req, res) {
   Order.find(query)
     .sort('requestNumber')
     .populate('contact')
-    .populate('volunteer')
+    .populate('assignedTo')
     .exec(function(err, orders) {
       if (err) {
         return res.status(400).send({

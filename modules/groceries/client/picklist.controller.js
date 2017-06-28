@@ -4,7 +4,6 @@
   angular
     .module('groceries')
     .controller('PicklistController', PicklistController);
-  // TODO: Add a function to assign orders to volunteers
 
   PicklistController.$inject = ['$filter', '$scope', '$state', '$stateParams', '$uibModal', 'Notification', 'OrdersService'];
 

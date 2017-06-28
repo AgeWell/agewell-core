@@ -41,9 +41,9 @@ let RequestSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Client'
   },
-  volunteerId: {
+  assignedTo: {
     type: Schema.ObjectId,
-    ref: 'Volunteer'
+    ref: 'User'
   },
   created: {
     type: Date,
@@ -82,11 +82,11 @@ RequestSchema.virtual('contact', {
   justOne: true
 });
 
-RequestSchema.virtual('volunteer', {
-  ref: 'Contact',
-  localField: 'volunteerId',
-  foreignField: 'volunteer',
-  justOne: true
-});
+// RequestSchema.virtual('volunteer', {
+//   ref: 'Contact',
+//   localField: 'volunteerId',
+//   foreignField: 'volunteer',
+//   justOne: true
+// });
 
 module.exports = mongoose.model('Request', RequestSchema);

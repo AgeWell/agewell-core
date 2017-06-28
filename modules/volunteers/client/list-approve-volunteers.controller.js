@@ -22,7 +22,6 @@
       vm.users = data;
       vm.buildPager();
     });
-    console.log(vm);
 
     function buildPager() {
       vm.pagedItems = [];
@@ -54,7 +53,6 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        console.log(res);
         let userKey = ((vm.currentPage - 1) * vm.itemsPerPage) + index;
         vm.users.splice(userKey, 1);
         vm.figureOutItemsToDisplay();

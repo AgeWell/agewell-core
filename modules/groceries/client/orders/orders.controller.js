@@ -31,8 +31,6 @@
       nextDelivery: new Date(vm.options.delivery[1])
     };
 
-    console.log(vm);
-
     if (!vm.order._id) {
       vm.order.clientId = $stateParams.clientId;
       vm.order.date = vm.orderBy;
@@ -65,10 +63,7 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        $state.go('order.view', {
-          clientId: vm.order.clientId,
-          orderId: res._id
-        });
+        $state.go($state.previous.state.name, $state.previous.params);
       }
 
       function errorCallback(res) {
@@ -88,7 +83,6 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
-        console.log(vm.current);
         save(true);
       };
       vm.modalCancel = function() {

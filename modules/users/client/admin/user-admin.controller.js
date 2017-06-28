@@ -30,7 +30,6 @@
         // Is newly selected
         vm.user.roles.push(role);
       }
-      console.log(vm.user.roles);
     }
 
     function update(isValid) {
@@ -39,8 +38,6 @@
 
         return false;
       }
-
-      console.log(vm.user);
 
       vm.user.createOrUpdate()
         .then(successCallback)
@@ -52,7 +49,6 @@
       }
 
       function errorCallback(res) {
-        console.log(res);
         Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
       }
     }

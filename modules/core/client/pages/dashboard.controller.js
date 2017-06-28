@@ -23,6 +23,7 @@
     vm.ordersFilter = 'pending';
 
     vm.isAdmin = Authentication.user.isAdmin;
+    console.log(vm);
 
     vm.dates = {
       now: new Date(),
@@ -155,7 +156,6 @@
       var begin = ((vm[type + 'Page'] - 1) * vm[type + 'PerPage']);
       var end = begin + vm[type + 'PerPage'];
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
-      console.log(vm['paged' + type]);
     }
 
     function pageChanged(type) {

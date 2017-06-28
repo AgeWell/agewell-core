@@ -59,7 +59,6 @@
       }
 
       function errorCallback(res) {
-        console.log(res);
         vm.error = res.data.message;
       }
     }

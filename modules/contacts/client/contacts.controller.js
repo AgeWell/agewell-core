@@ -18,8 +18,6 @@
       startingDay: 1
     };
 
-    console.log(vm);
-
     $scope.open1 = function() {
       $scope.popup1.opened = true;
     };

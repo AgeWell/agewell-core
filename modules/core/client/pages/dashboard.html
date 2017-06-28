@@ -113,7 +113,7 @@
                   <tr ng-repeat="order in vm.pagedorders">
                     <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
                     <td><a ui-sref="clients.view({ clientId: order.clientId })">{{ order.contact.firstName }} {{ order.contact.lastName }}</a></td>
-                    <td><a ui-sref="volunteers.view({ volunteerId: order.volunteerId })">{{ order.volunteer.firstName }} {{ order.volunteer.lastName }}</a></td>
+                    <td><a ui-sref="volunteers.view({ volunteerId: order.volunteerId })">{{ order.assignedTo.firstName }} {{ order.assignedTo.lastName }}</a></td>
                     <td class="text-right">
                       <div class="btn-group  btn-group-sm">
                         <button class="btn btn-default" ng-click="vm.assign(order)" tooltip-placement="top" uib-tooltip="Assign Order" ng-hide="order.status === 'ordered'"><i class="glyphicon glyphicon-user" aria-label="Assign Order"></i></button>

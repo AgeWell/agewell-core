@@ -45,26 +45,21 @@ exports.renderIndex = function(req, res) {
  * Render the main application page
  */
 exports.loadVolunteers = function(req, res, next) {
-  if (req.user && req.user.isAdmin) {
-    User.find({
-      roles: {
-        $in: ['volunteer']
-      },
-      active: true
-    })
-      .select('firstName lastName roles')
-      .sort('lastName')
-      .exec(function(err, volunteers) {
-        if (err) {
-          console.error(err);
-          next();
-        }
-        req.volunteers = volunteers;
+  User.find({
+    roles: {
+      $in: ['volunteer']
+    },
+    active: true
+  })
+    .select('firstName lastName roles')
+    .sort('lastName')
+    .exec(function(err, volunteers) {
+      if (err) {
         next();
-      });
-  } else {
-    next();
-  }
+      }
+      req.volunteers = volunteers;
+      next();
+    });
 };
 
 /**
