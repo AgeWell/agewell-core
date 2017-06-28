@@ -6,9 +6,9 @@
     .module('volunteers')
     .controller('VolunteersController', VolunteersController);
 
-  VolunteersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'coreService', 'volunteerResolve'];
+  VolunteersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Notification', 'Authentication', 'coreService', 'volunteerResolve'];
 
-  function VolunteersController($scope, $state, $stateParams, $window, Authentication, coreService, volunteer) {
+  function VolunteersController($scope, $state, $stateParams, $window, Notification, Authentication, coreService, volunteer) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -23,14 +23,11 @@
       vm.volunteer.contact = {
         address: {
           state: 'MN'
-        }
+        },
+        firstName: Authentication.user.firstName,
+        lastName: Authentication.user.lastName,
+        email: Authentication.user.email
       };
-    }
-
-    if (vm.editProfile) {
-      vm.volunteer.contact.firstName = Authentication.user.firstName;
-      vm.volunteer.contact.lastName = Authentication.user.lastName;
-      vm.volunteer.contact.email = Authentication.user.email;
     }
 
     // Remove existing Volunteer
@@ -52,12 +49,17 @@
         .catch(errorCallback);
 
       function successCallback(res) {
+        vm.volunteer = res;
+        if (vm.editProfile) {
+          return Notification.info({ message: 'Update successful!' });
+        }
         $state.go('volunteers.view', {
           volunteerId: res._id
         });
       }
 
       function errorCallback(res) {
+        console.log(res);
         vm.error = res.data.message;
       }
     }

@@ -40,11 +40,13 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Volunteer is being processed and the current user created it then allow any manipulation
-  if (req.volunteer && req.user && req.volunteer.user && req.volunteer.user.id === req.user.id) {
+  if (req.volunteer && req.user && req.volunteer.userId.toString() === req.user._id.toString()) {
+    console.log('is owner');
     return next();
   }
 
-  if (req.user && req.user.roles.includes('volunteer') && req.user.active === false) {
+
+  if (req.method !== 'GET' && req.volunteer && req.user && req.user.roles.includes('volunteer') && req.user.active === false) {
     return res.status(403).json({
       message: 'User is not authorized'
     });

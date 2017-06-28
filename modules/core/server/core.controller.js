@@ -13,8 +13,6 @@ const config = require(path.resolve('./config/config'));
 exports.renderIndex = function(req, res) {
   let safeUserObject = null;
 
-  console.log(req.user);
-
   if (req.user) {
     safeUserObject = {
       displayName: validator.escape(req.user.displayName),

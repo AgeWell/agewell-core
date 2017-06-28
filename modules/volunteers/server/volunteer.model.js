@@ -25,12 +25,7 @@ var VolunteerSchema = new Schema({
   // GroupOfVolunteers: Boolean,
   // GroupName: String,
   started: {
-    type: Date,
-    default: Date.now
-  },
-  active: {
-    type: Boolean,
-    default: false
+    type: Date
   },
   terminated: Boolean,
   terminationCause: String,
@@ -77,12 +72,5 @@ var VolunteerSchema = new Schema({
     virtuals: true
   }
 });
-
-// VolunteerSchema.virtual('contact', {
-//   ref: 'Contact',
-//   localField: '_id',
-//   foreignField: 'volunteer',
-//   justOne: true
-// });
 
 mongoose.model('Volunteer', VolunteerSchema);

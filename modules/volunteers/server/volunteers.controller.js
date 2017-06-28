@@ -6,7 +6,7 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const Volunteer = mongoose.model('Volunteer');
-const Contact = mongoose.model('Contact');
+const User = mongoose.model('User');
 const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
 const _ = require('lodash');
 
@@ -56,8 +56,20 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-
-    res.jsonp(volunteer);
+    User.findOneAndUpdate({
+      _id: volunteer.userId
+    }, {
+      firstName: req.body.contact.firstName,
+      lastName: req.body.contact.lastName,
+      email: req.body.contact.email
+    }, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(volunteer);
+    });
   });
 };
 
