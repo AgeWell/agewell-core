@@ -4,6 +4,7 @@
   angular
     .module('volunteers')
     .controller('ApproveVolunteersController', ApproveVolunteersController);
+    // TODO: Create an active email to go out.
 
   ApproveVolunteersController.$inject = ['$filter', 'Notification', 'AdminService'];
 
