@@ -23,7 +23,7 @@
       describe('Main Route', function () {
         let mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('admin.users');
+          mainstate = $state.get('admin.users.list');
         }));
 
         it('Should have the correct URL', function () {
@@ -42,7 +42,7 @@
       describe('View Route', function () {
         let viewstate;
         beforeEach(inject(function ($state) {
-          viewstate = $state.get('admin.user');
+          viewstate = $state.get('admin.users.view');
         }));
 
         it('Should have the correct URL', function () {
@@ -61,7 +61,7 @@
       describe('Edit Route', function () {
         let editstate;
         beforeEach(inject(function ($state) {
-          editstate = $state.get('admin.user-edit');
+          editstate = $state.get('admin.user.edit');
         }));
 
         it('Should have the correct URL', function () {
@@ -90,7 +90,7 @@
           $httpBackend.whenGET('/modules/users/client/views/admin/list-users.client.view.html').respond(200);
           $httpBackend.whenGET('/modules/core/client/views/home.client.view.html').respond(200);
 
-          $state.go('admin.users');
+          $state.go('admin.users.list');
           $rootScope.$digest();
         }));
 

@@ -11,7 +11,12 @@
   function routeConfig($stateProvider) {
     $stateProvider
       .state('admin.users', {
+        abstract: true,
         url: '/users',
+        template: '<ui-view/>'
+      })
+      .state('admin.users.list', {
+        url: '',
         templateUrl: '/modules/users/client/admin/views/list-users.html',
         controller: 'UserListController',
         controllerAs: 'vm',
@@ -19,20 +24,8 @@
           pageTitle: 'Users List'
         }
       })
-      .state('admin.user', {
-        url: '/users/:userId',
-        templateUrl: '/modules/users/client/admin/views/view-user.html',
-        controller: 'UserController',
-        controllerAs: 'vm',
-        resolve: {
-          userResolve: getUser
-        },
-        data: {
-          pageTitle: 'Edit {{ userResolve.displayName }}'
-        }
-      })
-      .state('admin.user-edit', {
-        url: '/users/:userId/edit',
+      .state('admin.users.edit', {
+        url: '/:userId/edit',
         templateUrl: '/modules/users/client/admin/views/edit-user.html',
         controller: 'UserController',
         controllerAs: 'vm',
@@ -41,6 +34,18 @@
         },
         data: {
           pageTitle: 'Edit User {{ userResolve.displayName }}'
+        }
+      })
+      .state('admin.users.view', {
+        url: '/:userId',
+        templateUrl: '/modules/users/client/admin/views/view-user.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: getUser
+        },
+        data: {
+          pageTitle: '{{ userResolve.displayName }}'
         }
       });
 

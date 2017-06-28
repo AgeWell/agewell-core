@@ -22,8 +22,8 @@
         </td>
         <td class="text-right">
           <button class="btn btn-default" tooltip-placement="top" uib-tooltip="Approve" ng-click="vm.approve(user, $index)"><i class="glyphicon glyphicon-thumbs-up" aria-label="Approve"></i></button>
-          <button class="btn btn-default" ui-sref="admin.user({ userId: user._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-          <button class="btn btn-default" ui-sref="admin.user-edit({ userId: user._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          <button class="btn btn-default" ui-sref="admin.users.view({ userId: user._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="admin.user.edit({ userId: user._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>

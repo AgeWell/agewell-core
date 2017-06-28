@@ -5,11 +5,12 @@
     .module('users.admin')
     .controller('UserController', UserController);
 
-  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification'];
+  UserController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Authentication', 'userResolve', 'Notification'];
 
-  function UserController($scope, $state, $window, Authentication, user, Notification) {
+  function UserController($scope, $state, $stateParams, $window, Authentication, user, Notification) {
     var vm = this;
 
+    vm.title = $stateParams.pageTitle;
     vm.authentication = Authentication;
     vm.user = user;
     vm.remove = remove;
@@ -20,12 +21,10 @@
       if ($window.confirm('Are you sure you want to delete this user?')) {
         if (user) {
           user.$remove();
-
-          vm.users.splice(vm.users.indexOf(user), 1);
           Notification.success('User deleted successfully!');
         } else {
           vm.user.$remove(function () {
-            $state.go('admin.users');
+            $state.go('admin.users.list');
             Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
           });
         }
@@ -39,16 +38,18 @@
         return false;
       }
 
-      var user = vm.user;
+      vm.user.$update(successCallback, errorCallback);
 
-      user.$update(function () {
-        $state.go('admin.user', {
-          userId: user._id
+      function successCallback(res) {
+        $state.go('admin.users.view', {
+          userId: vm.user._id
         });
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User saved successfully!' });
-      }, function (errorResponse) {
-        Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
-      });
+      }
+
+      function errorCallback(res) {
+        Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
+      }
     }
 
     function isContextUserSelf() {
