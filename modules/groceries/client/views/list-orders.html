@@ -7,6 +7,7 @@
       <thead>
         <tr>
           <th>Order #</th>
+          <th>Status</th>
           <th>Ordered Date</th>
           <th>Delivery Date</th>
           <th># of Items</th>
@@ -17,6 +18,7 @@
       <tbody>
         <tr ng-repeat="order in vm.pagedItems" >
           <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+          <td>{{ order.status }}</td>
           <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.items.length }}</td>

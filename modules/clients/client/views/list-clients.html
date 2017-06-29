@@ -24,44 +24,44 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="client in vm.pagedItems" ui-sref="clients.view({ clientId: client._id })">
-        <td>{{client.contact.firstName}} {{client.contact.lastName}}</td>
+      <tr ng-repeat="client in vm.pagedItems" >
+        <td><a ui-sref="clients.view({ clientId: client._id })">{{client.contact.firstName}} {{client.contact.lastName}}</a></td>
         <td class="list-group-item-text">
           Some Additional Information
         </td>
-        <td class="text-right" ng-click="$event.stopPropagation()">
-          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Care Consultation" ng-disabled="true" ng-click="$event.stopPropagation()">
+        <td class="text-right">
+          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Care Consultation" ng-disabled="true">
             <i class="glyphicon glyphicon-list-alt"></i>
           </button>
-          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Chore" ng-disabled="true" ng-click="$event.stopPropagation()">
+          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Chore" ng-disabled="true">
             <i class="glyphicon glyphicon-wrench"></i>
           </button>
-          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Homemaking" ng-disabled="true" ng-click="$event.stopPropagation()">
+          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Homemaking" ng-disabled="true">
             <i class="glyphicon glyphicon-home"></i>
           </button>
-          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Appointment" ng-disabled="true" ng-click="$event.stopPropagation()">
+          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Appointment" ng-disabled="true">
             <i class="glyphicon glyphicon-heart"></i>
           </button>
-          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Errand" ng-disabled="true" ng-click="$event.stopPropagation()">
+          <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Errand" ng-disabled="true">
             <i class="glyphicon glyphicon-barcode"></i>
           </button>
-          <button class="btn btn-success" ui-sref="order.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Groceries" ng-click="$event.stopPropagation()">
+          <button class="btn btn-success" ng-click="vm.newOrder(client)" tooltip-placement="top" uib-tooltip="Groceries">
             <i class="glyphicon glyphicon-shopping-cart" aria-label="Groceries"></i>
           </button>
         </td>
-        <td class="text-right" ng-click="$event.stopPropagation()">
+        <td class="text-right">
           <button class="btn" ng-click="vm.toggle('groceryCallList', client)" ng-class="client.groceryCallList ? 'btn-success' : 'btn-danger'">
             <i class="glyphicon" ng-class="client.groceryCallList ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
           </button>
         </td>
-        <td class="text-right" ng-click="$event.stopPropagation()">
+        <td class="text-right">
           <button class="btn" ng-click="vm.toggle('active', client)" ng-class="client.active ? 'btn-success' : 'btn-danger'">
             <i class="glyphicon" ng-class="client.active ? 'glyphicon-ok' : 'glyphicon-remove'"></i>
           </button>
         </td>
         <td class="text-right">
-          <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View" ng-click="$event.stopPropagation()"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
-          <button class="btn btn-default" ui-sref="clients.edit({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Edit" ng-click="$event.stopPropagation()"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          <button class="btn btn-default" ui-sref="clients.view({ clientId: client._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          <button class="btn btn-default" ui-sref="clients.edit({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>

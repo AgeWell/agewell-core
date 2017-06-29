@@ -31,7 +31,6 @@
       delivery: new Date(vm.options.delivery[0]),
       nextDelivery: new Date(vm.options.delivery[1])
     };
-    console.log(vm);
 
     ClientsService.query({
       active: true,
@@ -40,7 +39,6 @@
       lastOrdered: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
-      console.log(vm.callList);
       buildPager('callList', 6);
     });
 

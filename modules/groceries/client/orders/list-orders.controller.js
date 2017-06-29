@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -16,7 +16,9 @@
 
     vm.clientid = $stateParams.clientId;
 
-    OrdersService.query(function (data) {
+    OrdersService.query({
+      clientId: vm.clientid
+    }, function(data) {
       vm.orders = data;
       vm.buildPager();
     });

@@ -19,6 +19,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.toggle = toggle;
+    vm.newOrder = newOrder;
 
     if (!vm.client._id) {
       vm.client.active = true;
@@ -30,6 +31,14 @@
         }
       };
     }
+
+    vm.dates = {
+      now: new Date(),
+      orderBy: new Date(vm.orders.order[0]),
+      nextOrderBy: new Date(vm.orders.order[1]),
+      delivery: new Date(vm.orders.delivery[0]),
+      nextDelivery: new Date(vm.orders.delivery[1])
+    };
 
     vm.orderBy = vm.orders.order[0];
     if (vm.client.lastOrdered === vm.orderBy) {
@@ -85,6 +94,14 @@
       function errorCallback(res) {
         vm.error = res.data.message;
         vm.client[field] = !vm.client[field];
+      }
+    }
+
+    function newOrder() {
+      if (vm.client.lastOrdered === vm.orders.order[0]) {
+        $state.go('order.edit', { clientId: vm.client.id, orderId: vm.client.lastOrder });
+      } else {
+        $state.go('order.create', { clientId: vm.client.id });
       }
     }
   }

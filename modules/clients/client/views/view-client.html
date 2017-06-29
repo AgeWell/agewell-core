@@ -43,7 +43,7 @@
             <button class="btn btn-primary" ui-sref="services.view.requests.create({ clientId: vm.client._id })" ng-disabled="true">
               <i class="glyphicon glyphicon-barcode"></i> Errand
             </button>
-            <button class="btn btn-primary" ui-sref="order.create({ clientId: vm.client._id })">
+            <button class="btn btn-primary" ng-click="vm.newOrder()">
               <i class="glyphicon glyphicon-shopping-cart"></i> Groceries
             </button>
           </div>
