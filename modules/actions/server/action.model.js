@@ -23,6 +23,10 @@ let ActionSchema = new Schema({
     ]
   },
   created: Date,
+  createdBy: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   clientId: {
     type: Schema.ObjectId,
     ref: 'Client'

@@ -42,9 +42,16 @@ let ContactSchema = new Schema({
     maxlength: 1
   },
   address: Address,
-  homePhone: String, // TODO: This needs to be adjustest to primary phone.
-  workPhone: String,
-  cellPhone: String,
+  phone: [{
+    number: String,
+    type: {
+      type: String,
+      enum: ['Home', 'Work', 'Mobile']
+    }
+  }],
+  phone1: String, // TODO: This needs to be adjustest to primary phone.
+  phone2: String,
+  phone3: String,
   email: {
     type: String,
     lowercase: true,

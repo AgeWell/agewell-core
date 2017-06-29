@@ -22,9 +22,9 @@
           <td>{{ order.contact.firstName }} {{ order.contact.lastName }}</td>
           <td>
             <div class="hidden-xs">
-              {{ order.contact.homePhone }}
+              {{ order.contact.phone1 }}
             </div>
-            <a class="btn btn-default visible-xs" href="tel://{{ order.contact.homePhone }}" target="_blank"><i class="glyphicon glyphicon-earphone" aria-label="Phone"></i></a>
+            <a class="btn btn-default visible-xs" href="tel://{{ order.contact.phone1 }}" target="_blank"><i class="glyphicon glyphicon-earphone" aria-label="Phone"></i></a>
           </td>
           <td>{{ order.contact.address.street }} {{ order.contact.address.additional }}</td>
           <td>{{ order.total | currency }}</td>

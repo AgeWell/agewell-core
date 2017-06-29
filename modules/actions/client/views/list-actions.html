@@ -1,22 +1,41 @@
 <section>
   <div class="page-header">
-    <h1>Actions to gos</h1>
+    <h1>Actions</h1>
   </div>
   <div class="list-group">
-    <a ng-repeat="actions in vm.actionsToGos"
-       ui-sref="actionsToGos.view({ actionsId: actions._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="actionsToGo.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="actionsToGo.user" ng-bind="actionsToGo.user.displayName"></span>
-        <span ng-if="!actionsToGo.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="actions.name"></h4>
-    </a>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th width="80">Type</th>
+          <th width="110">Created On</th>
+          <th width="110">Created By</th>
+          <th>Notes</th>
+          <th width="140" class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="action in vm.pagedItems" >
+          <td>{{ action.type }}</td>
+          <td>{{ action.created | date:'MM/dd/yyyy' }}</td>
+          <td><a ui-sref="volunteers.view({ volunteerId: action.createdBy.volunteerId })">{{ action.createdBy.firstName }} {{ action.createdBy.lastName }}</a></td>
+          <td>{{ action.notes }}</td>
+          <td class="text-right">
+            <button class="btn " ng-class="action.completed ? 'btn-success' : 'btn-default'" ng-click="vm.complete(action)">
+          <i class="glyphicon" ng-class="action.completed ? 'glyphicon-check' : 'glyphicon-unchecked'"></i> {{ action.completed ? 'Complete' : 'Incomplete'}}
+          </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr ng-if="vm.filterLength > vm.itemsPerPage">
+          <td colspan="6" class="text-center">
+            <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.actionsToGos.$resolved && !vm.actionsToGos.length">
-    No Actions to gos yet, why don't you <a ui-sref="actionsToGos.create">create one</a>?
+  <div class="alert alert-warning text-center" ng-if="vm.actions.$resolved && !vm.actions.length">
+    No Orders yet, why don't you <a ui-sref="action.create({clientId: vm.clientid})">create one</a>?
   </div>
 </section>

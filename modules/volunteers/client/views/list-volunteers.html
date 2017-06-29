@@ -24,7 +24,7 @@
       <tr ng-repeat="volunteer in vm.pagedItems">
         <td><a ui-sref="volunteers.view({ volunteerId: volunteer._id })">{{volunteer.contact.firstName}} {{volunteer.contact.lastName}}</a></td>
         <td class="list-group-item-text">
-          {{volunteer.contact.homePhone}}
+          {{volunteer.contact.phone1}}
         </td>
         <td class="text-right">
           <button class="btn btn-default" ui-sref="volunteers.view({ volunteerId: volunteer._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>

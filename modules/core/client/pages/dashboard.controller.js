@@ -23,6 +23,7 @@
     vm.ordersFilter = 'pending';
 
     vm.isAdmin = Authentication.user.isAdmin;
+    console.log(vm);
 
     vm.dates = {
       now: new Date(),

@@ -6,7 +6,6 @@
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
     // TODO: Add a function to duplicate the prior orders items
-    // TODO: Limit the ability to creat new orders if one already exists for the time period
 
   OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'Authentication', 'coreService', 'orderResolve'];
 

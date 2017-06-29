@@ -6,9 +6,9 @@
   <span ng-bind="vm.contact.address.state"></span>
   <span ng-bind="vm.contact.address.zipcode"></span>
 </p>
-<p><strong>Home Phone:</strong> {{vm.contact.homePhone}}</p>
-<p><strong>Work Phone:</strong> {{vm.contact.workPhone}}</p>
-<p><strong>Cell Phone:</strong> {{vm.contact.cellPhone}}</p>
+<p ng-show="vm.contact.phone1"><strong>Primary Phone:</strong> {{vm.contact.phone1}}</p>
+<p ng-show="vm.contact.phone2"><strong>Secondary Phone:</strong> {{vm.contact.phone2}}</p>
+<p ng-show="vm.contact.phone3"><strong>Tertiary Phone:</strong> {{vm.contact.phone3}}</p>
 <p><strong>Birthday:</strong> {{vm.contact.birthday | date: 'mediumDate' }}</p>
 <p><strong>Gender:</strong> {{vm.contact.gender}}</p>
 <p><strong>Veteran:</strong> {{vm.contact.veteran}}</p>

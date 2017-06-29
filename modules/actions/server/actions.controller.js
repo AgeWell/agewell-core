@@ -15,7 +15,7 @@ const _ = require('lodash');
  */
 exports.create = function(req, res) {
   let action = new Action(req.body);
-  action.user = req.user;
+  action.createdBy = req.user;
 
   action.save(function(err) {
     if (err) {
@@ -81,6 +81,7 @@ exports.list = function(req, res) {
   Action.find(req.query)
     .sort('-created')
     .populate('contact')
+    .populate('createdBy', 'firstName lastName roles volunteerId')
     .exec(function(err, actions) {
       if (err) {
         return res.status(400).send({
@@ -103,8 +104,8 @@ exports.actionByID = function(req, res, next, id) {
   }
 
   Action.findById(id)
-    // .populate('client')
     .populate('contact')
+    .populate('createdBy', 'firstName lastName roles volunteerId')
     .exec(function(err, action) {
       if (err) {
         return next(err);
