@@ -27,6 +27,13 @@
       }
     });
 
+    angular.extend(Client.prototype, {
+      createOrUpdate: function () {
+        var order = this;
+        return createOrUpdate(order);
+      }
+    });
+
     return Client;
 
     function createOrUpdate(client) {

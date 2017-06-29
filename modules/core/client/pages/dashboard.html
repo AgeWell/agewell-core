@@ -65,10 +65,12 @@
               </tr>
               <tr>
                 <td colspan="1">
-                  <strong>Order by:</strong> {{ vm.dates.orderBy | date:'EEE, M/d/yy'}}
+                  <strong>Order by:</strong><br/>
+                  {{ vm.dates.orderBy | date:'h:mm a EEE, M/d/yy'}}
                 </td>
                 <td colspan="2" class="text-right">
-                  <strong>Delivered on:</strong> {{ vm.dates.delivery | date:'EEE, M/d/yy'}}
+                  <strong>Delivered on:</strong><br/>
+                  {{ vm.dates.delivery | date:'EEE, M/d/yy'}}
                 </td>
               </tr>
             </tfoot>

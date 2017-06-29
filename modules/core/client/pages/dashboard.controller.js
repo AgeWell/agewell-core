@@ -23,7 +23,6 @@
     vm.ordersFilter = 'pending';
 
     vm.isAdmin = Authentication.user.isAdmin;
-    console.log(vm);
 
     vm.dates = {
       now: new Date(),
@@ -32,6 +31,7 @@
       delivery: new Date(vm.options.delivery[0]),
       nextDelivery: new Date(vm.options.delivery[1])
     };
+    console.log(vm);
 
     ClientsService.query({
       active: true,
@@ -40,6 +40,7 @@
       lastOrdered: vm.dates.orderBy
     }, function(data) {
       vm.callList = data;
+      console.log(vm.callList);
       buildPager('callList', 6);
     });
 
@@ -72,7 +73,10 @@
           Notification.info({
             message: 'Update successful!'
           });
-          vm.callList.splice(index, 1);
+          vm.callList.splice(((vm.callListPage - 1) * vm.callListPerPage) + index, 1);
+          if (vm.callList.length <= vm.callListPerPage) {
+            vm.callListPage = 1;
+          }
           pageChanged('callList', 6);
         }
 
