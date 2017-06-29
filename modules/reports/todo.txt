@@ -1,1 +1,1 @@
-TODO: Add a reporting module for admins
+Note: Add a reporting module for admins

@@ -17,8 +17,6 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    console.log(vm);
-
     ClientsService.query(function (data) {
       vm.clients = data;
       vm.buildPager();

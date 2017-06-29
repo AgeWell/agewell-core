@@ -20,7 +20,6 @@
     vm.save = save;
     vm.toggle = toggle;
     vm.newOrder = newOrder;
-    console.log(vm);
 
     if (!vm.client._id) {
       vm.client.active = true;
