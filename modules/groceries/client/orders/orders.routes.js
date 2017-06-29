@@ -16,6 +16,9 @@
       })
       .state('order.create', {
         url: '/create',
+        params: {
+          lastOrder: null
+        },
         templateUrl: '/modules/groceries/client/views/form-order.html',
         controller: 'OrdersController',
         controllerAs: 'vm',

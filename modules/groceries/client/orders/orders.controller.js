@@ -5,18 +5,19 @@
   angular
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
-    // TODO: Add a function to duplicate the prior orders items
 
-  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'Authentication', 'coreService', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'OrdersService', 'Authentication', 'coreService', 'orderResolve'];
 
-  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, Authentication, coreService, order) {
+  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, OrdersService, Authentication, coreService, order) {
     var vm = this;
 
+    vm.lastOrder = '';
     vm.authentication = Authentication;
     vm.order = order;
     vm.options = coreService.getOptions('Order');
     vm.volunteers = coreService.getOptions('volunteers');
     vm.assign = assign;
+    vm.copyItems = copyItems;
     vm.error = null;
     vm.remove = remove;
     vm.update = update;
@@ -37,6 +38,9 @@
       vm.order.recieptTotal = 0.00;
       vm.order.deliveryCost = 10.00;
       vm.order.total = 10.00;
+      if ($stateParams.lastOrder) {
+        vm.lastOrder = $stateParams.lastOrder;
+      }
     }
 
     // Remove existing Groceries to go
@@ -62,10 +66,11 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        $state.go($state.previous.state.name, $state.previous.params);
+        $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
       }
 
       function errorCallback(res) {
+        console.log(res);
         vm.error = res.data.message;
       }
     }
@@ -92,6 +97,42 @@
         console.log('Open Checkout Interface');
       }, function() {
         console.info('modal-component dismissed at: ' + new Date());
+      });
+    }
+
+    // Assign an order to a volunteer.
+    function copyItems() {
+      vm.current = vm.order;
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: '/modules/groceries/client/views/modals/copy-items.html',
+        scope: $scope
+      });
+
+      vm.modalOk = function() {
+        modalInstance.close('OK Clicked');
+        loadItems();
+      };
+      vm.modalCancel = function() {
+        modalInstance.dismiss('Cancel Clicked');
+      };
+
+      modalInstance.result.then(function() {
+        console.log('Open Checkout Interface');
+      }, function() {
+        console.info('modal-component dismissed at: ' + new Date());
+      });
+    }
+
+    function loadItems() {
+      OrdersService.query({
+        _id: vm.lastOrder
+      }, function(data) {
+        vm.pastOrder = data;
+        for (var i = 0; i < data[0].items.length; i++) {
+          vm.order.items.push(data[0].items[i]);
+        }
       });
     }
 

@@ -101,7 +101,8 @@
       if (vm.client.lastOrdered === vm.orders.order[0]) {
         $state.go('order.edit', { clientId: vm.client.id, orderId: vm.client.lastOrder });
       } else {
-        $state.go('order.create', { clientId: vm.client.id });
+        console.log(vm.client.lastOrder);
+        $state.go('order.create', { clientId: vm.client.id, lastOrder: vm.client.lastOrder });
       }
     }
   }
