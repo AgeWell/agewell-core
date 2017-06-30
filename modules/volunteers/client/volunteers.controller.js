@@ -5,6 +5,7 @@
   angular
     .module('volunteers')
     .controller('VolunteersController', VolunteersController);
+    // TODO: Set redirrect for users editing their profile.
 
   VolunteersController.$inject = ['$scope', '$state', '$stateParams', '$window', 'Notification', 'Authentication', 'coreService', 'volunteerResolve'];
 
@@ -51,6 +52,9 @@
       function successCallback(res) {
         vm.volunteer = res;
         if (vm.editProfile) {
+          $state.go('settings.volunteer.edit', {
+            volunteerId: res._id
+          });
           return Notification.info({ message: 'Update successful!' });
         }
         $state.go('volunteers.view', {
