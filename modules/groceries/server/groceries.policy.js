@@ -4,6 +4,7 @@
  * Module dependencies
  */
 let acl = require('acl');
+// TOFO: Make sure a volunteer can upload images to the application.
 
 // Using the memory backend
 acl = new acl(new acl.memoryBackend());

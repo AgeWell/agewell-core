@@ -29,6 +29,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/orders/:orderId',
       permissions: ['get', 'post', 'put']
+    }, {
+      resources: '/api/orders/:orderId/reciept',
+      permissions: ['get', 'post', 'put']
     }]
   }]);
 };

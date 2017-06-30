@@ -4,6 +4,8 @@
   angular
     .module('core')
     .controller('DashboardController', DashboardController);
+    // TODO: Search should be adjusted to find exact matches of the carracters entered.
+    // TODO: Looks like there are some issues with the volunteer assignment and display needing debugging.
 
   DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'ActionsService', 'OrdersService'];
 

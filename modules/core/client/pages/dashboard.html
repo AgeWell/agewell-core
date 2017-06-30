@@ -147,7 +147,7 @@
           <div class="panel-heading"><strong>{{ action.type }}</strong> <strong style="float: right">{{ action.created | date:short }}</strong></div>
           <div class="panel-body">
             <div>
-              <strong>{{ action.contact.firstName }} {{ action.contact.lastName }}</strong>
+              <strong><a ui-sref="clients.view({ clientId: action.clientId })">{{ action.contact.firstName }} {{ action.contact.lastName }}</a></strong>
             </div>
             <p>{{ action.notes }}</p>
             <div class="row">

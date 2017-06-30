@@ -4,6 +4,7 @@
   angular
     .module('clients')
     .controller('ClientsListController', ClientsListController);
+    // TODO: Search needs to adjust the current page to 1 once a seach has started.
 
   ClientsListController.$inject = ['$filter', '$state', 'Notification', 'coreService', 'ClientsService'];
 
