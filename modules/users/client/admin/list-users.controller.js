@@ -5,12 +5,14 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'Notification', 'AdminService'];
+  UserListController.$inject = ['$scope', '$filter', '$window', 'Notification', 'AdminService'];
 
-  function UserListController($scope, $filter, Notification, AdminService) {
+  function UserListController($scope, $filter, $window, Notification, AdminService) {
     var vm = this;
 
     vm.toggle = toggle;
+    vm.remove = remove;
+    vm.isContextUserSelf = isContextUserSelf;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
@@ -35,6 +37,23 @@
         vm.error = res.data.message;
         user[field] = !user[field];
       }
+    }
+
+    function remove(user) {
+      if ($window.confirm('Are you sure you want to delete this user?')) {
+        if (user) {
+          user.$remove();
+          Notification.success('User deleted successfully!');
+        } else {
+          vm.user.$remove(function () {
+            Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
+          });
+        }
+      }
+    }
+
+    function isContextUserSelf(user) {
+      return vm.user.email === vm.authentication.user.email;
     }
 
     function buildPager() {

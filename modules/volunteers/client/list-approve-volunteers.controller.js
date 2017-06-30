@@ -5,15 +5,17 @@
     .module('volunteers')
     .controller('ApproveVolunteersController', ApproveVolunteersController);
 
-  ApproveVolunteersController.$inject = ['$filter', 'Notification', 'AdminService'];
+  ApproveVolunteersController.$inject = ['$filter', '$window', 'Notification', 'AdminService'];
 
-  function ApproveVolunteersController($filter, Notification, AdminService) {
+  function ApproveVolunteersController($filter, $window, Notification, AdminService) {
     var vm = this;
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.approve = approve;
+    vm.remove = remove;
+    vm.isContextUserSelf = isContextUserSelf;
 
     AdminService.query({
       roles: 'volunteer',
@@ -62,6 +64,23 @@
         vm.error = res.data.message;
         user.active = false;
       }
+    }
+
+    function remove(user) {
+      if ($window.confirm('Are you sure you want to delete this user?')) {
+        if (user) {
+          user.$remove();
+          Notification.success('User deleted successfully!');
+        } else {
+          vm.user.$remove(function () {
+            Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
+          });
+        }
+      }
+    }
+
+    function isContextUserSelf(user) {
+      return vm.user.email === vm.authentication.user.email;
     }
   }
 }());
