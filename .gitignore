@@ -42,7 +42,7 @@ jspm_packages
 
 
 # app and assets
-public/dist/
+# public/dist/
 public/lib/
 public/uploads
 public/assets
