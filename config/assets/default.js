@@ -53,7 +53,7 @@ module.exports = {
       'modules/**/*/img/**/*.svg'
     ],
     views: ['modules/*/client/**/*.tpl.html', 'modules/*/client/**/*.html'],
-    templates: ['build/templates.js']
+    templates: ['public/assets/templates.js']
   },
   server: {
     gulpConfig: ['gulpfile.js'],

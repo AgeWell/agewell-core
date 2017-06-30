@@ -18,12 +18,14 @@ gulp.task('uglify', function() {
     defaultAssets.client.js,
     defaultAssets.client.templates
   );
-  del(['public/dist/*']);
+  del(['public/dist/*.js']);
 
   return gulp.src(assets)
     .pipe(plugins.ngAnnotate())
     .pipe(plugins.uglify({
       mangle: false
+    }).on('error', function(e) {
+      console.log(e);
     }))
     .pipe(plugins.concat('application.min.js'))
     .pipe(plugins.rev())

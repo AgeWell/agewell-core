@@ -53,8 +53,7 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        let userKey = ((vm.currentPage - 1) * vm.itemsPerPage) + index;
-        vm.users.splice(userKey, 1);
+        vm.users.splice(((vm.currentPage - 1) * vm.itemsPerPage) + index, 1);
         vm.figureOutItemsToDisplay();
         Notification.info({ message: 'Update successful!' });
       }
