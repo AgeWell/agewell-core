@@ -24,6 +24,7 @@
       vm.pagedItems = [];
       vm.itemsPerPage = 10;
       vm.currentPage = 1;
+      vm.search = '';
       vm.figureOutItemsToDisplay();
     }
 
@@ -31,6 +32,10 @@
       vm.filteredItems = $filter('filter')(vm.volunteers, {
         $: vm.search
       });
+      vm.filterLength = vm.filteredItems.length;
+      if (vm.search !== '' && vm.filterLength < (vm.itemsPerPage * (vm.currentPage - 1))) {
+        vm.currentPage = 1;
+      }
       vm.filterLength = vm.filteredItems.length;
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;

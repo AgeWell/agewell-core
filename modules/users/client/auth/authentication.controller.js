@@ -69,7 +69,7 @@
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
 
       if (response.roles.indexOf('volunteer') !== -1 && response.active === false) {
-        return $state.go('volunteers.create', $state.previous.params);
+        return $state.go('settings.volunteer.create', $state.previous.params);
       }
 
       // And redirect to the previous or home page

@@ -11,8 +11,8 @@
     var profileEdit = 'settings.profile';
 
     if (Authentication.user !== null && Authentication.user.roles.indexOf('volunteer') !== -1) {
-      if (Authentication.user.hasOwnProperty('volunteer')) {
-        profileEdit = 'settings.volunteer.edit({volunteerId: \'' + Authentication.user.volunteer + '\'})';
+      if (Authentication.user.hasOwnProperty('volunteerId')) {
+        profileEdit = 'settings.volunteer.edit({volunteerId: \'' + Authentication.user.volunteerId + '\'})';
       } else {
         profileEdit = 'settings.volunteer.create';
       }

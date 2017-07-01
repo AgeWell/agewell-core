@@ -32,6 +32,9 @@
               <tr>
                 <td colspan="4">
                   <input class="form-control col-md-4" type="text" ng-model="vm.callListFilter" placeholder="Search" ng-change="vm.figureOutItemsToDisplay('callList')" />
+                  <div class="text-center">
+                    <em><small>Searches all client information, not just names.</small></em>
+                  </div>
                 </td>
               </tr>
               <tr ng-repeat="client in vm.pagedcallList" ng-hide="vm.pagedcallList.length === 0">
@@ -59,7 +62,7 @@
             <tfoot>
               <tr ng-if="vm.filtercallListLength > vm.itemsPerPage">
                 <td colspan="4" class="text-center">
-                  <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filtercallListLength" ng-model="vm.callListPage" ng-change="vm.pageChanged('callList')"></ul>
+                  <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.callListPerPage" total-items="vm.filtercallListLength" ng-model="vm.callListPage" ng-change="vm.pageChanged('callList')"></ul>
                 </td>
               </tr>
               <tr>
@@ -117,7 +120,7 @@
                     <td><a ui-sref="volunteers.view({ volunteerId: order.volunteerId })">{{ order.assignedTo.firstName }} {{ order.assignedTo.lastName }}</a></td>
                     <td class="text-right">
                       <div class="btn-group  btn-group-sm">
-                        <button class="btn btn-default" ng-click="vm.assign(order)" tooltip-placement="top" uib-tooltip="Assign Order" ng-hide="order.status === 'ordered'"><i class="glyphicon glyphicon-user" aria-label="Assign Order"></i></button>
+                        <button class="btn btn-default" ng-click="vm.assign(order)" tooltip-placement="top" uib-tooltip="Assign Order" ng-hide="order.status !== 'pending'"><i class="glyphicon glyphicon-user" aria-label="Assign Order"></i></button>
                         <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
                         <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
                       </div>
@@ -131,7 +134,7 @@
                 </tfoot> -->
               </table>
               <div class="text-center" ng-hide="vm.filterordersLength === 0">
-                <ul uib-pagination boundary-links="false" max-size="5" items-per-page="vm.itemsPerPage" total-items="vm.filterordersLength" ng-model="vm.ordersPage" ng-change="vm.pageChanged('orders')"></ul>
+                <ul uib-pagination boundary-links="false" max-size="5" items-per-page="vm.ordersPerPage" total-items="vm.filterordersLength" ng-model="vm.ordersPage" ng-change="vm.pageChanged('orders')"></ul>
               </div>
             </div>
           </div>

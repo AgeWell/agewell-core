@@ -4,7 +4,6 @@
   angular
     .module('clients')
     .controller('ClientsListController', ClientsListController);
-    // TODO: Search needs to adjust the current page to 1 once a seach has started.
 
   ClientsListController.$inject = ['$filter', '$state', 'Notification', 'coreService', 'ClientsService'];
 
@@ -51,6 +50,7 @@
       vm.pagedItems = [];
       vm.itemsPerPage = 10;
       vm.currentPage = 1;
+      vm.search = '';
       vm.figureOutItemsToDisplay();
     }
 
@@ -59,6 +59,9 @@
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
+      if (vm.search !== '' && vm.filterLength < (vm.itemsPerPage * (vm.currentPage - 1))) {
+        vm.currentPage = 1;
+      }
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);

@@ -4,8 +4,6 @@
   angular
     .module('core')
     .controller('DashboardController', DashboardController);
-    // TODO: Search should be adjusted to find exact matches of the carracters entered.
-    // TODO: Looks like there are some issues with the volunteer assignment and display needing debugging.
 
   DashboardController.$inject = ['$scope', '$state', '$window', '$filter', '$uibModal', 'Authentication', 'Notification', 'coreService', 'ClientsService', 'ActionsService', 'OrdersService'];
 
@@ -89,27 +87,33 @@
     }
 
     OrdersService.query({
-      // active: true,
-      // groceryCallList: true,
       // date: vm.dates.orderBy
     }, function(data) {
       vm.orders = data;
       buildPager('orders', 5);
     });
+    console.log(vm.volunteers);
 
     // Assign an order to a volunteer.
     function assign(order) {
       vm.current = order;
+
+      if (typeof vm.current.assignedTo === 'object') {
+        vm.assignedTo = vm.current.assignedTo._id;
+        console.log(vm);
+      }
 
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: '/modules/groceries/client/views/modals/assign.html',
         scope: $scope
       });
+      console.log(vm);
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
 
+        vm.current.assignedTo = vm.assignedTo;
         vm.current.status = 'ordered';
 
         vm.current.createOrUpdate()
@@ -120,7 +124,11 @@
           Notification.info({
             message: 'Update successful!'
           });
+          console.log(vm.current);
+          vm.current.assignedTo = $filter('filter')(vm.volunteers, { _id: vm.assignedTo })[0];
           pageChanged('orders', 5);
+
+          console.log(vm);
         }
 
         function errorCallback(res) {
@@ -149,6 +157,9 @@
       vm['paged' + type] = [];
       vm[type + 'Page'] = 1;
       vm[type + 'PerPage'] = per;
+      if (type !== 'orders') {
+        vm[type + 'Filter'] = '';
+      }
       vm.figureOutItemsToDisplay(type);
     }
 
@@ -157,9 +168,20 @@
         $: vm[type + 'Filter']
       });
       vm['filter' + type + 'Length'] = vm['filtered' + type].length;
+
+      console.log(vm['filter' + type + 'Length'] < (vm[type + 'PerPage'] * vm[type + 'Page']));
+      console.log(vm['filter' + type + 'Length'], vm[type + 'PerPage'], vm[type + 'Page']);
+
+      if (vm[type + 'Filter'] !== '' && vm['filter' + type + 'Length'] < (vm[type + 'PerPage'] * (vm[type + 'Page'] - 1))) {
+        console.log('hit');
+        vm[type + 'Page'] = 1;
+      }
+
       var begin = ((vm[type + 'Page'] - 1) * vm[type + 'PerPage']);
       var end = begin + vm[type + 'PerPage'];
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
+
+      console.log(vm['paged' + type]);
     }
 
     function pageChanged(type) {

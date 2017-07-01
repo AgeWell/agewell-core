@@ -5,7 +5,6 @@
   angular
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
-    // TODO: Assign volunteer on the order form edit page doesn't work.
 
   OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'OrdersService', 'Authentication', 'coreService', 'orderResolve'];
 
@@ -23,6 +22,8 @@
     vm.remove = remove;
     vm.update = update;
     vm.save = save;
+
+    var holdState = false;
 
     vm.dates = {
       now: new Date(),
@@ -67,7 +68,11 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
+        if (holdState === true) {
+          holdState = false;
+        } else {
+          $state.go($state.previous.state.name || 'dashboard', $state.previous.params);
+        }
       }
 
       function errorCallback(res) {
@@ -88,6 +93,7 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
+        holdState = true;
         save(true);
       };
       vm.modalCancel = function() {

@@ -8,7 +8,7 @@
     <fieldset>
       <div class="form-group">
         <label>Assign Volunteer</label>
-        <select name="volunteer" ng-model="vm.current.assignedTo" class="form-control">
+        <select name="volunteer" ng-model="vm.assignedTo" class="form-control">
           <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.lastName}}, {{option.firstName}}</option>
         </select>
       </div>

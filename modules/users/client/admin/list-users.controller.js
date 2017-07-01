@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', '$window', 'Notification', 'AdminService'];
+  UserListController.$inject = ['$scope', '$filter', '$window', 'Authentication', 'Notification', 'AdminService'];
 
-  function UserListController($scope, $filter, $window, Notification, AdminService) {
+  function UserListController($scope, $filter, $window, Authentication, Notification, AdminService) {
     var vm = this;
 
     vm.toggle = toggle;
@@ -53,13 +53,14 @@
     }
 
     function isContextUserSelf(user) {
-      return vm.user.email === vm.authentication.user.email;
+      return user.email === Authentication.user.email;
     }
 
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 10;
       vm.currentPage = 1;
+      vm.search = '';
       vm.figureOutItemsToDisplay();
     }
 
@@ -68,6 +69,9 @@
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
+      if (vm.search !== '' && vm.filterLength < (vm.itemsPerPage * (vm.currentPage - 1))) {
+        vm.currentPage = 1;
+      }
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage);
       var end = begin + vm.itemsPerPage;
       vm.pagedItems = vm.filteredItems.slice(begin, end);

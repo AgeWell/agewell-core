@@ -82,7 +82,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   User.find(req.query)
     .sort('lastName')
-    .select('lastName firstName roles active')
+    .select('lastName firstName roles active email')
     .populate('user', 'displayName')
     .exec(function(err, users) {
       if (err) {

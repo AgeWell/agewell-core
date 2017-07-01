@@ -95,7 +95,7 @@
         }
       })
       .state('settings.volunteer.edit', {
-        url: '/volunteer/:volunteerId',
+        url: '/:volunteerId/edit',
         params: {
           editProfile: true
         },

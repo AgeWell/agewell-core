@@ -33,7 +33,7 @@
         <td class="text-right">
           <button class="btn btn-default" ui-sref="admin.users.view({ userId: user._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
           <button class="btn btn-default" ui-sref="admin.users.edit({ userId: user._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
-          <button class="btn btn-default" tooltip-placement="top" uib-tooltip="Delete" ng-click="vm.remove(user)" ng-if="!vm.isContextUserSelf(user)"><i class="glyphicon glyphicon-trash" aria-label="Edit"></i></button>
+          <button class="btn btn-default" tooltip-placement="top" uib-tooltip="Delete" ng-click="vm.remove(user)" ng-disabled="vm.isContextUserSelf(user)"><i class="glyphicon glyphicon-trash" aria-label="Edit"></i></button>
         </td>
       </tr>
     </tbody>
