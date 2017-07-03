@@ -12,6 +12,9 @@ ignore:
     - phantomjs-prebuilt > extract-zip > concat-stream:
         reason: None given
         expires: '2017-06-30T20:13:06.760Z'
+    - phantomjs-prebuilt > extract-zip > concat-stream:
+        reason: None given
+        expires: '2017-08-02T02:50:07.455Z'
   'npm:growl:20160721':
     - mocha > growl:
         reason: None given
