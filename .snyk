@@ -15,6 +15,9 @@ ignore:
     - phantomjs-prebuilt > extract-zip > concat-stream:
         reason: None given
         expires: '2017-08-02T02:50:07.455Z'
+    - phantomjs-prebuilt > extract-zip > concat-stream:
+        reason: None given
+        expires: '2017-09-09T00:43:38.166Z'
   'npm:growl:20160721':
     - mocha > growl:
         reason: None given
@@ -22,6 +25,9 @@ ignore:
     - mocha > growl:
         reason: None given
         expires: '2017-07-12T21:02:33.464Z'
+    - mocha > growl:
+        reason: None given
+        expires: '2017-09-09T00:43:38.167Z'
   'npm:ms:20170412':
     - mongoose > ms:
         reason: None given
@@ -140,6 +146,10 @@ ignore:
     - express > finalhandler > debug > ms:
         reason: None given
         expires: '2017-06-14T16:32:28.592Z'
+  'npm:tunnel-agent:20170305':
+    - phantomjs-prebuilt > request > tunnel-agent:
+        reason: None given
+        expires: '2017-09-09T00:43:38.167Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:ms:20170412':
