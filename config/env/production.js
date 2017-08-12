@@ -3,15 +3,15 @@
 const fs = require('fs');
 
 module.exports = {
-  secure: {
-    ssl: false,
-    privateKey: './config/sslcerts/key.pem',
-    certificate: './config/sslcerts/cert.pem',
-    caBundle: './config/sslcerts/cabundle.crt'
-  },
+  // secure: {
+  //   ssl: false,
+  //   privateKey: './config/sslcerts/key.pem',
+  //   certificate: './config/sslcerts/cert.pem',
+  //   caBundle: './config/sslcerts/cabundle.crt'
+  // },
   port: process.env.PORT || 8443,
   // Binding to 127.0.0.1 is safer in production.
-  host: process.env.HOST || '0.0.0.0',
+  host: process.env.DOMAIN || '0.0.0.0',
   db: {
     uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/agewell',
     options: {
@@ -53,7 +53,7 @@ module.exports = {
     }
   },
   seedDB: {
-    seed: process.env.MONGO_SEED === 'true',
+    seed: process.env.MONGO_SEED === 'false',
     options: {
       logResults: process.env.MONGO_SEED_LOG_RESULTS !== 'false',
       seedUser: {
