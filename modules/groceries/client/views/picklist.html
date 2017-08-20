@@ -17,7 +17,7 @@
         <tr ng-repeat="item in vm.picklist" ng-class="item.inCart ? 'success' : ''">
           <td>{{ item.name }}</td>
           <td>{{ item.category }}</td>
-          <td>{{ item.qty }}</td>
+          <td>{{ item.qty }} {{ item.unit }}</td>
           <td>{{ item.client }}</td>
           <td>
             <button class="btn btn-default" ng-click="vm.toggle(item)"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
