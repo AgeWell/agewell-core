@@ -1,12 +1,17 @@
 <section>
-  <div class="page-header">
-    <h1>
-      {{ vm.client.contact.firstName }} {{ vm.client.contact.middleInitial }} {{ vm.client.contact.lastName }}
-      <!-- <div class="btn-group btn-toggle" ng-click="vm.toggle('active')">
-        <button class="btn btn-md" ng-class="vm.client.active ? 'btn-primary' : 'btn-default'">Active</button>
-        <button class="btn btn-md" ng-class="vm.client.active ? 'btn-default' : 'btn-primary'">Inactive</button>
-      </div> -->
-    </h1>
+  <div class="page-header row">
+    <div class="col-md-8" style="margin-top: 2em">
+      <h1>
+        {{ vm.client.contact.firstName }} {{ vm.client.contact.middleInitial }} {{ vm.client.contact.lastName }}
+        <!-- <div class="btn-group btn-toggle" ng-click="vm.toggle('active')">
+          <button class="btn btn-md" ng-class="vm.client.active ? 'btn-primary' : 'btn-default'">Active</button>
+          <button class="btn btn-md" ng-class="vm.client.active ? 'btn-default' : 'btn-primary'">Inactive</button>
+        </div> -->
+      </h1>
+    </div>
+    <div class="col-md-4 text-right" style="margin-top: 2em; padding-top: 2em;">
+      <button class="btn btn-default" ui-sref="clients.create" tooltip-placement="top" uib-tooltip="Add New Client"><i class="glyphicon glyphicon-plus" aria-label="Add New Client"></i></button>
+    </div>
   </div>
 
   <uib-tabset active="active">
