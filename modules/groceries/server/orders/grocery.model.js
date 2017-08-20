@@ -30,7 +30,17 @@ let GrocerySchema = new Schema({
     type: Boolean,
     default: false
   },
-  unit: String,
+  unit: {
+    type: String,
+    enum: [
+      'item',
+      'oz.',
+      'lb.',
+      'quart',
+      'gallon',
+      'dozen'
+    ]
+  },
   price: Number,
   category: {
     type: String,
