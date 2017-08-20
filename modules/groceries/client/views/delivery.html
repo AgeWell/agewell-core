@@ -43,3 +43,6 @@
   <div class="alert alert-warning text-center" ng-if="(vm.orders.$resolved && !vm.orders.length) || vm.complete">
     No Orders are awaiting delivery. <a ui-sref="home">Click here</a> to return to the dashboard.
   </div>
+  <div class="row col-md-12">
+    <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
+  </div>

@@ -16,7 +16,8 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Other</th>
+        <th>Street Address</th>
+        <th>Phone</th>
         <th class="text-right">Services</th>
         <th class="text-right">Call List</th>
         <th class="text-right">Active</th>
@@ -27,7 +28,10 @@
       <tr ng-repeat="client in vm.pagedItems" >
         <td><a ui-sref="clients.view({ clientId: client._id })">{{client.contact.firstName}} {{client.contact.lastName}}</a></td>
         <td class="list-group-item-text">
-          Some Additional Information
+          <div ng-bind="client.contact.address.street"></div>
+        </td>
+        <td class="list-group-item-text">
+          <div ng-bind="client.contact.phone1"></div>
         </td>
         <td class="text-right">
           <button class="btn btn-default" ui-sref="services.view.requests.create({ clientId: client._id })" tooltip-placement="top" uib-tooltip="Care Consultation" ng-disabled="true">
@@ -80,5 +84,8 @@
   </script>
   <div class="alert alert-warning text-center" ng-if="vm.clients.$resolved && !vm.clients.length">
     No Clients yet, why don't you <a ui-sref="clients.create">create one</a>?
+  </div>
+  <div class="row col-md-12">
+    <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
   </div>
 </section>

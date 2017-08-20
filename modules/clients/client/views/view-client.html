@@ -69,7 +69,7 @@
       <uib-tab-heading>
         <i class="glyphicon glyphicon-bell"></i> Actions
       </uib-tab-heading>
-        <list-actions clientId="vm.client._id"></list-actions>
+      <list-actions clientId="vm.client._id"></list-actions>
     </uib-tab>
     <uib-tab index="3" classes="right-tab" ui-sref="clients.edit({ clientId: vm.client._id })">
       <uib-tab-heading>
@@ -79,6 +79,11 @@
     <uib-tab index="4" classes="right-tab" select="vm.remove()">
       <uib-tab-heading>
         <i class="glyphicon glyphicon-trash"></i> Delete Client
+      </uib-tab-heading>
+    </uib-tab>
+    <uib-tab index="5" classes="right-tab" onclick="window.history.back()">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-share-alt icon-flipped"></i> Back
       </uib-tab-heading>
     </uib-tab>
   </uib-tabset>
