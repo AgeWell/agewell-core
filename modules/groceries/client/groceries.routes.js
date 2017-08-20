@@ -14,6 +14,15 @@
         url: '/groceries',
         template: '<ui-view/>'
       })
+      .state('groceries.assign', {
+        url: '/assign',
+        templateUrl: '/modules/groceries/client/views/assign.html',
+        controller: 'AssignController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Groceries To Go - Assign'
+        }
+      })
       .state('groceries.list', {
         url: '/list',
         templateUrl: '/modules/groceries/client/views/picklist.html',

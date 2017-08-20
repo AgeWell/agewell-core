@@ -1,0 +1,42 @@
+<section>
+  <div class="page-header">
+    <h1>Grocery Checkout</h1>
+  </div>
+  <div class="list-group table-responsive">
+    <table class="table table-condensed table-hover table-striped" ng-show="vm.orders.length !== 0">
+      <thead>
+        <tr>
+          <th><span class="hidden-xs">Order </span>#</th>
+          <th>Client</th>
+          <th class="hidden-xs"><span >Delivery Date</span></th>
+          <th><span class="hidden-xs"># of </span>Items</th>
+          <th><span class="hidden-xs">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in vm.orders" ng-class="order.status === 'purchased' ? 'success' : ''">
+          <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+          <td><span class="hidden-xs">{{ order.contact.firstName }} </span>{{ order.contact.lastName }}</td>
+          <td class="hidden-xs">{{ order.date | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.items.length }}</td>
+          <td class="text-right">
+            <button class="btn btn-default" ng-click="vm.assign(order)"><i class="glyphicon glyphicon-user" aria-label="Assign"></i> <span class="hidden-xs">Assign</span></button>
+            <button class="btn btn-sm btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.complete">
+        <tr>
+          <td colspan="6" class="text-right">
+            <button class="btn btn-success" ui-sref="groceries.delivery">Delivery</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+    No Orders ready to checkout!
+  </div>
+  <div class="row col-md-12">
+    <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
+  </div>

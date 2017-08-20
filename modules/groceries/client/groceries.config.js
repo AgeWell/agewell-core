@@ -18,6 +18,13 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'groceries', {
+      title: 'Assign List',
+      state: 'groceries.assign',
+      roles: ['admin']
+    });
+
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'groceries', {
       title: 'Pick List',
       state: 'groceries.list',
       roles: ['admin', 'volunteer']
