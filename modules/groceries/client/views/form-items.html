@@ -10,17 +10,17 @@
     <tr ng-repeat="item in vm.items">
       <td>
         <!-- editable username (text with validation) -->
-        <div editable-text="item.name" e-name="name" e-form="rowform">{{ item.name || '' }}</div>
+        <div editable-text="item.name" e-name="name" e-required e-form="rowform">{{ item.name || '' }}</div>
       </td>
       <td>
         <!-- editable status (select-category) -->
-        <div editable-select="item.category" e-name="category" e-form="rowform" e-ng-options="c as c for c in vm.options.category">
+        <div editable-select="item.category" e-name="category" e-required e-form="rowform" e-ng-options="c as c for c in vm.options.category">
           {{ item.category }}
         </div>
       </td>
       <td>
         <!-- editable status (number-local) -->
-        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-name="qty" e-style="max-width: 60px;">
+        <div editable-number="item.qty" e-name="qty" e-form="rowform" e-required e-name="qty" e-style="max-width: 60px;">
           {{ item.qty || '0' }}
         </div>
       </td>
@@ -32,8 +32,9 @@
       <td style="white-space: nowrap">
         <!-- form -->
         <form editable-form name="rowform" onbeforesave="saveItem($data, item.id)" onaftersave="vm.updateOrder()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="vm.inserted === item">
-          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" || rowform.$invalid>save</button>
           <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+          <!-- {{ rowform | json }} -->
         </form>
         <div class="buttons" ng-show="!rowform.$visible">
           <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>

@@ -28,6 +28,7 @@ module.exports = {
         'public/lib/angular-xeditable/dist/js/xeditable.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+        'public/lib/angular-input-masks/angular-input-masks-standalone.js',
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

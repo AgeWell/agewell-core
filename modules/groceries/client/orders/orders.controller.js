@@ -60,7 +60,17 @@
       }
 
       for (var i = 0; i < vm.order.items.length; i++) {
-        vm.order.items[i].id = undefined;
+        let item = vm.order.items[i];
+        if (item.name === '') {
+          return alert('All items require a name');
+        }
+        if (item.category === '') {
+          return alert('All items require a category');
+        }
+        if (item.qty === '') {
+          return alert('All items require a qty');
+        }
+        item.id = undefined;
       }
 
       vm.order.createOrUpdate()
