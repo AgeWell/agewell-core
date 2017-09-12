@@ -28,6 +28,9 @@ ignore:
     - mocha > growl:
         reason: None given
         expires: '2017-09-09T00:43:38.167Z'
+    - mocha > growl:
+        reason: None given
+        expires: '2017-10-12T01:13:15.460Z'
   'npm:ms:20170412':
     - mongoose > ms:
         reason: None given
