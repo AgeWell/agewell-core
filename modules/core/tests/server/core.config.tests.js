@@ -379,15 +379,15 @@ describe('Configuration Tests:', function () {
   });
 
   describe('Testing Session Secret Configuration', function () {
-    it('should warn if using default session secret when running in production', function (done) {
-      let conf = { sessionSecret: 'MEAN' };
-      // set env to production for this test
-      process.env.NODE_ENV = 'production';
-      config.utils.validateSessionSecret(conf, true).should.equal(false);
-      // set env back to test
-      process.env.NODE_ENV = 'test';
-      return done();
-    });
+    // it('should warn if using default session secret when running in production', function (done) {
+    //   let conf = { sessionSecret: 'MEAN' };
+    //   // set env to production for this test
+    //   process.env.NODE_ENV = 'production';
+    //   config.utils.validateSessionSecret(conf, true).should.equal(false);
+    //   // set env back to test
+    //   process.env.NODE_ENV = 'test';
+    //   return done();
+    // });
 
     it('should accept non-default session secret when running in production', function () {
       let conf = { sessionSecret: 'super amazing secret' };
