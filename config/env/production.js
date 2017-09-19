@@ -1,17 +1,8 @@
 'use strict';
 
-const fs = require('fs');
+const defaultEnvConfig = require('./default');
 
 module.exports = {
-  // secure: {
-  //   ssl: false,
-  //   privateKey: './config/sslcerts/key.pem',
-  //   certificate: './config/sslcerts/cert.pem',
-  //   caBundle: './config/sslcerts/cabundle.crt'
-  // },
-  port: process.env.PORT || 8443,
-  // Binding to 127.0.0.1 is safer in production.
-  host: process.env.DOMAIN || '0.0.0.0',
   db: {
     uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/agewell',
     options: {
@@ -22,8 +13,6 @@ module.exports = {
     debug: process.env.MONGODB_DEBUG || false
   },
   log: {
-    // logging with Morgan - https://github.com/expressjs/morgan
-    // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: process.env.LOG_FORMAT || 'combined',
     fileLogger: {
       directoryPath: process.env.LOG_DIR_PATH || process.cwd(),
@@ -33,7 +22,7 @@ module.exports = {
       json: false
     }
   },
-  sessionSecret: process.env.SESSION_SECRET || 'asdfs678sdg68sd',
+  port: process.env.PORT || 3000,
   google: {
     clientID: process.env.GOOGLE_ID || 'APP_ID',
     clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
@@ -42,7 +31,6 @@ module.exports = {
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
-      // service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
