@@ -174,3 +174,8 @@ patch:
         patched: '2017-05-22T03:07:09.193Z'
     - phantomjs-prebuilt > extract-zip > debug > ms:
         patched: '2017-08-21T01:22:06.373Z'
+  'npm:debug:20170905':
+    - mocha > debug:
+        patched: '2017-10-02T01:22:08.409Z'
+    - phantomjs-prebuilt > extract-zip > debug:
+        patched: '2017-10-02T01:22:08.409Z'
