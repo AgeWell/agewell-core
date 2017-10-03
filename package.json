@@ -23,7 +23,7 @@
     "start:prod": "gulp prod",
     "start:dev": "gulp dev",
     "lint": "gulp lint",
-    "test": "snyk test && gulp test",
+    "test": "gulp test",
     "test:server": "gulp test:server",
     "test:coverage": "gulp test:coverage",
     "postinstall": "bower install --allow-root && bower prune --allow-root",
