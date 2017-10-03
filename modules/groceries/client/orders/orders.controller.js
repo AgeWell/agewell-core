@@ -60,7 +60,7 @@
       }
 
       for (var i = 0; i < vm.order.items.length; i++) {
-        let item = vm.order.items[i];
+        var item = vm.order.items[i];
         if (item.name === '') {
           return alert('All items require a name');
         }

@@ -101,7 +101,7 @@ var validateSecureMode = function(config) {
 var validateSessionSecret = function(config, testing) {
 
   // if (process.env.NODE_ENV !== 'production') {
-    return true;
+  //   return true;
   // }
 
   if (config.sessionSecret === 'MEAN') {

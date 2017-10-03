@@ -28,6 +28,7 @@ module.exports = {
         'public/lib/angular-xeditable/dist/js/xeditable.min.js',
         'public/lib/ng-file-upload/ng-file-upload.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+        'public/lib/angular-input-masks/angular-input-masks-standalone.min.js',
         // endbower
       ]
     },

@@ -5,9 +5,9 @@
     .module('groceries')
     .controller('AssignController', AssignController);
 
-  AssignController.$inject = ['$scope', '$uibModal', 'Notification', 'coreService', 'OrdersService'];
+  AssignController.$inject = ['$scope', '$filter', '$uibModal', 'Notification', 'coreService', 'OrdersService'];
 
-  function AssignController($scope, $uibModal, Notification, coreService, OrdersService) {
+  function AssignController($scope, $filter, $uibModal, Notification, coreService, OrdersService) {
     var vm = this;
 
     vm.complete = false;
@@ -27,13 +27,23 @@
         Notification.info({
           message: 'Update successful!'
         });
-        checkList();
+        // checkList();
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
       }
     }
+
+    // function checkList() {
+    //   vm.orders = vm.orders.every(function(order) {
+    //     return listItem.inCart || listItem.notAvailable;
+    //   });
+    //
+    //   if (vm.complete && vm.orders.length !== 0) {
+    //     checkout();
+    //   }
+    // }
 
     // Assign an order to a volunteer.
     function assign(order) {
