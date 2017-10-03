@@ -21,7 +21,7 @@ ignore:
   'npm:growl:20160721':
     - mocha > growl:
         reason: None given
-        expires: '2017-06-08T15:22:21.773Z'
+        expires: '2017-11-02T02:55:16.452Z'
     - mocha > growl:
         reason: None given
         expires: '2017-07-12T21:02:33.464Z'
@@ -153,6 +153,10 @@ ignore:
     - phantomjs-prebuilt > request > tunnel-agent:
         reason: None given
         expires: '2017-09-09T00:43:38.167Z'
+  'npm:debug:20170905':
+    - phantomjs-prebuilt > extract-zip > debug:
+        reason: None given
+        expires: '2017-11-02T02:55:16.451Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:ms:20170412':
@@ -176,6 +180,8 @@ patch:
         patched: '2017-08-21T01:22:06.373Z'
   'npm:debug:20170905':
     - mocha > debug:
-        patched: '2017-10-02T21:57:41.691Z'
+        patched: '2017-10-03T02:53:00.494Z'
     - phantomjs-prebuilt > extract-zip > debug:
         patched: '2017-10-02T21:57:41.691Z'
+      clite > debug:
+        patched: '2017-10-03T02:53:00.494Z'
