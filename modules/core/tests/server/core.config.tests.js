@@ -398,7 +398,7 @@ describe('Configuration Tests:', function () {
       process.env.NODE_ENV = 'test';
     });
 
-    it('should accept default session secret when running in development', function () {
+    xit('should accept default session secret when running in development', function () {
       let conf = { sessionSecret: 'MEAN' };
       // set env to development for this test
       process.env.NODE_ENV = 'development';
@@ -407,7 +407,7 @@ describe('Configuration Tests:', function () {
       process.env.NODE_ENV = 'test';
     });
 
-    it('should accept default session secret when running in test', function () {
+    xit('should accept default session secret when running in test', function () {
       let conf = { sessionSecret: 'MEAN' };
       config.utils.validateSessionSecret(conf, true).should.equal(true);
     });
