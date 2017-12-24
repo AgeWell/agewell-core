@@ -19,7 +19,7 @@ gulp.task('watch', function() {
   gulp.watch(defaultAssets.client.css, ['csslint']).on('change', refresh.changed);
   gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', refresh.changed);
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'prod') {
     gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
     gulp.watch(defaultAssets.client.views, ['templatecache']).on('change', refresh.changed);
   } else {

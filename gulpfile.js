@@ -1,6 +1,6 @@
 'use strict';
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'dev') {
   require('dotenv').load(); // eslint-disable-line global-require
 }
 
@@ -30,14 +30,14 @@ gulp.task('dev', function(done) {
   runSequence('env:dev', 'build', ['nodemon', 'watch'], done);
 });
 
-// Set NODE_ENV to 'development'
+// Set NODE_ENV to 'dev'
 gulp.task('env:dev', function() {
-  process.env.NODE_ENV = 'development';
+  process.env.NODE_ENV = 'dev';
 });
 
-// Set NODE_ENV to 'production'
+// Set NODE_ENV to 'prod'
 gulp.task('env:prod', function() {
-  process.env.NODE_ENV = 'production';
+  process.env.NODE_ENV = 'prod';
 });
 
 // Set NODE_ENV to 'test'

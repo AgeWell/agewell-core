@@ -98,7 +98,7 @@ describe('Configuration Tests:', function () {
       // Save original value
       let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = 'prod';
 
       User.find({ email: adminFromSeedConfig.email }, function(err, users) {
 
@@ -221,7 +221,7 @@ describe('Configuration Tests:', function () {
       // Save original value
       let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = 'prod';
 
       User.find({ email: admin1.email }, function(err, users) {
 
@@ -300,7 +300,7 @@ describe('Configuration Tests:', function () {
       // Save original value
       let nodeEnv = process.env.NODE_ENV;
       // Set node env ro production environment
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = 'prod';
 
       let _admin = new User(adminFromSeedConfig);
 
@@ -382,7 +382,7 @@ describe('Configuration Tests:', function () {
     // it('should warn if using default session secret when running in production', function (done) {
     //   let conf = { sessionSecret: 'MEAN' };
     //   // set env to production for this test
-    //   process.env.NODE_ENV = 'production';
+    //   process.env.NODE_ENV = 'prod';
     //   config.utils.validateSessionSecret(conf, true).should.equal(false);
     //   // set env back to test
     //   process.env.NODE_ENV = 'test';
@@ -392,7 +392,7 @@ describe('Configuration Tests:', function () {
     it('should accept non-default session secret when running in production', function () {
       let conf = { sessionSecret: 'super amazing secret' };
       // set env to production for this test
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = 'prod';
       config.utils.validateSessionSecret(conf, true).should.equal(true);
       // set env back to test
       process.env.NODE_ENV = 'test';
@@ -401,7 +401,7 @@ describe('Configuration Tests:', function () {
     xit('should accept default session secret when running in development', function () {
       let conf = { sessionSecret: 'MEAN' };
       // set env to development for this test
-      process.env.NODE_ENV = 'development';
+      process.env.NODE_ENV = 'dev';
       config.utils.validateSessionSecret(conf, true).should.equal(true);
       // set env back to test
       process.env.NODE_ENV = 'test';
@@ -510,7 +510,7 @@ describe('Configuration Tests:', function () {
 
   describe('Testing exposing environment as a variable to layout', function () {
 
-    ['development', 'production', 'test'].forEach(function(env) {
+    ['dev', 'prod', 'test'].forEach(function(env) {
       it('should expose environment set to ' + env, function (done) {
         // Set env to development for this test
         process.env.NODE_ENV = env;
