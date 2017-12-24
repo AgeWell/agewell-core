@@ -92,7 +92,6 @@
       vm.orders = data;
       buildPager('orders', 5);
     });
-    console.log(vm.volunteers);
 
     // Assign an order to a volunteer.
     function assign(order) {
@@ -100,7 +99,6 @@
 
       if (typeof vm.current.assignedTo === 'object') {
         vm.assignedTo = vm.current.assignedTo._id;
-        console.log(vm);
       }
 
       var modalInstance = $uibModal.open({
@@ -108,7 +106,6 @@
         templateUrl: '/modules/groceries/client/views/modals/assign.html',
         scope: $scope
       });
-      console.log(vm);
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
@@ -124,11 +121,9 @@
           Notification.info({
             message: 'Update successful!'
           });
-          console.log(vm.current);
+
           vm.current.assignedTo = $filter('filter')(vm.volunteers, { _id: vm.assignedTo })[0];
           pageChanged('orders', 5);
-
-          console.log(vm);
         }
 
         function errorCallback(res) {

@@ -6,9 +6,9 @@
     .module('groceries.orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'OrdersService', 'Authentication', 'coreService', 'orderResolve'];
+  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'OrdersService', 'Authentication', 'Notification', 'coreService', 'orderResolve'];
 
-  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, OrdersService, Authentication, coreService, order) {
+  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, OrdersService, Authentication, Notification, coreService, order) {
     var vm = this;
 
     vm.lastOrder = '';
@@ -93,7 +93,9 @@
 
     // Assign an order to a volunteer.
     function assign() {
-      vm.current = vm.order;
+      if (vm.order.assignedTo) {
+        vm.assignedTo = vm.order.assignedTo;
+      }
 
       var modalInstance = $uibModal.open({
         animation: true,
@@ -103,9 +105,28 @@
 
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
-        holdState = true;
-        save(true);
+
+        vm.order.assignedTo = vm.assignedTo;
+        vm.order.status = 'ordered';
+
+        vm.order.createOrUpdate()
+          .then(successCallback)
+          .catch(errorCallback);
+
+        function successCallback(res) {
+          Notification.info({
+            message: 'Update successful!'
+          });
+
+          vm.order.assignedTo = $filter('filter')(vm.volunteers, { _id: vm.assignedTo })[0];
+
+        }
+
+        function errorCallback(res) {
+          vm.order.status = 'pending';
+        }
       };
+
       vm.modalCancel = function() {
         modalInstance.dismiss('Cancel Clicked');
       };
@@ -165,7 +186,6 @@
 
     // Listeners
     $scope.$on('updateOrder', function() {
-      console.log('update order', vm);
       vm.update();
     });
   }
