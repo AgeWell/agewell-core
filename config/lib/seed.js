@@ -78,7 +78,7 @@ function seedTheUser(user) {
       // set the new password
       user.password = password;
 
-      if (user.username === seedOptions.seedAdmin.username && process.env.NODE_ENV === 'production') {
+      if (user.username === seedOptions.seedAdmin.username && process.env.NODE_ENV === 'prod') {
         checkUserNotExists(user)
           .then(saveUser(user))
           .then(reportSuccess(password))
@@ -139,7 +139,7 @@ module.exports.start = function start(options) {
     var adminAccount = new User(seedOptions.seedAdmin);
     var userAccount = new User(seedOptions.seedUser);
     // If production only seed admin if it does not exist
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'prod') {
       User.generateRandomPassphrase()
         .then(seedTheUser(adminAccount))
         .then(function() {

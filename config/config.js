@@ -60,7 +60,7 @@ var validateEnvironmentVariable = function() {
     } else {
       console.error(chalk.red('+ Error: NODE_ENV is not defined! Using default development environment'));
     }
-    process.env.NODE_ENV = 'development';
+    process.env.NODE_ENV = 'dev';
   }
   // Reset console color
   console.log(chalk.white(''));
@@ -100,7 +100,7 @@ var validateSecureMode = function(config) {
  */
 var validateSessionSecret = function(config, testing) {
 
-  // if (process.env.NODE_ENV !== 'production') {
+  // if (process.env.NODE_ENV !== 'prod') {
   //   return true;
   // }
 

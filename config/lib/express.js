@@ -70,10 +70,10 @@ module.exports.initMiddleware = function(app) {
   }
 
   // Environment dependent middleware
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'dev') {
     // Disable views cache
     app.set('view cache', false);
-  } else if (process.env.NODE_ENV === 'production') {
+  } else if (process.env.NODE_ENV === 'prod') {
     app.locals.cache = 'memory';
   }
 
