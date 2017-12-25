@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1>Grocery Checkout</h1>
+    <h1>Order Assignment</h1>
   </div>
   <div class="list-group table-responsive">
     <table class="table table-condensed table-hover table-striped" ng-show="vm.orders.length !== 0">
@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="order in vm.orders" ng-class="order.status === 'purchased' ? 'success' : ''">
+        <tr ng-repeat="order in vm.orders" ng-class="order.status === 'ordered' ? 'success' : ''">
           <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
           <td><span class="hidden-xs">{{ order.contact.firstName }} </span>{{ order.contact.lastName }}</td>
           <td class="hidden-xs">{{ order.date | date:'MM/dd/yyyy' }}</td>
@@ -25,10 +25,11 @@
           </td>
         </tr>
       </tbody>
-      <tfoot ng-show="vm.complete">
+      <tfoot>
         <tr>
           <td colspan="6" class="text-right">
-            <button class="btn btn-success" ui-sref="groceries.list">Pick List</button>
+            <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.list">Pick List</button>
+            <button ng-show="!vm.complete" class="btn btn-danger" ng-click="vm.picklist()">Pick List</button>
           </td>
         </tr>
       </tfoot>
