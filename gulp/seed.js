@@ -5,7 +5,7 @@ const path = require('path');
 const runSequence = require('run-sequence');
 
 const defaultAssets = require('../config/assets/default');
-const prodAssets = require('../config/assets/production');
+const prodAssets = require('../config/assets/prod');
 
 // Drops the MongoDB database, used in e2e testing
 gulp.task('seedDB', function(done) {
