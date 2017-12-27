@@ -19,6 +19,8 @@
     vm.updateOrder = updateOrder;
     vm.upload = upload;
 
+    vm.askedNextStep = false;
+
     vm.orders = OrdersService.query({
       status: 'incart'
     }, function(orders) {
@@ -152,20 +154,22 @@
         return order.status === 'purchased';
       });
 
-      if (vm.complete && vm.orders.length !== 0) {
+      if (!vm.askedNextStep && vm.complete && vm.orders.length !== 0) {
         delivery();
       }
     }
 
     function delivery() {
-      var header = 'Checkout Complete';
-      var message = 'All the orders have been checkedout and paid for. Would you like to continue to the delivery or stay here to review the orders?';
-      var buttonClass = 'success';
+      var header = 'Checkout Incomplete';
+      var message = 'Some of the orders have not been checked out. Are you sure you would like to continue?';
+      var buttonClass = 'danger';
 
-      if (!vm.complete) {
-        header = 'Checkout Incomplete';
-        message = 'Some of the orders have not been checked out. Are you sure you would like to continue?';
-        buttonClass = 'danger';
+      if (vm.complete) {
+        header = 'Checkout Complete';
+        message = 'All the orders have been checkedout and paid for. Would you like to continue to the delivery or stay here to review the orders?';
+        buttonClass = 'success';
+
+        vm.askedNextStep = true;
       }
 
       var modalInstance = $uibModal.open({
