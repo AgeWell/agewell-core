@@ -50,7 +50,7 @@ module.exports = {
       'accessKeyId': process.env.AWS_ID,
       'secretAccessKey': process.env.AWS_KEY,
       'bucket': process.env.AWS_BUCKET,
-      'region': process.env.AWS_REGION
+      'region': 'us-east-2'
     },
     profile: {
       image: {
