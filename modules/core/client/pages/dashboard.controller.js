@@ -164,19 +164,13 @@
       });
       vm['filter' + type + 'Length'] = vm['filtered' + type].length;
 
-      console.log(vm['filter' + type + 'Length'] < (vm[type + 'PerPage'] * vm[type + 'Page']));
-      console.log(vm['filter' + type + 'Length'], vm[type + 'PerPage'], vm[type + 'Page']);
-
       if (vm[type + 'Filter'] !== '' && vm['filter' + type + 'Length'] < (vm[type + 'PerPage'] * (vm[type + 'Page'] - 1))) {
-        console.log('hit');
         vm[type + 'Page'] = 1;
       }
 
       var begin = ((vm[type + 'Page'] - 1) * vm[type + 'PerPage']);
       var end = begin + vm[type + 'PerPage'];
       vm['paged' + type] = vm['filtered' + type].slice(begin, end);
-
-      console.log(vm['paged' + type]);
     }
 
     function pageChanged(type) {

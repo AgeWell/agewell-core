@@ -41,7 +41,6 @@
         category: ''
       };
       vm.items.push(vm.inserted);
-      console.log(vm.items);
     }
 
     function updateOrder() {

@@ -106,8 +106,6 @@ exports.list = function(req, res) {
         }
       ]
     };
-    console.log('Is a volunteer!');
-    // Do something
   }
 
   Order.find(query)

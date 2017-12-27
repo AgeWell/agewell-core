@@ -68,7 +68,6 @@
   newOrder.$inject = ['OrdersService'];
 
   function newOrder(OrdersService) {
-    console.log('attempt new order');
     return new OrdersService();
   }
 }());
