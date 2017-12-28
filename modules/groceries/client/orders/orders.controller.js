@@ -73,6 +73,10 @@
         item.id = undefined;
       }
 
+      if (vm.order.status === 'pending' && typeof vm.order.assignedTo !== 'undefined') {
+        vm.order.status === 'ordered';
+      }
+
       vm.order.createOrUpdate()
         .then(successCallback)
         .catch(errorCallback);
