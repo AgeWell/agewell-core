@@ -34,7 +34,6 @@ module.exports.putObject = function(req, callback) {
     Body: req.file.buffer,
     ACL: 'public-read' // your permisions
   }, (err, data) => {
-    console.log('putObject', err);
     callback(err, {
       data: data,
       key: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${fileKey}`
