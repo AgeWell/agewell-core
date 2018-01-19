@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/orders/:orderId',
       permissions: '*'
+    }, {
+      resources: '/api/orders/:orderId/reciept',
+      permissions: ['get', 'post', 'put']
     }]
   }, {
     roles: ['volunteer'],
