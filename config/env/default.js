@@ -49,7 +49,7 @@ module.exports = {
     aws: {
       'accessKeyId': process.env.AWS_ID,
       'secretAccessKey': process.env.AWS_KEY,
-      'bucket': process.env.AWS_BUCKET,
+      'bucket': process.env.AWS_BUCKET || 'agewell-dev',
       'region': 'us-east-2'
     },
     profile: {

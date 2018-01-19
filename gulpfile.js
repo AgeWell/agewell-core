@@ -1,8 +1,6 @@
 'use strict';
 
-if (process.env.NODE_ENV === 'dev') {
-  require('dotenv').load(); // eslint-disable-line global-require
-}
+require('dotenv').load(); // eslint-disable-line global-require
 
 var fs = require('fs-extra'),
   gulp = require('gulp'),
