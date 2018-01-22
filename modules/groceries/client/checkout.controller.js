@@ -60,7 +60,7 @@
         modalInstance.close('OK Clicked');
 
         // TODO: Make the reciept optional
-        if (vm.current.recieptTotal !== 0 && (vm.current.hasOwnProperty('recieptImage') && vm.current.recieptImage !== '')) {
+        if (vm.current.recieptTotal !== 0 && (vm.current.hasOwnProperty('recieptImage') && vm.current.recieptImage !== '') && (vm.current.hasOwnProperty('storeName') && vm.current.storeName !== '')) {
           vm.current.status = 'purchased';
         } else {
           vm.current.status = 'incart';

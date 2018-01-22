@@ -40,6 +40,7 @@
       vm.order.recieptTotal = 0.00;
       vm.order.deliveryCost = 10.00;
       vm.order.total = 10.00;
+      vm.order.confirmed = false;
       if ($stateParams.lastOrder) {
         vm.lastOrder = $stateParams.lastOrder;
       }

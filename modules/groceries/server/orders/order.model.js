@@ -42,6 +42,7 @@ let OrderSchema = new Schema({
   // TODO: Make the reciept optional
   recieptImage: String,
   confirmed: Boolean,
+  storeName: String,
   // payment info
   delivery: Delivery,
   status: {
