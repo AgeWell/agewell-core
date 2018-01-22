@@ -39,6 +39,7 @@ let OrderSchema = new Schema({
     type: Number,
     required: 'An order must have a total.'
   },
+  // TODO: Make the reciept optional
   recieptImage: String,
   confirmed: Boolean,
   // payment info

@@ -46,7 +46,7 @@
           <input type="text" id="unitName" name="unitName" class="form-control" ng-model="vm.service.unitName" placeholder="Unit Name" autofocus />
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.service._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-success">{{vm.service._id ? 'Update' : 'Create'}}</button>
           <button ng-click="vm.log" class="btn btn-default">Log</button>
         </div>
         <div ng-show="vm.error" class="text-danger">

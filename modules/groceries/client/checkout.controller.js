@@ -59,6 +59,7 @@
       vm.modalOk = function() {
         modalInstance.close('OK Clicked');
 
+        // TODO: Make the reciept optional
         if (vm.current.recieptTotal !== 0 && (vm.current.hasOwnProperty('recieptImage') && vm.current.recieptImage !== '')) {
           vm.current.status = 'purchased';
         } else {
