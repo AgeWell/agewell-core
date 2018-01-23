@@ -16,6 +16,11 @@
     vm.checkout = checkout;
     vm.toggle = toggle;
     vm.notAvailable = notAvailable;
+    vm.print = print;
+
+    function print() {
+      window.print();
+    }
 
     vm.orders = OrdersService.query({
       status: 'ordered'

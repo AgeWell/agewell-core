@@ -1,6 +1,14 @@
 <section>
-  <div class="page-header">
-    <h1>Grocery Pick List</h1>
+  <div class="page-header hidden-print">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Grocery Pick List</h1>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-right" style="margin-top: 2em">
+        <button class="btn btn-default" ng-click="vm.print()" tooltip-placement="top" uib-tooltip="Print Pick List"><i class="glyphicon glyphicon-print" aria-label="Print Pick List"></i></button>
+      </div>
+    </div>
   </div>
   <div class="list-group table-responsive">
     <table class="table table-hover table-striped" ng-show="vm.orders.length !== 0">
@@ -21,14 +29,14 @@
           <td>{{ item.client }}</td>
           <td>
             <button class="btn btn-default" ng-click="vm.toggle(item)"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
-            <button class="btn" ng-click="vm.notAvailable(item)" ng-class="item.notAvailable ? 'btn-danger' : 'btn-default'" ng-disabled="item.inCart"><i class="glyphicon glyphicon-ban-circle" aria-label="View"></i></button>
-            <button class="btn btn-default" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
+            <button class="btn hidden-print" ng-click="vm.notAvailable(item)" ng-class="item.notAvailable ? 'btn-danger' : 'btn-default'" ng-disabled="item.inCart"><i class="glyphicon glyphicon-ban-circle" aria-label="View"></i></button>
+            <button class="btn btn-default hidden-print" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="5" class="text-right">
+          <td colspan="5" class="text-right hidden-print">
             <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.checkout">Checkout</button>
             <button ng-show="!vm.complete" class="btn btn-danger" ng-click="vm.checkout()">Checkout</button>
           </td>
@@ -39,6 +47,6 @@
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
     No orders are ready to be picked.
   </div>
-  <div class="row col-md-12">
+  <div class="row col-md-12 hidden-print">
     <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
   </div>
