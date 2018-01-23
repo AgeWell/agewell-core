@@ -35,12 +35,13 @@
 
     if (!vm.order._id) {
       vm.order.clientId = $stateParams.clientId;
+      vm.order.confirmed = false;
       vm.order.date = vm.orderBy;
+      vm.order.deliveryCost = 10.00;
       vm.order.items = [];
       vm.order.recieptTotal = 0.00;
-      vm.order.deliveryCost = 10.00;
+      vm.order.status = 'pending';
       vm.order.total = 10.00;
-      vm.order.confirmed = false;
       if ($stateParams.lastOrder) {
         vm.lastOrder = $stateParams.lastOrder;
       }
@@ -74,8 +75,8 @@
         item.id = undefined;
       }
 
-      if (vm.order.status === 'pending' && typeof vm.order.assignedTo !== 'undefined') {
-        vm.order.status === 'ordered';
+      if (vm.order.status === 'pending' && vm.order.assignedTo) {
+        vm.order.status = 'ordered';
       }
 
       vm.order.createOrUpdate()
