@@ -8,11 +8,13 @@
     </div>
     <table class="table table-bordered table-hover table-condensed" style="margin: 0; border-bottom: none;">
       <tr style="font-weight: bold">
+        <td class="visible-print-block">In-Cart</td>
         <td style="width:50%">Item</td>
         <td style="width:30%">Category</td>
         <td style="width:20%">Qty</td>
       </tr>
       <tr ng-repeat="item in vm.order.items">
+        <td class="visible-print-block"><i class="glyphicon glyphicon-unchecked"></i></td>
         <td>{{ item.name }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.qty || '0' }}</td>
@@ -48,12 +50,13 @@
       <label class="control-label" for="notes">Notes</label>
       <p>{{ vm.order.notes }}</p>
     </div>
-    <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
+    <button type="button" class="btn btn-primary  hidden-print"  onclick="window.history.back()">Back</button>
   </div>
   <div class="col-md-4">
-    <div class="btn-group btn-group" role="group" aria-label="...">
+    <div class="btn-group btn-group hidden-print" role="group" aria-label="...">
       <button type="button" class="btn btn-primary" ui-sref="order.edit({ clientId: vm.order.clientId, orderId: vm.order._id })">Edit</button>
       <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'canceled'" ng-click="vm.assign()">Assign</button>
+      <button class="btn btn-primary" ng-click="vm.print()">Print</button>
     </div>
     <hr />
     <div class="panel panel-primary">

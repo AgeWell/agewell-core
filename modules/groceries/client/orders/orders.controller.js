@@ -22,6 +22,11 @@
     vm.remove = remove;
     vm.update = update;
     vm.save = save;
+    vm.print = print;
+
+    function print() {
+      window.print();
+    }
 
     var holdState = false;
 
