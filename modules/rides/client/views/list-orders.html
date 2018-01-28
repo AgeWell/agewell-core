@@ -1,0 +1,44 @@
+<section>
+  <div class="page-header">
+    <h2>Ride Orders</h1>
+  </div>
+  <div class="list-group">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Order #</th>
+          <th>Status</th>
+          <th>Ordered Date</th>
+          <th>Delivery Date</th>
+          <th># of Items</th>
+          <th>Total</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in vm.pagedItems" >
+          <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.items.length }}</td>
+          <td>{{ order.total | currency }}</td>
+          <td>
+            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr ng-if="vm.filterLength > vm.itemsPerPage">
+          <td colspan="6" class="text-center">
+            <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+    No orders yet, why don't you <a ui-sref="order.create({clientId: vm.clientid})">create one</a>?
+  </div>
+</section>

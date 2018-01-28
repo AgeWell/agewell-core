@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h3 class="modal-title">Checkout - Reciept</h3>
+</div>
+<div class="modal-body">
+  <div class="alert alert-info" role="alert" ng-hide="vm.dashboard"><strong>Please assign the order to the appropriate volunteer:</strong></div>
+  <div class="alert alert-info" role="alert" ng-hide="!vm.dashboard"><strong>Please confirm that the order is assigned to the right volunteer if needed:</strong></div>
+  <form name="vm.form" ng-submit="vm.updateOrder()" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <label>Assign Volunteer</label>
+        <select name="volunteer" ng-model="vm.assignedTo" class="form-control">
+          <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.lastName}}, {{option.firstName}}</option>
+        </select>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="vm.modalCancel()">Cancel</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-hide="vm.dashboard">Assign</button>
+  <button class="btn btn-success" type="button" ng-click="vm.modalOk()" ng-hide="!vm.dashboard">Confirm</button>
+</div>
