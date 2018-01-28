@@ -18,7 +18,9 @@
           <th>Category</th>
           <th>Quantity</th>
           <th>Client</th>
-          <th><span class="hidden-xs">In Cart</span></th>
+          <th width="5%"><span class="hidden-xs">Incart</span></th>
+          <th width="5%"><span class="hidden-xs">N/A</span></th>
+          <th width="5%"><span class="hidden-xs">View</span></th>
         </tr>
       </thead>
       <tbody>
@@ -28,15 +30,17 @@
           <td>{{ item.qty }} {{ item.unit }}</td>
           <td>{{ item.client }}</td>
           <td>
-            <button class="btn btn-default" ng-click="vm.toggle(item)"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View"></i></button>
-            <button class="btn hidden-print" ng-click="vm.notAvailable(item)" ng-class="item.notAvailable ? 'btn-danger' : 'btn-default'" ng-disabled="item.inCart"><i class="glyphicon glyphicon-ban-circle" aria-label="View"></i></button>
-            <button class="btn btn-default hidden-print" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
+            <button class="btn btn-default" ng-click="vm.toggle(item)"><i class="glyphicon" ng-class="item.inCart ? 'glyphicon-check' : 'glyphicon-unchecked'" aria-label="View" tooltip-placement="top" uib-tooltip="In Cart"></i></button></td>
+          <td>
+            <button class="btn hidden-print" ng-click="vm.notAvailable(item)" ng-class="item.notAvailable ? 'btn-danger' : 'btn-default'" ng-disabled="item.inCart"><i class="glyphicon glyphicon-ban-circle" aria-label="View" tooltip-placement="top" uib-tooltip="Not Available"></i></button></td>
+          <td>
+            <button class="btn btn-default hidden-print" ui-sref="order.view({ clientId: item.clientId, orderId: item.orderId })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label=""></i></button>
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="5" class="text-right hidden-print">
+          <td colspan="7" class="text-right hidden-print">
             <button ng-show="vm.complete" class="btn btn-success" ui-sref="groceries.checkout">Checkout</button>
             <button ng-show="!vm.complete" class="btn btn-danger" ng-click="vm.checkout()">Checkout</button>
           </td>
@@ -48,5 +52,5 @@
     No orders are ready to be picked.
   </div>
   <div class="row col-md-12 hidden-print">
-    <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
+    <button type="button" class="btn btn-primary" onclick="window.history.back()">Back</button>
   </div>

@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1 class="text-capitalize">Order #{{ vm.order.requestNumber }} - {{ vm.order.status }}</h1>
+      <h1 class="text-capitalize">{{vm.client.contact.firstName}} {{vm.client.contact.lastName}} - Order #{{ vm.order.requestNumber }} - {{ vm.order.status }}</h1>
   </div>
   <div class="col-md-8">
     <div class="alert alert-info" role="alert">
@@ -8,13 +8,13 @@
     </div>
     <table class="table table-bordered table-hover table-condensed" style="margin: 0; border-bottom: none;">
       <tr style="font-weight: bold">
-        <td class="visible-print-block">In-Cart</td>
-        <td style="width:50%">Item</td>
-        <td style="width:30%">Category</td>
-        <td style="width:20%">Qty</td>
+        <td style="width:20%"></td>
+        <td style="width:40%">Item</td>
+        <td style="width:10%">Category</td>
+        <td style="width:10%">Qty</td>
       </tr>
       <tr ng-repeat="item in vm.order.items">
-        <td class="visible-print-block"><i class="glyphicon glyphicon-unchecked"></i></td>
+        <td class="visible-print-block"><i class="glyphicon glyphicon-unchecked"></i> In-Cart <i class="glyphicon glyphicon-unchecked"></i> Not Available</td>
         <td>{{ item.name }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.qty || '0' }}</td>
@@ -50,6 +50,19 @@
       <label class="control-label" for="notes">Notes</label>
       <p>{{ vm.order.notes }}</p>
     </div>
+    <div class="visible-print-block">
+      <br />
+      <br />
+      <label class="control-label" for="notes">Shopping Notes</label>
+      <hr/>
+      <hr/>
+      <hr/>
+      <hr/>
+      <hr/>
+      <hr/>
+      <br />
+      <br />
+    </div>
     <button type="button" class="btn btn-primary  hidden-print"  onclick="window.history.back()">Back</button>
   </div>
   <div class="col-md-4">
@@ -75,6 +88,14 @@
         <p><strong>Home Phone:</strong> {{vm.order.contact.phone1}}</p>
         <p><strong>Work Phone:</strong> {{vm.order.contact.phone2}}</p>
         <p><strong>Cell Phone:</strong> {{vm.order.contact.phone3}}</p>
+      </div>
+    </div>
+    <div ng-show="vm.client.contact.allergies !== ''" class="panel panel-danger">
+      <div class="panel-heading"><strong>Allergy Information</strong></div>
+      <div class="panel-body">
+        <div>
+          {{ vm.client.contact.allergies }}
+        </div>
       </div>
     </div>
   </div>

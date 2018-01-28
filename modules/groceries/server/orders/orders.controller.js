@@ -109,7 +109,7 @@ exports.list = function(req, res) {
   }
 
   Order.find(query)
-    .sort('requestNumber')
+    .sort('-created')
     .populate('contact')
     .populate('assignedTo')
     .exec(function(err, orders) {

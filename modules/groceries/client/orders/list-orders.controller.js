@@ -25,7 +25,7 @@
 
     function buildPager() {
       vm.pagedItems = [];
-      vm.itemsPerPage = 3;
+      vm.itemsPerPage = 10;
       vm.currentPage = 1;
       vm.search = '';
       vm.figureOutItemsToDisplay();
