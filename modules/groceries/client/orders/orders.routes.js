@@ -9,6 +9,16 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('all-orders', {
+        url: '/orders',
+        templateUrl: '/modules/groceries/client/views/all-list-orders.html',
+        controller: 'AllOrdersListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['admin'],
+          pageTitle: 'Groceries To Go - All Orders'
+        }
+      })
       .state('order', {
         abstract: true,
         url: '/clients/:clientId/orders',

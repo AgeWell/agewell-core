@@ -1,0 +1,53 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Grocery Orders</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" ng-disabled="false"/>
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Order #</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Ordered Date</th>
+          <th>Delivery Date</th>
+          <th># of Items</th>
+          <th>Total</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in vm.pagedItems" >
+          <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
+          <td>{{ order.contact.lastName }}, {{ order.contact.firstName }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.items.length }}</td>
+          <td>{{ order.total | currency }}</td>
+          <td class="text-right">
+            <button class="btn btn-default" ui-sref="order.view({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="order.edit({ clientId: order.clientId, orderId: order._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr ng-if="vm.filterLength > vm.itemsPerPage">
+          <td colspan="6" class="text-center">
+            <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+    No orders yet, why don't you <a ui-sref="order.create({clientId: vm.clientid})">create one</a>?
+  </div>
+</section>
