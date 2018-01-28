@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.order._id ? 'Edit Groceries Order' : 'New Groceries Order'}}</h1>
+    <h1>{{vm.client.contact.firstName}} {{vm.client.contact.lastName}} - {{vm.order._id ? 'Edit Groceries Order' : 'New Groceries Order'}}</h1>
   </div>
   <div class="col-md-8">
     <div class="alert alert-info" role="alert">
@@ -94,6 +94,14 @@
           <strong>Next Delivery:</strong> {{vm.dates.orderBy | date:'EEEE, MMMM d'}}
         </div>
         <hr />
+      </div>
+    </div>
+    <div ng-show="vm.client.contact.allergies !== ''" class="panel panel-danger">
+      <div class="panel-heading"><strong>Allergy Information</strong></div>
+      <div class="panel-body">
+        <div>
+          {{ vm.client.contact.allergies }}
+        </div>
       </div>
     </div>
   </div>

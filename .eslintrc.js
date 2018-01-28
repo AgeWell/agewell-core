@@ -57,7 +57,7 @@ module.exports = {
     strict: 0,
     'quote-props': 0,
     quotes: [1, 'single'],
-    'wrap-iife': [2, 'outside'],
+    'wrap-iife': [0, 'outside'],
     'vars-on-top': 0
   },
   env: {
