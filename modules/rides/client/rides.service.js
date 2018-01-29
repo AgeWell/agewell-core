@@ -9,7 +9,7 @@
   RidesService.$inject = ['$log', '$resource'];
 
   function RidesService($log, $resource) {
-    var Ride = $resource('api/rides/:groceryId', {
+    var Ride = $resource('api/rides/:rideId', {
       rideId: '@_id'
     }, {
       update: {
@@ -19,22 +19,22 @@
 
     angular.extend(Ride.prototype, {
       createOrUpdate: function () {
-        var grocery = this;
-        return createOrUpdate(grocery);
+        var ride = this;
+        return createOrUpdate(ride);
       }
     });
 
     return Ride;
 
-    function createOrUpdate(grocery) {
-      if (grocery._id) {
-        return grocery.$update(onSuccess, onError);
+    function createOrUpdate(ride) {
+      if (ride._id) {
+        return ride.$update(onSuccess, onError);
       } else {
-        return grocery.$save(onSuccess, onError);
+        return ride.$save(onSuccess, onError);
       }
 
       // Handle successful response
-      function onSuccess(grocery) {
+      function onSuccess(ride) {
         // Any required internal processing from inside the service, goes here.
       }
 

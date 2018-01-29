@@ -3,12 +3,12 @@
 
   // Rides controller
   angular
-    .module('rides.orders')
-    .controller('OrdersController', OrdersController);
+    .module('rides')
+    .controller('RideViewController', RideViewController);
 
-  OrdersController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'OrdersService', 'Authentication', 'Notification', 'coreService', 'orderResolve'];
+  RideViewController.$inject = ['$scope', '$state', '$filter', '$stateParams', '$window', '$uibModal', 'RidesService', 'Authentication', 'Notification', 'coreService', 'orderResolve'];
 
-  function OrdersController($scope, $state, $filter, $stateParams, $window, $uibModal, OrdersService, Authentication, Notification, coreService, order) {
+  function RideViewController($scope, $state, $filter, $stateParams, $window, $uibModal, RidesService, Authentication, Notification, coreService, order) {
     var vm = this;
 
     vm.lastOrder = '';
@@ -174,7 +174,7 @@
     }
 
     function loadItems() {
-      OrdersService.query({
+      RidesService.query({
         _id: vm.lastOrder
       }, function(data) {
         vm.pastOrder = data;

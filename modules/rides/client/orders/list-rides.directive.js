@@ -2,21 +2,21 @@
   'use strict';
 
   angular
-    .module('rides.orders')
-    .directive('listOrders', listOrders);
+    .module('rides')
+    .directive('listRides', listRides);
 
-  function listOrders() {
+  function listRides() {
     var directive = {
       restrict: 'E',
       scope: {
         clientId: '='
       },
-      controller: 'OrdersListController',
+      controller: 'RidesListController',
       controllerAs: 'vm',
       bindToController: true,
       replace: true,
       transclude: true,
-      templateUrl: '/modules/rides/client/views/list-orders.html'
+      templateUrl: '/modules/rides/client/views/list-rides.html'
     };
 
     return directive;

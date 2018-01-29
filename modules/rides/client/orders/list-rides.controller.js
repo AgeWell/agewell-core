@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-    .module('rides.orders')
-    .controller('OrdersListController', OrdersListController);
+    .module('rides')
+    .controller('RideListController', RideListController);
 
-  OrdersListController.$inject = ['OrdersService', '$filter', '$stateParams'];
+  RideListController.$inject = ['RidesService', '$filter', '$stateParams'];
 
-  function OrdersListController(OrdersService, $filter, $stateParams) {
+  function RideListController(RidesService, $filter, $stateParams) {
     var vm = this;
 
     vm.buildPager = buildPager;
@@ -16,7 +16,7 @@
 
     vm.clientid = $stateParams.clientId;
 
-    OrdersService.query({
+    RidesService.query({
       clientId: vm.clientid
     }, function(data) {
       vm.orders = data;
