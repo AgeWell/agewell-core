@@ -4,12 +4,12 @@
   </div>
   <div class="col-md-8">
     <div class="alert alert-info" role="alert">
-      You order must be submitted by <strong>{{vm.dates.orderBy | date:'EEEE, MMMM d'}}</strong> to be delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
+      You order must be submitted by <strong>{{vm.dates.orderBy | date:'EEEE, MMMM d'}}</strong> for estimated delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
     </div>
     <div class="row">
       <div class="col-md-4"><strong>Order by Date:</strong> {{ vm.dates.now | date:'MM/dd/yyyy'}}</div>
       <div class="col-md-4"></div>
-      <div class="col-md-4"><strong>To be Delivered:</strong> {{vm.dates.delivery | date:'MM/dd/yyyy'}}</div>
+      <div class="col-md-4"><strong>Estimated Delivery:</strong> {{vm.dates.delivery | date:'MM/dd/yyyy'}}</div>
     </div>
     <items-form items="vm.order.items" error="vm.error" form="vm.orderForm"></items-form>
     <table class="table table-bordered table-hover table-condensed">

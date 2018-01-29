@@ -20,7 +20,7 @@
           <td><a ui-sref="order.view({ clientId: order.clientId, orderId: order._id })">{{ order.requestNumber }}</a></td>
           <td>{{ order.status }}</td>
           <td>{{ order.created | date:'MM/dd/yyyy' }}</td>
-          <td>{{ order.date | date:'MM/dd/yyyy' }}</td>
+          <td>{{ order.fullfilled.date | date:'MM/dd/yyyy' }}</td>
           <td>{{ order.items.length }}</td>
           <td>{{ order.total | currency }}</td>
           <td>

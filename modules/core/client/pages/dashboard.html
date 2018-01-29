@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="panel panel-primary">
-        <div class="panel-heading">Call List</div>
+        <div class="panel-heading">Call List - <small>Clients with no open orders</small></div>
         <div class="panel-body">
 
           <!-- Tab panes -->
@@ -54,7 +54,7 @@
               <tr ng-if="vm.callList.$resolved && !vm.callList.length">
                 <td colspan="3">
                   <div class="alert alert-warning text-center">
-                    No more Clients to call for this delivery.
+                    No more Clients to call for this estimated elivery.
                   </div>
                 </td>
               </tr>
@@ -71,7 +71,7 @@
                   {{ vm.dates.orderBy | date:'h:mm a EEE, M/d/yy'}}
                 </td>
                 <td colspan="2" class="text-right">
-                  <strong>Delivered on:</strong><br/>
+                  <strong>Estimated Delivery on:</strong><br/>
                   {{ vm.dates.delivery | date:'EEE, M/d/yy'}}
                 </td>
               </tr>

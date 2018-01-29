@@ -57,6 +57,8 @@
 
     function updateOrder() {
       vm.current.status = 'delivered';
+      vm.current.fullfilled.date = new Date();
+      vm.current.fullfilled.status = true;
 
       vm.current.$update(successCallback, errorCallback);
 

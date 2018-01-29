@@ -19,6 +19,7 @@ const upload = require(path.resolve('./config/lib/multer.js'));
  */
 exports.create = function(req, res) {
   let order = new Order(req.body);
+
   order.user = req.user;
 
   order.save(function(err) {

@@ -27,17 +27,17 @@
           </td>
         </tr>
       </tbody>
-      <tfoot ng-show="vm.complete">
+      <tfoot>
         <tr>
           <td colspan="6" class="text-right">
-            <button class="btn btn-success" ui-sref="groceries.delivery">Delivery</button>
+            <button class="btn btn-success" ui-sref="groceries.delivery" ng-disabled="!vm.complete">Delivery</button>
           </td>
         </tr>
       </tfoot>
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
-    No orders ready to checkout!
+    No orders ready to checkout! <a ui-sref="groceries.delivery">Click here</a> to see if any are ready for delevery.
   </div>
   <div class="row col-md-12">
     <button type="button" class="btn btn-primary"  onclick="window.history.back()">Back</button>
