@@ -6,20 +6,17 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Request = require(path.resolve('./modules/services/server/request.model'));
-const Item = require(path.resolve('./modules/rides/server/orders/grocery.model'));
-const Delivery = require(path.resolve('./modules/rides/server/orders/delivery.model'));
+const Request = require(path.resolve(
+  './modules/services/server/request.model'
+));
 
 /**
  * Orders to go Schema
  */
-let OrderSchema = new Schema({
+let RideSchema = new Schema({
   type: {
     type: String,
-    default: 'order'
-  },
-  items: {
-    type: [Item.schema]
+    default: 'ride'
   },
   subtotal: {
     type: Number
@@ -44,12 +41,11 @@ let OrderSchema = new Schema({
   confirmed: Boolean,
   storeName: String,
   // payment info
-  delivery: Delivery,
   status: {
     type: String,
-    default: 'pending',
+    default: 'requested',
     enum: [
-      'pending',
+      'assign',
       'ordered',
       'incart',
       'purchased',
@@ -60,7 +56,6 @@ let OrderSchema = new Schema({
   }
 });
 
-
 // mongoose.model('Order', OrderSchema);
 
-Request.discriminator('Order', OrderSchema);
+Request.discriminator('Ride', RideSchema);

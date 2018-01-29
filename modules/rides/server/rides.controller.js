@@ -6,7 +6,9 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const Ride = mongoose.model('Ride');
-const errorHandler = require(path.resolve('./modules/core/server/errors/errors.controller'));
+const errorHandler = require(path.resolve(
+  './modules/core/server/errors/errors.controller'
+));
 const _ = require('lodash');
 
 /**
@@ -34,7 +36,7 @@ exports.read = function(req, res) {
   let ride = req.ride ? req.ride.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
-  ride.isCurrentUserOwner = req.user && ride.user && ride.user._id.toString() === req.user._id.toString();
+  // ride.isCurrentUserOwner = req.user && ride.user && ride.user._id.toString() === req.user._id.toString();
 
   res.jsonp(ride);
 };
@@ -94,7 +96,6 @@ exports.list = function(req, res) {
  * Rides middleware
  */
 exports.rideByID = function(req, res, next, id) {
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Rides is invalid'

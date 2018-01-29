@@ -1,0 +1,17 @@
+The ride feature can even be a new tab, for an admin, completely separate from everything else. Customer facing, it can just say “call for ride”.
+
+Admin, Like a standard field for when people ask to sign up for an email list. It just needs to be there somewhere. Make it simple.
+- name (John Doe)
+- date of ride requested (January 23)
+- purpose of ride (doctor visit)
+- location (SMDC 2nd street)
+- one way or round trip (they could check a box even)
+- special instructions
+- assign driver (meaning just type in their name) or you could put the same drop down box from the volunteer database
+
+
+
+Out Of Scope
+If you can fix these things, then I will explain to Mary that we have a completed program. She keeps referring to the ride request function.  So we might  need to add a tab that says “request a ride” and it prompts a page to input “name, date, time, location,  reason for ride, assign person, map linked to address”
+Item, qty, size(unit), brand, category, coupon price (if applicable), special instructions.
+Store (in put chain and store location)

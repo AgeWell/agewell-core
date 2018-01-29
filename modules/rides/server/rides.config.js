@@ -28,13 +28,17 @@ function orderDates() {
   let dates = [];
   let base = getBase();
 
-  dates.push(moment().startOf('week')
-    .add('days', base + 3)
-    .subtract(6, 'hours')
+  dates.push(
+    moment()
+      .startOf('week')
+      .add('days', base + 3)
+      .subtract(6, 'hours')
   );
-  dates.push(moment().startOf('week')
-    .add('days', base + 10)
-    .subtract(6, 'hours')
+  dates.push(
+    moment()
+      .startOf('week')
+      .add('days', base + 10)
+      .subtract(6, 'hours')
   );
   // dates.push(moment().startOf('week')
   //   .add('days', base + 17)
@@ -47,13 +51,17 @@ function deliveryDates() {
   let dates = [];
   let base = getBase();
 
-  dates.push(moment().startOf('week')
-    .add('days', base + 4)
-    .subtract(12, 'hours')
+  dates.push(
+    moment()
+      .startOf('week')
+      .add('days', base + 4)
+      .subtract(12, 'hours')
   );
-  dates.push(moment().startOf('week')
-    .add('days', base + 11)
-    .subtract(12, 'hours')
+  dates.push(
+    moment()
+      .startOf('week')
+      .add('days', base + 11)
+      .subtract(12, 'hours')
   );
   // dates.push(moment().startOf('week')
   //   .add('days', base + 18)
