@@ -34,12 +34,43 @@
 
     ClientsService.query({
       active: true,
-      groceryCallList: true,
-      lastSkip: vm.dates.orderBy,
-      lastOrdered: vm.dates.orderBy
-    }, function(data) {
-      vm.callList = data;
-      buildPager('callList', 6);
+      groceryCallList: true
+      // lastSkip: vm.dates.orderBy,
+      // lastOrdered: vm.dates.orderBy
+    }, function(clients) {
+
+      OrdersService.query({
+        // date: vm.dates.orderBy
+      }, function(orders) {
+        vm.orders = orders;
+        buildPager('orders', 5);
+
+        const closedStatuses = [
+          'delivered',
+          'canceled',
+          'refunded'
+        ];
+
+        for (var i = 0; i < orders.length; i++) {
+          const order = orders[i];
+
+          const client = clients.find(item => {
+            console.log(item.lastOrder === order._id);
+            return item.lastOrder === order._id;
+          });
+          if (client) {
+            client.lastOrderStatus = order.status;
+          }
+        }
+        vm.callList = clients.filter(client => {
+          return !closedStatuses.includes(client.lastOrderStatus);
+        });
+        buildPager('callList', 6);
+        vm.openList = clients.filter(client => {
+          return closedStatuses.includes(client.lastOrderStatus);
+        });
+        buildPager('openList', 6);
+      });
     });
 
 
@@ -85,13 +116,6 @@
         console.info('modal-component dismissed at: ' + new Date());
       });
     }
-
-    OrdersService.query({
-      // date: vm.dates.orderBy
-    }, function(data) {
-      vm.orders = data;
-      buildPager('orders', 5);
-    });
 
     // Assign an order to a volunteer.
     function assign(order) {
