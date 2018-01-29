@@ -16,14 +16,11 @@
       })
       .state('ride.create', {
         url: '/create',
-        params: {
-          lastOrder: null
-        },
         templateUrl: '/modules/rides/client/views/form-ride.html',
-        controller: 'RidesFormController',
+        controller: 'RideFormController',
         controllerAs: 'vm',
         resolve: {
-          orderResolve: newRide
+          rideResolve: newRide
         },
         data: {
           roles: ['admin'],
@@ -33,10 +30,10 @@
       .state('ride.edit', {
         url: '/:rideId/edit',
         templateUrl: '/modules/rides/client/views/form-ride.html',
-        controller: 'RidesFormController',
+        controller: 'RideFormController',
         controllerAs: 'vm',
         resolve: {
-          orderResolve: getRide
+          rideResolve: getRide
         },
         data: {
           roles: ['admin'],
@@ -49,7 +46,7 @@
         controller: 'RideViewController',
         controllerAs: 'vm',
         resolve: {
-          orderResolve: getRide
+          rideResolve: getRide
         },
         data: {
           pageTitle: 'Ride'

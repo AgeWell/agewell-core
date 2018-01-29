@@ -6,6 +6,7 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Address = require(path.resolve('./modules/contacts/server/address/address.model'));
 const Request = require(path.resolve(
   './modules/services/server/request.model'
 ));
@@ -18,38 +19,37 @@ let RideSchema = new Schema({
     type: String,
     default: 'ride'
   },
-  subtotal: {
-    type: Number
-  },
-  tax: {
-    type: Number
-  },
-  recieptTotal: {
-    type: Number,
-    default: 0
-  },
-  deliveryCost: {
-    type: Number,
+  name: {
+    type: String,
     required: true
   },
-  total: {
-    type: Number,
-    required: 'An order must have a total.'
+  dateRequested: {
+    type: Date,
+    required: true
   },
-  // TODO: Make the reciept optional
-  recieptImage: String,
+  purpose: String,
+  locationName: {
+    type: String,
+    required: true
+  },
+  location: Address,
+  tripType: {
+    type: String,
+    default: 'one-way',
+    enum: [
+      'one-way',
+      'round-trip'
+    ]
+  },
+  specialInstructions: String,
   confirmed: Boolean,
-  storeName: String,
   // payment info
   status: {
     type: String,
     default: 'requested',
     enum: [
-      'assign',
-      'ordered',
-      'incart',
-      'purchased',
-      'delivered',
+      'assigned',
+      'completed',
       'canceled',
       'refunded'
     ]

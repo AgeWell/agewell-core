@@ -18,6 +18,13 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'rides', {
+      title: 'New Ride',
+      state: 'ride.create',
+      roles: ['admin']
+    });
+
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'rides', {
       title: 'Assign List',
       state: 'rides.assign',
       roles: ['admin']
