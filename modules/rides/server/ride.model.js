@@ -48,6 +48,7 @@ let RideSchema = new Schema({
     type: String,
     default: 'requested',
     enum: [
+      'requested',
       'assigned',
       'completed',
       'canceled',

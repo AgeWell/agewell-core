@@ -9,7 +9,7 @@
   RidesService.$inject = ['$log', '$resource'];
 
   function RidesService($log, $resource) {
-    var Ride = $resource('api/rides/:rideId', {
+    var Ride = $resource('/api/rides/:rideId', {
       rideId: '@_id'
     }, {
       update: {

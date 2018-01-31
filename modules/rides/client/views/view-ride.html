@@ -1,81 +1,45 @@
 <section>
   <div class="page-header">
-    <h1 class="text-capitalize">Order #{{ vm.order.requestNumber }} - {{ vm.order.status }}</h1>
+    <h1 class="text-capitalize">Ride #{{ vm.ride.requestNumber }} - {{ vm.ride.status }}</h1>
   </div>
-  <div class="col-md-8">
-    <div class="alert alert-info" role="alert">
-      This order is to be delivered on <strong>{{vm.dates.delivery | date:'EEEE, MMMM d'}}</strong>.
+  <div class="col-md-8" style="padding: 0 0 20px;">
+    <div class="row">
+      <label for="name">Name</label> {{ vm.ride.name }}
     </div>
-    <table class="table table-bordered table-hover table-condensed" style="margin: 0; border-bottom: none;">
-      <tr style="font-weight: bold">
-        <td class="visible-print-block">In-Cart</td>
-        <td style="width:50%">Item</td>
-        <td style="width:30%">Category</td>
-        <td style="width:20%">Qty</td>
-      </tr>
-      <tr ng-repeat="item in vm.order.items">
-        <td class="visible-print-block"><i class="glyphicon glyphicon-unchecked"></i></td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.category }}</td>
-        <td>{{ item.qty || '0' }}</td>
-      </tr>
-    </table>
-    <table class="table table-bordered table-hover table-condensed">
-      <tr style="font-weight: bold">
-        <td class="text-right" style="width:80%">
-          Reciept Total:
-        </td>
-        <td style="width:20%;" class="reciept-total">
-          {{ vm.order.recieptTotal | currency }}
-        </td>
-      </tr>
-      <tr style="font-weight: bold">
-        <td class="text-right" style="width:80%">
-          Delivery Cost:
-        </td>
-        <td style="width:20%">
-          {{ vm.order.deliveryCost | currency }}
-        </td>
-      </tr>
-      <tr style="font-weight: bold">
-        <td class="text-right" style="width:80%">
-          Total:
-        </td>
-        <td style="width:20%">
-          {{ vm.order.total | currency }}
-        </td>
-      </tr>
-    </table>
-    <div>
-      <label class="control-label" for="notes">Notes</label>
-      <p>{{ vm.order.notes }}</p>
+    <div class="row">
+      <label>Date Requested</label> {{ vm.ride.dateRequested }}
     </div>
-    <button type="button" class="btn btn-primary  hidden-print"  onclick="window.history.back()">Back</button>
+    <div class="row">
+      <label>Time Requested</label> {{ vm.ride.timeRequested }}
+    </div>
+    <div class="row">
+      <label>Purpose</label> {{ vm.ride.purpose }}
+    </div>
+    <div class="row">
+      <label>Location</label> {{ vm.ride.locationName }}
+    </div>
+    <div class="row">
+      <label>Trip Type</label> {{ vm.ride.tripType }}
+    </div>
+    <div class="row">
+      <label>Special Instructions</label> {{ vm.ride.specialInstructions }}
+    </div>
+    <div class="row">
+      <label>Status</label> {{ vm.ride.status }}
+    </div>
+    <div class="row">
+      <label>Assign Volunteer</label> {{ vm.volunteer.firstName }} {{ vm.volunteer.lastName }}
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary  hidden-print"  onclick="window.history.back()">Back</button>
+    </div>
   </div>
   <div class="col-md-4">
     <div class="btn-group btn-group hidden-print" role="group" aria-label="...">
-      <button type="button" class="btn btn-primary" ui-sref="order.edit({ clientId: vm.order.clientId, orderId: vm.order._id })">Edit</button>
-      <button type="button" class="btn btn-primary" ng-hide="vm.order.status === 'canceled'" ng-click="vm.assign()">Assign</button>
+      <button type="button" class="btn btn-primary" ui-sref="ride.edit({ rideId: vm.ride._id })">Edit</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.ride.status === 'canceled'" ng-click="vm.assign()">Assign</button>
       <button class="btn btn-primary" ng-click="vm.print()">Print</button>
     </div>
     <hr />
-    <div class="panel panel-primary">
-      <div class="panel-heading"><strong>Client Info</strong></div>
-      <div class="panel-body">
-        <div>
-          <strong><a ui-sref="clients.view({ clientId: vm.order.clientId })">{{vm.order.contact.firstName}} {{vm.order.contact.lastName}}</a></strong>
-        </div>
-        <p>
-          <div ng-bind="vm.order.contact.address.street"></div>
-          <div ng-bind="vm.order.contact.address.additional" ng-show="vm.contact.order.address.additional"></div>
-          <span ng-bind="vm.order.contact.address.city"></span>,
-          <span ng-bind="vm.order.contact.address.state"></span>
-          <span ng-bind="vm.order.contact.address.zipcode"></span>
-        </p>
-        <p><strong>Home Phone:</strong> {{vm.order.contact.phone1}}</p>
-        <p><strong>Work Phone:</strong> {{vm.order.contact.phone2}}</p>
-        <p><strong>Cell Phone:</strong> {{vm.order.contact.phone3}}</p>
-      </div>
-    </div>
   </div>
 </section>

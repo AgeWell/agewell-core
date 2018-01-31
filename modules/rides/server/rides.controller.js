@@ -15,6 +15,7 @@ const _ = require('lodash');
  * Create a Rides to go
  */
 exports.create = function(req, res) {
+  req.body.date = new Date();
   let ride = new Ride(req.body);
   ride.user = req.user;
 

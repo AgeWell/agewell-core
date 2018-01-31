@@ -3,90 +3,107 @@
     <h1>{{vm.ride._id ? 'Edit Ride' : 'New Ride'}}</h1>
   </div>
   <form name="vm.rideForm" ng-submit="vm.save(vm.rideForm.$valid)" novalidate>
-  <div class="col-md-8">
-    <div class="row">
-      <div class="form-group" show-errors>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" class="form-control" ng-model="vm.ride.name" placeholder="Name" required>
-        <div ng-messages="vm.ride.name.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Name is required.</p>
-        </div>
-      </div>
-      <div class="form-group" show-errors>
-        <label for="dateRequested">Date Requested</label>
-        <input type="text" id="dateRequested" name="dateRequested" class="form-control" ng-model="vm.ride.dateRequested" placeholder="Name" required>
-        <div ng-messages="vm.ride.dateRequested.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Name is required.</p>
-        </div>
-      </div>
-      <div class="form-group" show-errors>
-        <label for="purpose">Purpose</label>
-        <input type="text" id="purpose" name="purpose" class="form-control" ng-model="vm.ride.purpose" placeholder="Purpose" required>
-        <div ng-messages="vm.ride.purpose.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Purpose is required.</p>
-        </div>
-      </div>
-      <div class="form-group" show-errors>
-        <label for="locationName">Location Name</label>
-        <input type="text" id="locationName" name="locationName" class="form-control" ng-model="vm.ride.locationName" placeholder="Location Name" required>
-        <div ng-messages="vm.ride.locationName.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Location Name is required.</p>
-        </div>
-      </div>
-      <address address="vm.contact.address" error="vm.error"></address>
-      <div class="form-group" show-errors>
-        <label for="tripType">Trip Type</label>
-        <input type="text" id="tripType" name="tripType" class="form-control" ng-model="vm.ride.tripType" placeholder="Location Name" required>
-        <div ng-messages="vm.ride.tripType.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Trip Type is required.</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Trip Type</label>
-        <div>
-          <div class="radio-inline">
-            <input type="radio" ng-model="vm.ride.tripType" ng-value="one-way"> One Way
-          </div>
-          <div class="radio-inline">
-            <input type="radio" ng-model="vm.ride.tripType" ng-value="round-trip"> Round Trip
+    <div class="col-md-8" style="padding: 0 0 20px;">
+      <div class="row">
+        <div class="form-group" show-errors>
+          <label for="name">Name*</label>
+          <input type="text" id="name" name="name" class="form-control" ng-model="vm.ride.name" placeholder="Name" required>
+          <div ng-messages="vm.ride.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Name is required.</p>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" show-errors>
+              <label for="dateRequested">Date Requested*</label>
+              <p class="input-group">
+                <input name="dateRequested" type="text" class="form-control" uib-datepicker-popup="M/dd/yyyy" ng-model="vm.ride.dateRequested" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
+              <div ng-messages="vm.rideForm.dateRequested.$error" role="alert">
+                <p class="help-block error-text" ng-message="dateRequested">Date Requested is invalid.</p>
+                <p class="help-block error-text" ng-message="date">Date Requested must be in the correct format. (ie. 1/1/2000)</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" show-errors>
+              <label for="timeRequested">Time Requested*</label>
+              <div name="timeRequested" uib-timepicker ng-model="vm.ride.dateRequested" hour-step="1" minute-step="1" show-meridian="true" show-spinners="false"></div>
+              <div role="alert">
+                <p class="help-block error-text" ng-show="vm.rideForm.timeRequested.$error.time">Time Requested must be in the correct format. (ie. 1/1/2000)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="purpose">Purpose*</label>
+          <input type="text" id="purpose" name="purpose" class="form-control" ng-model="vm.ride.purpose" placeholder="Purpose" required>
+          <div ng-messages="vm.ride.purpose.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Purpose is required.</p>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Location</div>
+          <div class="panel-body">
+            <div class="form-group" show-errors>
+              <label for="locationName"> Name*</label>
+              <input type="text" id="locationName" name="locationName" class="form-control" ng-model="vm.ride.locationName" placeholder="Location Name" required>
+              <div ng-messages="vm.ride.locationName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Location Name is required.</p>
+              </div>
+            </div>
+            <address address="vm.contact.address" error="vm.error"></address>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Trip Type*</label>
+          <div>
+            <div class="radio-inline">
+              <input type="radio" ng-model="vm.ride.tripType" value="one-way" required> One Way
+            </div>
+            <div class="radio-inline">
+              <input type="radio" ng-model="vm.ride.tripType" value="round-trip"> Round Trip
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="form-group">
+            <label class="control-label" for="specialInstructions">Special Instructions</label>
+            <textarea name="specialInstructions" type="text" ng-model="vm.ride.specialInstructions" id="specialInstructions" class="form-control" placeholder="Special Instructions"></textarea>
+          </div>
+        </fieldset>
       </div>
-      <fieldset>
+      <div class="row">
+        <div ng-show="vm.ride._id" class="form-group">
+          <label>Status</label>
+          <select name="state" ng-model="vm.ride.status" class="form-control">
+            <option ng-repeat="option in vm.options.status" value="{{option}}">{{option}}</option>
+          </select>
+        </div>
         <div class="form-group">
-          <label class="control-label" for="specialInstructions">Special Instructions</label>
-          <textarea name="specialInstructions" type="text" ng-model="vm.ride.specialInstructions" id="specialInstructions" class="form-control" placeholder="Special Instructions"></textarea>
+          <label>Assign Volunteer</label>
+          <select name="state" ng-model="vm.ride.assignedTo" class="form-control">
+            <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.lastName}}, {{option.firstName}}</option>
+          </select>
         </div>
-      </fieldset>
+          <fieldset class="col-md-12 row">
+            <div class="form-group">
+              <label><input type="checkbox" ng-model="vm.ride.confirmed" style="margin-right: 5px"> Read back to owner?</label>
+              <span id="helpBlock" ng-hide="vm.ride.confirmed" class="help-block">An ride must be read back to the client and confirmed before it could be saved.</span>
+            </div>
+          </fieldset>
+          <fieldset class="col-md-12 row">
+            <div>
+              <button type="submit" class="btn btn-success" ng-disabled="vm.ride.confirmed !== true">{{vm.ride._id ? 'Update' : 'Create'}}</button>
+            </div>
+            <div ng-show="vm.error" class="text-danger">
+              <strong ng-bind="vm.error"></strong>
+            </div>
+          </fieldset>
+      </div>
     </div>
-    <div ng-show="vm.ride._id" class="form-group">
-      <label>Status</label>
-      <select name="state" ng-model="vm.ride.status" class="form-control">
-        <option ng-repeat="option in vm.options.status" value="{{option}}">{{option}}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Assign Volunteer</label>
-      <select name="state" ng-model="vm.ride.assignedTo" class="form-control">
-        <option ng-repeat="option in vm.volunteers" value="{{option._id}}">{{option.lastName}}, {{option.firstName}}</option>
-      </select>
-    </div>
-      <fieldset class="col-md-12 row">
-        <div class="form-group">
-          <label><input type="checkbox" ng-model="vm.ride.confirmed" style="margin-right: 5px"> Read back to owner?</label>
-          <span id="helpBlock" ng-hide="vm.ride.confirmed" class="help-block">An ride must be read back to the client and confirmed before it could be saved.</span>
-        </div>
-      </fieldset>
-      <fieldset class="col-md-12 row">
-        <div>
-          <button type="submit" class="btn btn-success" ng-disabled="vm.ride.confirmed !== true">{{vm.ride._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-  </div>
   </form>
-  <div class="col-md-4">
-  </div>
 </section>

@@ -14,10 +14,16 @@
     vm.lastOrder = '';
     vm.authentication = Authentication;
     vm.ride = ride;
+    vm.options = coreService.getOptions('Ride');
     vm.volunteers = coreService.getOptions('volunteers');
     // vm.assign = assign;
     vm.error = null;
     vm.print = print;
+    vm.save = save;
+
+    if (vm.ride._id) {
+      vm.ride.dateRequested = new Date(ride.dateRequested);
+    }
 
     function print() {
       window.print();
@@ -27,6 +33,28 @@
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.order.$remove($state.go('rides.orders.list'));
+      }
+    }
+
+    // Save Ride
+    function save(isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.rideForm');
+        return false;
+      }
+
+      vm.ride.createOrUpdate()
+        .then(successCallback)
+        .catch(errorCallback);
+
+      function successCallback(res) {
+        $state.go('ride.view', {
+          rideId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
       }
     }
 
@@ -76,5 +104,19 @@
         console.info('modal-component dismissed at: ' + new Date());
       });
     }
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      minDate: new Date(),
+      startingDay: 1
+    };
+
+    $scope.open1 = function() {
+      $scope.popup1.opened = true;
+    };
+
+    $scope.popup1 = {
+      opened: false
+    };
   }
 }());
