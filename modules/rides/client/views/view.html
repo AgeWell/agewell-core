@@ -7,10 +7,7 @@
       <label for="name">Name</label> {{ vm.ride.name }}
     </div>
     <div class="row">
-      <label>Date Requested</label> {{ vm.ride.dateRequested }}
-    </div>
-    <div class="row">
-      <label>Time Requested</label> {{ vm.ride.timeRequested }}
+      <label>Date Requested</label> {{ vm.ride.dateRequested | date:'M/dd/yyyy h:mm a' }}
     </div>
     <div class="row">
       <label>Purpose</label> {{ vm.ride.purpose }}

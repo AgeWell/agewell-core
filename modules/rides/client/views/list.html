@@ -1,0 +1,46 @@
+<section>
+  <div class="page-header">
+    <h2>Rides</h1>
+  </div>
+  <div class="list-group">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Ride #</th>
+          <th>Status</th>
+          <th>Date/Time</th>
+          <th>Location</th>
+          <th>Purpose</th>
+          <th>Trip Type</th>
+          <!-- <th>Volunteer</th> -->
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ride in vm.pagedItems" >
+          <td><a ui-sref="ride.view({ rideId: ride._id })">{{ ride.requestNumber }}</a></td>
+          <td class="capitalize">{{ ride.status }}</td>
+          <td>{{ ride.date | date:'mm/dd/yyyy h:mm a' }}</td>
+          <td>{{ ride.locationName }}</td>
+          <td>{{ ride.purpose }}</td>
+          <td>{{ ride.tripType }}</td>
+          <!-- <td>{{ ride.volunteer.firstName }} {{ ride.volunteer.lastName }}</td> -->
+          <td class="text-right">
+            <button class="btn btn-default" ui-sref="ride.view({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
+            <button class="btn btn-default" ui-sref="ride.edit({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr ng-if="vm.filterLength > vm.itemsPerPage">
+          <td colspan="6" class="text-center">
+            <ul uib-pagination boundary-links="false" max-size="4" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.rides.$resolved && !vm.rides.length">
+    No rides yet, why don't you <a ui-sref="ride.create({ rideId: ride._id })">create one</a>?
+  </div>
+</section>

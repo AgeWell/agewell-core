@@ -25,23 +25,23 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'rides', {
-      title: 'Assign List',
+      title: 'Assign Rides',
       state: 'rides.assign',
       roles: ['admin']
     });
+
+    // Add the dropdown create item
+    // menuService.addSubMenuItem('topbar', 'rides', {
+    //   title: 'Completed List',
+    //   state: 'rides.completed',
+    //   roles: ['admin']
+    // });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'rides', {
       title: 'Ride List',
       state: 'rides.list',
       roles: ['admin', 'volunteer']
-    });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'rides', {
-      title: 'Completed List',
-      state: 'rides.completed',
-      roles: ['admin']
     });
   }
 }());

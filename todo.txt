@@ -9,7 +9,13 @@ Admin, Like a standard field for when people ask to sign up for an email list. I
 - special instructions
 - assign driver (meaning just type in their name) or you could put the same drop down box from the volunteer database
 
+----
 
+Needed Information:
+
+The current email sends them a link, but the email sending it is my own as I have not gotten one they want to use from them yet. I would need to know there SMTP server, username, and password for the account to wire it up.
+
+---
 
 Out Of Scope
 If you can fix these things, then I will explain to Mary that we have a completed program. She keeps referring to the ride request function.  So we might  need to add a tab that says “request a ride” and it prompts a page to input “name, date, time, location,  reason for ride, assign person, map linked to address”

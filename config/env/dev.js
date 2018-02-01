@@ -10,7 +10,7 @@ module.exports = {
       pass: ''
     },
     // Enable mongoose debug mode
-    debug: process.env.MONGODB_DEBUG || false
+    debug: process.env.MONGODB_DEBUG || true
   },
   log: {
     // logging with Morgan - https://github.com/expressjs/morgan

@@ -1,14 +1,35 @@
 (function() {
   'use strict';
 
-  angular
-    .module('rides')
-    .config(routeConfig);
+  angular.module('rides').config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('rides', {
+        abstract: true,
+        url: '/rides',
+        template: '<ui-view/>'
+      })
+      .state('rides.assign', {
+        url: '/assign',
+        templateUrl: '/modules/rides/client/views/assign.html',
+        controller: 'RideAssignController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Rides - Assign'
+        }
+      })
+      .state('rides.list', {
+        url: '',
+        templateUrl: '/modules/rides/client/views/list.html',
+        controller: 'RideListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Rides - List'
+        }
+      })
       .state('ride', {
         abstract: true,
         url: '/rides',
@@ -16,7 +37,7 @@
       })
       .state('ride.create', {
         url: '/create',
-        templateUrl: '/modules/rides/client/views/form-ride.html',
+        templateUrl: '/modules/rides/client/views/form.html',
         controller: 'RideFormController',
         controllerAs: 'vm',
         resolve: {
@@ -29,7 +50,7 @@
       })
       .state('ride.edit', {
         url: '/:rideId/edit',
-        templateUrl: '/modules/rides/client/views/form-ride.html',
+        templateUrl: '/modules/rides/client/views/form.html',
         controller: 'RideFormController',
         controllerAs: 'vm',
         resolve: {
@@ -42,7 +63,7 @@
       })
       .state('ride.view', {
         url: '/:rideId',
-        templateUrl: '/modules/rides/client/views/view-ride.html',
+        templateUrl: '/modules/rides/client/views/view.html',
         controller: 'RideViewController',
         controllerAs: 'vm',
         resolve: {
@@ -51,38 +72,15 @@
         data: {
           pageTitle: 'Ride'
         }
-      })
-      .state('rides', {
-        abstract: true,
-        url: '/rides',
-        template: '<ui-view/>'
-      })
-      .state('rides.assign', {
-        url: '/assign',
-        templateUrl: '/modules/rides/client/views/assign.html',
-        controller: 'AssignController',
-        controllerAs: 'vm',
-        data: {
-          pageTitle: 'Rides - Assign'
-        }
-      // })
-      // .state('rides.list', {
-      //   url: '/list',
-      //   templateUrl: '/modules/rides/client/views/list.html',
-      //   controller: 'CheckoutController',
-      //   controllerAs: 'vm',
-      //   data: {
-      //     pageTitle: 'Rides - List'
-      //   }
-      // })
-      // .state('rides.completed', {
-      //   url: '/completed',
-      //   templateUrl: '/modules/rides/client/views/completed.html',
-      //   controller: 'CompletedController',
-      //   controllerAs: 'vm',
-      //   data: {
-      //     pageTitle: 'Rides - Completed'
-      //   }
+        // })
+        // .state('rides.completed', {
+        //   url: '/completed',
+        //   templateUrl: '/modules/rides/client/views/completed.html',
+        //   controller: 'CompletedController',
+        //   controllerAs: 'vm',
+        //   data: {
+        //     pageTitle: 'Rides - Completed'
+        //   }
       });
   }
 
@@ -107,4 +105,4 @@
       rideId: $stateParams.rideId
     }).$promise;
   }
-}());
+})();

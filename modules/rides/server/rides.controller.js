@@ -80,7 +80,18 @@ exports.delete = function(req, res) {
  * List of Rides
  */
 exports.list = function(req, res) {
-  Ride.find()
+  let query = req.query;
+
+  if (req.user.roles.includes('volunteer')) {
+    query = {
+      $and: [
+        query,
+        { assignedTo: req.user._id }
+      ]
+    };
+  }
+
+  Ride.find(query)
     .sort('-created')
     .populate('user', 'displayName')
     .exec(function(err, rides) {

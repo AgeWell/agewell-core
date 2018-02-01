@@ -14,25 +14,21 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    vm.clientid = $stateParams.clientId;
-
-    RidesService.query({
-      clientId: vm.clientid
-    }, function(data) {
-      vm.orders = data;
+    RidesService.query(function(data) {
+      vm.rides = data;
       vm.buildPager();
     });
 
     function buildPager() {
       vm.pagedItems = [];
-      vm.itemsPerPage = 3;
+      vm.itemsPerPage = 15;
       vm.currentPage = 1;
       vm.search = '';
       vm.figureOutItemsToDisplay();
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = vm.orders;
+      vm.filteredItems = vm.rides;
       vm.filterLength = vm.filteredItems.length;
       if (vm.search !== '' && vm.filterLength < (vm.itemsPerPage * (vm.currentPage - 1))) {
         vm.currentPage = 1;
