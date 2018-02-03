@@ -46,16 +46,29 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">Location</div>
+          <div class="panel-heading">Pickup Location</div>
           <div class="panel-body">
             <div class="form-group" show-errors>
-              <label for="locationName"> Name*</label>
-              <input type="text" id="locationName" name="locationName" class="form-control" ng-model="vm.ride.locationName" placeholder="Location Name" required>
+              <label for="pickupLocationName"> Name*</label>
+              <input type="text" id="pickupLocationName" name="pickupLocationName" class="form-control" ng-model="vm.ride.locationName" placeholder="Location Name" required>
               <div ng-messages="vm.ride.locationName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Location Name is required.</p>
               </div>
             </div>
-            <address address="vm.contact.address" error="vm.error"></address>
+            <address address="vm.ride.location" error="vm.error"></address>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Dropoff Location</div>
+          <div class="panel-body">
+            <div class="form-group" show-errors>
+              <label for="dropoffLocationName"> Name*</label>
+              <input type="text" id="dropoffLocationName" name="dropoffLocationName" class="form-control" ng-model="vm.ride.dropoffLocationName" placeholder="Location Name" required>
+              <div ng-messages="vm.ride.dropoffLocationName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Location Name is required.</p>
+              </div>
+            </div>
+            <address address="vm.ride.dropoffLocation" error="vm.error"></address>
           </div>
         </div>
         <div class="form-group">

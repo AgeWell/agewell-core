@@ -33,6 +33,11 @@ let RideSchema = new Schema({
     required: true
   },
   location: Address,
+  dropoffLocationName: {
+    type: String,
+    required: true
+  },
+  dropoffLocation: Address,
   tripType: {
     type: String,
     default: 'one-way',

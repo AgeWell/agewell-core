@@ -2,18 +2,17 @@
   <div class="page-header">
     <h2>Rides</h1>
   </div>
-  <div class="list-group" ng-if="vm.rides.$resolved && vm.rides.length > 0">
+  <div class="list-group" ng-if="vm.rides.$resolved && !vm.rides.length">
     <table class="table table-hover table-striped">
       <thead>
         <tr>
           <th>Ride #</th>
           <th>Status</th>
           <th>Date/Time</th>
-          <th>Pickup Location</th>
-          <th>Dropoff Location</th>
+          <th>Pickup</th>
+          <th>Dropoff</th>
           <th>Purpose</th>
           <th>Trip Type</th>
-          <th>Volunteer</th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
@@ -22,11 +21,28 @@
           <td><a ui-sref="ride.view({ rideId: ride._id })">{{ ride.requestNumber }}</a></td>
           <td class="capitalize">{{ ride.status }}</td>
           <td>{{ ride.date | date:'mm/dd/yyyy h:mm a' }}</td>
-          <td>{{ ride.locationName }}</td>
-          <td>{{ ride.dropoffLocationName }}</td>
+          <td>{{ ride.locationName }} <br />
+          <p>
+            <div ng-bind="ride.location.street"></div>
+            <div ng-bind="ride.location.additional" ng-show="ride.location.additional"></div>
+            <span ng-bind="ride.location.city"></span>,
+            <span ng-bind="ride.location.state"></span>
+            <span ng-bind="ride.location.zipcode"></span>
+          </p>
+          <a class="btn btn-default" href="{{
+          vm.isMobile ? 'maps' : 'https' }}://maps.google.com/?q={{ vm.getAddress(ride.location) }}" target="_blank" tooltip-placement="top" uib-tooltip="Directions"><i class="glyphicon glyphicon-road" aria-label="Directions"></i></a></td>
+          <td>{{ ride.dropoffLocationName }} <br />
+          <p>
+            <div ng-bind="ride.dropoffLocation.street"></div>
+            <div ng-bind="ride.dropoffLocation.additional" ng-show="ride.dropoffLocation.additional"></div>
+            <span ng-bind="ride.dropoffLocation.city"></span>,
+            <span ng-bind="ride.dropoffLocation.state"></span>
+            <span ng-bind="ride.dropoffLocation.zipcode"></span>
+          </p>
+          <a class="btn btn-default" href="{{
+          vm.isMobile ? 'maps' : 'https' }}://maps.google.com/?q={{ vm.getAddress(ride.dropoffLocation) }}" target="_blank" tooltip-placement="top" uib-tooltip="Directions"><i class="glyphicon glyphicon-road" aria-label="Directions"></i></a></td>
           <td>{{ ride.purpose }}</td>
           <td>{{ ride.tripType }}</td>
-          <td>{{ ride.volunteer.firstName }} {{ ride.volunteer.lastName }}</td>
           <td class="text-right">
             <button class="btn btn-default" ui-sref="ride.view({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
             <button class="btn btn-default" ui-sref="ride.edit({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
@@ -43,6 +59,6 @@
     </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.rides.$resolved && !vm.rides.length">
-    No rides yet, why don't you <a ui-sref="ride.create({ rideId: ride._id })">create one</a>?
+    No rides are assigned to you yet.</a>
   </div>
 </section>

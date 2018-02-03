@@ -40,8 +40,15 @@
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'rides', {
       title: 'Ride List',
-      state: 'rides.list',
+      state: 'rides.volunteer',
       roles: ['admin', 'volunteer']
+    });
+
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'rides', {
+      title: 'Ride List',
+      state: 'rides.list',
+      roles: ['admin']
     });
   }
 }());

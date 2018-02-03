@@ -13,7 +13,24 @@
       <label>Purpose</label> {{ vm.ride.purpose }}
     </div>
     <div class="row">
-      <label>Location</label> {{ vm.ride.locationName }}
+      <label>Pickup Location</label> {{ vm.ride.locationName }} <br />
+      <p>
+        <div ng-bind="vm.ride.location.street"></div>
+        <div ng-bind="vm.ride.location.additional" ng-show="vm.ride.location.additional"></div>
+        <span ng-bind="vm.ride.location.city"></span>,
+        <span ng-bind="vm.ride.location.state"></span>
+        <span ng-bind="vm.ride.location.zipcode"></span>
+      </p>
+    </div>
+    <div class="row">
+      <label>Dropoff Location</label> {{ vm.ride.dropoffLocationName }}<br />
+      <p>
+        <div ng-bind="vm.ride.dropoffLocation.street"></div>
+        <div ng-bind="vm.ride.dropoffLocation.additional" ng-show="vm.ride.dropoffLocation.additional"></div>
+        <span ng-bind="vm.ride.dropoffLocation.city"></span>,
+        <span ng-bind="vm.ride.dropoffLocation.state"></span>
+        <span ng-bind="vm.ride.dropoffLocation.zipcode"></span>
+      </p>
     </div>
     <div class="row">
       <label>Trip Type</label> {{ vm.ride.tripType }}

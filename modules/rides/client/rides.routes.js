@@ -18,7 +18,18 @@
         controller: 'RideAssignController',
         controllerAs: 'vm',
         data: {
+          roles: ['admin'],
           pageTitle: 'Rides - Assign'
+        }
+      })
+      .state('rides.volunteer', {
+        url: '/volunteer',
+        templateUrl: '/modules/rides/client/views/volunteer-list.html',
+        controller: 'RideVolunteerListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['admin', 'volunteer'],
+          pageTitle: 'Rides - List'
         }
       })
       .state('rides.list', {
@@ -27,6 +38,7 @@
         controller: 'RideListController',
         controllerAs: 'vm',
         data: {
+          roles: ['admin'],
           pageTitle: 'Rides - List'
         }
       })
@@ -70,6 +82,7 @@
           rideResolve: getRide
         },
         data: {
+          roles: ['admin', 'volunteer'],
           pageTitle: 'Ride'
         }
         // })

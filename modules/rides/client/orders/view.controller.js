@@ -42,7 +42,7 @@
         modalInstance.close('OK Clicked');
 
         vm.ride.assignedTo = vm.assignedTo;
-        vm.ride.status = 'ordered';
+        vm.ride.status = 'assigned';
 
         vm.ride.createOrUpdate()
           .then(successCallback)
