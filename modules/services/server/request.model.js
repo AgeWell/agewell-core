@@ -82,11 +82,4 @@ RequestSchema.virtual('contact', {
   justOne: true
 });
 
-// RequestSchema.virtual('volunteer', {
-//   ref: 'Contact',
-//   localField: 'volunteerId',
-//   foreignField: 'volunteer',
-//   justOne: true
-// });
-
 module.exports = mongoose.model('Request', RequestSchema);
