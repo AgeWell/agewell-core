@@ -94,6 +94,7 @@ exports.list = function(req, res) {
   Ride.find(query)
     .sort('-created')
     .populate('user', 'displayName')
+    .populate('volunteer')
     .exec(function(err, rides) {
       if (err) {
         return res.status(400).send({

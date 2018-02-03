@@ -63,6 +63,8 @@
             message: 'Update successful!'
           });
           vm.current.assignedTo = $filter('filter')(vm.volunteers, { _id: vm.assignedTo })[0];
+          vm.rides = vm.rides.filter(ride => vm.current._id !== ride._id);
+          delete vm.current;
         }
 
         function errorCallback(res) {

@@ -2,7 +2,7 @@
   <div class="page-header">
     <h2>Assign Rides</h1>
   </div>
-  <div class="list-group">
+  <div class="list-group" ng-if="vm.rides.$resolved && vm.rides.length > 0">
     <table class="table table-hover table-striped">
       <thead>
         <tr>
@@ -12,7 +12,6 @@
           <th>Location</th>
           <th>Purpose</th>
           <th>Trip Type</th>
-          <!-- <th>Volunteer</th> -->
           <th class="text-right">Actions</th>
         </tr>
       </thead>
@@ -24,7 +23,6 @@
           <td>{{ ride.locationName }}</td>
           <td>{{ ride.purpose }}</td>
           <td>{{ ride.tripType }}</td>
-          <!-- <td>{{ ride.volunteer.firstName }} {{ ride.volunteer.lastName }}</td> -->
           <td class="text-right">
             <button class="btn btn-default" ng-click="vm.assign(ride)"><i class="glyphicon glyphicon-user" aria-label="Assign"></i> <span class="hidden-xs">Assign</span></button>
             <button class="btn btn-default" ui-sref="ride.view({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>

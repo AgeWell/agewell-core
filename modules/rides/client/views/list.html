@@ -12,7 +12,7 @@
           <th>Location</th>
           <th>Purpose</th>
           <th>Trip Type</th>
-          <!-- <th>Volunteer</th> -->
+          <th>Volunteer</th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
@@ -24,7 +24,7 @@
           <td>{{ ride.locationName }}</td>
           <td>{{ ride.purpose }}</td>
           <td>{{ ride.tripType }}</td>
-          <!-- <td>{{ ride.volunteer.firstName }} {{ ride.volunteer.lastName }}</td> -->
+          <td>{{ ride.volunteer.firstName }} {{ ride.volunteer.lastName }}</td>
           <td class="text-right">
             <button class="btn btn-default" ui-sref="ride.view({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
             <button class="btn btn-default" ui-sref="ride.edit({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>

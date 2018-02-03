@@ -55,6 +55,20 @@ let RideSchema = new Schema({
       'refunded'
     ]
   }
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
+});
+
+RideSchema.virtual('volunteer', {
+  ref: 'User',
+  localField: 'assignedTo',
+  foreignField: '_id',
+  justOne: true
 });
 
 // mongoose.model('Order', OrderSchema);
