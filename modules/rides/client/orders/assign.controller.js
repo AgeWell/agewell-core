@@ -14,7 +14,7 @@
 
     vm.assign = assign;
 
-     vm.rides = RidesService.query({
+    vm.rides = RidesService.query({
       status: 'requested'
     }, function(data) { });
 
@@ -26,6 +26,7 @@
           message: 'Update successful!'
         });
         vm.rides = vm.rides.filter(ride => vm.current._id !== ride._id);
+
       }
 
       function errorCallback(res) {

@@ -19,7 +19,7 @@
 
     RidesService.query(function(data) {
       vm.rides = data.sort(function(a, b) {
-          return a.dateRequested - b.dateRequested;
+        return a.dateRequested - b.dateRequested;
       });
       vm.buildPager();
     });
@@ -31,27 +31,27 @@
     function getAddress(address) {
       return address.street + ', ' + address.city + ', ' + address.state + ' ' + address.zipcode;
     }
-    
+
     function complete(ride) {
-        console.log(ride);
-        if (!ride.fullfilled) {
-            ride.fullfilled = {};
-        }
-        ride.fullfilled.status = true;
-        ride.fullfilled.date = new Date();
-        ride.status = 'completed';
-        
-       ride.$update(successCallback, errorCallback);
+      console.log(ride);
+      if (!ride.fullfilled) {
+        ride.fullfilled = {};
+      }
+      ride.fullfilled.status = true;
+      ride.fullfilled.date = new Date();
+      ride.status = 'completed';
 
-        function successCallback(res) {
-          Notification.info({
-            message: 'Update successful!'
-          });
-        }
+      ride.$update(successCallback, errorCallback);
 
-        function errorCallback(res) {
-          vm.error = res.data.message;
-        }
+      function successCallback(res) {
+        Notification.info({
+          message: 'Update successful!'
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
     function buildPager() {

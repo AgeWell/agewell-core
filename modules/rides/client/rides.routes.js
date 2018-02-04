@@ -39,7 +39,7 @@
         controllerAs: 'vm',
         data: {
           roles: ['admin'],
-          pageTitle: 'Rides - List'
+          pageTitle: 'All Rides - List'
         }
       })
       .state('ride', {
