@@ -18,6 +18,7 @@ exports.create = function(req, res) {
   req.body.date = new Date();
   let ride = new Ride(req.body);
   ride.user = req.user;
+  ride.fullfilled.status = false;
 
   ride.save(function(err) {
     if (err) {
@@ -92,7 +93,7 @@ exports.list = function(req, res) {
   }
 
   Ride.find(query)
-    .sort('-created')
+    .sort('-dateRequested')
     .populate('user', 'displayName')
     .populate('volunteer')
     .exec(function(err, rides) {

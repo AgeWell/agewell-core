@@ -14,11 +14,9 @@
 
     vm.assign = assign;
 
-    RidesService.query({
+     vm.rides = RidesService.query({
       status: 'requested'
-    }, function(data) {
-      vm.rides = data;
-    });
+    }, function(data) { });
 
     function updateRide() {
       vm.current.$update(successCallback, errorCallback);
@@ -27,6 +25,7 @@
         Notification.info({
           message: 'Update successful!'
         });
+        vm.rides = vm.rides.filter(ride => vm.current._id !== ride._id);
       }
 
       function errorCallback(res) {
@@ -63,8 +62,6 @@
             message: 'Update successful!'
           });
           vm.current.assignedTo = $filter('filter')(vm.volunteers, { _id: vm.assignedTo })[0];
-          vm.rides = vm.rides.filter(ride => vm.current._id !== ride._id);
-          delete vm.current;
         }
 
         function errorCallback(res) {

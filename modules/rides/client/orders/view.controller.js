@@ -19,6 +19,7 @@
     vm.assign = assign;
     vm.error = null;
     vm.print = print;
+    vm.canEdit = vm.authentication.user.roles.includes('admin');
 
     vm.volunteer = vm.volunteers.find(item => item._id === vm.ride.assignedTo);
 

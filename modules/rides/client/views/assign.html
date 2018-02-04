@@ -3,7 +3,7 @@
     <h2>Assign Rides</h1>
   </div>
   <div class="list-group">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped" ng-if="vm.rides.length > 0">
       <thead>
         <tr>
           <th>Ride #</th>
@@ -17,15 +17,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="ride in vm.rides" >
+        <tr ng-repeat="ride in vm.rides" ng-if="ride.status === 'requested'">
           <td><a ui-sref="ride.view({ rideId: ride._id })">{{ ride.requestNumber }}</a></td>
           <td class="capitalize">{{ ride.status }}</td>
-          <td>{{ ride.date | date:'M/dd/yyyy h:mm a' }}</td>
+          <td>{{ ride.dateRequested | date:'M/dd/yyyy h:mm a' }}</td>
           <td>{{ ride.locationName }}</td>
           <td>{{ ride.dropoffLocationName }}</td>
           <td>{{ ride.purpose }}</td>
           <td>{{ ride.tripType }}</td>
-          <td class="text-right">
+          <td class="text-right" style="min-width: 105px">
             <button class="btn btn-default" ng-click="vm.assign(ride)"><i class="glyphicon glyphicon-user" aria-label="Assign"></i> <span class="hidden-xs">Assign</span></button>
             <button class="btn btn-default" ui-sref="ride.view({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="View"><i class="glyphicon glyphicon-eye-open" aria-label="View"></i></button>
             <button class="btn btn-default" ui-sref="ride.edit({ rideId: ride._id })" tooltip-placement="top" uib-tooltip="Edit"><i class="glyphicon glyphicon-edit" aria-label="Edit"></i></button>
@@ -34,7 +34,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="7">
+          <td colspan="8">
             <div class="row">
               <button type="button" class="btn btn-primary  hidden-print"  onclick="window.history.back()">Back</button>
             </div>
@@ -43,7 +43,7 @@
       </tfoot>
     </table>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.rides.$resolved && !vm.rides.length">
+  <div class="alert alert-warning text-center" ng-if="vm.rides.$resolved && vm.rides.length === 0">
     No rides yet, why don't you <a ui-sref="ride.create({ rideId: ride._id })">create one</a>?
   </div>
 </section>

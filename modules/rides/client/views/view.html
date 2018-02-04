@@ -14,23 +14,19 @@
     </div>
     <div class="row">
       <label>Pickup Location</label> {{ vm.ride.locationName }} <br />
-      <p>
         <div ng-bind="vm.ride.location.street"></div>
         <div ng-bind="vm.ride.location.additional" ng-show="vm.ride.location.additional"></div>
         <span ng-bind="vm.ride.location.city"></span>,
         <span ng-bind="vm.ride.location.state"></span>
         <span ng-bind="vm.ride.location.zipcode"></span>
-      </p>
     </div>
     <div class="row">
       <label>Dropoff Location</label> {{ vm.ride.dropoffLocationName }}<br />
-      <p>
         <div ng-bind="vm.ride.dropoffLocation.street"></div>
         <div ng-bind="vm.ride.dropoffLocation.additional" ng-show="vm.ride.dropoffLocation.additional"></div>
         <span ng-bind="vm.ride.dropoffLocation.city"></span>,
         <span ng-bind="vm.ride.dropoffLocation.state"></span>
         <span ng-bind="vm.ride.dropoffLocation.zipcode"></span>
-      </p>
     </div>
     <div class="row">
       <label>Trip Type</label> {{ vm.ride.tripType }}
@@ -50,8 +46,8 @@
   </div>
   <div class="col-md-4">
     <div class="btn-group btn-group hidden-print" role="group" aria-label="...">
-      <button type="button" class="btn btn-primary" ui-sref="ride.edit({ rideId: vm.ride._id })">Edit</button>
-      <button type="button" class="btn btn-primary" ng-hide="vm.ride.status === 'canceled'" ng-click="vm.assign()">Assign</button>
+      <button type="button" class="btn btn-primary" ui-sref="ride.edit({ rideId: vm.ride._id })" ng-if="vm.canEdit">Edit</button>
+      <button type="button" class="btn btn-primary" ng-hide="vm.ride.status === 'canceled'" ng-click="vm.assign()" ng-if="vm.canEdit">Assign</button>
       <button class="btn btn-primary" ng-click="vm.print()">Print</button>
     </div>
     <hr />
