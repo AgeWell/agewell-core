@@ -27,14 +27,11 @@
     "test:server": "gulp test:server",
     "test:coverage": "gulp test:coverage",
     "postinstall": "bower install --allow-root && bower prune --allow-root",
-    "generate-ssl-certs": "scripts/generate-ssl-certs.sh",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "generate-ssl-certs": "scripts/generate-ssl-certs.sh"
   },
   "dependencies": {
     "acl": "~0.4.9",
     "async": "~2.3.0",
-    "aws-sdk": "^2.54.0",
     "body-parser": "1.18.2",
     "bower": "~1.8.0",
     "chalk": "~1.1.1",
@@ -71,7 +68,6 @@
     "phantomjs-prebuilt": "2.1.15",
     "serve-favicon": "2.4.5",
     "shortid": "^2.2.8",
-    "snyk": "1.39.1",
     "validator": "~7.0.0",
     "winston": "^2.2.0",
     "wiredep": "~4.0.0"
@@ -117,6 +113,5 @@
     "semver": "~5.3.0",
     "should": "~11.2.0",
     "supertest": "~3.0.0"
-  },
-  "snyk": true
+  }
 }

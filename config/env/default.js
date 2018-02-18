@@ -46,16 +46,16 @@ module.exports = {
     'unknown', 'anonymous', 'null', 'undefined', 'api'
   ],
   uploads: {
-    aws: {
-      'accessKeyId': process.env.AWS_ID,
-      'secretAccessKey': process.env.AWS_KEY,
-      'bucket': process.env.AWS_BUCKET || 'agewell-dev',
-      'region': 'us-east-2'
-    },
+    // aws: {
+    //   'accessKeyId': process.env.AWS_ID,
+    //   'secretAccessKey': process.env.AWS_KEY,
+    //   'bucket': process.env.AWS_BUCKET || 'agewell-dev',
+    //   'region': 'us-east-2'
+    // },
     cloudinary: {
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.API_KEY, 
-        api_secret: process.env.API_SECRET
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET
     },
     profile: {
       image: {

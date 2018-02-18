@@ -3,17 +3,17 @@
 const path = require('path');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 
 const config = require(path.resolve('./config/config'));
 
-AWS.config.update({
-  accessKeyId: config.uploads.aws.accessKeyId,
-  secretAccessKey: config.uploads.aws.secretAccessKey,
-  region: 'us-east-2'
-});
+// AWS.config.update({
+//   accessKeyId: config.uploads.aws.accessKeyId,
+//   secretAccessKey: config.uploads.aws.secretAccessKey,
+//   region: 'us-east-2'
+// });
 
 cloudinary.config({
   cloud_name: config.uploads.cloudinary.cloud_name,
@@ -21,7 +21,7 @@ cloudinary.config({
   api_secret: config.uploads.cloudinary.api_secret
 });
 
-let s3 = new AWS.S3();
+// let s3 = new AWS.S3();
 
 
 const storage = cloudinaryStorage({
@@ -46,10 +46,10 @@ module.exports.putObject = function(req, callback) {
   let url = 'http://res.cloudinary.com/hkwttvjpo/image/upload/v1517719376';
   let extname = path.extname(req.file.originalname);
   let fileKey = 'reciepts/' + req.order._id + extname;
-  
+
   callback(null, {
     key: url + '/images/' + req.file.originalname + extname
-  })
+  });
 
 
   // cloudinary.uploader.upload(req.file.path, (err, data) => {
